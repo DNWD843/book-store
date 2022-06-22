@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './Footer.module.css';
 
-const Footer = () => {
+const Footer: React.FC = () => {
   const { footer } = styles;
   return (
     <footer className={footer}>
@@ -11,6 +11,6 @@ const Footer = () => {
   );
 };
 
-Footer.displayName = Footer;
+Footer.displayName = 'Footer';
 
 export { Footer };

@@ -4,7 +4,7 @@ import { Counter } from '../../features/counter/Counter';
 
 import styles from './Main.module.css';
 
-const Main = () => {
+const Main: React.FC = () => {
   const { main } = styles;
   return (
     <main className={main}>

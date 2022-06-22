@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './Header.module.css';
 
-const Header = () => {
+const Header: React.FC = () => {
   const { header } = styles;
   return (
     <header className={header}>
