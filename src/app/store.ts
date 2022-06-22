@@ -1,5 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 
+// FIXME: избавиться от циклического импорта
 // eslint-disable-next-line import/no-cycle
 import counterReducer from '../features/counter/counterSlice';
 

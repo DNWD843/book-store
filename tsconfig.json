@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "watch": true,
+    "noEmitOnError": false,
     "target": "es5",
     "lib": [
       "dom",
@@ -21,7 +23,7 @@
     "noEmit": false,
     "jsx": "react-jsx",
     "pretty": true,
-    "sourceMap": true,
+    "sourceMap": true
   },
   "include": [
     "src",

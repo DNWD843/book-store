@@ -32,7 +32,8 @@
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-sonarjs": "^0.7.0",
-    "lint-staged": "^9.5.0"
+    "lint-staged": "^9.5.0",
+    "dotenv": "^16.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
