@@ -1,5 +1,6 @@
-import { useAppSelector, useAppDispatch } from '@app/app/hooks';
 import React, { useState } from 'react';
+
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 
 import {
   decrement,

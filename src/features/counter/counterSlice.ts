@@ -1,5 +1,7 @@
-import { RootState, AppThunk } from '@app/app/store';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+// eslint-disable-next-line import/no-cycle
+import { AppThunk, RootState } from '../../app/store';
 
 import { fetchCount } from './counterAPI';
 

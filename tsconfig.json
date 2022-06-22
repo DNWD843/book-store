@@ -21,9 +21,6 @@
     "jsx": "react-jsx",
     "pretty": true,
     "sourceMap": true,
-    "paths": {
-      "@app/*": ["src/*"],
-    }
   },
   "include": [
     "src"
