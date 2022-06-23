@@ -1,14 +1,23 @@
 import React from 'react';
 
-import { Counter } from '../../features/counter/Counter';
+import { useAppSelector } from '../../redux/hooks';
+import { selectStatus } from '../../redux/store';
+import { Loader } from '../Loader';
 
 import styles from './Main.module.css';
 
 const Main: React.FC = () => {
   const { main } = styles;
+
+  const fetchStatus = useAppSelector(selectStatus);
+
+  if (fetchStatus === 'loading') {
+    return (<Loader />);
+  }
+
   return (
     <main className={main}>
-      <Counter />
+      Content
     </main>
   );
 };
