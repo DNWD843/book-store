@@ -1,0 +1,19 @@
+.container {
+  width: 100%;
+  display: grid;
+  row-gap: 20px;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+}
+
+.title {
+  text-align: center;
+  font-weight: bold;
+}
+
+.message {
+  text-align: center;
+  font-size: 22px;
+  line-height: 1.2;
+}

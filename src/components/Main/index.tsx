@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Counter } from '../../features/counter/Counter';
+import { Error } from '../Error';
 
 import styles from './Main.module.css';
 
@@ -8,7 +8,7 @@ const Main: React.FC = () => {
   const { main } = styles;
   return (
     <main className={main}>
-      <Counter />
+      <Error />
     </main>
   );
 };
