@@ -5,13 +5,17 @@ import { Provider } from 'react-redux';
 import { store } from './app/store';
 import App from './components/App';
 import './index.css';
+import { ErrorBoundary } from './components/ErrorBoundry';
+import { GlobalErrorPage } from './pages/GlobalErrorPage';
 
 const root = createRoot(document.getElementById('root')!);
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <ErrorBoundary component={GlobalErrorPage}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ErrorBoundary>
   </React.StrictMode>,
 );

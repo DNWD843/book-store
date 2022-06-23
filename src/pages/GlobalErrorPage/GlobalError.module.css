@@ -1,0 +1,24 @@
+.container {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+}
+
+.wrapper {
+  display: grid;
+  row-gap: 20px;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+}
+
+.title {
+  text-align: center;
+  font-weight: bold;
+}
+
+.message, .redirectLink {
+  text-align: center;
+  font-size: 22px;
+  line-height: 1.2;
+}
