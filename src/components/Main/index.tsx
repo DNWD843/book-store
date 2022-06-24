@@ -4,11 +4,9 @@ import { useAppSelector } from '../../redux/hooks';
 import { selectStatus } from '../../redux/store';
 import { Loader } from '../Loader';
 
-import styles from './Main.module.css';
+import { Main } from './Main';
 
-const Main: React.FC = () => {
-  const { main } = styles;
-
+const MainComponent: React.FC = () => {
   const fetchStatus = useAppSelector(selectStatus);
 
   if (fetchStatus === 'loading') {
@@ -16,12 +14,10 @@ const Main: React.FC = () => {
   }
 
   return (
-    <main className={main}>
-      Content
-    </main>
+    <Main />
   );
 };
 
-Main.displayName = 'Content';
+MainComponent.displayName = 'Content';
 
-export { Main };
+export { MainComponent };

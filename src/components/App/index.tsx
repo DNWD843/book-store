@@ -5,9 +5,9 @@ import { withReduxStore } from '../../provider/withReduxStore';
 import { useAppDispatch } from '../../redux/hooks';
 import { getBooks } from '../../redux/thunks';
 
-import { AppComponent } from './AppComponent';
+import { App } from './App';
 
-const App: React.FC = () => {
+const AppComponent: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useLayoutEffect(() => {
@@ -15,8 +15,8 @@ const App: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <AppComponent />
+    <App />
   );
 };
 
-export default withReduxStore(App);
+export default withReduxStore(AppComponent);
