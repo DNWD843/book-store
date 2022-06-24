@@ -8,4 +8,5 @@ export type TBook = {
   },
   price: number,
   description: string,
+  genre: string,
 };

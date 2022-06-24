@@ -1,0 +1,33 @@
+.card {
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: var(--white);
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 50px 30px 30px 1fr;
+}
+
+.title {
+  grid-column: 1/-1;
+  margin: 0;
+}
+
+.author {
+  margin: 0;
+  padding: 0;
+  grid-column: 2;
+}
+
+.price {
+  margin: 0;
+  padding: 0;
+  grid-column: 2;
+  align-self: end;
+}
+
+.genre {
+  margin: 0;
+  padding: 0;
+  grid-column: 2;
+}

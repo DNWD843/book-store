@@ -3,6 +3,7 @@ body {
   font-family: 'Roboto', 'Arial', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ccf8fd;
 }
 
 code {
@@ -12,4 +13,9 @@ code {
 
 .root {
   min-height: 100vh;
+}
+
+:root {
+  --main: #74e7ff;
+  --white: #fff;
 }
