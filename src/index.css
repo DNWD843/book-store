@@ -3,7 +3,7 @@ body {
   font-family: 'Roboto', 'Arial', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ccf8fd;
+  background-color: var(--body);
 }
 
 code {
@@ -16,6 +16,9 @@ code {
 }
 
 :root {
-  --main: #74e7ff;
   --white: #fff;
+  --card-background: #FFFFFF;
+  --body: rgb(255, 255, 255, 0.5);
+  --header: rgb(225, 225, 225);
+  --footer: rgb(225, 225, 225);
 }

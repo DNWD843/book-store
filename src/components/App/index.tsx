@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import './App.css';
 import { withReduxStore } from '../../provider/withReduxStore';
@@ -10,7 +10,7 @@ import { App } from './App';
 const AppComponent: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch(getBooks());
   }, [dispatch]);
 

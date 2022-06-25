@@ -9,12 +9,12 @@ import { Main } from './Main';
 const MainComponent: React.FC = () => {
   const fetchStatus = useAppSelector(selectStatus);
 
-  if (fetchStatus === 'loading') {
-    return (<Loader />);
-  }
-
   return (
-    <Main />
+    <>
+      {fetchStatus === 'loading' && (<Loader />)}
+
+      <Main />
+    </>
   );
 };
 

@@ -2,5 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--main);
+  background-color: var(--footer);
+  padding: 0 calc((100% - 1280px) / 2);
+  box-sizing: border-box;
 }

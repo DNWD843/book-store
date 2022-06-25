@@ -1,11 +1,12 @@
 .card {
   box-sizing: border-box;
   padding: 10px;
-  background-color: var(--white);
+  background-color: var(--card-background);
   border-radius: 10px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 50px 30px 30px 1fr;
+  border: 1px solid lightgray;
 }
 
 .title {
