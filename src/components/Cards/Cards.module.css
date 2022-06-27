@@ -4,8 +4,8 @@
   padding: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 300px;
-  grid-auto-rows: 300px;
+  grid-template-rows: 400px;
+  grid-auto-rows: 400px;
   gap: 20px;
 }
 
