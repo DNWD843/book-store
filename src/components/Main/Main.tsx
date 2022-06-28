@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route, Outlet } from 'react-router-dom';
 
+import { StartPage } from '../../pages/StartPage';
 import { routes } from '../../routesMap';
 import { Cards } from '../Cards';
 
@@ -9,7 +10,7 @@ import styles from './Main.module.css';
 const Main: React.FC = () => (
   <main className={styles.main}>
     <Routes>
-      <Route element={<div>Hello, world!</div>} path={routes.startPage} />
+      <Route element={<StartPage />} path={routes.startPage} />
       <Route element={<div><Outlet /></div>} path={routes.books}>
         <Route index element={<Cards />} />
         <Route element={<div>Selected Book</div>} path={routes.book} />

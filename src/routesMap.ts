@@ -6,5 +6,6 @@ export const routes = {
   favorites: 'favorites',
   profile: 'profile',
   auth: 'auth',
+  register: 'register',
   notFound: '*',
 };
