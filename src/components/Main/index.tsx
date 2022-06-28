@@ -1,22 +1,10 @@
 import React from 'react';
 
-import { useAppSelector } from '../../redux/hooks';
-import { selectStatus } from '../../redux/store';
-import { Loader } from '../Loader';
-
 import { Main } from './Main';
 
-const MainComponent: React.FC = () => {
-  const fetchStatus = useAppSelector(selectStatus);
-
-  return (
-    <>
-      {fetchStatus === 'loading' && (<Loader />)}
-
-      <Main />
-    </>
-  );
-};
+const MainComponent: React.FC = () => (
+  <Main />
+);
 
 MainComponent.displayName = 'Content';
 

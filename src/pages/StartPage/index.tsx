@@ -13,7 +13,7 @@ export const StartPage = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Добро пожаловать в Book Store!</h1>
+      <h1 className={styles.title}>Добро пожаловать в BookStore!</h1>
       <p className={styles.text}>
         Мы убеждены, что наш ассортимент удовлетворит любой, даже самый изысканный, запрос, а наши цены Вас приятно удивят.
         <br />
