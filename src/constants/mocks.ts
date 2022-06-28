@@ -9,7 +9,7 @@ export const mockedData: TBook[] = [
       name: 'Гарри',
       patronymic: '',
     },
-    image: 'https://wikipet.ru/uploads/posts/2019-02/1549868089_1.jpg',
+    image: 'https://cv9.litres.ru/pub/c/elektronnaya-kniga/cover_415/64455491-garri-garrison-molot-i-krest-64455491.jpg',
     description: 'Молот и Крест (англ. The Hammer and the Cross) — роман в жанре альтернативной истории, написанный Гарри Гаррисоном в соавторстве с Джоном Холмом (псевдоним Тома Шиппи) и опубликованный в 1993 году. Первый роман трилогии (на русском языке некоторыми издательствами выпущена как тетралогия, последний том разбит на две книги)[2]. Книга рассказывает о возвышении главного героя по имени Шеф (Shef), внебрачного сына датского ярла Сигварда и англичанки леди Трит. Время и место повествования — Англия IX в. н. э. ',
     price: 329,
     genre: 'Фэнтези, сага',
@@ -22,7 +22,7 @@ export const mockedData: TBook[] = [
       name: 'Гарри',
       patronymic: '',
     },
-    image: 'https://wikipet.ru/uploads/posts/2019-02/1549868089_1.jpg',
+    image: 'https://cv9.litres.ru/pub/c/elektronnaya-kniga/cover_415/64455491-garri-garrison-molot-i-krest-64455491.jpg',
     description: `Знаток ремесел, провидец и воин Шеф Сигвардссон поднялся из самых низов, чтобы возглавить могущественный
                   народ викингов. Но его растущее королевство угрожает существованию всей Европы, и он обзавелся множеством
                    опаснейших врагов.
@@ -42,7 +42,7 @@ export const mockedData: TBook[] = [
       name: 'Гарри',
       patronymic: '',
     },
-    image: 'https://wikipet.ru/uploads/posts/2019-02/1549868089_1.jpg',
+    image: 'https://cv1.litres.ru/pub/c/elektronnaya-kniga/cover_185/65804317-garri-garrison-korol-i-imperator-65804317.jpg',
     description: `Побеждая в сражениях на суше и на море, исполняя волю богов, что являются в пророческих видениях,
                   человек, поднявшийся из самых низов, становится единым королем северных народов. Шеф, мастер боевых
                    и мирных ремесел, совершил поистине невозможное, заставив вчерашних заклятых врагов прекратить взаимное
@@ -62,7 +62,7 @@ export const mockedData: TBook[] = [
       name: 'Гарри',
       patronymic: '',
     },
-    image: 'https://wikipet.ru/uploads/posts/2019-02/1549868089_1.jpg',
+    image: 'https://cv1.litres.ru/pub/c/elektronnaya-kniga/cover_415/122319-garri-garrison-imperator-i-molot.jpg',
     description: `В своей жизни Шеф Сигвардссон – король Севера, носил и рабский ошейник, и королевскую корону,
                   и амулет богов. Многие священные реликвии, побывав в его руках и выполнив свою миссию, обрели
                   настоящих хозяев. Всем, что знал и умел, он щедро поделился со своими подданными. И последнее,
