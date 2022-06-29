@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 
+import { EFetchStatuses } from '../../enums';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { selectBooks, selectStatus } from '../../redux/store';
 import { getBooks } from '../../redux/thunks';
@@ -18,7 +19,7 @@ const CardsComponent = () => {
 
   return (
     <>
-      {fetchStatus === 'loading' && (<Loader />)}
+      {fetchStatus === EFetchStatuses.loading && (<Loader />)}
       <Cards books={books ?? []} />
     </>
   );

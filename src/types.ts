@@ -1,4 +1,4 @@
-export type TBook = {
+export type TBookInfo = {
   id: number,
   title: string,
   author: {
@@ -10,4 +10,9 @@ export type TBook = {
   cover: string,
   description: string,
   genre: string,
+};
+
+export type TCardProps = TBookInfo & {
+  showTooltip: () => void,
+  hideTooltip: () => void,
 };

@@ -1,41 +1,12 @@
-import { configureStore, ThunkAction, Action, createSlice } from '@reduxjs/toolkit';
+import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 
-import { TBook } from '../types';
+import { TBookInfo } from '../types';
 
-import { getBooks } from './thunks';
-
-export interface IState {
-  status: 'idle' | 'loading' | 'failed';
-  booksCollection: TBook[];
-}
-
-const initialState: IState = {
-  status: 'idle',
-  booksCollection: [],
-};
-
-const booksSlice = createSlice({
-  name: 'books',
-  initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(getBooks.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(getBooks.rejected, (state) => {
-        state.status = 'failed';
-      })
-      .addCase(getBooks.fulfilled, (state, action) => {
-        state.status = 'idle';
-        state.booksCollection = action.payload;
-      });
-  },
-});
+import booksReducer, {IState, TCardTooltip, TCardTooltipInfo} from './reducers/booksReducer';
 
 export const store = configureStore({
   reducer: {
-    books: booksSlice.reducer,
+    books: booksReducer,
   },
 });
 
@@ -48,7 +19,6 @@ unknown,
 Action<string>
 >;
 
-export const selectBooks = (state: RootState) => state.books.booksCollection;
-export const selectStatus = (state: RootState) => state.books.status;
-
-export const { actions } = booksSlice;
+export const selectBooks = (state: RootState): TBookInfo[] => state.books.booksCollection;
+export const selectStatus = (state: RootState): IState['status'] => state.books.status;
+export const selectCardTooltip = (dataKey: string) => (state:RootState): TCardTooltipInfo => state.books.cardTooltip[dataKey] ?? false;

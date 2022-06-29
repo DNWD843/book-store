@@ -1,12 +1,16 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { TBook } from '../../types';
+import { TCardProps } from '../../types';
 
 import styles from './Card.module.css';
 
-export const Card: React.FC<Omit<TBook, 'id' | 'description'>> = ({ title, author: { surname, name }, price, genre, cover }) => (
-  <article className={styles.card}>
+export const Card: React.FC<TCardProps> = ({ genre, cover, showTooltip, hideTooltip }) => (
+  <article
+    className={styles.card}
+    onMouseEnter={showTooltip}
+    onMouseLeave={hideTooltip}
+  >
     <span className={styles.genre}>{genre}</span>
     <div className={styles.coverContainer}>
       {/* TODO: сделать закладку чекбоксом ?? */}

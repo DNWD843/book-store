@@ -1,6 +1,6 @@
-import { TBook } from '../types';
+import { TBookInfo } from '../types';
 
-export const mockedData: TBook[] = [
+export const mockedData: TBookInfo[] = [
   {
     id: 1,
     title: 'Молот и крест',
