@@ -21,4 +21,4 @@ Action<string>
 
 export const selectBooks = (state: RootState): TBookInfo[] => state.books.booksCollection;
 export const selectStatus = (state: RootState): IState['status'] => state.books.status;
-export const selectCardTooltipState = (state:RootState): number => state.books.activeCardId;
+export const selectActiveCardId = (state:RootState): number => state.books.activeCardId;

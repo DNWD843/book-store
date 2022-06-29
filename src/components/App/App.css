@@ -4,7 +4,6 @@
 }
 
 .app {
-  border: 1px solid red;
   width: 100%;
   display: grid;
   grid-template-columns: 1fr;

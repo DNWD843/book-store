@@ -1,4 +1,5 @@
 .tooltip {
+  cursor: pointer;
   display: grid;
   transition: bottom 0.2s ease-in-out;
   position: absolute;
@@ -13,6 +14,7 @@
 }
 
 .content {
+  cursor: default;
   display: grid;
   grid-template-columns: [start] auto [first] auto [second] auto [end];
   grid-template-rows: [start] auto [first] auto [second] auto [end];
@@ -49,6 +51,7 @@
 }
 
 .bookmark {
+  cursor: pointer;
   fill: var(--light-grey);
   grid-column: first/second;
   grid-row: second/end;

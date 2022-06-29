@@ -9,7 +9,3 @@ export interface ICardTooltipProps extends DetailedHTMLProps<HTMLAttributes<HTML
   onMouseEnter: () => void,
   onMouseLeave: () => void,
 }
-
-export interface ICardTooltipComponentProps extends ICardTooltipProps {
-  isVisible: boolean,
-}
