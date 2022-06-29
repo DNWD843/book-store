@@ -19,6 +19,5 @@ code {
   --white: #fff;
   --card-background: #FFFFFF;
   --body: rgb(255, 255, 255, 0.5);
-  --header: rgb(225, 225, 225);
-  --footer: rgb(225, 225, 225);
+  --light-grey: rgb(225, 225, 225);
 }

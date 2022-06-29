@@ -9,4 +9,6 @@
 
 .listItem {
   border: 1px solid lightgray;
+  position: relative;
+  overflow: hidden;
 }
