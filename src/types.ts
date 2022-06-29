@@ -13,6 +13,6 @@ export type TBookInfo = {
 };
 
 export type TCardProps = TBookInfo & {
-  showTooltip: () => void,
-  hideTooltip: () => void,
+  onMouseEnter: () => void,
+  onMouseLeave: () => void,
 };

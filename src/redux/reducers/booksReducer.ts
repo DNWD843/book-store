@@ -4,39 +4,27 @@ import { EFetchStatuses } from '../../enums';
 import { TBookInfo } from '../../types';
 import { getBooks } from '../thunks';
 
-export type TCardTooltipData = Pick<TBookInfo, 'id' | 'price' | 'author' | 'title'> | null;
-
-export type TCardTooltipInfo = {
-  isVisible: boolean;
-  data: TCardTooltipData;
-};
-
-export type TCardTooltip = {
-  [id: string]: TCardTooltipInfo,
-};
-
 export interface IState {
   status: EFetchStatuses;
   booksCollection: TBookInfo[];
-  cardTooltip: TCardTooltip;
+  activeCardId: number;
 }
 
 const initialState: IState = {
   status: EFetchStatuses.idle,
   booksCollection: [],
-  cardTooltip: {},
+  activeCardId: 0,
 };
 
 const booksSlice = createSlice({
   name: 'books',
   initialState,
   reducers: {
-    showCardTooltip: (state: Draft<IState>, action: PayloadAction<TCardTooltipData>) => {
-      const dataKey = action.payload ? action.payload.id.toString() : '';
-      state.cardTooltip = { [dataKey]: { isVisible: true, data: action.payload } };
+    showCardTooltip: (state: Draft<IState>, action: PayloadAction<number>) => {
+      state.activeCardId = action.payload;
     },
     hideCardTooltip: (state: Draft<IState>) => {
-      state.cardTooltip = {};
+      state.activeCardId = 0;
     },
   },
   extraReducers: (builder) => {

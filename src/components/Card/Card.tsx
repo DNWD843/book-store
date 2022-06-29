@@ -5,11 +5,11 @@ import { TCardProps } from '../../types';
 
 import styles from './Card.module.css';
 
-export const Card: React.FC<TCardProps> = ({ genre, cover, showTooltip, hideTooltip }) => (
+export const Card: React.FC<TCardProps> = ({ genre, cover, onMouseEnter, onMouseLeave }) => (
   <article
     className={styles.card}
-    onMouseEnter={showTooltip}
-    onMouseLeave={hideTooltip}
+    onMouseEnter={onMouseEnter}
+    onMouseLeave={onMouseLeave}
   >
     <span className={styles.genre}>{genre}</span>
     <div className={styles.coverContainer}>

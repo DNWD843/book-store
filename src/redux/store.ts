@@ -2,7 +2,7 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 
 import { TBookInfo } from '../types';
 
-import booksReducer, {IState, TCardTooltip, TCardTooltipInfo} from './reducers/booksReducer';
+import booksReducer, { IState } from './reducers/booksReducer';
 
 export const store = configureStore({
   reducer: {
@@ -21,4 +21,4 @@ Action<string>
 
 export const selectBooks = (state: RootState): TBookInfo[] => state.books.booksCollection;
 export const selectStatus = (state: RootState): IState['status'] => state.books.status;
-export const selectCardTooltip = (dataKey: string) => (state:RootState): TCardTooltipInfo => state.books.cardTooltip[dataKey] ?? false;
+export const selectCardTooltipState = (state:RootState): number => state.books.activeCardId;
