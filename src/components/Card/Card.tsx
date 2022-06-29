@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { TCardProps } from '../../types';
+import { TCardProps } from './Card.props';
 
 import styles from './Card.module.css';
 

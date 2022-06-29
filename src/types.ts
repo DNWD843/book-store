@@ -11,8 +11,3 @@ export type TBookInfo = {
   description: string,
   genre: string,
 };
-
-export type TCardProps = TBookInfo & {
-  onMouseEnter: () => void,
-  onMouseLeave: () => void,
-};

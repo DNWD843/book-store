@@ -1,0 +1,30 @@
+.tooltip {
+  box-sizing: border-box;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: [start] 50% [middle] 50% [end];
+  grid-template-rows: auto;
+  grid-auto-rows: auto;
+}
+
+.title {
+  font-weight: bold;
+  grid-column: start/end;
+}
+
+.author {
+  grid-column: start/end;
+}
+
+.price {
+  font-weight: bold;
+  grid-column: start/middle;
+  align-self: end;
+}
+
+.cartButton {
+  grid-column: middle/end;
+  justify-self: end;
+  padding: 5px;
+  line-height: 0;
+}
