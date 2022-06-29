@@ -7,7 +7,7 @@ export type TBook = {
     patronymic: string,
   },
   price: number,
-  image: string,
+  cover: string,
   description: string,
   genre: string,
 };

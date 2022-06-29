@@ -2,26 +2,15 @@
   box-sizing: border-box;
   padding: 10px;
   background-color: var(--card-background);
-  border-radius: 10px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto auto auto 1fr auto;
-  border: 1px solid lightgray;
-  column-gap: 20px;
-  row-gap: 10px;
 }
 
-.title {
-  grid-column: 1/-1;
-  margin: 0;
+.genre {
+  margin: 0 0 10px;
+  padding: 0;
 }
 
 .coverContainer {
   position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  grid-row: 2/-2;
 }
 
 .bookmark {
@@ -34,41 +23,32 @@
 }
 
 .coverImage {
-  object-fit: cover;
   width: 100%;
-  height: 100%;
-  border-radius: 10px;
+  object-fit: contain;
+}
+
+.title {
+
 }
 
 .author {
   margin: 0;
   padding: 0;
-  grid-column: 2;
 }
 
 .price {
   margin: 0;
   padding: 0;
-  grid-column: 2;
-  grid-row: -2;
-  align-self: end;
 }
 
-.genre {
-  margin: 0;
-  padding: 0;
-  grid-column: 2;
-}
+
 
 .reviews {
   margin: 0;
   padding: 0;
-  grid-row: 4;
 }
 
 .rating {
   margin: 0;
   padding: 0;
-  grid-column: 1;
-  grid-row: -2;
 }
