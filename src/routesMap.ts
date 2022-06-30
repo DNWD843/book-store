@@ -1,7 +1,7 @@
 export const routes = {
   startPage: '/',
   books: 'books',
-  book: ':bookId',
+  bookId: ':bookId',
   shoppingCart: 'cart',
   favorites: 'favorites',
   profile: 'profile',

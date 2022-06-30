@@ -1,8 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { actions } from '../../redux/reducers/booksReducer';
+import { booksActions } from '../../redux/reducers/booksReducer';
 import { selectActiveCardId } from '../../redux/store';
 import { TBookInfo } from '../../types';
 
@@ -11,8 +12,9 @@ import { CardTooltip } from './CardTooltip';
 import styles from './CardTooltip.module.css';
 
 const CardTooltipComponent: React.FC<TBookInfo> = ({ id, author, title, price }) => {
-  const { showCardTooltip, hideCardTooltip } = actions;
+  const { showCardTooltip, hideCardTooltip } = booksActions;
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const showTooltip = (cardId: number) => () => {
     dispatch(showCardTooltip(cardId));
@@ -20,6 +22,20 @@ const CardTooltipComponent: React.FC<TBookInfo> = ({ id, author, title, price })
 
   const hideTooltip = () => {
     dispatch(hideCardTooltip());
+  };
+
+  const onBookClick = (bookId: TBookInfo['id']) => () => {
+    navigate(String(bookId));
+  };
+
+  // TODO: затипизировать evt
+  const onBookmarkClick = (evt: any) => {
+    evt.preventDefault();
+    evt.stopPropagation();
+  };
+  const onCartButtonClick = (evt: any) => {
+    evt.preventDefault();
+    evt.stopPropagation();
   };
 
   const activeCardId = useAppSelector(selectActiveCardId);
@@ -31,6 +47,9 @@ const CardTooltipComponent: React.FC<TBookInfo> = ({ id, author, title, price })
       className={classNames({ [styles.isVisible]: isTooltipVisible })}
       price={price}
       title={title}
+      onBookClick={onBookClick(id)}
+      onBookmarkClick={onBookmarkClick}
+      onCartButtonClick={onCartButtonClick}
       onMouseEnter={showTooltip(id)}
       onMouseLeave={hideTooltip}
     />

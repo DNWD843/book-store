@@ -11,3 +11,9 @@ export type TBookInfo = {
   description: string,
   genre: string,
 };
+
+export type TBookDetails = TBookInfo | null;
+
+export type TUrlParams = {
+  bookId: string,
+};
