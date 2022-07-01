@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding-top: 200px;
+}
+
+.title {
+  margin: 0 0 100px;
+  color: var(--grey);
+  }
+
+.links {
+  display: flex;
+  width: 40%;
+  justify-content: space-around;
+}
+
+.goBackButton, .goHomeButton {
+  font-size: 20px;
+  color: var(--grey);
+  text-underline-offset: 5px;
+  }
+
+.goBackButton:hover, .goHomeButton:hover {
+  color: var(--dark-grey);
+}
+
+

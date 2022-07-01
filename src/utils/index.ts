@@ -1,0 +1,1 @@
+export { createRelativePathToHomePageFromCurrentLocation } from './createRelativePathToHomePageFromCurrentLocation';

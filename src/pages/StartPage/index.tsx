@@ -9,7 +9,7 @@ import styles from './StartPage.module.css';
 export const StartPage = () => {
   const navigate = useNavigate();
 
-  const handleClick = () => navigate(routes.books);
+  const handleClick = () => navigate(routes.home);
 
   return (
     <div className={styles.container}>

@@ -1,30 +1,15 @@
 .container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 100;
+  display: grid;
+  align-self: stretch;
 }
 
 .loader {
-  position: absolute;
-  top: calc(50% - 20px);
-  left: calc(50% - 20px);
+  align-self: center;
   opacity: 0.6;
-  z-index: 110;
+  z-index: 1100;
 }
 
 .container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.container::after {
   content: '';
   background-color: var(--super-light-grey);
   position: fixed;
@@ -33,4 +18,5 @@
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 1000;
 }

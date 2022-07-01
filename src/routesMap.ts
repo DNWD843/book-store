@@ -1,6 +1,6 @@
 export const routes = {
   startPage: '/',
-  books: 'books',
+  home: 'books',
   bookId: ':bookId',
   shoppingCart: 'cart',
   favorites: 'favorites',

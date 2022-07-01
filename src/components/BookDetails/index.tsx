@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { EFetchStatuses } from '../../enums';
+import { NotFoundPageComponent } from '../../pages/NotFoundPage';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { bookDetailsActions } from '../../redux/reducers/bookDetailsReducer';
 import { selectBookDetails, selectBookDetailsFetchingStatus } from '../../redux/store';
@@ -30,8 +31,12 @@ const BookDetailsComponent: React.FC = () => {
     };
   }, [bookId, bookInfo, clearBookDetailsState, dispatch]);
 
-  if (!bookInfo || fetchStatus === EFetchStatuses.loading) {
+  if (fetchStatus === EFetchStatuses.loading) {
     return (<Loader />);
+  }
+
+  if (!bookInfo) {
+    return (<NotFoundPageComponent />);
   }
 
   return (<BookDetails {...bookInfo} />);

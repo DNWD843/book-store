@@ -27,12 +27,11 @@ const CardsComponent = () => {
     };
   }, [books, clearBooksState, dispatch]);
 
-  return (
-    <>
-      {fetchStatus === EFetchStatuses.loading && (<Loader />)}
-      <Cards books={books ?? []} />
-    </>
-  );
+  if (fetchStatus === EFetchStatuses.loading) {
+    return (<Loader />);
+  }
+
+  return (<Cards books={books ?? []} />);
 };
 
 CardsComponent.displayName = 'CardsContainer';
