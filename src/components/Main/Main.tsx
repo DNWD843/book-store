@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import { BooksPage } from '../../pages/BooksPage';
-import { NotFoundPageComponent } from '../../pages/NotFoundPage';
+import { NotFoundPage } from '../../pages/NotFoundPage';
 import { ShoppingCartPage } from '../../pages/ShoppingCartPage';
 import { StartPage } from '../../pages/StartPage';
 import { routes } from '../../routesMap';
@@ -22,7 +22,7 @@ const Main: React.FC = () => (
       <Route element={<ShoppingCartPage />} path={routes.shoppingCart} />
       <Route element={<div>Favorites</div>} path={routes.favorites} />
       <Route element={<div>User Profile</div>} path={routes.profile} />
-      <Route element={<NotFoundPageComponent />} path={routes.notFound} />
+      <Route element={<NotFoundPage />} path={routes.notFound} />
     </Routes>
   </main>
 );

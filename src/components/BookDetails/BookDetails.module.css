@@ -1,0 +1,109 @@
+p, h2 {
+  margin: 0;
+  align-self: flex-start;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: [start] minmax(300px, 40%) [first] auto [second] auto [third] auto [end];
+  grid-template-rows: [start] min-content [first] min-content [second] min-content [third] min-content [fourth] min-content [fifth] auto [sixth] auto [end];
+  gap: 40px 20px;
+}
+
+.coverImage {
+  width: 100%;
+  object-fit: contain;
+  object-position: top;
+  grid-column: start;
+  grid-row: start/sixth;
+}
+
+.mainInfo {
+  grid-column: first/end;
+  grid-row: start/fifth;
+  display: grid;
+  grid-template-rows: repeat(5, min-content);
+  row-gap: 20px;
+}
+
+.genre {
+  font-size: 20px;
+  line-height: 1.1;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 2;
+}
+
+.author {
+  font-size: 22px;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.reviews, .rating {
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.addToCartButton {
+  grid-column: first/second;
+  grid-row: fifth/sixth;
+  align-self: flex-end;
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 5px;
+  text-align: end;
+  color: var(--light-grey);
+}
+
+.cartIcon {
+  margin: 0;
+  width: 22px;
+  height: 22px;
+  fill: var(--light-grey);
+  align-self: center;
+}
+
+.addToFavoritesButton {
+  grid-column: second/third;
+  grid-row: fifth/sixth;
+  align-self: flex-end;
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 5px;
+  text-align: end;
+  color: var(--light-grey);
+}
+
+.bookmarkIcon {
+  margin: 0;
+  width: 20px;
+  height: 20px;
+  fill: var(--light-grey);
+  align-self: center;
+}
+
+.buyButton {
+  grid-column: third/end;
+  grid-row: fifth/sixth;
+  align-self: flex-end;
+  color: var(--light-grey);
+}
+
+.descriptionContainer {
+  grid-column: start/end;
+  grid-row: sixth/end;
+}
+
+.descriptionTitle {
+}
+
+.descriptionText {
+  width: 100%;
+  border: none;
+  resize: none;
+  font-size: 20px;
+}

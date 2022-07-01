@@ -5,7 +5,7 @@ import { createRelativePathToHomePageFromCurrentLocation } from '../../utils';
 
 import { NotFoundPage } from './NotFoundPage';
 
-export const NotFoundPageComponent: React.FC = () => {
+const NotFoundPageComponent: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -19,3 +19,5 @@ export const NotFoundPageComponent: React.FC = () => {
     <NotFoundPage onClickGoBackButton={onClickGoBackButton} onClickGoToMainButton={onClickGoToMainButton} />
   );
 };
+
+export { NotFoundPageComponent as NotFoundPage };

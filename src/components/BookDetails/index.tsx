@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { EFetchStatuses } from '../../enums';
-import { NotFoundPageComponent } from '../../pages/NotFoundPage';
+import { NotFoundPage } from '../../pages/NotFoundPage';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { bookDetailsActions } from '../../redux/reducers/bookDetailsReducer';
 import { selectBookDetails, selectBookDetailsFetchingStatus } from '../../redux/store';
@@ -36,7 +36,7 @@ const BookDetailsComponent: React.FC = () => {
   }
 
   if (!bookInfo) {
-    return (<NotFoundPageComponent />);
+    return (<NotFoundPage />);
   }
 
   return (<BookDetails {...bookInfo} />);
