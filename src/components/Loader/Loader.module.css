@@ -12,13 +12,23 @@
   top: calc(50% - 20px);
   left: calc(50% - 20px);
   opacity: 0.6;
+  z-index: 110;
 }
 
 .container::before {
   content: '';
-  background-color: lightgray;
-  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.container::after {
+  content: '';
+  background-color: var(--super-light-grey);
   position: fixed;
+  opacity: 0.5;
   top: 0;
   left: 0;
   right: 0;
