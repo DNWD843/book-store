@@ -5,7 +5,7 @@ import { TBookInfo } from '../../types';
 
 import styles from './BookDetails.module.css';
 
-export const BookDetails: React.FC<Omit<TBookInfo, 'id'>> = ({ title, author: { surname, name }, price, genre, cover, description }) => (
+export const BookDetails: React.FC<TBookInfo> = ({ title, author: { surname, name }, price, genre, cover, description }) => (
   <article className={styles.card}>
     <img alt="book cover" className={styles.coverImage} src={cover} />
     <p className={styles.genre}>{genre}</p>

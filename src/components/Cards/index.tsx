@@ -9,7 +9,7 @@ import { Loader } from '../Loader';
 
 import { Cards } from './Cards';
 
-const CardsComponent = () => {
+const CardsComponent: React.FC = () => {
   const books = useAppSelector(selectBooks);
   const fetchStatus = useAppSelector(selectBooksFetchingStatus);
   const dispatch = useAppDispatch();

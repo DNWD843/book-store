@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { EFetchStatuses } from '../../enums';
-import { TBookDetails } from '../../types';
+import { TBookInfo } from '../../types';
 import { EReducersNames } from '../reducersNames';
 import { getBookById } from '../thunks';
 
 export type TBookDetailsState = {
   status: EFetchStatuses
-  book: TBookDetails
+  book: TBookInfo | null
 };
 
 const initialState: TBookDetailsState = {

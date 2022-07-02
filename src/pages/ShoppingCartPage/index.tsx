@@ -1,3 +1,5 @@
 import React from 'react';
 
-export const ShoppingCartPage = () => (<div>Shopping Cart Component</div>);
+import { ShoppingCart } from './ShoppingCart';
+
+export const ShoppingCartPage = () => (<ShoppingCart />);

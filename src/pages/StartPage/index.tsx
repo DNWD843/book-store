@@ -6,7 +6,7 @@ import { routes } from '../../routesMap';
 
 import styles from './StartPage.module.css';
 
-export const StartPage = () => {
+export const StartPage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleClick = () => navigate(routes.home);

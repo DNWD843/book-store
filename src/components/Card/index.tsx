@@ -5,7 +5,7 @@ import { CardToolBar } from '../CardToolBar';
 
 import { Card } from './Card';
 
-const CardComponent = (props: TBookInfo) => (
+const CardComponent: React.FC<TBookInfo> = (props) => (
   <>
     <Card {...props} />
     <CardToolBar {...props} />

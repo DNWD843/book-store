@@ -1,4 +1,4 @@
-export const routes = {
+export const routes: Record<string, string> = {
   startPage: '/',
   home: 'books',
   bookId: ':bookId',

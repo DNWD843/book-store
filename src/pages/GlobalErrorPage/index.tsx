@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './GlobalError.module.css';
 
-export const GlobalErrorPage = () => (
+export const GlobalErrorPage: React.FC = () => (
   <div className={styles.container}>
     <div className={styles.wrapper}>
       <h3 className={styles.title}>Произошла ошибка.</h3>

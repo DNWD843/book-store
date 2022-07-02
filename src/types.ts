@@ -12,8 +12,6 @@ export type TBookInfo = {
   genre: string,
 };
 
-export type TBookDetails = TBookInfo | null;
-
 export type TUrlParams = {
   bookId: string,
 };
