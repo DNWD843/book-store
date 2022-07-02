@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -7,21 +7,31 @@ import { booksActions } from '../../redux/reducers/booksReducer';
 import { selectActiveCardId } from '../../redux/store';
 import { TBookInfo } from '../../types';
 
-import { CardTooltip } from './CardTooltip';
+import { CardToolBar } from './CardToolBar';
 
-import styles from './CardTooltip.module.css';
+import styles from './CardToolBar.module.css';
 
-const CardTooltipComponent: React.FC<TBookInfo> = ({ id, author, title, price }) => {
+const CardToolBarComponent: React.FC<TBookInfo> = ({ id, author, title, price }) => {
   const { showCardTooltip, hideCardTooltip } = booksActions;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const mouseOverRef = useRef<boolean>(false);
 
   const showTooltip = (cardId: number) => () => {
-    dispatch(showCardTooltip(cardId));
+    mouseOverRef.current = true;
+    const timerId = setTimeout(() => {
+      if (mouseOverRef.current) {
+        dispatch(showCardTooltip(cardId));
+      }
+      clearTimeout(timerId);
+    }, 400);
   };
 
   const hideTooltip = () => {
-    dispatch(hideCardTooltip());
+    if (mouseOverRef.current) {
+      mouseOverRef.current = false;
+      dispatch(hideCardTooltip());
+    }
   };
 
   const onBookClick = (bookId: TBookInfo['id']) => () => {
@@ -42,7 +52,7 @@ const CardTooltipComponent: React.FC<TBookInfo> = ({ id, author, title, price })
   const isTooltipVisible = activeCardId === id;
 
   return (
-    <CardTooltip
+    <CardToolBar
       author={author}
       className={classNames({ [styles.isVisible]: isTooltipVisible })}
       price={price}
@@ -56,4 +66,4 @@ const CardTooltipComponent: React.FC<TBookInfo> = ({ id, author, title, price })
   );
 };
 
-export { CardTooltipComponent as CardTooltip };
+export { CardToolBarComponent as CardToolBar };

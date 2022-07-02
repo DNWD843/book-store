@@ -1,14 +1,14 @@
 import React from 'react';
 
 import { TBookInfo } from '../../types';
-import { CardTooltip } from '../CardTooltip';
+import { CardToolBar } from '../CardToolBar';
 
 import { Card } from './Card';
 
 const CardComponent = (props: TBookInfo) => (
   <>
     <Card {...props} />
-    <CardTooltip {...props} />
+    <CardToolBar {...props} />
   </>
 
 );

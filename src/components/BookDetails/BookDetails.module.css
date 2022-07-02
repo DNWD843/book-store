@@ -64,6 +64,7 @@ p, h2, h3 {
   column-gap: 5px;
   text-align: end;
   color: var(--light-grey);
+  font-size: 20px;
 }
 
 .cartIcon {
@@ -83,6 +84,7 @@ p, h2, h3 {
   column-gap: 5px;
   text-align: end;
   color: var(--light-grey);
+  font-size: 20px;
 }
 
 .bookmarkIcon {
@@ -98,6 +100,7 @@ p, h2, h3 {
   grid-row: 8;
   align-self: flex-end;
   color: var(--light-grey);
+  font-size: 20px;
 }
 
 .descriptionTitle {

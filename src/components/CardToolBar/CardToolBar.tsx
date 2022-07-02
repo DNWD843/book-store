@@ -1,11 +1,11 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { ICardTooltipProps } from './CardTooltip.props';
+import { ICardToolBarProps } from './CardToolBar.props';
 
-import styles from './CardTooltip.module.css';
+import styles from './CardToolBar.module.css';
 
-export const CardTooltip: React.FC<ICardTooltipProps> = (
+export const CardToolBar: React.FC<ICardToolBarProps> = (
   { title, author, price, className, onMouseEnter, onMouseLeave, onBookClick, onBookmarkClick, onCartButtonClick },
 ) => (
   <div
