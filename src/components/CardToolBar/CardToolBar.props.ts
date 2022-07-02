@@ -9,6 +9,6 @@ export interface ICardToolBarProps extends DetailedHTMLProps<HTMLAttributes<HTML
   onMouseEnter: () => void
   onMouseLeave: () => void
   onCartButtonClick: (evt: any) => void
-  onBookmarkClick: (evt: any) => void
-  onBookClick: () => void
+  onBookmarkButtonClick: (evt: any) => void
+  onBookCardClick: () => void
 }

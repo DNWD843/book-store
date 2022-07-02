@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
+import { RUBLE_SIGN } from '../../constants';
 import { TBookInfo } from '../../types';
 
 import styles from './BookDetails.module.css';
@@ -39,7 +40,7 @@ export const BookDetails: React.FC<TBookInfo> = ({ title, author: { surname, nam
         />
       </svg>
     </button>
-    <button className={classNames(styles.buyButton, 'btn', 'btn-primary')} type="button">{`Купить за ${price} ₽`}</button>
+    <button className={classNames(styles.buyButton, 'btn', 'btn-primary')} type="button">{`Купить за ${price} ${RUBLE_SIGN}`}</button>
     <h3 className={styles.descriptionTitle}>Описание книги</h3>
     <textarea readOnly className={styles.descriptionText} rows={10} wrap="soft">{description}</textarea>
   </article>

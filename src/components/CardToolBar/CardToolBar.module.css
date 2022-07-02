@@ -6,7 +6,7 @@
   top: 0;
   left: 0;
   right: 0;
-  bottom: -150px;
+  bottom: -240px;
 }
 
 .isVisible {
@@ -26,7 +26,7 @@
 }
 
 .title {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: bold;
   grid-column: start/end;
   grid-row: start/first;
@@ -34,6 +34,7 @@
 }
 
 .author {
+  font-size: 18px;
   grid-column: start/end;
   grid-row: first/second;
   color:var(--light-grey);
@@ -41,31 +42,41 @@
 
 .price {
   color: var(--light-grey);
-  padding: 20px 0 0;
+  padding: 24px 0 0;
   font-weight: bold;
   grid-column: start/first;
   grid-row: second/end;
   align-self: end;
   line-height: 1;
-  font-size: 22px;
+  font-size: 26px;
 }
 
-.bookmark {
+.bookmarkIcon {
   cursor: pointer;
   fill: var(--light-grey);
   grid-column: first/second;
   grid-row: second/end;
   align-self: end;
-  justify-self: end;
-  width: 22px;
+  justify-self: center;
+  width: 26px;
+  height: 26px;
+  transition: all 0.2s ease-in-out;
 }
 
-.cartButton {
+.cartIcon {
   grid-column: second/end;
   grid-row: second/end;
-  justify-self: end;
+  justify-self: center;
   align-self: end;
-  padding: 10px;
-  box-sizing: border-box;
-  line-height: 0;
+  margin: 0;
+  width: 30px;
+  height: 30px;
+  fill: var(--light-grey);
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+}
+
+.bookmarkIcon:hover, .cartIcon:hover {
+  fill: var(--super-light-grey);
+  transform: scale(1.3);
 }

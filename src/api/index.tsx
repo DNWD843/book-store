@@ -1,4 +1,4 @@
-import { mockedData } from '../constants/mocks';
+import { mockedData } from '../constants';
 import { TBookInfo } from '../types';
 
 export const fetchBooks = () => new Promise<{ data: TBookInfo[] }>((resolve) => {
