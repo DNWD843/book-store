@@ -1,56 +1,63 @@
-p, h2 {
+p, h2, h3 {
   margin: 0;
   align-self: flex-start;
 }
 
 .card {
   display: grid;
-  grid-template-columns: [start] minmax(300px, 40%) [first] auto [second] auto [third] auto [end];
-  grid-template-rows: [start] min-content [first] min-content [second] min-content [third] min-content [fourth] min-content [fifth] auto [sixth] auto [end];
-  gap: 40px 20px;
+  grid-template-columns: [startCol] minmax(300px, 40%) [firstCol] auto [secondCol] auto [lastCol];
+  grid-template-rows: [startRow] repeat(5, auto) 1fr auto auto [descriptionTitle] auto [descriptionText] auto [lastRow];
+  gap: 20px
 }
 
 .coverImage {
   width: 100%;
   object-fit: contain;
   object-position: top;
-  grid-column: start;
-  grid-row: start/sixth;
-}
-
-.mainInfo {
-  grid-column: first/end;
-  grid-row: start/fifth;
-  display: grid;
-  grid-template-rows: repeat(5, min-content);
-  row-gap: 20px;
+  grid-column: startCol;
+  grid-row: startRow/descriptionTitle;
 }
 
 .genre {
+  grid-column: firstCol/lastCol;
+  grid-row: startRow;
   font-size: 20px;
   line-height: 1.1;
 }
 
 .title {
+  grid-column: firstCol/lastCol;
+  grid-row: 2;
   font-size: 36px;
   font-weight: 700;
-  line-height: 2;
+  line-height: 1.2;
+
 }
 
 .author {
+  grid-column: firstCol/lastCol;
+  grid-row: 3;
   font-size: 22px;
   line-height: 1.2;
   font-weight: 600;
 }
 
-.reviews, .rating {
+.reviews {
+  grid-column: firstCol/lastCol;
+  grid-row: 4;
+  font-size: 20px;
+  line-height: 1.2;
+}
+.rating {
+  grid-column: firstCol/lastCol;
+  grid-row: 5;
   font-size: 20px;
   line-height: 1.2;
 }
 
 .addToCartButton {
-  grid-column: first/second;
-  grid-row: fifth/sixth;
+  grid-column: secondCol/lastCol;
+  grid-row: 7;
   align-self: flex-end;
   display: grid;
   grid-template-columns: auto auto;
@@ -68,8 +75,8 @@ p, h2 {
 }
 
 .addToFavoritesButton {
-  grid-column: second/third;
-  grid-row: fifth/sixth;
+  grid-column: firstCol/secondCol;
+  grid-row: 7;
   align-self: flex-end;
   display: grid;
   grid-template-columns: auto auto;
@@ -87,23 +94,23 @@ p, h2 {
 }
 
 .buyButton {
-  grid-column: third/end;
-  grid-row: fifth/sixth;
+  grid-column: firstCol/lastCol;
+  grid-row: 8;
   align-self: flex-end;
   color: var(--light-grey);
 }
 
-.descriptionContainer {
-  grid-column: start/end;
-  grid-row: sixth/end;
-}
-
 .descriptionTitle {
+  grid-column: startCol/lastCol;
+  grid-row: descriptionTitle;
 }
 
 .descriptionText {
+  grid-column: startCol/lastCol;
+  grid-row: descriptionText;
   width: 100%;
   border: none;
   resize: none;
   font-size: 20px;
+  outline: none;
 }

@@ -8,13 +8,11 @@ import styles from './BookDetails.module.css';
 export const BookDetails: React.FC<Omit<TBookInfo, 'id'>> = ({ title, author: { surname, name }, price, genre, cover, description }) => (
   <article className={styles.card}>
     <img alt="book cover" className={styles.coverImage} src={cover} />
-    <div className={styles.mainInfo}>
-      <p className={styles.genre}>{genre}</p>
-      <h2 className={styles.title}>{title}</h2>
-      <p className={styles.author}>{`${name} ${surname}`}</p>
-      <p className={styles.rating}>Рейтинг тут</p>
-      <p className={styles.reviews}>Посмотреть отзывы</p>
-    </div>
+    <p className={styles.genre}>{genre}</p>
+    <h2 className={styles.title}>{title}</h2>
+    <p className={styles.author}>{`${name} ${surname}`}</p>
+    <p className={styles.rating}>Рейтинг тут</p>
+    <p className={styles.reviews}>Посмотреть отзывы</p>
     <button className={classNames(styles.addToCartButton, 'btn', 'btn-secondary')} type="button">
       Положить в корзину
       <svg
@@ -41,10 +39,8 @@ export const BookDetails: React.FC<Omit<TBookInfo, 'id'>> = ({ title, author: { 
         />
       </svg>
     </button>
-    <button className={classNames(styles.buyButton, 'btn', 'btn-secondary')} type="button">{`Купить за ${price} ₽`}</button>
-    <div className={styles.descriptionContainer}>
-      <h3 className={styles.descriptionTitle}>Описание книги</h3>
-      <textarea readOnly className={styles.descriptionText} rows={10} wrap="soft">{description}</textarea>
-    </div>
+    <button className={classNames(styles.buyButton, 'btn', 'btn-primary')} type="button">{`Купить за ${price} ₽`}</button>
+    <h3 className={styles.descriptionTitle}>Описание книги</h3>
+    <textarea readOnly className={styles.descriptionText} rows={10} wrap="soft">{description}</textarea>
   </article>
 );
