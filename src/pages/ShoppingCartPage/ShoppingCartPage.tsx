@@ -1,22 +1,24 @@
 import React from 'react';
 
+// import { ShoppingCartItem } from '../../components/ShoppingCartItem';
+import { ShoppingCartTable } from '../../components/ShoppingCartTable';
 import { mockedData, RUBLE_SIGN } from '../../constants';
-import { ShoppingCartItem } from '../ShoppingCartItem';
 
-import styles from './ShoppingCart.module.css';
+import styles from './ShoppingCartPage.module.css';
 
-export const ShoppingCart: React.FC = () => {
+export const ShoppingCartPage: React.FC = () => {
   const selectedBooks = mockedData;
 
   return (
     <div className={styles.cart}>
       <h2 className={styles.title}>Корзина</h2>
       <p className={styles.subtitle}>{`В корзине ${selectedBooks.length} книг на сумму 1000 ${RUBLE_SIGN} `}</p>
-      <ul>
+      <ShoppingCartTable />
+      {/* <ul className={styles.list}>
         {
           selectedBooks.map((book) => (<ShoppingCartItem {...book} />))
         }
-      </ul>
+      </ul> */}
     </div>
   );
 };
