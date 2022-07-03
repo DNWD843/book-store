@@ -22,5 +22,6 @@ code {
   --grey: rgb(135, 135, 135);
   --light-grey: rgb(225, 225, 225);
   --super-light-grey: #D3D3D3FF;
+  --ultra-light-grey: rgba(246, 246, 246, 0.7);
   --dark-grey: rgb(35, 35, 35)
 }

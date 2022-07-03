@@ -1,0 +1,25 @@
+.totalPriceRow {
+  display: grid;
+  grid-template-columns: 1fr 18% 14% 3%;
+  column-gap: 10px;
+  box-sizing: border-box;
+  padding: 15px;
+}
+
+.totalPriceTitle {
+  grid-column: 2;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+  justify-self: center;
+}
+
+.totalPriceValue {
+  grid-column: 3;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+  justify-self: center;
+}

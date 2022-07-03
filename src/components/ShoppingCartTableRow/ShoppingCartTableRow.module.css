@@ -6,6 +6,8 @@
   position: relative;
   box-sizing: border-box;
   padding: 15px;
+  background-color: var(--ultra-light-grey);
+  border-radius: 15px;
 }
 
 .container::before {
@@ -15,7 +17,7 @@
   left: 0;
   right: 0;
   bottom: 90%;
-  border: 2px solid var(--light-grey);
+  border: 3px solid var(--light-grey);
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
   border-bottom: none;
@@ -36,7 +38,7 @@
   left: 0;
   right: 0;
   top: 90%;
-  border: 2px solid var(--light-grey);
+  border: 3px solid var(--light-grey);
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
   border-top: none;
@@ -116,6 +118,16 @@
   grid-template-rows: auto;
   align-items: center;
   justify-items: center;
+  z-index: 2;
+}
+
+.decrementButton, .incrementButton {
+  font-size: 30px;
+  line-height: 1;
+  outline: none;
+  border: none;
+  color: var(--grey);
+  padding: 0 10px;
 }
 
 .totalPriceTitle {
@@ -136,4 +148,21 @@
 .deleteButton {
   grid-column: 7;
   grid-row: 1/-1;
+  z-index: 2;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  align-self: center;
+  padding: 20px 0;
+}
+
+.deleteIcon {
+  fill: var(--bs-danger);
+  width: 24px;
+  height: 24px;
+  transition: all 0.125s ease-in-out;
+}
+
+.deleteButton:hover .deleteIcon {
+  transform: scale(1.25);
 }

@@ -1,6 +1,6 @@
 import { TBookInfo } from '../../types';
 
-export type TShoppingCartProps = {
+export type TShoppingCartTableRowProps = {
   bookInfo: TBookInfo
   onDeleteBook: () => void
   index: number

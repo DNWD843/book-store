@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { mockedData } from '../../constants';
-import { ShoppingCartItem } from '../ShoppingCartItem';
+import { TBookInfo } from '../../types';
+import { ShoppingCartTableRow } from '../ShoppingCartTableRow';
 
 import styles from './ShoppingCartTable.module.css';
 
-export const ShoppingCartTable: React.FC = () => (
+export const ShoppingCartTable: React.FC<{ selectedBooks: TBookInfo[] }> = ({ selectedBooks = [] }) => (
   <ul className={styles.table}>
     {
-      mockedData.map((book, index) => (<ShoppingCartItem bookInfo={book} index={index} />))
+      selectedBooks.map((book, index) => (<ShoppingCartTableRow bookInfo={book} index={index} key={String(book.id)} />))
     }
   </ul>
 );
