@@ -7,7 +7,7 @@ import { TShoppingCartTableRowProps } from './ShoppingCartTableRow.props';
 
 import styles from './ShoppingCartTableRow.module.css';
 
-export const ShoppingCartTableRow: React.FC<TShoppingCartTableRowProps> = ({ bookInfo, onDeleteBook, index }) => {
+const ShoppingCartTableRow: React.FC<TShoppingCartTableRowProps> = ({ bookInfo, onDeleteBook, index }) => {
   const { cover, title, author, price } = bookInfo;
 
   return (
@@ -47,3 +47,7 @@ export const ShoppingCartTableRow: React.FC<TShoppingCartTableRowProps> = ({ boo
     </div>
   );
 };
+
+ShoppingCartTableRow.displayName = 'Row';
+
+export { ShoppingCartTableRow };

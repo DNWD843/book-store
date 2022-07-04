@@ -7,7 +7,7 @@ import { ICardToolBarProps } from './CardToolBar.props';
 
 import styles from './CardToolBar.module.css';
 
-export const CardToolBar: React.FC<ICardToolBarProps> = (
+const CardToolBar: React.FC<ICardToolBarProps> = (
   { title, author, price, className, onMouseEnter, onMouseLeave, onBookCardClick, onBookmarkButtonClick, onCartButtonClick },
 ) => (
   <div
@@ -45,3 +45,7 @@ export const CardToolBar: React.FC<ICardToolBarProps> = (
     </div>
   </div>
 );
+
+CardToolBar.displayName = 'CardToolBar';
+
+export { CardToolBar };

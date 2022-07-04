@@ -6,7 +6,7 @@ import { TBookInfo } from '../../types';
 
 import styles from './BookDetails.module.css';
 
-export const BookDetails: React.FC<TBookInfo> = ({ title, author: { surname, name }, price, genre, cover, description }) => (
+const BookDetails: React.FC<TBookInfo> = ({ title, author: { surname, name }, price, genre, cover, description }) => (
   <article className={styles.card}>
     <img alt="book cover" className={styles.coverImage} src={cover} />
     <p className={styles.genre}>{genre}</p>
@@ -42,6 +42,10 @@ export const BookDetails: React.FC<TBookInfo> = ({ title, author: { surname, nam
     </button>
     <button className={classNames(styles.buyButton, 'btn', 'btn-primary')} type="button">{`Купить за ${price} ${RUBLE_SIGN}`}</button>
     <h3 className={styles.descriptionTitle}>Описание книги</h3>
-    <textarea readOnly className={styles.descriptionText} rows={10} wrap="soft">{description}</textarea>
+    <textarea readOnly className={styles.descriptionText} rows={10} value={description} wrap="soft" />
   </article>
 );
+
+BookDetails.displayName = 'BookDetails';
+
+export { BookDetails };

@@ -13,4 +13,6 @@ const CardComponent: React.FC<TBookInfo> = (props) => (
 
 );
 
+CardComponent.displayName = 'CardElement';
+
 export { CardComponent as Card };

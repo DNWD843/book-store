@@ -10,4 +10,6 @@ const ShoppingCartTableRowComponent: React.FC<{ bookInfo: TBookInfo, index: numb
   return (<ShoppingCartTableRow bookInfo={bookInfo} index={index} onDeleteBook={onDeleteBook} />);
 };
 
+ShoppingCartTableRowComponent.displayName = 'RowController';
+
 export { ShoppingCartTableRowComponent as ShoppingCartTableRow };

@@ -1,14 +1,11 @@
 import classNames from 'classnames';
 import React from 'react';
 
+import { TNotFoundPageProps } from './NotFoundPage.props';
+
 import styles from './NotFound.module.css';
 
-type TNotFoundPageProps = {
-  onClickGoBackButton: () => void,
-  onClickGoToMainButton: () => void
-};
-
-export const NotFoundPage: React.FC<TNotFoundPageProps> = ({ onClickGoBackButton, onClickGoToMainButton }) => (
+const NotFoundPage: React.FC<TNotFoundPageProps> = ({ onClickGoBackButton, onClickGoToMainButton }) => (
   <div className={styles.container}>
     <h2 className={styles.title}>Страница не найдена или не существует</h2>
     <div className={styles.links}>
@@ -17,3 +14,7 @@ export const NotFoundPage: React.FC<TNotFoundPageProps> = ({ onClickGoBackButton
     </div>
   </div>
 );
+
+NotFoundPage.displayName = 'NotFoundPage';
+
+export { NotFoundPage };

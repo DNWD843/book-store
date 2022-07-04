@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styles from './Loader.module.css';
+import styles from './ContentLoader.module.css';
 
-export const Loader: React.FC = () => (
+export const ContentLoader: React.FC = () => (
   <div className={styles.container}>
     <div className={`text-center text-secondary ${styles.loader}`}>
       <div className="spinner-border" role="status" style={{ 'width': '4rem', 'height': '4rem' }}>

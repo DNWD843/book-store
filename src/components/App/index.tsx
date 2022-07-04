@@ -5,8 +5,12 @@ import { withReduxStore } from '../../provider/withReduxStore';
 
 import { App } from './App';
 
+const AppWithReduxStore = withReduxStore(App);
+
 const AppComponent: React.FC = () => (
-  <App />
+  <AppWithReduxStore />
 );
 
-export default withReduxStore(AppComponent);
+AppComponent.displayName = 'AppDataController';
+
+export default AppComponent;

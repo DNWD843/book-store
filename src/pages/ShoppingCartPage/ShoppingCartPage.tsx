@@ -6,7 +6,7 @@ import { mockedData, RUBLE_SIGN } from '../../constants';
 
 import styles from './ShoppingCartPage.module.css';
 
-export const ShoppingCartPage: React.FC = () => {
+const ShoppingCartPage: React.FC = () => {
   const selectedBooks = mockedData;
   const totalPrice = 1000;
 
@@ -19,3 +19,7 @@ export const ShoppingCartPage: React.FC = () => {
     </div>
   );
 };
+
+ShoppingCartPage.displayName = 'ShoppingCartPage';
+
+export { ShoppingCartPage };

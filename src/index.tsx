@@ -5,14 +5,14 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './components/App';
 import './index.css';
 import { ErrorBoundary } from './components/ErrorBoundry';
-import { GlobalErrorPage } from './pages/GlobalErrorPage';
+import { AppErrorPage } from './pages/AppErrorPage';
 
 const root = createRoot(document.getElementById('root')!);
 
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <ErrorBoundary component={GlobalErrorPage}>
+      <ErrorBoundary component={AppErrorPage}>
         <App />
       </ErrorBoundary>
     </BrowserRouter>

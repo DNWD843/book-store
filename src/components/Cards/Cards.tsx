@@ -5,7 +5,7 @@ import { Card } from '../Card';
 
 import styles from './Cards.module.css';
 
-export const Cards: React.FC<{ books?: TBookInfo[] }> = ({ books }) => {
+const Cards: React.FC<{ books?: TBookInfo[] }> = ({ books }) => {
   if (!books) return null;
 
   return (
@@ -18,3 +18,7 @@ export const Cards: React.FC<{ books?: TBookInfo[] }> = ({ books }) => {
     </ul>
   );
 };
+
+Cards.displayName = 'BooksList';
+
+export { Cards };

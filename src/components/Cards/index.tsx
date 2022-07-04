@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { booksActions } from '../../redux/reducers/booksReducer';
 import { selectBooks, selectBooksFetchingStatus } from '../../redux/store';
 import { getBooks } from '../../redux/thunks';
-import { Loader } from '../Loader';
+import { ContentLoader } from '../ContentLoader';
 
 import { Cards } from './Cards';
 
@@ -28,12 +28,12 @@ const CardsComponent: React.FC = () => {
   }, [books, clearBooksState, dispatch]);
 
   if (fetchStatus === EFetchStatuses.loading) {
-    return (<Loader />);
+    return (<ContentLoader />);
   }
 
   return (<Cards books={books ?? []} />);
 };
 
-CardsComponent.displayName = 'CardsContainer';
+CardsComponent.displayName = 'BooksListController';
 
 export { CardsComponent as Cards };

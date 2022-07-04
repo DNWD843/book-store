@@ -1,8 +1,8 @@
 import React from 'react';
 
-import styles from './GlobalError.module.css';
+import styles from './AppError.module.css';
 
-export const GlobalErrorPage: React.FC = () => (
+const AppErrorPage: React.FC = () => (
   <div className={styles.container}>
     <div className={styles.wrapper}>
       <h3 className={styles.title}>Произошла ошибка.</h3>
@@ -11,3 +11,7 @@ export const GlobalErrorPage: React.FC = () => (
     </div>
   </div>
 );
+
+AppErrorPage.displayName = 'AppError';
+
+export { AppErrorPage };

@@ -8,7 +8,7 @@ import { bookDetailsActions } from '../../redux/reducers/bookDetailsReducer';
 import { selectBookDetails, selectBookDetailsFetchingStatus } from '../../redux/store';
 import { getBookById } from '../../redux/thunks';
 import { TUrlParams } from '../../types';
-import { Loader } from '../Loader';
+import { ContentLoader } from '../ContentLoader';
 
 import { BookDetails } from './BookDetails';
 
@@ -32,7 +32,7 @@ const BookDetailsComponent: React.FC = () => {
   }, [bookId, bookInfo, clearBookDetailsState, dispatch]);
 
   if (fetchStatus === EFetchStatuses.loading) {
-    return (<Loader />);
+    return (<ContentLoader />);
   }
 
   if (!bookInfo) {
@@ -41,5 +41,7 @@ const BookDetailsComponent: React.FC = () => {
 
   return (<BookDetails {...bookInfo} />);
 };
+
+BookDetailsComponent.displayName = 'BookDetailsController';
 
 export { BookDetailsComponent as BookDetails };

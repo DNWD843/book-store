@@ -1,17 +1,17 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import { BooksPage } from '../../pages/BooksPage';
-import { NotFoundPage } from '../../pages/NotFoundPage';
-import { ShoppingCartPage } from '../../pages/ShoppingCartPage';
-import { StartPage } from '../../pages/StartPage';
+import { BookDetails } from '../../components/BookDetails';
+import { Cards } from '../../components/Cards';
 import { routes } from '../../routesMap';
-import { BookDetails } from '../BookDetails';
-import { Cards } from '../Cards';
+import { BooksPage } from '../BooksPage';
+import { NotFoundPage } from '../NotFoundPage';
+import { ShoppingCartPage } from '../ShoppingCartPage';
+import { StartPage } from '../StartPage';
 
 import styles from './Main.module.css';
 
-const Main: React.FC = () => (
+const MainPage: React.FC = () => (
   <main className={styles.main}>
     <Routes>
       <Route element={<StartPage />} path={routes.startPage} />
@@ -27,6 +27,6 @@ const Main: React.FC = () => (
   </main>
 );
 
-Main.displayName = 'Content';
+MainPage.displayName = 'Content';
 
-export { Main };
+export { MainPage };
