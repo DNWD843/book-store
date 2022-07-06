@@ -8,4 +8,5 @@ export const routes: Record<string, string> = {
   auth: 'auth',
   register: 'register',
   notFound: '*',
+  anyRoute: '*',
 };

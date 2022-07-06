@@ -27,7 +27,7 @@
 .container:hover::before {
   content: '';
   bottom: 50%;
-  border: 5px solid var(--light-grey);
+  border: 7px solid var(--light-grey);
   border-bottom: none;
 }
 
@@ -48,7 +48,7 @@
 .container:hover::after {
   content: '';
   top: 50%;
-  border: 5px solid var(--light-grey);
+  border: 7px solid var(--light-grey);
   border-top: none;
 }
 
