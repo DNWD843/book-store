@@ -3,6 +3,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 
 import { routes } from '../../routesMap';
 import { BookSearch } from '../BookSearch';
+import { DateWidget } from '../DateWidget';
 import { NavLinks } from '../NavLinks';
 
 import styles from './Header.module.css';
@@ -26,7 +27,7 @@ const Header: React.FC = () => (
     <nav className={styles.navLinks}>
       <NavLinks />
     </nav>
-    <span className={styles.dateToday}>today</span>
+    <DateWidget className={styles.dateWidget} />
   </header>
 );
 
