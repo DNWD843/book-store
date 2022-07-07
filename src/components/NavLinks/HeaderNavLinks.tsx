@@ -8,8 +8,8 @@ import styles from './HeaderNavLinks.module.css';
 
 const HeaderNavLinks: React.FC = () => (
   <ul className={styles.navLinksList}>
-    {navLinksConfig.map(({ id, to, title, children }) => (
-      <HeaderNavLink key={String(id)} title={title} to={to}>
+    {navLinksConfig.map(({ id, children, ...props }) => (
+      <HeaderNavLink key={String(id)} {...props}>
         {children}
       </HeaderNavLink>
     ))}

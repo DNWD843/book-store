@@ -1,21 +1,20 @@
 import React from 'react';
-import { NavLinkProps } from 'react-router-dom';
 
+import { ENavLinkTypes } from '../../enums';
 import { routes } from '../../routesMap';
+import { IHeaderNavLinkProps } from '../HeaderNavLink/HeaderNavLink.props';
 
-interface INavLink extends NavLinkProps {
-}
-
-export const navLinksConfig: INavLink[] = [
+export const navLinksConfig: IHeaderNavLinkProps[] = [
   {
     id: '1',
     to: routes.favorites,
-    title: 'Favor',
+    title: 'Избранное',
+    linkType: ENavLinkTypes.icon,
     children: () => (
       <svg
-        height="16"
+        height="45"
         viewBox="0 0 16 16"
-        width="16"
+        width="40"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -27,11 +26,13 @@ export const navLinksConfig: INavLink[] = [
   {
     id: '2',
     to: routes.shoppingCart,
+    title: 'Корзина',
+    linkType: ENavLinkTypes.icon,
     children: () => (
       <svg
-        height="16"
+        height="50"
         viewBox="0 0 16 16"
-        width="16"
+        width="50"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path

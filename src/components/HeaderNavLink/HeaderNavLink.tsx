@@ -2,13 +2,23 @@ import classNames from 'classnames';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import styles from '../NavLinks/HeaderNavLinks.module.css';
+import { ENavLinkTypes } from '../../enums';
 
 import { IHeaderNavLinkProps } from './HeaderNavLink.props';
 
-const HeaderNavLink: React.FC<IHeaderNavLinkProps> = ({ to, children = '', className = '', ...props }) => (
-  <li>
-    <NavLink className={classNames(styles.navLink, className)} to={to} {...props}>{children}</NavLink>
+import styles from './HeaderNavLink.module.css';
+
+const HeaderNavLink: React.FC<IHeaderNavLinkProps> = ({ to, children = '', linkType = ENavLinkTypes.default, ...props }) => (
+  <li className={styles.navLink}>
+    <NavLink
+      className={classNames({
+        [styles.icon]: linkType === ENavLinkTypes.icon,
+      })}
+      to={to}
+      {...props}
+    >
+      {children}
+    </NavLink>
   </li>
 );
 

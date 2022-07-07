@@ -9,7 +9,7 @@ import styles from './Header.module.css';
 
 const Header: React.FC = () => (
   <header className={styles.header}>
-    <Link className={styles.logoLink} to={routes.home}>
+    <Link className={styles.logoLink} title="На главную" to={routes.home}>
       <h2 className={styles.logo}>BookStore</h2>
     </Link>
 

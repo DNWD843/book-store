@@ -1,4 +1,4 @@
-.tooltip {
+.toolbar {
   cursor: pointer;
   display: grid;
   transition: bottom 0.2s ease-in-out;
@@ -53,14 +53,11 @@
 
 .bookmarkIcon {
   cursor: pointer;
-  fill: var(--light-grey);
   grid-column: first/second;
   grid-row: second/end;
   align-self: end;
   justify-self: center;
-  width: 26px;
-  height: 26px;
-  transition: all 0.2s ease-in-out;
+
 }
 
 .cartIcon {
@@ -69,14 +66,24 @@
   justify-self: center;
   align-self: end;
   margin: 0;
+  cursor: pointer;
+}
+
+.bookmarkIcon svg {
+  fill: var(--grey);
+  width: 26px;
+  height: 26px;
+  transition: all 0.2s ease-in-out;
+}
+
+.cartIcon svg {
+  fill: var(--grey);
   width: 30px;
   height: 30px;
-  fill: var(--light-grey);
-  cursor: pointer;
   transition: all 0.25s ease-in-out;
 }
 
-.bookmarkIcon:hover, .cartIcon:hover {
-  fill: var(--super-light-grey);
+.bookmarkIcon:hover svg, .cartIcon:hover svg {
+  fill: var(--light-grey);
   transform: scale(1.3);
 }
