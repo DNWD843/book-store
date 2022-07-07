@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 
 import { BookSearch } from './BookSearch';
 
@@ -10,7 +10,12 @@ const BookSearchController: React.FC = () => {
 
   const handleClickOnClearButton = () => { setValue(''); };
 
-  return (<BookSearch value={value} onChange={handleChangeValue} onClear={handleClickOnClearButton} onSearch={() => {}} />);
+  const handleSubmit = (evt: FormEvent) => {
+    evt.preventDefault();
+    console.log(value);
+  };
+
+  return (<BookSearch value={value} onChange={handleChangeValue} onClear={handleClickOnClearButton} onSubmit={handleSubmit} />);
 };
 
 BookSearchController.displayName = 'BookSearchController';

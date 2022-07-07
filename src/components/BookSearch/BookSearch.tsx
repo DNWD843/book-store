@@ -2,10 +2,12 @@ import React from 'react';
 
 import { TBookSearchProps } from './BookSearch.props';
 
-const BookSearch: React.FC<TBookSearchProps> = ({ value, onChange, onSearch, onClear }) => (
-  <div className="input-group">
+import styles from './BookSearch.module.css';
+
+const BookSearch: React.FC<TBookSearchProps> = ({ value, onChange, onSubmit, onClear }) => (
+  <form className={styles.searchForm} role="search" onSubmit={onSubmit}>
     <input
-      aria-label="Recipient's username with two button addons"
+      aria-label="Search"
       className="form-control"
       maxLength={50}
       placeholder="Поиск по названию книги или автору"
@@ -13,9 +15,9 @@ const BookSearch: React.FC<TBookSearchProps> = ({ value, onChange, onSearch, onC
       value={value}
       onChange={onChange}
     />
-    <button className="btn btn-outline-success" type="button" onClick={onSearch}>Найти</button>
+    <button className="btn btn-outline-success " type="submit">Искать</button>
     <button className="btn btn-outline-danger" type="button" onClick={onClear}>Очистить</button>
-  </div>
+  </form>
 );
 
 BookSearch.displayName = 'BookSearch';

@@ -1,8 +1,8 @@
-import { ChangeEventHandler, MouseEventHandler } from 'react';
+import { ChangeEventHandler, FormEventHandler } from 'react';
 
 export type TBookSearchProps = {
   value: string,
   onChange: ChangeEventHandler<HTMLInputElement>,
-  onSearch: MouseEventHandler<HTMLButtonElement>,
+  onSubmit: FormEventHandler<HTMLFormElement>,
   onClear: () => void,
 };
