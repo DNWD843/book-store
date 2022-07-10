@@ -2,7 +2,7 @@ import { TBookInfo } from '../types';
 
 export const mockedData: TBookInfo[] = [
   {
-    id: 1,
+    id: '1',
     title: 'Молот и крест',
     author: {
       surname: 'Гаррисон',
@@ -15,7 +15,7 @@ export const mockedData: TBookInfo[] = [
     genre: 'Фэнтези, сага',
   },
   {
-    id: 2,
+    id: '2',
     title: 'Крест и король',
     author: {
       surname: 'Гаррисон',
@@ -28,7 +28,7 @@ export const mockedData: TBookInfo[] = [
     genre: 'Фэнтези, сага',
   },
   {
-    id: 3,
+    id: '3',
     title: 'Король и император',
     author: {
       surname: 'Гаррисон',
@@ -41,7 +41,7 @@ export const mockedData: TBookInfo[] = [
     genre: 'Фэнтези, сага',
   },
   {
-    id: 4,
+    id: '4',
     title: 'Император и молот',
     author: {
       surname: 'Гаррисон',
@@ -54,7 +54,7 @@ export const mockedData: TBookInfo[] = [
     genre: 'Фэнтези, сага',
   },
   {
-    id: 5,
+    id: '5',
     title: 'Молот и крест',
     author: {
       surname: 'Гаррисон',
@@ -67,7 +67,7 @@ export const mockedData: TBookInfo[] = [
     genre: 'Фэнтези, сага',
   },
   {
-    id: 6,
+    id: '6',
     title: 'Крест и король',
     author: {
       surname: 'Гаррисон',
@@ -80,7 +80,7 @@ export const mockedData: TBookInfo[] = [
     genre: 'Фэнтези, сага',
   },
   {
-    id: 7,
+    id: '7',
     title: 'Король и император',
     author: {
       surname: 'Гаррисон',
@@ -93,7 +93,7 @@ export const mockedData: TBookInfo[] = [
     genre: 'Фэнтези, сага',
   },
   {
-    id: 8,
+    id: '8',
     title: 'Император и молот',
     author: {
       surname: 'Гаррисон',
@@ -106,7 +106,7 @@ export const mockedData: TBookInfo[] = [
     genre: 'Фэнтези, сага',
   },
   {
-    id: 9,
+    id: '9',
     title: 'Молот и крест',
     author: {
       surname: 'Гаррисон',
@@ -119,7 +119,7 @@ export const mockedData: TBookInfo[] = [
     genre: 'Фэнтези, сага',
   },
   {
-    id: 10,
+    id: '10',
     title: 'Крест и король',
     author: {
       surname: 'Гаррисон',
@@ -132,7 +132,7 @@ export const mockedData: TBookInfo[] = [
     genre: 'Фэнтези, сага',
   },
   {
-    id: 11,
+    id: '11',
     title: 'Король и император',
     author: {
       surname: 'Гаррисон',

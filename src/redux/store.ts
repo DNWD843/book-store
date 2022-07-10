@@ -23,6 +23,6 @@ Action<string>
 
 export const selectBooks = (state: RootState): TBookInfo[] => state.books.booksCollection;
 export const selectBooksFetchingStatus = (state: RootState): IBooksState['status'] => state.books.status;
-export const selectActiveCardId = (state:RootState): number => state.books.activeCardId;
+export const selectActiveCardId = (state:RootState): IBooksState['activeCardId'] => state.books.activeCardId;
 export const selectBookDetailsFetchingStatus = (state: RootState): TBookDetailsState['status'] => state.bookDetails.status;
-export const selectBookDetails = (state: RootState) => state.bookDetails.book;
+export const selectBookDetails = (state: RootState): TBookDetailsState['book'] => state.bookDetails.book;

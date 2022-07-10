@@ -17,7 +17,7 @@ const CardToolBarComponent: React.FC<TBookInfo> = ({ id, author, title, price })
   const navigate = useNavigate();
   const mouseOverRef = useRef<boolean>(false);
 
-  const showTooltip = (cardId: number) => () => {
+  const showTooltip = (cardId: TBookInfo['id']) => () => {
     mouseOverRef.current = true;
     const timerId = setTimeout(() => {
       if (mouseOverRef.current) {

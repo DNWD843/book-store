@@ -1,5 +1,5 @@
 export type TBookInfo = {
-  id: number,
+  id: string,
   title: string,
   author: {
     surname: string,

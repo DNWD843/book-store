@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { fetchBookByBookId, fetchBooks } from '../api';
+import { TBookInfo } from '../types';
 
 import { EReducersNames } from './reducersNames';
 
@@ -11,8 +12,5 @@ export const getBooks = createAsyncThunk(
 
 export const getBookById = createAsyncThunk(
   `${EReducersNames.bookDetails}/getBookById`,
-  async (bookId: number) => {
-    const response = await fetchBookByBookId(bookId);
-    return response.data;
-  },
+  async (bookId: TBookInfo['id']) => fetchBookByBookId(bookId),
 );

@@ -8,24 +8,24 @@ import { getBooks } from '../thunks';
 export interface IBooksState {
   status: EFetchStatuses;
   booksCollection: TBookInfo[];
-  activeCardId: number;
+  activeCardId: string;
 }
 
 const initialState: IBooksState = {
   status: EFetchStatuses.idle,
   booksCollection: [],
-  activeCardId: 0,
+  activeCardId: '0',
 };
 
 const booksSlice = createSlice({
   name: EReducersNames.books,
   initialState,
   reducers: {
-    showCardTooltip: (state: Draft<IBooksState>, action: PayloadAction<number>) => {
+    showCardTooltip: (state: Draft<IBooksState>, action: PayloadAction<string>) => {
       state.activeCardId = action.payload;
     },
     hideCardTooltip: (state: Draft<IBooksState>) => {
-      state.activeCardId = 0;
+      state.activeCardId = '0';
     },
     clearBooksState: (state: Draft<IBooksState>) => {
       state.booksCollection = [];

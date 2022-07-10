@@ -20,8 +20,9 @@ const BookDetailsComponent: React.FC = () => {
   const fetchStatus = useAppSelector(selectBookDetailsFetchingStatus);
 
   useEffect(() => {
+    if (!bookId) return;
     if (!bookInfo) {
-      dispatch(getBookById(Number(bookId)));
+      dispatch(getBookById(bookId));
     }
 
     return () => {
