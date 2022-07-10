@@ -24,6 +24,6 @@ const CardsComponent: React.FC = () => {
   return (<Cards books={books ?? []} />);
 };
 
-CardsComponent.displayName = 'BooksListController';
+CardsComponent.displayName = 'BooksListComponent';
 
 export { CardsComponent as Cards };

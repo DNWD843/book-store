@@ -2,7 +2,7 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 
 import { BookSearch } from './BookSearch';
 
-const BookSearchController: React.FC = () => {
+const BookSearchComponent: React.FC = () => {
   const [value, setValue] = useState<string>('');
   const handleChangeValue = (evt: ChangeEvent<HTMLInputElement>) => {
     setValue(evt.target.value);
@@ -18,6 +18,6 @@ const BookSearchController: React.FC = () => {
   return (<BookSearch value={value} onChange={handleChangeValue} onClear={handleClickOnClearButton} onSubmit={handleSubmit} />);
 };
 
-BookSearchController.displayName = 'BookSearchController';
+BookSearchComponent.displayName = 'BookSearchComponent';
 
-export { BookSearchController as BookSearch };
+export { BookSearchComponent as BookSearch };

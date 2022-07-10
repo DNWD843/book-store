@@ -39,6 +39,6 @@ const BookDetailsComponent: React.FC = () => {
   return (<BookDetails {...bookInfo} />);
 };
 
-BookDetailsComponent.displayName = 'BookDetailsController';
+BookDetailsComponent.displayName = 'BookDetailsComponent';
 
 export { BookDetailsComponent as BookDetails };

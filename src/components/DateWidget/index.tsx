@@ -4,7 +4,7 @@ import { DateWidget } from './DateWidget';
 import { IDateWidgetProps } from './DateWidget.props';
 import { months } from './months';
 
-const DateWidgetController: React.FC<Omit<IDateWidgetProps, 'date'>> = (props) => {
+const DateWidgetComponent: React.FC<Omit<IDateWidgetProps, 'date'>> = (props) => {
   const currentDate = useRef<Date>(new Date());
   const dateString = useMemo(
     () => `Сегодня ${currentDate.current.getDate()} ${months[currentDate.current.getMonth()]} ${currentDate.current.getFullYear()}г.`,
@@ -16,6 +16,6 @@ const DateWidgetController: React.FC<Omit<IDateWidgetProps, 'date'>> = (props) =
   );
 };
 
-DateWidgetController.displayName = 'DateWidgetController';
+DateWidgetComponent.displayName = 'DateWidgetComponent';
 
-export { DateWidgetController as DateWidget };
+export { DateWidgetComponent as DateWidget };

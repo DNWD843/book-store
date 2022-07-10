@@ -66,6 +66,6 @@ const CardToolBarComponent: React.FC<TBookInfo> = ({ id, author, title, price })
   );
 };
 
-CardToolBarComponent.displayName = 'CardToolBarController';
+CardToolBarComponent.displayName = 'CardToolBarComponent';
 
 export { CardToolBarComponent as CardToolBar };

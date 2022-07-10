@@ -11,6 +11,6 @@ const AppComponent: React.FC = () => (
   <AppWithReduxStore />
 );
 
-AppComponent.displayName = 'AppDataController';
+AppComponent.displayName = 'AppComponent';
 
 export default AppComponent;

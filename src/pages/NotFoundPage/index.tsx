@@ -20,6 +20,6 @@ const NotFoundPageComponent: React.FC = () => {
   );
 };
 
-NotFoundPageComponent.displayName = 'NotFoundPageController';
+NotFoundPageComponent.displayName = 'NotFoundPageComponent';
 
 export { NotFoundPageComponent as NotFoundPage };

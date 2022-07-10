@@ -2,8 +2,8 @@ import React from 'react';
 
 import { HeaderNavLinks } from './HeaderNavLinks';
 
-const HeaderNavLinksController: React.FC = () => (<HeaderNavLinks />);
+const HeaderNavLinksComponent: React.FC = () => (<HeaderNavLinks />);
 
-HeaderNavLinksController.displayName = 'HeaderNavLinksController';
+HeaderNavLinksComponent.displayName = 'HeaderNavLinksComponent';
 
-export { HeaderNavLinksController as NavLinks };
+export { HeaderNavLinksComponent as NavLinks };
