@@ -29,7 +29,7 @@ const StartPage: React.FC = () => {
         {' '}
         или
         {' '}
-        <Link to={routes.auth}>Войти</Link>
+        <Link to={routes.login}>Войти</Link>
         , если Вы уже зарегистрированы.
       </p>
       <h2 className={styles.subtitle}>Желаем Вам приятных покупок!</h2>

@@ -1,5 +1,8 @@
 import { ChangeEvent, useCallback, useState } from 'react';
 
+import { EAuthTypes } from '../enums';
+import { routes } from '../routesMap';
+
 export type TFormState = {
   values: {
     email: string,
@@ -24,10 +27,29 @@ const initialFormState: TFormState = {
   isValid: false,
 };
 
-export const useAuthForm = () => {
+const authConfig: Record<EAuthTypes, Record<string, string>> = {
+  [EAuthTypes.register]: {
+    formTitle: 'Регистрация',
+    redirectLinkTitle: 'Войти',
+    redirectPath: `../${routes.login}`,
+    redirectText: 'Уже есть аккаунт?',
+    submitButtonTitle: 'Зарегистрироваться',
+  },
+  [EAuthTypes.login]: {
+    formTitle: 'Авторизация',
+    redirectLinkTitle: 'Зарегистрироваться',
+    redirectPath: `../${routes.register}`,
+    redirectText: 'Еще нет аккаунта?',
+    submitButtonTitle: 'Войти',
+  },
+};
+
+export const useAuthForm = (authType: EAuthTypes) => {
   const [values, setValues] = useState<TFormState['values']>(initialFormState.values);
   const [errors, setErrors] = useState<TFormState['errors']>(initialFormState.errors);
   const [isValid, setIsValid] = useState<TFormState['isValid']>(initialFormState.isValid);
+
+  const { formTitle, redirectLinkTitle, redirectText, redirectPath, submitButtonTitle } = authConfig[authType];
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -43,5 +65,15 @@ export const useAuthForm = () => {
   },
   [setValues, setErrors, setIsValid]);
 
-  return { values, errors, isValid, handleInputChange, setValues, resetForm };
+  return { values,
+    errors,
+    isValid,
+    handleInputChange,
+    setValues,
+    resetForm,
+    formTitle,
+    redirectLinkTitle,
+    redirectText,
+    redirectPath,
+    submitButtonTitle };
 };

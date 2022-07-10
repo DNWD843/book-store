@@ -4,13 +4,13 @@ import { AuthForm } from '../../components/AuthForm';
 import { EAuthTypes } from '../../enums';
 import { TFormState } from '../../hooks/useAuthForm';
 
-const RegisterPage: React.FC<{ handleSubmit: (data: TFormState['values']) => void }> = ({ handleSubmit }) => (
+const LoginPage: React.FC<{ handleSubmit: (data: TFormState['values']) => void }> = ({ handleSubmit }) => (
   <AuthForm
-    authType={EAuthTypes.register}
+    authType={EAuthTypes.login}
     handleSubmit={handleSubmit}
   />
 );
 
-RegisterPage.displayName = 'RegisterPage';
+LoginPage.displayName = 'LoginPage';
 
-export { RegisterPage };
+export { LoginPage };
