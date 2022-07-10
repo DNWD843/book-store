@@ -14,10 +14,8 @@ const CardsComponent: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!books.length) {
-      dispatch(getBooks());
-    }
-  }, [books, dispatch]);
+    dispatch(getBooks());
+  }, [dispatch]);
 
   if (fetchStatus === EFetchStatuses.loading) {
     return (<ContentLoader />);

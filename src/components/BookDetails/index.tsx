@@ -21,16 +21,12 @@ const BookDetailsComponent: React.FC = () => {
 
   useEffect(() => {
     if (!bookId) return;
-    if (!bookInfo) {
-      dispatch(getBookById(bookId));
-    }
+    dispatch(getBookById(bookId));
 
     return () => {
-      if (bookInfo) {
-        dispatch(clearBookDetailsState());
-      }
+      dispatch(clearBookDetailsState());
     };
-  }, [bookId, bookInfo, clearBookDetailsState, dispatch]);
+  }, [bookId, clearBookDetailsState, dispatch]);
 
   if (fetchStatus === EFetchStatuses.loading) {
     return (<ContentLoader />);
