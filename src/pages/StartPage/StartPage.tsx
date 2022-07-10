@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { setBooksCollection } from '../../api';
+import { mockedData } from '../../constants';
 import { routes } from '../../routesMap';
 
 import styles from './StartPage.module.css';
@@ -38,6 +40,7 @@ const StartPage: React.FC = () => {
       >
         Перейти в магазин
       </button>
+      <button className="btn btn-primary" type="button" onClick={() => setBooksCollection(mockedData)}>set books collection</button>
     </div>
   );
 };

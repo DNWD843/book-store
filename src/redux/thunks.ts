@@ -6,10 +6,7 @@ import { EReducersNames } from './reducersNames';
 
 export const getBooks = createAsyncThunk(
   `${EReducersNames.books}/getBooks`,
-  async () => {
-    const response = await fetchBooks();
-    return response.data;
-  },
+  async () => fetchBooks(),
 );
 
 export const getBookById = createAsyncThunk(
