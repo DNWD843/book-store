@@ -11,7 +11,7 @@ import styles from './StartPage.module.css';
 const StartPage: React.FC = () => {
   const navigate = useNavigate();
 
-  const handleClick = () => navigate(routes.home);
+  const handleClick = () => navigate(routes.main);
 
   return (
     <div className={styles.container}>

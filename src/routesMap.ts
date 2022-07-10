@@ -1,6 +1,6 @@
 export const routes: Record<string, string> = {
   startPage: '/',
-  home: 'books',
+  main: 'books',
   bookId: ':bookId',
   shoppingCart: 'cart',
   favorites: 'favorites',

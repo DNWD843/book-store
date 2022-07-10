@@ -17,7 +17,7 @@ const MainPage: React.FC = () => (
   <main className={styles.main}>
     <Routes>
       <Route element={<StartPage />} path={routes.startPage} />
-      <Route element={<BooksPage />} path={routes.home}>
+      <Route element={<BooksPage />} path={routes.main}>
         <Route index element={<Cards />} />
         <Route element={<BookDetails />} path={routes.bookId} />
       </Route>

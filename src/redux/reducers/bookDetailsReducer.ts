@@ -36,6 +36,7 @@ const bookDetailsSlice = createSlice({
         state.book = action.payload;
       });
   },
+
 });
 
 export const { actions: bookDetailsActions } = bookDetailsSlice;

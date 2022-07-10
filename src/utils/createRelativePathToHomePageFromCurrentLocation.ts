@@ -9,5 +9,5 @@ export const createRelativePathToHomePageFromCurrentLocation = (currentPath: str
     }
     return el;
   })
-  .concat(routes.home)
+  .concat(routes.main)
   .join('/');

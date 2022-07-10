@@ -4,11 +4,13 @@ import { TBookInfo } from '../types';
 
 import bookDetailsReducer, { TBookDetailsState } from './reducers/bookDetailsReducer';
 import booksReducer, { IBooksState } from './reducers/booksReducer';
+import userReducer from './reducers/userReducer';
 
 export const store = configureStore({
   reducer: {
     books: booksReducer,
     bookDetails: bookDetailsReducer,
+    user: userReducer,
   },
 });
 
