@@ -16,21 +16,27 @@ export const setBooksCollection = async (booksCollection: TBookInfo[]) => {
 };
 
 export const fetchBooks = async (): Promise<TBookInfo[]> => {
-  const querySnapshot = await getDocs(collection(db, EReducersNames.books));
-  return querySnapshot.docs.map((document) => document.data() as unknown as TBookInfo);
+  try {
+    const querySnapshot = await getDocs(collection(db, EReducersNames.books));
+    return querySnapshot.docs.map((document) => document.data() as unknown as TBookInfo);
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+    throw e;
+  }
 };
 
-// export const fetchBookByBookId = (bookId: number) => new Promise<{ data: TBookInfo | null }>((resolve) => {
-//   const selectedBook = mockedData.find((book) => book.id === bookId) ?? null;
-//
-//   setTimeout(() => resolve({ data: selectedBook }), 1500);
-// });
+export const fetchBookByBookId = async (bookId: TBookInfo['id']) => {
+  try {
+    const docSnap = await getDoc(doc(db, EReducersNames.books, bookId));
 
-export const fetchBookByBookId = async (bookId: string) => {
-  const docSnap = await getDoc(doc(db, EReducersNames.books, bookId));
-
-  if (docSnap.exists()) {
-    return docSnap.data() as unknown as TBookInfo;
+    if (docSnap.exists()) {
+      return docSnap.data() as unknown as TBookInfo;
+    }
+    return null;
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+    throw e;
   }
-  throw new Error('Документ не найден');
 };
