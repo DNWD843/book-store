@@ -24,6 +24,7 @@ const MainPage: React.FC = () => (
       <Route element={<div>Favorites</div>} path={routes.favorites} />
       <Route element={<div>User Profile</div>} path={routes.profile} />
       <Route element={<RegisterPage />} path={routes.register} />
+      <Route element={<div>LOGIN</div>} path={routes.login} />
       <Route element={<NotFoundPage />} path={routes.notFound} />
     </Routes>
   </main>

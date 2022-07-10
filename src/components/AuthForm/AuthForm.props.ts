@@ -1,6 +1,8 @@
+import { DetailedHTMLProps, HTMLAttributes } from 'react';
+
 import { TFormState } from '../../hooks/useAuthForm';
 
-export type TAuthFormProps = {
+export interface IAuthFormProps extends DetailedHTMLProps<HTMLAttributes<HTMLFormElement>, HTMLFormElement> {
   submitButtonTitle: string,
-  onSubmit: (data: TFormState['values']) => void,
-};
+  handleSubmit: (data: TFormState['values']) => void,
+}

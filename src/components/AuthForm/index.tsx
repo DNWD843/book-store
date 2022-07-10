@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { AuthForm } from './AuthForm';
-import { TAuthFormProps } from './AuthForm.props';
+import { IAuthFormProps } from './AuthForm.props';
 
-const AuthFormComponent: React.FC<TAuthFormProps> = (props) => {
+const AuthFormComponent: React.FC<IAuthFormProps> = (props) => {
   console.log(props);
   return (<AuthForm {...props} />);
 };

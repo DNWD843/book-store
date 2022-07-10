@@ -2,20 +2,20 @@ import React, { FormEvent } from 'react';
 
 import { useAuthForm } from '../../hooks/useAuthForm';
 
-import { TAuthFormProps } from './AuthForm.props';
+import { IAuthFormProps } from './AuthForm.props';
 
 import styles from './AuthForm.module.css';
 
-const AuthForm: React.FC<TAuthFormProps> = ({ submitButtonTitle, onSubmit }) => {
+const AuthForm: React.FC<IAuthFormProps> = ({ submitButtonTitle, handleSubmit, ...props }) => {
   const { values: { email, password }, handleInputChange, resetForm } = useAuthForm();
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const onSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    onSubmit({ email, password });
+    handleSubmit({ email, password });
   };
 
   return (
-    <form noValidate className={styles.form} onSubmit={handleSubmit}>
+    <form noValidate className={styles.form} onSubmit={onSubmit} {...props}>
       <div className={styles.fieldset}>
         <label className={styles.label}>
           <span className={styles.inputLabel}>Email</span>
