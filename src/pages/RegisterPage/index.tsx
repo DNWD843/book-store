@@ -13,11 +13,10 @@ const RegisterPageComponent: React.FC = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (data: TFormState['values']) => {
-    console.log(data);
-    dispatch(registerUser(data)).then(() => {
-      //  navigate(`../${routes.login}`);
-      navigate(`../${routes.login}`);
-    });
+    dispatch(registerUser(data))
+      .then(() => {
+        navigate(`../${routes.login}`);
+      });
   };
 
   return (<RegisterPage handleSubmit={handleSubmit} />);

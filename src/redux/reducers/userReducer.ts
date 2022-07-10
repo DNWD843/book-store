@@ -28,7 +28,7 @@ const userSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.status = EFetchStatuses.idle;
-        state.user = action.payload as any;
+        state.user = { ...action.payload };
       });
   },
 });

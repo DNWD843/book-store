@@ -4,7 +4,10 @@ import { appAuth } from '../firebase';
 import { TFormState } from '../hooks/useAuthForm';
 
 export const createUser = async ({ email, password }: TFormState['values']) => {
-  const credentials = await createUserWithEmailAndPassword(appAuth, email, password);
-  console.log('user', credentials.user);
-  return credentials.user;
+  try {
+    const credentials = await createUserWithEmailAndPassword(appAuth, email, password);
+    return credentials.user;
+  } catch (e: any) {
+    throw new Error(`Error ${e.code}: ${e.message}`);
+  }
 };
