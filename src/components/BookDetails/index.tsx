@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { EFetchStatuses } from '../../enums';
 import { NotFoundPage } from '../../pages/NotFoundPage';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { bookDetailsActions } from '../../redux/reducers/bookDetailsReducer';
+import { bookDetailsActions } from '../../redux/slices/bookDetailsSlice';
 import { selectBookDetails, selectBookDetailsFetchingStatus } from '../../redux/store';
 import { getBookById } from '../../redux/thunks';
 import { TUrlParams } from '../../types';

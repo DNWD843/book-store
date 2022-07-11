@@ -41,7 +41,9 @@ const userSlice = createSlice({
       .addCase(registerUser.fulfilled, (state) => {
         state.status = EFetchStatuses.fulfilled;
         state.error = '';
-      })
+      });
+
+    builder
       .addCase(loginUser.pending, (state) => {
         state.status = EFetchStatuses.pending;
       })

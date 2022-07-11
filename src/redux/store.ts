@@ -2,9 +2,9 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 
 import { TBookInfo } from '../types';
 
-import bookDetailsReducer, { TBookDetailsState } from './reducers/bookDetailsReducer';
-import booksReducer, { IBooksState } from './reducers/booksReducer';
-import userReducer from './reducers/userReducer';
+import bookDetailsReducer, { TBookDetailsState } from './slices/bookDetailsSlice';
+import booksReducer, { IBooksState } from './slices/booksSlice';
+import userReducer from './slices/userSlice';
 
 export const store = configureStore({
   reducer: {

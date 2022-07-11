@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { booksActions } from '../../redux/reducers/booksReducer';
+import { booksActions } from '../../redux/slices/booksSlice';
 import { selectActiveCardId } from '../../redux/store';
 import { TBookInfo } from '../../types';
 
