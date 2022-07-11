@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { createUser, loginUserByEmail } from '../../api/authApi';
+import { createUser, loginUserByEmail } from '../../api';
 import { TFormState } from '../../hooks/useAuthForm';
 import { EReducersNames } from '../reducersNames';
 
