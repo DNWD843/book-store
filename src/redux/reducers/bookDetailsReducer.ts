@@ -11,7 +11,7 @@ export type TBookDetailsState = {
 };
 
 const initialState: TBookDetailsState = {
-  status: EFetchStatuses.idle,
+  status: EFetchStatuses.fulfilled,
   book: null,
 };
 
@@ -26,13 +26,13 @@ const bookDetailsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getBookById.pending, (state) => {
-        state.status = EFetchStatuses.loading;
+        state.status = EFetchStatuses.pending;
       })
       .addCase(getBookById.rejected, (state) => {
-        state.status = EFetchStatuses.failed;
+        state.status = EFetchStatuses.rejected;
       })
       .addCase(getBookById.fulfilled, (state, action) => {
-        state.status = EFetchStatuses.idle;
+        state.status = EFetchStatuses.fulfilled;
         state.book = action.payload;
       });
   },

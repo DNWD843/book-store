@@ -12,7 +12,7 @@ export interface IBooksState {
 }
 
 const initialState: IBooksState = {
-  status: EFetchStatuses.idle,
+  status: EFetchStatuses.fulfilled,
   booksCollection: [],
   activeCardId: '0',
 };
@@ -34,13 +34,13 @@ const booksSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getBooks.pending, (state) => {
-        state.status = EFetchStatuses.loading;
+        state.status = EFetchStatuses.pending;
       })
       .addCase(getBooks.rejected, (state) => {
-        state.status = EFetchStatuses.failed;
+        state.status = EFetchStatuses.rejected;
       })
       .addCase(getBooks.fulfilled, (state, action) => {
-        state.status = EFetchStatuses.idle;
+        state.status = EFetchStatuses.fulfilled;
         state.booksCollection = action.payload;
       });
   },

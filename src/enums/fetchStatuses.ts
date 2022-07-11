@@ -1,5 +1,5 @@
 export const enum EFetchStatuses {
-  loading = 'loading',
-  idle = 'idle',
-  failed = 'failed',
+  pending = 'loading',
+  fulfilled = 'fulfilled',
+  rejected = 'rejected',
 }

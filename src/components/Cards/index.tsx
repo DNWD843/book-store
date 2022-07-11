@@ -17,7 +17,7 @@ const CardsComponent: React.FC = () => {
     dispatch(getBooks());
   }, [dispatch]);
 
-  if (fetchStatus === EFetchStatuses.loading) {
+  if (fetchStatus === EFetchStatuses.pending) {
     return (<ContentLoader />);
   }
 

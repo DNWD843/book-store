@@ -28,7 +28,7 @@ const BookDetailsComponent: React.FC = () => {
     };
   }, [bookId, clearBookDetailsState, dispatch]);
 
-  if (fetchStatus === EFetchStatuses.loading) {
+  if (fetchStatus === EFetchStatuses.pending) {
     return (<ContentLoader />);
   }
 
