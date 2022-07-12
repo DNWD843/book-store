@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 
+import { EPasswordLength } from '../../enums/passwordLength';
 import { useAuthForm } from '../../hooks/useAuthForm';
 
 import { IAuthFormProps } from './AuthForm.props';
@@ -53,10 +54,11 @@ const AuthForm: React.FC<IAuthFormProps> = (
               required
               className={classNames(styles.input, { [styles.inputError]: passwordError })}
               id={`${authType}-password`}
-              maxLength={12}
-              minLength={6}
+              maxLength={EPasswordLength.max}
+              minLength={EPasswordLength.min}
               name="password"
               placeholder="Введите пароль"
+              title={`Минимум ${EPasswordLength.min} знаков, максимум ${EPasswordLength.max} знаков`}
               type="password"
               value={password}
               onChange={handleInputChange}
@@ -83,10 +85,10 @@ const AuthForm: React.FC<IAuthFormProps> = (
         </div>
 
       </form>
-      <p>
+      <p className={styles.redirect}>
         {redirectText}
         {' '}
-        <Link to={redirectPath}>{redirectLinkTitle}</Link>
+        <Link className={styles.redirectLink} to={redirectPath}>{redirectLinkTitle}</Link>
       </p>
     </div>
 
