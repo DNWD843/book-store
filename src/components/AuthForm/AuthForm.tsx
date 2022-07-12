@@ -12,6 +12,7 @@ const AuthForm: React.FC<IAuthFormProps> = (
   {
     handleSubmit,
     authType,
+    formError = '',
     ...props
   },
 ) => {
@@ -27,6 +28,7 @@ const AuthForm: React.FC<IAuthFormProps> = (
     <div className={styles.page}>
       <h2 className={styles.title}>{formTitle}</h2>
       <form noValidate className={styles.form} onSubmit={onSubmit} {...props}>
+        <span className={styles.formError}>{formError}</span>
         <div className={styles.fieldset}>
           <label className={styles.label}>
             <span className={styles.inputLabel}>Email</span>

@@ -2,15 +2,15 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 
 import { TBookInfo } from '../types';
 
+import authReducer, { IAuthState } from './slices/authSlice';
 import bookDetailsReducer, { TBookDetailsState } from './slices/bookDetailsSlice';
 import booksReducer, { IBooksState } from './slices/booksSlice';
-import userReducer from './slices/userSlice';
 
 export const store = configureStore({
   reducer: {
     books: booksReducer,
     bookDetails: bookDetailsReducer,
-    user: userReducer,
+    auth: authReducer,
   },
 });
 
@@ -28,3 +28,4 @@ export const selectBooksFetchingStatus = (state: RootState): IBooksState['status
 export const selectActiveCardId = (state:RootState): IBooksState['activeCardId'] => state.books.activeCardId;
 export const selectBookDetailsFetchingStatus = (state: RootState): TBookDetailsState['status'] => state.bookDetails.status;
 export const selectBookDetails = (state: RootState): TBookDetailsState['book'] => state.bookDetails.book;
+export const selectAuthError = (state: RootState): IAuthState['authError'] => state.auth.authError;

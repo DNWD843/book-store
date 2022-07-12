@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { EFetchStatuses } from '../../enums';
 import { TFormState } from '../../hooks/useAuthForm';
-import { useAppDispatch } from '../../redux/hooks';
-import { loginUser } from '../../redux/thunks/authThunks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { authActions } from '../../redux/slices/authSlice';
+import { selectAuthError } from '../../redux/store';
+import { loginUser } from '../../redux/thunks';
 import { routes } from '../../routesMap';
 
 import { LoginPage } from './LoginPage';
@@ -12,6 +14,8 @@ import { LoginPage } from './LoginPage';
 const LoginPageComponent: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { clearAuthError } = authActions;
+  const loginError = useAppSelector(selectAuthError);
 
   const handleSubmit = ({ email, password }: TFormState['values']) => {
     dispatch(loginUser({ email, password }))
@@ -27,7 +31,11 @@ const LoginPageComponent: React.FC = () => {
       });
   };
 
-  return (<LoginPage handleSubmit={handleSubmit} />);
+  useLayoutEffect(() => {
+    dispatch(clearAuthError());
+  }, [clearAuthError, dispatch]);
+
+  return (<LoginPage handleSubmit={handleSubmit} loginError={loginError} />);
 };
 
 LoginPageComponent.displayName = 'LoginPageComponent';

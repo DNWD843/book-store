@@ -5,5 +5,6 @@ import { TFormState } from '../../hooks/useAuthForm';
 
 export interface IAuthFormProps extends DetailedHTMLProps<HTMLAttributes<HTMLFormElement>, HTMLFormElement> {
   handleSubmit: (data: TFormState['values']) => void,
-  authType: EAuthTypes
+  authType: EAuthTypes,
+  formError?: string,
 }

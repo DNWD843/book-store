@@ -21,6 +21,16 @@
   align-items: center;
   box-sizing: border-box;
   padding: 15px;
+  position: relative;
+}
+
+.formError {
+  position: absolute;
+  left: 15px;
+  top: -20px;
+  bottom: 95%;
+  color: red;
+  font-size: 14px;
 }
 
 .fieldset {
@@ -59,7 +69,7 @@
 }
 
 .inputError, .inputError:focus {
-  outline: 3px solid red;
+  outline: 1px solid red;
   border: 1px solid red;
 }
 

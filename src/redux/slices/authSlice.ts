@@ -7,14 +7,14 @@ import { registerUser, loginUser } from '../thunks';
 
 export interface IAuthState {
   status: EFetchStatuses,
-  error: string,
-  user: TUser,
+  authError: string,
+  userData: TUser,
 }
 
 const initialState: IAuthState = {
   status: EFetchStatuses.fulfilled,
-  error: '',
-  user: {
+  authError: '',
+  userData: {
     userId: null,
     email: null,
     displayName: null,
@@ -25,10 +25,12 @@ const initialState: IAuthState = {
   },
 };
 
-const userSlice = createSlice({
+const authSlice = createSlice({
   name: EReducersNames.auth,
   initialState,
-  reducers: {},
+  reducers: {
+    clearAuthError: (state) => { state.authError = ''; },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
@@ -36,11 +38,11 @@ const userSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.status = EFetchStatuses.rejected;
-        state.error = action.error.message ?? 'Error';
+        state.authError = action.error.message ?? 'Error';
       })
       .addCase(registerUser.fulfilled, (state) => {
         state.status = EFetchStatuses.fulfilled;
-        state.error = '';
+        state.authError = '';
       });
 
     builder
@@ -49,16 +51,16 @@ const userSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.status = EFetchStatuses.rejected;
-        state.error = action.error.message ?? 'Error';
+        state.authError = action.error.message ?? 'Error';
       })
       .addCase(loginUser.fulfilled, (state, action: PayloadAction<TUser>) => {
         state.status = EFetchStatuses.fulfilled;
-        state.user = action.payload;
-        state.error = '';
+        state.userData = action.payload;
+        state.authError = '';
       });
   },
 });
 
-export const { actions: userActions } = userSlice;
+export const { actions: authActions } = authSlice;
 
-export default userSlice.reducer;
+export default authSlice.reducer;

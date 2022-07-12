@@ -2,11 +2,13 @@ import React from 'react';
 
 import { AuthForm } from '../../components/AuthForm';
 import { EAuthTypes } from '../../enums';
-import { TFormState } from '../../hooks/useAuthForm';
 
-const LoginPage: React.FC<{ handleSubmit: (data: TFormState['values']) => void }> = ({ handleSubmit }) => (
+import { TLoginPageProps } from './LoginPage.props';
+
+const LoginPage: React.FC<TLoginPageProps> = ({ handleSubmit, loginError }) => (
   <AuthForm
     authType={EAuthTypes.login}
+    formError={loginError}
     handleSubmit={handleSubmit}
   />
 );

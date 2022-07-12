@@ -2,11 +2,13 @@ import React from 'react';
 
 import { AuthForm } from '../../components/AuthForm';
 import { EAuthTypes } from '../../enums';
-import { TFormState } from '../../hooks/useAuthForm';
 
-const RegisterPage: React.FC<{ handleSubmit: (data: TFormState['values']) => void }> = ({ handleSubmit }) => (
+import { TRegisterPageProps } from './RegisterPage.props';
+
+const RegisterPage: React.FC<TRegisterPageProps> = ({ handleSubmit, registerError }) => (
   <AuthForm
     authType={EAuthTypes.register}
+    formError={registerError}
     handleSubmit={handleSubmit}
   />
 );
