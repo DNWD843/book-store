@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React, { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -14,8 +15,8 @@ const AuthForm: React.FC<IAuthFormProps> = (
     ...props
   },
 ) => {
-  const { values: { email, password }, handleInputChange, resetForm, formTitle,
-    redirectLinkTitle, redirectText, redirectPath, submitButtonTitle } = useAuthForm(authType);
+  const { values: { email, password }, errors: { email: emailError, password: passwordError }, handleInputChange, resetForm, formTitle,
+    redirectLinkTitle, redirectText, redirectPath, submitButtonTitle, isValid } = useAuthForm(authType);
 
   const onSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -31,37 +32,54 @@ const AuthForm: React.FC<IAuthFormProps> = (
             <span className={styles.inputLabel}>Email</span>
             <input
               required
-              className={styles.input}
+              className={classNames(styles.input, { [styles.inputError]: emailError })}
               id={`${authType}-email`}
               name="email"
+              placeholder="Введите email"
               type="email"
               value={email}
               onChange={handleInputChange}
             />
           </label>
-          <span className={styles.emailError}>emailError</span>
+          <span className={styles.error}>{emailError}</span>
         </div>
 
-        <div>
+        <div className={styles.fieldset}>
           <label className={styles.label}>
             <span className={styles.inputLabel}>Password</span>
             <input
               required
-              className={styles.input}
+              className={classNames(styles.input, { [styles.inputError]: passwordError })}
               id={`${authType}-password`}
               maxLength={12}
               minLength={6}
               name="password"
+              placeholder="Введите пароль"
               type="password"
               value={password}
               onChange={handleInputChange}
             />
           </label>
-          <span className={styles.passwordError}>passwordError</span>
+          <span className={styles.error}>{passwordError}</span>
         </div>
 
-        <button className={styles.submitButton} type="submit">{submitButtonTitle}</button>
-        <button className={styles.cancelButton} type="button" onClick={resetForm}>Очистить</button>
+        <div className={styles.buttons}>
+          <button
+            className={classNames('btn btn-success btn-lg', styles.submitButton)}
+            disabled={!isValid}
+            type="submit"
+          >
+            {submitButtonTitle}
+          </button>
+          <button
+            className={classNames('btn btn-outline-secondary btn-lg', styles.cancelButton)}
+            type="button"
+            onClick={resetForm}
+          >
+            Очистить
+          </button>
+        </div>
+
       </form>
       <p>
         {redirectText}
