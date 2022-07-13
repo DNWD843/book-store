@@ -23,3 +23,7 @@ export const loginUserByEmail = async ({ email, password }: TFormState['values']
     isAdmin: false,
   };
 };
+
+export const logout = async () => {
+  await appAuth.signOut();
+};
