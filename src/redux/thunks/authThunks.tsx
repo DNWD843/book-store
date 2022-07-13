@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { createUser, loginUserByEmail } from '../../api';
-import { logout } from '../../api/authApi';
+import { loginAnonymously, logout } from '../../api/authApi';
 import { TFormState } from '../../hooks/useAuthForm';
 import { EReducersNames } from '../reducersNames';
 
@@ -18,4 +18,9 @@ export const loginUser = createAsyncThunk(
 export const logoutUser = createAsyncThunk(
   `${[EReducersNames.auth]}/logout`,
   async () => logout(),
+);
+
+export const loginUserAnonymously = createAsyncThunk(
+  `${[EReducersNames.auth]}/loginUserAnonymously`,
+  async () => loginAnonymously(),
 );

@@ -4,8 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { setBooksCollection } from '../../api';
 import { mockedData } from '../../constants';
+import { EFetchStatuses } from '../../enums';
 import { useAppDispatch } from '../../redux/hooks';
-import { logoutUser } from '../../redux/thunks/authThunks';
+import { loginUserAnonymously, logoutUser } from '../../redux/thunks/authThunks';
 import { routes } from '../../routesMap';
 
 import styles from './StartPage.module.css';
@@ -14,7 +15,19 @@ const StartPage: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const handleClick = () => navigate(routes.main);
+  const handleClick = () => {
+    dispatch(loginUserAnonymously())
+      .then((res) => {
+        if (res.meta.requestStatus === EFetchStatuses.rejected) {
+          // @ts-ignore
+          throw res.error;
+        }
+        navigate(routes.main);
+      }).catch((err: any) => {
+      // eslint-disable-next-line no-console
+        console.error(err);
+      });
+  };
 
   return (
     <div className={styles.container}>

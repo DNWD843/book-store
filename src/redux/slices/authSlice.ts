@@ -4,7 +4,7 @@ import { EFetchStatuses } from '../../enums';
 import { TUser } from '../../types';
 import { EReducersNames } from '../reducersNames';
 import { registerUser, loginUser } from '../thunks';
-import { logoutUser } from '../thunks/authThunks';
+import { loginUserAnonymously, logoutUser } from '../thunks/authThunks';
 
 export interface IAuthState {
   status: EFetchStatuses,
@@ -66,12 +66,28 @@ const authSlice = createSlice({
       .addCase(logoutUser.pending, (state) => {
         state.status = EFetchStatuses.pending;
       })
-      .addCase(logoutUser.rejected, (state) => {
+      .addCase(logoutUser.rejected, (state, action) => {
         state.status = EFetchStatuses.rejected;
+        state.authError = action.error.message ?? 'Error';
       })
       .addCase(logoutUser.fulfilled, (state) => {
         state.status = EFetchStatuses.fulfilled;
         state.userData = userDefault;
+        state.authError = '';
+      });
+
+    builder
+      .addCase(loginUserAnonymously.pending, (state) => {
+        state.status = EFetchStatuses.pending;
+      })
+      .addCase(loginUserAnonymously.rejected, (state, action) => {
+        state.status = EFetchStatuses.rejected;
+        state.authError = action.error.message ?? 'Error';
+      })
+      .addCase(loginUserAnonymously.fulfilled, (state, action: PayloadAction<TUser>) => {
+        state.status = EFetchStatuses.fulfilled;
+        state.userData = action.payload;
+        state.authError = '';
       });
   },
 });
