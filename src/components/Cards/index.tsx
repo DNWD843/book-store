@@ -4,6 +4,7 @@ import { EFetchStatuses } from '../../enums';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { selectBooks, selectBooksFetchingStatus } from '../../redux/store';
 import { getBooks } from '../../redux/thunks';
+import { loginUserAnonymously } from '../../redux/thunks/authThunks';
 import { ContentLoader } from '../ContentLoader';
 
 import { Cards } from './Cards';
@@ -14,7 +15,7 @@ const CardsComponent: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getBooks());
+    Promise.all([dispatch(getBooks()), dispatch(loginUserAnonymously())]);
   }, [dispatch]);
 
   if (fetchStatus === EFetchStatuses.pending) {

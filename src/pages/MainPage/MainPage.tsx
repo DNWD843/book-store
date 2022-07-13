@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { BookDetails } from '../../components/BookDetails';
 import { Cards } from '../../components/Cards';
@@ -9,15 +9,14 @@ import { LoginPage } from '../LoginPage';
 import { NotFoundPage } from '../NotFoundPage';
 import { RegisterPage } from '../RegisterPage';
 import { ShoppingCartPage } from '../ShoppingCartPage';
-import { StartPage } from '../StartPage';
 
 import styles from './Main.module.css';
 
 const MainPage: React.FC = () => (
   <main className={styles.main}>
     <Routes>
-      <Route element={<StartPage />} path={routes.startPage} />
-      <Route element={<BooksPage />} path={routes.main}>
+      <Route element={<Navigate to={routes.books} />} path={routes.home} />
+      <Route element={<BooksPage />} path={routes.books}>
         <Route index element={<Cards />} />
         <Route element={<BookDetails />} path={routes.bookId} />
       </Route>

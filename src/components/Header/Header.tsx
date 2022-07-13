@@ -10,13 +10,13 @@ import styles from './Header.module.css';
 
 const Header: React.FC = () => (
   <header className={styles.header}>
-    <Link className={styles.logoLink} title="На главную" to={routes.main}>
+    <Link className={styles.logoLink} title="На главную" to={routes.books}>
       <h2 className={styles.logo}>BookStore</h2>
     </Link>
 
     <div className={styles.search}>
       <Routes>
-        <Route element={<BookSearch />} path={routes.main}>
+        <Route element={<BookSearch />} path={routes.books}>
           <Route element={<BookSearch />} path={routes.bookId} />
         </Route>
         <Route element={<></>} path={routes.shoppingCart} />
