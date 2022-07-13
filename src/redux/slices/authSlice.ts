@@ -18,7 +18,7 @@ const userDefault: TUser = {
   displayName: null,
   phoneNumber: null,
   photoURL: null,
-  isAnonymous: true,
+  isAnonymous: false,
   isAdmin: false,
 };
 
