@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { setBooksCollection } from '../../api';
 import { mockedData } from '../../constants';
+import { appAuth } from '../../firebase';
 import { routes } from '../../routesMap';
 
 import styles from './StartPage.module.css';
@@ -41,6 +42,7 @@ const StartPage: React.FC = () => {
         Перейти в магазин
       </button>
       <button className="btn btn-primary" type="button" onClick={() => setBooksCollection(mockedData)}>set books collection</button>
+      <button className="btn btn-warning" type="button" onClick={() => appAuth.signOut()}>sign out</button>
     </div>
   );
 };
