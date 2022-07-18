@@ -7,13 +7,13 @@ import { getBooks } from '../thunks';
 
 export interface IBooksState {
   status: EFetchStatuses;
-  booksCollection: TBookInfo[];
+  booksCollection: TBookInfo[] | null;
   activeCardId: string;
 }
 
 const initialState: IBooksState = {
   status: EFetchStatuses.fulfilled,
-  booksCollection: [],
+  booksCollection: null,
   activeCardId: '0',
 };
 
@@ -28,7 +28,7 @@ const booksSlice = createSlice({
       state.activeCardId = '0';
     },
     clearBooksState: (state: Draft<IBooksState>) => {
-      state.booksCollection = [];
+      state.booksCollection = null;
     },
   },
   extraReducers: (builder) => {

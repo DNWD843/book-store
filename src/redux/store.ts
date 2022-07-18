@@ -23,9 +23,11 @@ unknown,
 Action<string>
 >;
 
-export const selectBooks = (state: RootState): TBookInfo[] => state.books.booksCollection;
+export const selectBooks = (state: RootState): TBookInfo[] | null => state.books.booksCollection;
 export const selectBooksFetchingStatus = (state: RootState): IBooksState['status'] => state.books.status;
 export const selectActiveCardId = (state:RootState): IBooksState['activeCardId'] => state.books.activeCardId;
 export const selectBookDetailsFetchingStatus = (state: RootState): TBookDetailsState['status'] => state.bookDetails.status;
 export const selectBookDetails = (state: RootState): TBookDetailsState['book'] => state.bookDetails.book;
 export const selectAuthError = (state: RootState): IAuthState['authError'] => state.auth.authError;
+export const selectAuthStatus = (state: RootState): IAuthState['status'] => state.auth.status;
+export const selectUserProfile = (state: RootState): IAuthState['userData'] => state.auth.userData;

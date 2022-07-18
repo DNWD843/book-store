@@ -1,6 +1,6 @@
 export const routes: Record<string, string> = {
   home: '/',
-  books: 'books',
+  books: '/books',
   bookId: ':bookId',
   shoppingCart: '/cart',
   favorites: '/favorites',

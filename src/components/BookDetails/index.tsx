@@ -19,14 +19,15 @@ const BookDetailsComponent: React.FC = () => {
   const bookInfo = useAppSelector(selectBookDetails);
   const fetchStatus = useAppSelector(selectBookDetailsFetchingStatus);
 
-  useEffect(() => {
-    if (!bookId) return;
+  if (bookId && !bookInfo && fetchStatus === EFetchStatuses.fulfilled) {
     dispatch(getBookById(bookId));
+  }
 
-    return () => {
+  useEffect(() => () => {
+    if (bookInfo && fetchStatus === EFetchStatuses.fulfilled) {
       dispatch(clearBookDetailsState());
-    };
-  }, [bookId, clearBookDetailsState, dispatch]);
+    }
+  }, [bookInfo, clearBookDetailsState, dispatch, fetchStatus]);
 
   if (fetchStatus === EFetchStatuses.pending) {
     return (<ContentLoader />);
