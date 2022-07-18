@@ -7,7 +7,7 @@ import { TFormState } from '../../hooks/useAuthForm';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { authActions } from '../../redux/slices/authSlice';
 import { selectAuthError } from '../../redux/store';
-import { registerUser } from '../../redux/thunks';
+import { auth } from '../../redux/thunks';
 import { routes } from '../../routesMap';
 
 const RegisterPageComponent: React.FC = () => {
@@ -18,7 +18,7 @@ const RegisterPageComponent: React.FC = () => {
 
   const handleSubmit = ({ email, password }: TFormState['values']) => {
     dispatch(clearAuthError());
-    dispatch(registerUser({ email, password }))
+    dispatch(auth.registerUser({ email, password }))
       .then((res) => {
         if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
           navigate(routes.login);

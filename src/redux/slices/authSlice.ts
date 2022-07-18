@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { EFetchStatuses } from '../../enums';
 import { TUser } from '../../types';
 import { EReducersNames } from '../reducersNames';
-import { registerUser, loginUser } from '../thunks';
+import { auth } from '../thunks';
 import { loginUserAnonymously, logoutUser } from '../thunks/authThunks';
 
 export interface IAuthState {
@@ -33,30 +33,33 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     clearAuthError: (state) => { state.authError = ''; },
+    setUserToStore: (state, action: PayloadAction<TUser>) => {
+      state.userData = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(registerUser.pending, (state) => {
+      .addCase(auth.registerUser.pending, (state) => {
         state.status = EFetchStatuses.pending;
       })
-      .addCase(registerUser.rejected, (state, action) => {
+      .addCase(auth.registerUser.rejected, (state, action) => {
         state.status = EFetchStatuses.rejected;
         state.authError = action.error.message ?? 'Error';
       })
-      .addCase(registerUser.fulfilled, (state) => {
+      .addCase(auth.registerUser.fulfilled, (state) => {
         state.status = EFetchStatuses.fulfilled;
         state.authError = '';
       });
 
     builder
-      .addCase(loginUser.pending, (state) => {
+      .addCase(auth.loginUser.pending, (state) => {
         state.status = EFetchStatuses.pending;
       })
-      .addCase(loginUser.rejected, (state, action) => {
+      .addCase(auth.loginUser.rejected, (state, action) => {
         state.status = EFetchStatuses.rejected;
         state.authError = action.error.message ?? 'Error';
       })
-      .addCase(loginUser.fulfilled, (state, action: PayloadAction<TUser>) => {
+      .addCase(auth.loginUser.fulfilled, (state, action: PayloadAction<TUser>) => {
         state.status = EFetchStatuses.fulfilled;
         state.userData = action.payload;
         state.authError = '';
