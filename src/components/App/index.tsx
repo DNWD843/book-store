@@ -9,6 +9,7 @@ import { booksActions, TBooksCollection } from '../../redux/slices/booksSlice';
 import { selectAuthStatus, selectBooks, selectBooksFetchingStatus, selectUserProfile } from '../../redux/store';
 import { auth, getBooks } from '../../redux/thunks';
 import { keys, storage } from '../../utils';
+import { ContentLoader } from '../ContentLoader';
 
 import { App } from './App';
 
@@ -34,6 +35,14 @@ const AppComponent: React.FC = () => {
     dispatch(getBooks());
   } else if (!books && booksStatus === EFetchStatuses.fulfilled) {
     dispatch(setBooksToStore(savedBooks));
+  }
+
+  if (authStatus === EFetchStatuses.pending || booksStatus === EFetchStatuses.pending) {
+    return (
+      <div style={{ height: '100vh', display: 'flex', alignContent: 'center', justifyContent: 'center' }}>
+        <ContentLoader />
+      </div>
+    );
   }
 
   return (
