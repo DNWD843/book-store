@@ -4,32 +4,36 @@ import './App.css';
 import { EFetchStatuses } from '../../enums';
 import { withReduxStore } from '../../provider/withReduxStore';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { authActions } from '../../redux/slices/authSlice';
+import { authActions, TUserData } from '../../redux/slices/authSlice';
+import { booksActions, TBooksCollection } from '../../redux/slices/booksSlice';
 import { selectAuthStatus, selectBooks, selectBooksFetchingStatus, selectUserProfile } from '../../redux/store';
-import { getBooks, auth } from '../../redux/thunks';
-import { TUser } from '../../types';
-import { getUserFromLS, keys } from '../../utils';
+import { auth, getBooks } from '../../redux/thunks';
+import { keys, storage } from '../../utils';
 
 import { App } from './App';
 
 const AppComponent: React.FC = () => {
   const dispatch = useAppDispatch();
-  const status = useAppSelector(selectAuthStatus);
   const user = useAppSelector(selectUserProfile);
   const books = useAppSelector(selectBooks);
-  const booksStatus = useAppSelector(selectBooksFetchingStatus);
   const { setUserToStore } = authActions;
+  const { setBooksToStore } = booksActions;
 
-  const savedUser: TUser | null = getUserFromLS(keys.USER_KEY);
+  const savedUser: TUserData = storage.getData(keys.USER);
+  const savedBooks: TBooksCollection = storage.getData(keys.BOOKS);
+  const authStatus = useAppSelector(selectAuthStatus);
+  const booksStatus = useAppSelector(selectBooksFetchingStatus);
 
-  if (!savedUser) {
+  if (!savedUser && authStatus === EFetchStatuses.fulfilled) {
     dispatch(auth.loginUserAnonymously());
-  } else if (!user.userId) {
+  } else if (!user && authStatus === EFetchStatuses.fulfilled) {
     dispatch(setUserToStore(savedUser));
   }
 
-  if (!books && booksStatus === EFetchStatuses.fulfilled) {
+  if (!savedBooks && booksStatus === EFetchStatuses.fulfilled) {
     dispatch(getBooks());
+  } else if (!books && booksStatus === EFetchStatuses.fulfilled) {
+    dispatch(setBooksToStore(savedBooks));
   }
 
   return (

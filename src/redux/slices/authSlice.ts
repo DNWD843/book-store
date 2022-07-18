@@ -6,10 +6,12 @@ import { EReducersNames } from '../reducersNames';
 import { auth } from '../thunks';
 import { loginUserAnonymously, logoutUser } from '../thunks/authThunks';
 
+export type TUserData = TUser | null;
+
 export interface IAuthState {
   status: EFetchStatuses,
   authError: string,
-  userData: TUser,
+  userData: TUserData,
 }
 
 const userDefault: TUser = {
@@ -25,7 +27,7 @@ const userDefault: TUser = {
 const initialState: IAuthState = {
   status: EFetchStatuses.fulfilled,
   authError: '',
-  userData: userDefault,
+  userData: null,
 };
 
 const authSlice = createSlice({
@@ -33,7 +35,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     clearAuthError: (state) => { state.authError = ''; },
-    setUserToStore: (state, action: PayloadAction<TUser>) => {
+    setUserToStore: (state, action: PayloadAction<TUserData>) => {
       state.userData = action.payload;
     },
   },

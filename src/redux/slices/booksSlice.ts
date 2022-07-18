@@ -5,9 +5,11 @@ import { TBookInfo } from '../../types';
 import { EReducersNames } from '../reducersNames';
 import { getBooks } from '../thunks';
 
+export type TBooksCollection = TBookInfo[] | null;
+
 export interface IBooksState {
   status: EFetchStatuses;
-  booksCollection: TBookInfo[] | null;
+  booksCollection: TBooksCollection;
   activeCardId: string;
 }
 
@@ -29,6 +31,9 @@ const booksSlice = createSlice({
     },
     clearBooksState: (state: Draft<IBooksState>) => {
       state.booksCollection = null;
+    },
+    setBooksToStore: (state, action: PayloadAction<TBooksCollection>) => {
+      state.booksCollection = action.payload;
     },
   },
   extraReducers: (builder) => {
