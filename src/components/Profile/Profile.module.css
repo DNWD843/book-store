@@ -1,7 +1,7 @@
 .profile {
   position: relative;
   width: 100%;
-  min-width: 200px;
+  min-width: 250px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,7 +12,7 @@
   top: -25px;
   left: -5px;
   right: -5px;
-  bottom: -50px;
+  bottom: -45px;
   background-color: var(--light-grey);
   z-index: 10;
 }
@@ -27,7 +27,7 @@
 
 .menu {
   position: absolute;
-  top: -200px;
+  top: -300px;
   left: 0;
   right: 0;
 
@@ -36,7 +36,7 @@
   justify-content: center;
   align-items: center;
   row-gap: 20px;
-  padding:  25px 0;
+  padding: 35px 0;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   background-color: var(--light-grey);
@@ -45,7 +45,27 @@
 }
 
 .isMenuOpened {
-  top: 81px;
+  top: 75px;
+}
+
+.loginLink {
+  text-decoration: none;
+  color: var(--dark-grey);
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+.loginLink:hover {
+  color: var(--grey);
+}
+
+.menuButton {
+  outline: none;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .navLinks {

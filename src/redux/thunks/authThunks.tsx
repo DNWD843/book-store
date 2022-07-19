@@ -23,7 +23,7 @@ export const loginUser = createAsyncThunk(
 
 export const logoutUser = createAsyncThunk(
   `${[ESlicesNames.auth]}/logout`,
-  async () => logout().then(() => { storage.deleteData(keys.REGISTERED_USER); }),
+  async () => logout(),
 );
 
 export const loginUserAnonymously = createAsyncThunk(

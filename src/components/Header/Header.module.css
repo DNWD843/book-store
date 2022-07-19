@@ -9,6 +9,7 @@
   grid-template-columns: [logo] auto [search] 1fr [profile] minmax(150px, auto) [navLinks] auto [end];
   grid-template-rows: 1fr auto;
   column-gap: 30px;
+  min-height: 100px;
 }
 
 .logoLink {
@@ -27,7 +28,7 @@
 .search {
   align-self: center;
   justify-self: center;
-  width: 80%;
+  width: 95%;
   grid-column: search;
   grid-row: 1/-1;
 }

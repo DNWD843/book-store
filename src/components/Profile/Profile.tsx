@@ -12,7 +12,7 @@ const Profile: React.FC<TProfileProps> = ({ title, onLogout, onDelete, onProfile
   <div className={styles.profile}>
     {isAnonymous
       ? (<Link className={styles.loginLink} to={routes.login}>{title}</Link>)
-      : (<button className={styles.menuButton} type="button" onClick={onProfileClick}>{title}</button>)}
+      : (<button className={classNames('btn btn-outline-secondary btn-sm', styles.menuButton)} type="button" onClick={onProfileClick}>{title}</button>)}
 
     <div className={styles.overlay} />
     <div className={classNames(styles.menu, {
