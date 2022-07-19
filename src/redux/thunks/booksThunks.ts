@@ -3,10 +3,10 @@ import { storage, keys } from 'utils';
 
 import { fetchBookByBookId, fetchBooks } from '../../api';
 import { TBookInfo } from '../../types';
-import { EReducersNames } from '../reducersNames';
+import { ESlicesNames } from '../slicesNames';
 
 export const getBooks = createAsyncThunk(
-  `${EReducersNames.books}/getBooks`,
+  `${ESlicesNames.books}/getBooks`,
   async () => {
     const books = await fetchBooks();
 
@@ -16,7 +16,7 @@ export const getBooks = createAsyncThunk(
 );
 
 export const getBookById = createAsyncThunk(
-  `${EReducersNames.bookDetails}/getBookById`,
+  `${ESlicesNames.bookDetails}/getBookById`,
   async (bookId: TBookInfo['id']) => {
     const book = await fetchBookByBookId(bookId);
 

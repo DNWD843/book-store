@@ -4,15 +4,15 @@ import { createUser, loginUserByEmail } from '../../api';
 import { loginAnonymously, logout } from '../../api/authApi';
 import { TFormState } from '../../hooks/useAuthForm';
 import { storage, keys } from '../../utils';
-import { EReducersNames } from '../reducersNames';
+import { ESlicesNames } from '../slicesNames';
 
 export const registerUser = createAsyncThunk(
-  `${[EReducersNames.auth]}/registerUser`,
+  `${[ESlicesNames.auth]}/registerUser`,
   async (data: TFormState['values']) => createUser(data),
 );
 
 export const loginUser = createAsyncThunk(
-  `${[EReducersNames.auth]}/loginUser`,
+  `${[ESlicesNames.auth]}/loginUser`,
   async (data: TFormState['values']) => {
     const user = await loginUserByEmail(data);
 
@@ -22,12 +22,12 @@ export const loginUser = createAsyncThunk(
 );
 
 export const logoutUser = createAsyncThunk(
-  `${[EReducersNames.auth]}/logout`,
+  `${[ESlicesNames.auth]}/logout`,
   async () => logout().then(() => { storage.deleteData(keys.REGISTERED_USER); }),
 );
 
 export const loginUserAnonymously = createAsyncThunk(
-  `${[EReducersNames.auth]}/loginUserAnonymously`,
+  `${[ESlicesNames.auth]}/loginUserAnonymously`,
   async () => {
     const user = await loginAnonymously();
     storage.setData(keys.ANONYMOUS_USER, user);

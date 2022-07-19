@@ -2,7 +2,7 @@ import { createSlice, Draft, PayloadAction } from '@reduxjs/toolkit';
 
 import { EFetchStatuses } from '../../enums';
 import { TBookInfo } from '../../types';
-import { EReducersNames } from '../reducersNames';
+import { ESlicesNames } from '../slicesNames';
 import { getBooks } from '../thunks';
 
 export type TBooksCollection = TBookInfo[] | null;
@@ -20,7 +20,7 @@ const initialState: IBooksState = {
 };
 
 const booksSlice = createSlice({
-  name: EReducersNames.books,
+  name: ESlicesNames.books,
   initialState,
   reducers: {
     showCardTooltip: (state: Draft<IBooksState>, action: PayloadAction<string>) => {

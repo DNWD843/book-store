@@ -10,8 +10,8 @@
 .overlay {
   position: absolute;
   top: -20px;
-  left: -2px;
-  right: -2px;
+  left: -5px;
+  right: -5px;
   bottom: -50px;
   background-color: var(--light-grey);
   z-index: 10;
@@ -27,7 +27,7 @@
 
 .menu {
   position: absolute;
-  top: -180px;
+  top: -200px;
   left: 0;
   right: 0;
 

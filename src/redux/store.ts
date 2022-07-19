@@ -5,12 +5,14 @@ import { TBookInfo } from '../types';
 import authReducer, { IAuthState } from './slices/authSlice';
 import bookDetailsReducer, { TBookDetailsState } from './slices/bookDetailsSlice';
 import booksReducer, { IBooksState } from './slices/booksSlice';
+import profileReducer, { IProfileState } from './slices/profileSlice';
 
 export const store = configureStore({
   reducer: {
     books: booksReducer,
     bookDetails: bookDetailsReducer,
     auth: authReducer,
+    profile: profileReducer,
   },
 });
 
@@ -31,3 +33,4 @@ export const selectBookDetails = (state: RootState): TBookDetailsState['book'] =
 export const selectAuthError = (state: RootState): IAuthState['authError'] => state.auth.authError;
 export const selectAuthStatus = (state: RootState): IAuthState['status'] => state.auth.status;
 export const selectUserProfile = (state: RootState): IAuthState['userData'] => state.auth.userData;
+export const selectProfileMenuState = (state: RootState): IProfileState['isMenuOpened'] => state.profile.isMenuOpened;
