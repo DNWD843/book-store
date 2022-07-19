@@ -5,4 +5,5 @@ export type TProfileProps = {
   onProfileClick: () => void,
   isMenuOpened: boolean,
   isAnonymous: boolean,
+  photoUrl: string,
 };

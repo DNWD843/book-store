@@ -10,7 +10,7 @@ export const getBooks = createAsyncThunk(
   async () => {
     const books = await fetchBooks();
 
-    storage.setData(keys.BOOKS, books || []);
+    storage.setData(keys.BOOKS, books);
     return books;
   },
 );

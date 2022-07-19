@@ -5,6 +5,7 @@ import { profileActions } from '../../redux/slices/profileSlice';
 import { selectProfileMenuState, selectUserData } from '../../redux/store';
 import { auth } from '../../redux/thunks';
 import { keys, storage } from '../../utils';
+import ava from '../../vendor/images/ava_cat.jpg';
 
 import { Profile } from './Profile';
 
@@ -16,7 +17,7 @@ const ProfileComponent: React.FC = () => {
   const handleClickOnMenuButton = () => { dispatch(profileActions.toggleMenu()); };
   const title = userData?.isAnonymous
     ? 'Привет, Незнакомец'
-    : `Привет, ${userData?.displayName || 'Безымянный Гость'}`;
+    : userData?.displayName || 'Безымянный Гость';
 
   const handleLogout = async () => {
     storage.deleteData(keys.REGISTERED_USER);
@@ -28,6 +29,7 @@ const ProfileComponent: React.FC = () => {
     <Profile
       isAnonymous={userData?.isAnonymous ?? true}
       isMenuOpened={isMenuOpened}
+      photoUrl={userData?.photoURL || ava}
       title={title}
       onDelete={() => {}}
       onLogout={handleLogout}

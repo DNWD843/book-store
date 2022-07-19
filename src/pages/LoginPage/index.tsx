@@ -16,9 +16,9 @@ const LoginPageComponent: React.FC = () => {
   const { clearAuthError } = authActions;
   const loginError = useAppSelector(selectAuthError);
 
-  const handleSubmit = ({ email, password }: TFormState['values']) => {
+  const handleSubmit = async ({ email, password }: TFormState['values']) => {
     dispatch(clearAuthError());
-    dispatch(auth.loginUser({ email, password }))
+    await dispatch(auth.loginUser({ email, password }))
       .then((res) => {
         if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
           navigate(routes.books);
