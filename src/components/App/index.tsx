@@ -39,7 +39,7 @@ const AppComponent: React.FC = () => {
 
   if (authStatus === EFetchStatuses.pending || booksStatus === EFetchStatuses.pending) {
     return (
-      <div style={{ height: '100vh', display: 'flex', alignContent: 'center', justifyContent: 'center' }}>
+      <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <ContentLoader />
       </div>
     );
