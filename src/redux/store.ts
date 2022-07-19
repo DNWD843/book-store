@@ -32,5 +32,5 @@ export const selectBookDetailsFetchingStatus = (state: RootState): TBookDetailsS
 export const selectBookDetails = (state: RootState): TBookDetailsState['book'] => state.bookDetails.book;
 export const selectAuthError = (state: RootState): IAuthState['authError'] => state.auth.authError;
 export const selectAuthStatus = (state: RootState): IAuthState['status'] => state.auth.status;
-export const selectUserProfile = (state: RootState): IAuthState['userData'] => state.auth.userData;
+export const selectUserData = (state: RootState): IAuthState['userData'] => state.auth.userData;
 export const selectProfileMenuState = (state: RootState): IProfileState['isMenuOpened'] => state.profile.isMenuOpened;

@@ -8,10 +8,11 @@ import { TProfileProps } from './Profile.props';
 
 import styles from './Profile.module.css';
 
-const Profile: React.FC<TProfileProps> = ({ title, onLogout, onDelete, onProfileClick, isMenuOpened }) => (
+const Profile: React.FC<TProfileProps> = ({ title, onLogout, onDelete, onProfileClick, isMenuOpened, isAnonymous }) => (
   <div className={styles.profile}>
-    <Link className={styles.loginLink} to={routes.login}>{title}</Link>
-    <button className={styles.menuButton} type="button" onClick={onProfileClick}>{title}</button>
+    {isAnonymous
+      ? (<Link className={styles.loginLink} to={routes.login}>{title}</Link>)
+      : (<button className={styles.menuButton} type="button" onClick={onProfileClick}>{title}</button>)}
 
     <div className={styles.overlay} />
     <div className={classNames(styles.menu, {

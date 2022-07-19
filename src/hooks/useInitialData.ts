@@ -2,13 +2,13 @@ import { EFetchStatuses } from '../enums';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { authActions, TUserData } from '../redux/slices/authSlice';
 import { booksActions, TBooksCollection } from '../redux/slices/booksSlice';
-import { selectBooks, selectUserProfile } from '../redux/store';
+import { selectBooks, selectUserData } from '../redux/store';
 import { getBooks, auth } from '../redux/thunks';
 import { keys, storage } from '../utils';
 
 export const useInitialData = ({ authStatus, booksStatus }: { authStatus: EFetchStatuses, booksStatus: EFetchStatuses }) => {
   const dispatch = useAppDispatch();
-  const user = useAppSelector(selectUserProfile);
+  const user = useAppSelector(selectUserData);
   const books = useAppSelector(selectBooks);
   const { setUserToStore } = authActions;
   const { setBooksToStore } = booksActions;
@@ -17,7 +17,7 @@ export const useInitialData = ({ authStatus, booksStatus }: { authStatus: EFetch
   const savedAnonymousUser: TUserData = storage.getData(keys.ANONYMOUS_USER);
   const savedBooks: TBooksCollection = storage.getData(keys.BOOKS);
 
-  if (savedRegisteredUser && authStatus === EFetchStatuses.fulfilled) {
+  if (savedRegisteredUser && (!user || user?.isAnonymous) && authStatus === EFetchStatuses.fulfilled) {
     dispatch(setUserToStore(savedRegisteredUser));
   } else if (!savedAnonymousUser && authStatus === EFetchStatuses.fulfilled) {
     dispatch(auth.loginUserAnonymously());

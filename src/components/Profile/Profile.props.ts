@@ -4,4 +4,5 @@ export type TProfileProps = {
   onDelete: () => void,
   onProfileClick: () => void,
   isMenuOpened: boolean,
+  isAnonymous: boolean,
 };
