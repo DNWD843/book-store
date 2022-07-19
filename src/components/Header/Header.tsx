@@ -5,6 +5,7 @@ import { routes } from '../../routesMap';
 import { BookSearch } from '../BookSearch';
 import { DateWidget } from '../DateWidget';
 import { NavLinks } from '../NavLinks';
+import { ProfileComponent } from '../Profile';
 
 import styles from './Header.module.css';
 
@@ -23,7 +24,9 @@ const Header: React.FC = () => (
         <Route element={<></>} path={routes.favorites} />
       </Routes>
     </div>
-    <div className={styles.profile}>HOC ProtectedRoute</div>
+    <div className={styles.profile}>
+      <ProfileComponent />
+    </div>
     <nav className={styles.navLinks}>
       <NavLinks />
     </nav>

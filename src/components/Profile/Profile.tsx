@@ -1,0 +1,39 @@
+import classNames from 'classnames';
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+import { routes } from '../../routesMap';
+
+import { TProfileProps } from './Profile.props';
+
+import styles from './Profile.module.css';
+
+const Profile: React.FC<TProfileProps> = ({ title, onLogout, onDelete, onProfileClick, isMenuOpened }) => (
+  <div className={styles.profile}>
+    <Link className={styles.loginLink} to={routes.login}>{title}</Link>
+    <button className={styles.menuButton} type="button" onClick={onProfileClick}>{title}</button>
+
+    <div className={styles.overlay} />
+    <div className={classNames(styles.menu, {
+      [styles.isMenuOpened]: isMenuOpened,
+    })}
+    >
+      <nav className={styles.navLinks}>
+        <li>
+          <Link className={styles.link} to={routes.profile}>Данные профиля</Link>
+        </li>
+        <li>
+          <Link className={styles.link} to={routes.shoppingHistory}>История покупок</Link>
+        </li>
+      </nav>
+      <div className={styles.buttons}>
+        <button className={classNames('btn btn-outline-secondary btn-sm', styles.button)} type="button" onClick={onLogout}>Выйти</button>
+        <button className={classNames('btn btn-outline-danger btn-sm', styles.button)} type="button" onClick={onDelete}>Удалить аккаунт</button>
+      </div>
+    </div>
+  </div>
+);
+
+Profile.displayName = 'Profile';
+
+export { Profile };

@@ -48,5 +48,6 @@
 .dateWidget {
   grid-column: profile/end;
   grid-row: 2;
+  z-index: 20;
 }
 
