@@ -20,15 +20,18 @@ const AppComponent: React.FC = () => {
   const { setUserToStore } = authActions;
   const { setBooksToStore } = booksActions;
 
-  const savedUser: TUserData = storage.getData(keys.USER);
+  const savedRegisteredUser: TUserData = storage.getData(keys.REGISTERED_USER);
+  const savedAnonymousUser: TUserData = storage.getData(keys.ANONYMOUS_USER);
   const savedBooks: TBooksCollection = storage.getData(keys.BOOKS);
   const authStatus = useAppSelector(selectAuthStatus);
   const booksStatus = useAppSelector(selectBooksFetchingStatus);
 
-  if (!savedUser && authStatus === EFetchStatuses.fulfilled) {
+  if (savedRegisteredUser && authStatus === EFetchStatuses.fulfilled) {
+    dispatch(setUserToStore(savedRegisteredUser));
+  } else if (!savedAnonymousUser && authStatus === EFetchStatuses.fulfilled) {
     dispatch(auth.loginUserAnonymously());
   } else if (!user && authStatus === EFetchStatuses.fulfilled) {
-    dispatch(setUserToStore(savedUser));
+    dispatch(setUserToStore(savedAnonymousUser));
   }
 
   if (!savedBooks && booksStatus === EFetchStatuses.fulfilled) {

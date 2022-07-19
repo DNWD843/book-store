@@ -16,21 +16,21 @@ export const loginUser = createAsyncThunk(
   async (data: TFormState['values']) => {
     const user = await loginUserByEmail(data);
 
-    storage.setData(keys.USER, user);
+    storage.setData(keys.REGISTERED_USER, user);
     return user;
   },
 );
 
 export const logoutUser = createAsyncThunk(
   `${[EReducersNames.auth]}/logout`,
-  async () => logout().then(() => { storage.deleteData(keys.USER); }),
+  async () => logout().then(() => { storage.deleteData(keys.REGISTERED_USER); }),
 );
 
 export const loginUserAnonymously = createAsyncThunk(
   `${[EReducersNames.auth]}/loginUserAnonymously`,
   async () => {
     const user = await loginAnonymously();
-    storage.setData(keys.USER, user);
+    storage.setData(keys.ANONYMOUS_USER, user);
     return user;
   },
 );
