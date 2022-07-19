@@ -21,7 +21,7 @@ export const getBookById = createAsyncThunk(
     const book = await fetchBookByBookId(bookId);
 
     if (book && book.id) {
-      storage.setData(keys.SELECTED_BOOKS, { ...storage.getData(keys.SELECTED_BOOKS), [book.id]: book });
+      storage.setData(keys.VIEWED_BOOKS, { ...storage.getData(keys.VIEWED_BOOKS), [book.id]: book });
     }
 
     return book;
