@@ -1,2 +1,2 @@
 export { getBooks, getBookById } from './booksThunks';
-export { registerUser, loginUser } from './authThunks';
+export * as auth from './authThunks';

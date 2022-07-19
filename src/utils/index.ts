@@ -1,1 +1,1 @@
-export { createRelativePathToHomePageFromCurrentLocation } from './createRelativePathToHomePageFromCurrentLocation';
+export { storage, keys } from './localStorage';
