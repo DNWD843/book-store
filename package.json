@@ -14,6 +14,8 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/uuid": "^8.3.4",
     "firebase": "^9.9.0",
+    "react-redux-firebase": "^3.11.0",
+    "redux-firestore":  "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.2",
