@@ -1,10 +1,11 @@
+import { ONE_DAY_TIMESTAMP } from '../constants';
 import { EFetchStatuses } from '../enums';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { authActions, TUserData } from '../redux/slices/authSlice';
 import { booksActions, TBooksCollection } from '../redux/slices/booksSlice';
 import { selectBooksCollection, selectUserData } from '../redux/store';
 import { auth, getBooks } from '../redux/thunks';
-import { keys, storage } from '../utils';
+import { checkNeedToDataUpdate, keys, storage } from '../utils';
 
 export const useInitialData = ({ authStatus, booksStatus }: { authStatus: EFetchStatuses, booksStatus: EFetchStatuses }) => {
   const dispatch = useAppDispatch();
@@ -28,7 +29,7 @@ export const useInitialData = ({ authStatus, booksStatus }: { authStatus: EFetch
 
   if (
     (!savedBooks && !booksCollectionInStore)
-    || (savedBooks && ((Date.now() - savedBooks.updatedAt) > 86400000))
+    || (savedBooks && (checkNeedToDataUpdate({ date: savedBooks.updatedAt, limit: ONE_DAY_TIMESTAMP })))
   ) {
     dispatch(getBooks()).then((res) => {
       storage.setData(keys.BOOKS, res.payload);

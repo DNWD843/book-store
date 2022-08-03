@@ -20,7 +20,7 @@ const ProfileComponent: React.FC = () => {
     : userData?.displayName || 'Безымянный Гость';
 
   const handleLogout = async () => {
-    storage.deleteData(keys.REGISTERED_USER);
+    storage.deleteData(keys.USER);
     await dispatch(auth.logoutUser());
     dispatch(profileActions.toggleMenu());
   };

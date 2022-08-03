@@ -1,10 +1,11 @@
 import React from 'react';
 
+import { ONE_DAY_TIMESTAMP } from '../../constants';
 import { EFetchStatuses } from '../../enums';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { selectBooksCollection, selectBooksFetchingStatus } from '../../redux/store';
 import { getBooks } from '../../redux/thunks';
-import { keys, storage } from '../../utils';
+import { checkNeedToDataUpdate, keys, storage } from '../../utils';
 import { Card } from '../Card';
 import { ContentLoader } from '../ContentLoader';
 
@@ -14,7 +15,6 @@ const CardsComponent: React.FC = () => {
   const dispatch = useAppDispatch();
   const booksCollection = useAppSelector(selectBooksCollection);
   const fetchBooksStatus = useAppSelector(selectBooksFetchingStatus);
-  const booksStatus = useAppSelector(selectBooksFetchingStatus);
 
   if (fetchBooksStatus === EFetchStatuses.pending) {
     return (<ContentLoader />);
@@ -22,18 +22,12 @@ const CardsComponent: React.FC = () => {
 
   if (!booksCollection) return null;
 
-  if ((Date.now() - booksCollection.updatedAt) > 86400000) {
+  const needsToUpdate = checkNeedToDataUpdate({ date: booksCollection.updatedAt, limit: ONE_DAY_TIMESTAMP });
+
+  if (needsToUpdate) {
     dispatch(getBooks()).then((res) => {
       storage.setData(keys.BOOKS, res.payload);
     });
-  }
-
-  if (booksStatus === EFetchStatuses.pending) {
-    return (
-      <div style={{ height: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <ContentLoader />
-      </div>
-    );
   }
 
   return (
