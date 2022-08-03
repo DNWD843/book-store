@@ -5,6 +5,7 @@ export const routes: Record<string, string> = {
   shoppingCart: '/cart',
   favorites: '/favorites',
   profile: '/profile',
+  shoppingHistory: '/history',
   login: '/login',
   register: '/register',
   notFound: '*',

@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { EFetchStatuses } from '../../enums';
 import { TUser } from '../../types';
-import { EReducersNames } from '../reducersNames';
+import { ESlicesNames } from '../slicesNames';
 import { auth } from '../thunks';
 import { loginUserAnonymously, logoutUser } from '../thunks/authThunks';
 
@@ -14,15 +14,15 @@ export interface IAuthState {
   userData: TUserData,
 }
 
-const userDefault: TUser = {
-  userId: null,
-  email: null,
-  displayName: null,
-  phoneNumber: null,
-  photoURL: null,
-  isAnonymous: false,
-  isAdmin: false,
-};
+// const userDefault: TUser = {
+//   userId: null,
+//   email: null,
+//   displayName: null,
+//   phoneNumber: null,
+//   photoURL: null,
+//   isAnonymous: false,
+//   isAdmin: false,
+// };
 
 const initialState: IAuthState = {
   status: EFetchStatuses.fulfilled,
@@ -31,7 +31,7 @@ const initialState: IAuthState = {
 };
 
 const authSlice = createSlice({
-  name: EReducersNames.auth,
+  name: ESlicesNames.auth,
   initialState,
   reducers: {
     clearAuthError: (state) => { state.authError = ''; },
@@ -77,7 +77,7 @@ const authSlice = createSlice({
       })
       .addCase(logoutUser.fulfilled, (state) => {
         state.status = EFetchStatuses.fulfilled;
-        state.userData = userDefault;
+        state.userData = null;
         state.authError = '';
       });
 

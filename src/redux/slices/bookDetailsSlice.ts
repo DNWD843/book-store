@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { EFetchStatuses } from '../../enums';
 import { TBookInfo } from '../../types';
-import { EReducersNames } from '../reducersNames';
+import { ESlicesNames } from '../slicesNames';
 import { getBookById } from '../thunks';
 
 export type TBookDetailsState = {
@@ -16,7 +16,7 @@ const initialState: TBookDetailsState = {
 };
 
 const bookDetailsSlice = createSlice({
-  name: EReducersNames.bookDetails,
+  name: ESlicesNames.bookDetails,
   initialState,
   reducers: {
     clearBookDetailsState: (state) => {
