@@ -49,7 +49,7 @@ unknown,
 Action<string>
 >;
 
-export const selectBooks = (state: RootState): TBookInfo[] | null => state.books.booksCollection;
+export const selectBooks = (state: RootState): TBookInfo[] | null => (state.books.booksCollection ? state.books.booksCollection.books : null);
 export const selectBooksFetchingStatus = (state: RootState): IBooksState['status'] => state.books.status;
 export const selectActiveCardId = (state:RootState): IBooksState['activeCardId'] => state.books.activeCardId;
 export const selectBookDetailsFetchingStatus = (state: RootState): TBookDetailsState['status'] => state.bookDetails.status;

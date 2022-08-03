@@ -5,7 +5,10 @@ import { TBookInfo } from '../../types';
 import { ESlicesNames } from '../slicesNames';
 import { getBooks } from '../thunks';
 
-export type TBooksCollection = TBookInfo[] | null;
+export type TBooksCollection = {
+  books: TBookInfo[],
+  updatedAt: number,
+} | null;
 
 export interface IBooksState {
   status: EFetchStatuses;

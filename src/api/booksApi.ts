@@ -2,6 +2,7 @@ import { collection, getDocs, setDoc, doc, getDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
 import { db } from '../firebase';
+import { TBooksCollection } from '../redux/slices/booksSlice';
 import { ESlicesNames } from '../redux/slicesNames';
 import { TBookInfo } from '../types';
 
@@ -15,10 +16,16 @@ export const setBooksCollection = async (booksCollection: TBookInfo[]) => {
   });
 };
 
-export const fetchBooks = async (): Promise<TBookInfo[]> => {
+export const fetchBooks = async (): Promise<TBooksCollection> => {
   try {
     const querySnapshot = await getDocs(collection(db, ESlicesNames.books));
-    return querySnapshot.docs.map((document) => document.data() as unknown as TBookInfo);
+
+    const books = querySnapshot.docs.map((document) => document.data() as unknown as TBookInfo);
+
+    return ({
+      books,
+      updatedAt: new Date().getTime(),
+    });
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);

@@ -13,22 +13,28 @@ export const useInitialData = ({ authStatus, booksStatus }: { authStatus: EFetch
   const userInStore = useAppSelector(selectUserData);
   const booksInStore = useAppSelector(selectBooks);
 
+  if (booksStatus !== EFetchStatuses.fulfilled || authStatus !== EFetchStatuses.fulfilled) return;
+
   const savedUser = storage.getData<TUserData>(keys.USER);
   const savedBooks = storage.getData<TBooksCollection>(keys.BOOKS);
 
-  if (savedUser && !userInStore) {
-    dispatch(setUserToStore(savedUser));
-  } else if (!userInStore && authStatus === EFetchStatuses.fulfilled) {
+  if (!savedUser && !userInStore) {
     dispatch(auth.loginUserAnonymously()).then((res) => {
       storage.setData(keys.USER, res.payload);
     });
+  } else if (savedUser && !userInStore) {
+    dispatch(setUserToStore(savedUser));
   }
 
-  if (savedBooks && !booksInStore) {
-    dispatch(setBooksToStore(savedBooks));
-  } else if (!booksInStore && booksStatus === EFetchStatuses.fulfilled) {
+  if (!savedBooks && !booksInStore) {
     dispatch(getBooks()).then((res) => {
       storage.setData(keys.BOOKS, res.payload);
     });
+  } else if (savedBooks && ((Date.now() - savedBooks.updatedAt) > 86400000)) {
+    dispatch(getBooks()).then((res) => {
+      storage.setData(keys.BOOKS, res.payload);
+    });
+  } else if (savedBooks && !booksInStore) {
+    dispatch(setBooksToStore(savedBooks));
   }
 };
