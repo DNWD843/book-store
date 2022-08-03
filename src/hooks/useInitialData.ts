@@ -2,7 +2,7 @@ import { EFetchStatuses } from '../enums';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { authActions, TUserData } from '../redux/slices/authSlice';
 import { booksActions, TBooksCollection } from '../redux/slices/booksSlice';
-import { selectBooks, selectUserData } from '../redux/store';
+import { selectBooksCollection, selectUserData } from '../redux/store';
 import { auth, getBooks } from '../redux/thunks';
 import { keys, storage } from '../utils';
 
@@ -11,7 +11,7 @@ export const useInitialData = ({ authStatus, booksStatus }: { authStatus: EFetch
   const { setUserToStore } = authActions;
   const { setBooksToStore } = booksActions;
   const userInStore = useAppSelector(selectUserData);
-  const booksInStore = useAppSelector(selectBooks);
+  const booksCollectionInStore = useAppSelector(selectBooksCollection);
 
   if (booksStatus !== EFetchStatuses.fulfilled || authStatus !== EFetchStatuses.fulfilled) return;
 
@@ -27,13 +27,13 @@ export const useInitialData = ({ authStatus, booksStatus }: { authStatus: EFetch
   }
 
   if (
-    (!savedBooks && !booksInStore)
+    (!savedBooks && !booksCollectionInStore)
     || (savedBooks && ((Date.now() - savedBooks.updatedAt) > 86400000))
   ) {
     dispatch(getBooks()).then((res) => {
       storage.setData(keys.BOOKS, res.payload);
     });
-  } else if (savedBooks && !booksInStore) {
+  } else if (savedBooks && !booksCollectionInStore) {
     dispatch(setBooksToStore(savedBooks));
   }
 };

@@ -5,11 +5,9 @@ import {
 } from 'react-redux-firebase';
 import { constants as rfConstants } from 'redux-firestore';
 
-import { TBookInfo } from '../types';
-
 import authReducer, { IAuthState } from './slices/authSlice';
 import bookDetailsReducer, { TBookDetailsState } from './slices/bookDetailsSlice';
-import booksReducer, { IBooksState } from './slices/booksSlice';
+import booksReducer, { IBooksState, TBooksCollection } from './slices/booksSlice';
 import profileReducer, { IProfileState } from './slices/profileSlice';
 
 export const store = configureStore({
@@ -49,7 +47,7 @@ unknown,
 Action<string>
 >;
 
-export const selectBooks = (state: RootState): TBookInfo[] | null => (state.books.booksCollection ? state.books.booksCollection.books : null);
+export const selectBooksCollection = (state: RootState): TBooksCollection => state.books.booksCollection;
 export const selectBooksFetchingStatus = (state: RootState): IBooksState['status'] => state.books.status;
 export const selectActiveCardId = (state:RootState): IBooksState['activeCardId'] => state.books.activeCardId;
 export const selectBookDetailsFetchingStatus = (state: RootState): TBookDetailsState['status'] => state.bookDetails.status;
