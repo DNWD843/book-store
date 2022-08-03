@@ -26,11 +26,10 @@ export const useInitialData = ({ authStatus, booksStatus }: { authStatus: EFetch
     dispatch(setUserToStore(savedUser));
   }
 
-  if (!savedBooks && !booksInStore) {
-    dispatch(getBooks()).then((res) => {
-      storage.setData(keys.BOOKS, res.payload);
-    });
-  } else if (savedBooks && ((Date.now() - savedBooks.updatedAt) > 86400000)) {
+  if (
+    (!savedBooks && !booksInStore)
+    || (savedBooks && ((Date.now() - savedBooks.updatedAt) > 86400000))
+  ) {
     dispatch(getBooks()).then((res) => {
       storage.setData(keys.BOOKS, res.payload);
     });
