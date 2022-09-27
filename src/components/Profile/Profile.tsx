@@ -25,9 +25,11 @@ const Profile: React.FC<TProfileProps> = ({ title, onLogout, onDelete, onProfile
       )}
 
     <div className={styles.overlay} />
-    <div className={classNames(styles.menu, {
-      [styles.isMenuOpened]: isMenuOpened,
-    })}
+    <div
+      className={classNames(styles.menu, {
+        [styles.isMenuOpened]: isMenuOpened,
+      })}
+      onMouseLeave={onProfileClick}
     >
       <nav className={styles.navLinks}>
         <li>

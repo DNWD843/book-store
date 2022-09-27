@@ -24,4 +24,5 @@ export type TUser = {
   photoURL: string | null,
   isAnonymous: boolean,
   isAdmin: false,
+  lastLoginAt: number,
 };

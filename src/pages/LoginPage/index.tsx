@@ -9,6 +9,7 @@ import { authActions } from '../../redux/slices/authSlice';
 import { selectAuthError } from '../../redux/store';
 import { auth } from '../../redux/thunks';
 import { routes } from '../../routesMap';
+import { storage, keys } from '../../utils/localStorage';
 
 const LoginPageComponent: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -23,6 +24,8 @@ const LoginPageComponent: React.FC = () => {
         if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
           navigate(routes.books);
         }
+
+        storage.setData(keys.USER, res.payload);
       });
   };
 

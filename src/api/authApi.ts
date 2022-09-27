@@ -28,6 +28,7 @@ export const loginUserByEmail = async ({ email, password }: TFormState['values']
       displayName,
       isAnonymous,
       isAdmin: false,
+      lastLoginAt: new Date().getTime(),
     };
   } catch (err) {
     // eslint-disable-next-line no-console
@@ -59,6 +60,7 @@ export const loginAnonymously = async (): Promise<TUser> => {
       displayName,
       isAnonymous,
       isAdmin: false,
+      lastLoginAt: new Date().getTime(),
     };
   } catch (err) {
     // eslint-disable-next-line no-console

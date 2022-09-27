@@ -23,6 +23,8 @@ export const useInitialData = ({ authStatus, booksStatus }: { authStatus: EFetch
     dispatch(auth.loginUserAnonymously()).then((res) => {
       storage.setData(keys.USER, res.payload);
     });
+  } else if (savedUser && !savedUser.isAnonymous && checkNeedToDataUpdate({ date: savedUser.lastLoginAt, limit: ONE_DAY_TIMESTAMP })) {
+    dispatch(auth.logoutUser());
   } else if (savedUser && !userInStore) {
     dispatch(setUserToStore(savedUser));
   }
