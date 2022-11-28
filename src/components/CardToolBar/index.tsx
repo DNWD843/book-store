@@ -1,27 +1,33 @@
 import classNames from 'classnames';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useAppDispatch } from '../../redux/hooks';
+import { bookDetailsActions } from '../../redux/slices/bookDetailsSlice';
 import { booksActions } from '../../redux/slices/booksSlice';
-import { selectActiveCardId } from '../../redux/store';
+import { getSelectedBooks } from '../../redux/store';
 import { TBookInfo } from '../../types';
 
 import { CardToolBar } from './CardToolBar';
 
 import styles from './CardToolBar.module.css';
 
-const CardToolBarComponent: React.FC<TBookInfo> = ({ id, author, title, price }) => {
-  const { showCardTooltip, hideCardTooltip } = booksActions;
+const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
+  const { id, author, title, price } = props;
+  const { setBookDetails } = bookDetailsActions;
+  const { addBookToSelectedBooks, removeBookFromSelectedBooks } = booksActions;
+  const selectedBooks = useSelector(getSelectedBooks);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const mouseOverRef = useRef<boolean>(false);
+  const [visible, setVisible] = useState(false);
 
-  const showTooltip = (cardId: TBookInfo['id']) => () => {
+  const showTooltip = () => {
     mouseOverRef.current = true;
     const timerId = setTimeout(() => {
       if (mouseOverRef.current) {
-        dispatch(showCardTooltip(cardId));
+        setVisible(true);
       }
       clearTimeout(timerId);
     }, 400);
@@ -30,37 +36,42 @@ const CardToolBarComponent: React.FC<TBookInfo> = ({ id, author, title, price })
   const hideTooltip = () => {
     if (mouseOverRef.current) {
       mouseOverRef.current = false;
-      dispatch(hideCardTooltip());
+      setVisible(false);
     }
   };
 
-  const onBookClick = (bookId: TBookInfo['id']) => () => {
+  const onBookClick = (bookId: TBookInfo['id'], bookInfo: TBookInfo) => () => {
+    dispatch(setBookDetails(bookInfo));
     navigate(String(bookId));
   };
 
   // TODO: затипизировать evt
-  const onBookmarkClick = (evt: any) => {
+  const onBookmarkClick = (bookId: TBookInfo['id']) => (evt: any) => {
     evt.preventDefault();
     evt.stopPropagation();
+
+    if (selectedBooks.includes(id)) {
+      dispatch(removeBookFromSelectedBooks(id));
+    } else {
+      dispatch(addBookToSelectedBooks(bookId));
+    }
   };
+
   const onCartButtonClick = (evt: any) => {
     evt.preventDefault();
     evt.stopPropagation();
   };
 
-  const activeCardId = useAppSelector(selectActiveCardId);
-  const isTooltipVisible = activeCardId === id;
-
   return (
     <CardToolBar
       author={author}
-      className={classNames({ [styles.isVisible]: isTooltipVisible })}
+      className={classNames({ [styles.isVisible]: visible })}
       price={price}
       title={title}
-      onBookCardClick={onBookClick(id)}
-      onBookmarkButtonClick={onBookmarkClick}
+      onBookCardClick={onBookClick(id, props)}
+      onBookmarkButtonClick={onBookmarkClick(id)}
       onCartButtonClick={onCartButtonClick}
-      onMouseEnter={showTooltip(id)}
+      onMouseEnter={showTooltip}
       onMouseLeave={hideTooltip}
     />
   );

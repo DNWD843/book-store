@@ -1,3 +1,4 @@
+import { enableMapSet } from 'immer';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
@@ -8,6 +9,7 @@ import { ErrorBoundary } from './components/ErrorBoundry';
 import { AppErrorPage } from './pages/AppErrorPage';
 
 const root = createRoot(document.getElementById('root')!);
+enableMapSet();
 
 root.render(
   <React.StrictMode>

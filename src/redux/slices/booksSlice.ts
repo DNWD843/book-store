@@ -10,33 +10,43 @@ export type TBooksCollection = {
   updatedAt: number,
 } | null;
 
+export type TSelectedBooks = Array<TBookInfo['id']>;
+
 export interface IBooksState {
   status: EFetchStatuses;
   booksCollection: TBooksCollection;
-  activeCardId: string;
+  selectedBooks: TSelectedBooks;
+  // activeCardId: string;
 }
 
 const initialState: IBooksState = {
   status: EFetchStatuses.fulfilled,
   booksCollection: null,
-  activeCardId: '0',
+  selectedBooks: [],
+  // activeCardId: '0',
 };
 
 const booksSlice = createSlice({
   name: ESlicesNames.books,
   initialState,
   reducers: {
-    showCardTooltip: (state: Draft<IBooksState>, action: PayloadAction<string>) => {
-      state.activeCardId = action.payload;
-    },
-    hideCardTooltip: (state: Draft<IBooksState>) => {
-      state.activeCardId = '0';
-    },
+    // showCardTooltip: (state: Draft<IBooksState>, action: PayloadAction<string>) => {
+    //   state.activeCardId = action.payload;
+    // },
+    // hideCardTooltip: (state: Draft<IBooksState>) => {
+    //   state.activeCardId = '0';
+    // },
     clearBooksState: (state: Draft<IBooksState>) => {
       state.booksCollection = null;
     },
     setBooksToStore: (state, action: PayloadAction<TBooksCollection>) => {
       state.booksCollection = action.payload;
+    },
+    addBookToSelectedBooks: (state, { payload }: { payload: TBookInfo['id'] }) => {
+      state.selectedBooks = [...state.selectedBooks, payload];
+    },
+    removeBookFromSelectedBooks: (state, { payload }: { payload: TBookInfo['id'] }) => {
+      state.selectedBooks = state.selectedBooks.filter((id) => id !== payload);
     },
   },
   extraReducers: (builder) => {

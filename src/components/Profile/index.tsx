@@ -17,7 +17,7 @@ const ProfileComponent: React.FC = () => {
   const handleClickOnMenuButton = () => { dispatch(profileActions.toggleMenu()); };
   const title = userData?.isAnonymous
     ? 'Привет, Незнакомец'
-    : userData?.displayName || 'Безымянный Гость';
+    : userData?.displayName || 'Гость';
 
   const handleLogout = async () => {
     storage.deleteData(keys.USER);

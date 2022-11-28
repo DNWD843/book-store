@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { authActions, TUserData } from '../redux/slices/authSlice';
 import { booksActions, TBooksCollection } from '../redux/slices/booksSlice';
 import { selectBooksCollection, selectUserData } from '../redux/store';
-import { auth, getBooks } from '../redux/thunks';
+import { getBooks } from '../redux/thunks';
 import { checkNeedToDataUpdate, keys, storage } from '../utils';
 
 export const useInitialData = ({ authStatus, booksStatus }: { authStatus: EFetchStatuses, booksStatus: EFetchStatuses }) => {
@@ -19,15 +19,18 @@ export const useInitialData = ({ authStatus, booksStatus }: { authStatus: EFetch
   const savedUser = storage.getData<TUserData>(keys.USER);
   const savedBooks = storage.getData<TBooksCollection>(keys.BOOKS);
 
-  if (!savedUser && !userInStore) {
-    dispatch(auth.loginUserAnonymously()).then((res) => {
-      storage.setData(keys.USER, res.payload);
-    });
-  } else if (savedUser && !savedUser.isAnonymous && checkNeedToDataUpdate({ date: savedUser.lastLoginAt, limit: ONE_DAY_TIMESTAMP })) {
-    dispatch(auth.logoutUser());
-  } else if (savedUser && !userInStore) {
+  if (savedUser && !userInStore) {
     dispatch(setUserToStore(savedUser));
   }
+  // if (!savedUser && !userInStore) {
+  //   dispatch(auth.loginUserAnonymously()).then((res) => {
+  //     storage.setData(keys.USER, res.payload);
+  //   });
+  // } else if (savedUser && !savedUser.isAnonymous && checkNeedToDataUpdate({ date: savedUser.lastLoginAt, limit: ONE_DAY_TIMESTAMP })) {
+  //   dispatch(auth.logoutUser());
+  // } else if (savedUser && !userInStore) {
+  //   dispatch(setUserToStore(savedUser));
+  // }
 
   if (
     (!savedBooks && !booksCollectionInStore)
