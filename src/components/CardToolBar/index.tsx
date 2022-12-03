@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch } from '../../redux/hooks';
-import { bookDetailsActions } from '../../redux/slices/bookDetailsSlice';
 import { booksActions } from '../../redux/slices/booksSlice';
 import { getSelectedBooks } from '../../redux/store';
 import { TBookInfo } from '../../types';
@@ -15,7 +14,6 @@ import styles from './CardToolBar.module.css';
 
 const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
   const { id, author, title, price } = props;
-  const { setBookDetails } = bookDetailsActions;
   const { addBookToSelectedBooks, removeBookFromSelectedBooks } = booksActions;
   const selectedBooks = useSelector(getSelectedBooks);
   const dispatch = useAppDispatch();
@@ -40,8 +38,7 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
     }
   };
 
-  const onBookClick = (bookId: TBookInfo['id'], bookInfo: TBookInfo) => () => {
-    dispatch(setBookDetails(bookInfo));
+  const onBookClick = (bookId: TBookInfo['id']) => () => {
     navigate(String(bookId));
   };
 
@@ -68,7 +65,7 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
       className={classNames({ [styles.isVisible]: visible })}
       price={price}
       title={title}
-      onBookCardClick={onBookClick(id, props)}
+      onBookCardClick={onBookClick(id)}
       onBookmarkButtonClick={onBookmarkClick(id)}
       onCartButtonClick={onCartButtonClick}
       onMouseEnter={showTooltip}

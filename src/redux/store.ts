@@ -6,7 +6,7 @@ import {
 import { constants as rfConstants } from 'redux-firestore';
 
 import authReducer, { IAuthState } from './slices/authSlice';
-import bookDetailsReducer, { TBookDetailsState } from './slices/bookDetailsSlice';
+import bookDetailsReducer from './slices/bookDetailsSlice';
 import booksReducer, { IBooksState, TBooksCollection, TSelectedBooks } from './slices/booksSlice';
 import profileReducer, { IProfileState } from './slices/profileSlice';
 
@@ -52,7 +52,7 @@ export const selectBooksFetchingStatus = (state: RootState): IBooksState['status
 export const getSelectedBooks = (state: RootState): TSelectedBooks => state.books.selectedBooks;
 // export const selectActiveCardId = (state:RootState): IBooksState['activeCardId'] => state.books.activeCardId;
 // export const selectBookDetailsFetchingStatus = (state: RootState): TBookDetailsState['status'] => state.bookDetails.status;
-export const selectBookDetails = (state: RootState): TBookDetailsState['book'] => state.bookDetails.book;
+// export const selectBookDetails = (state: RootState): TBookDetailsState['book'] => state.bookDetails.book;
 export const selectAuthError = (state: RootState): IAuthState['authError'] => state.auth.authError;
 export const selectAuthStatus = (state: RootState): IAuthState['status'] => state.auth.status;
 export const selectUserData = (state: RootState): IAuthState['userData'] => state.auth.userData;

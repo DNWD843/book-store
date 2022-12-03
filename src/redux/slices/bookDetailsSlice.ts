@@ -19,9 +19,9 @@ const bookDetailsSlice = createSlice({
   name: ESlicesNames.bookDetails,
   initialState,
   reducers: {
-    setBookDetails: (state, { payload }) => {
-      state.book = payload;
-    },
+    // setBookDetails: (state, { payload }) => {
+    //   state.book = payload;
+    // },
     // clearBookDetailsState: (state) => {
     //   state.book = null;
     // },
