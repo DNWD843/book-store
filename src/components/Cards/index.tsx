@@ -3,7 +3,7 @@ import React from 'react';
 import { ONE_DAY_TIMESTAMP } from '../../constants';
 import { EFetchStatuses } from '../../enums';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { selectBooksCollection, selectBooksFetchingStatus } from '../../redux/store';
+import { selectBooksCollection, selectBooksFetchingStatus, selectFetchingDate } from '../../redux/store';
 import { getBooks } from '../../redux/thunks';
 import { checkNeedToDataUpdate, keys, storage } from '../../utils';
 import { Card } from '../Card';
@@ -14,6 +14,7 @@ import styles from './Cards.module.css';
 const CardsComponent: React.FC = () => {
   const dispatch = useAppDispatch();
   const booksCollection = useAppSelector(selectBooksCollection);
+  const booksFetchingDate = useAppSelector(selectFetchingDate);
   const fetchBooksStatus = useAppSelector(selectBooksFetchingStatus);
 
   if (fetchBooksStatus === EFetchStatuses.pending) {
@@ -22,7 +23,7 @@ const CardsComponent: React.FC = () => {
 
   if (!booksCollection) return null;
 
-  const needsToUpdate = checkNeedToDataUpdate({ date: booksCollection.updatedAt, limit: ONE_DAY_TIMESTAMP });
+  const needsToUpdate = checkNeedToDataUpdate({ date: booksFetchingDate!, limit: ONE_DAY_TIMESTAMP });
 
   if (needsToUpdate) {
     dispatch(getBooks()).then((res) => {
@@ -32,7 +33,7 @@ const CardsComponent: React.FC = () => {
 
   return (
     <ul className={styles.list}>
-      {booksCollection.books.map((book) => (
+      {booksCollection.map((book) => (
         <li className={styles.listItem} key={book.id.toString()}>
           <Card {...book} />
         </li>

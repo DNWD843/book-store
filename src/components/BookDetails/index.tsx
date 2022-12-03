@@ -11,7 +11,7 @@ import { BookDetails } from './BookDetails';
 const BookDetailsComponent: React.FC = () => {
   const { bookId } = useParams<TUrlParams>();
   const booksCollection = useAppSelector(selectBooksCollection);
-  const bookInfo = booksCollection?.books?.find((book) => book.id === bookId);
+  const bookInfo = booksCollection?.find((book) => book.id === bookId);
 
   if (!bookInfo) {
     return (<NotFoundPage />);

@@ -1,11 +1,7 @@
 import classNames from 'classnames';
 import React, { useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppDispatch } from '../../redux/hooks';
-import { booksActions } from '../../redux/slices/booksSlice';
-import { getSelectedBooks } from '../../redux/store';
 import { TBookInfo } from '../../types';
 
 import { CardToolBar } from './CardToolBar';
@@ -14,9 +10,6 @@ import styles from './CardToolBar.module.css';
 
 const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
   const { id, author, title, price } = props;
-  const { addBookToSelectedBooks, removeBookFromSelectedBooks } = booksActions;
-  const selectedBooks = useSelector(getSelectedBooks);
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const mouseOverRef = useRef<boolean>(false);
   const [visible, setVisible] = useState(false);
@@ -43,15 +36,9 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
   };
 
   // TODO: затипизировать evt
-  const onBookmarkClick = (bookId: TBookInfo['id']) => (evt: any) => {
+  const onBookmarkClick = (evt: any) => {
     evt.preventDefault();
     evt.stopPropagation();
-
-    if (selectedBooks.includes(id)) {
-      dispatch(removeBookFromSelectedBooks(id));
-    } else {
-      dispatch(addBookToSelectedBooks(bookId));
-    }
   };
 
   const onCartButtonClick = (evt: any) => {
@@ -66,7 +53,7 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
       price={price}
       title={title}
       onBookCardClick={onBookClick(id)}
-      onBookmarkButtonClick={onBookmarkClick(id)}
+      onBookmarkButtonClick={onBookmarkClick}
       onCartButtonClick={onCartButtonClick}
       onMouseEnter={showTooltip}
       onMouseLeave={hideTooltip}

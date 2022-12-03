@@ -10,7 +10,14 @@ export type TBookInfo = {
   cover: string,
   description: string,
   genre: string,
+  isAddedToFavorites?: boolean,
+  isAddedToCart?: boolean,
 };
+
+export interface IBooksCollection {
+  books: TBookInfo[] | null,
+  updatedAt?: number,
+}
 
 export type TUrlParams = {
   bookId: string,

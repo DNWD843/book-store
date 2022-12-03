@@ -1,53 +1,27 @@
 import { createSlice, Draft, PayloadAction } from '@reduxjs/toolkit';
 
 import { EFetchStatuses } from '../../enums';
-import { TBookInfo } from '../../types';
+import { IBooksCollection } from '../../types';
 import { ESlicesNames } from '../slicesNames';
 import { getBooks } from '../thunks';
 
-export type TBooksCollection = {
-  books: TBookInfo[],
-  updatedAt: number,
-} | null;
-
-export type TSelectedBooks = Array<TBookInfo['id']>;
-
-export interface IBooksState {
+export interface IBooksState extends IBooksCollection{
   status: EFetchStatuses;
-  booksCollection: TBooksCollection;
-  selectedBooks: TSelectedBooks;
-  // activeCardId: string;
 }
 
 const initialState: IBooksState = {
   status: EFetchStatuses.fulfilled,
-  booksCollection: null,
-  selectedBooks: [],
-  // activeCardId: '0',
+  books: null,
 };
 
 const booksSlice = createSlice({
-  name: ESlicesNames.books,
+  name: ESlicesNames.booksCollection,
   initialState,
   reducers: {
-    // showCardTooltip: (state: Draft<IBooksState>, action: PayloadAction<string>) => {
-    //   state.activeCardId = action.payload;
-    // },
-    // hideCardTooltip: (state: Draft<IBooksState>) => {
-    //   state.activeCardId = '0';
-    // },
     clearBooksState: (state: Draft<IBooksState>) => {
-      state.booksCollection = null;
+      state.books = null;
     },
-    setBooksToStore: (state, action: PayloadAction<TBooksCollection>) => {
-      state.booksCollection = action.payload;
-    },
-    addBookToSelectedBooks: (state, { payload }: { payload: TBookInfo['id'] }) => {
-      state.selectedBooks = [...state.selectedBooks, payload];
-    },
-    removeBookFromSelectedBooks: (state, { payload }: { payload: TBookInfo['id'] }) => {
-      state.selectedBooks = state.selectedBooks.filter((id) => id !== payload);
-    },
+    setBooksToStore: (state, action: PayloadAction<IBooksCollection>) => ({ ...state, ...action.payload }),
   },
   extraReducers: (builder) => {
     builder
@@ -57,10 +31,9 @@ const booksSlice = createSlice({
       .addCase(getBooks.rejected, (state) => {
         state.status = EFetchStatuses.rejected;
       })
-      .addCase(getBooks.fulfilled, (state, action) => {
-        state.status = EFetchStatuses.fulfilled;
-        state.booksCollection = action.payload;
-      });
+      .addCase(getBooks.fulfilled, (state, { payload }: PayloadAction<IBooksCollection>) => (
+        { ...state, ...payload, status: EFetchStatuses.fulfilled }
+      ));
   },
 });
 

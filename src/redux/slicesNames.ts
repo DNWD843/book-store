@@ -1,5 +1,5 @@
 export const enum ESlicesNames {
-  books = 'books',
+  booksCollection = 'books',
   bookDetails = 'bookDetails',
   auth = 'auth',
   profile = 'profile',

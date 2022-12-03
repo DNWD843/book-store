@@ -5,7 +5,7 @@ import { TBookInfo } from '../../types';
 import { ESlicesNames } from '../slicesNames';
 
 export const getBooks = createAsyncThunk(
-  `${ESlicesNames.books}/getBooks`,
+  `${ESlicesNames.booksCollection}/getBooks`,
   async () => fetchBooks(),
 );
 
