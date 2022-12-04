@@ -5,7 +5,7 @@ import { profileActions } from '../../redux/slices/profileSlice';
 import { selectProfileMenuState, selectUserData } from '../../redux/store';
 import { auth } from '../../redux/thunks';
 import { keys, storage } from '../../utils';
-import ava from '../../vendor/images/ava_cat.jpg';
+import ava from '../../vendor/images/login_ava.png';
 
 import { Profile } from './Profile';
 
