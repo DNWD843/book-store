@@ -42,41 +42,8 @@
   align-self: flex-start;
 }
 
-.reviews {
-  grid-column: firstCol/lastCol;
-  grid-row: 4;
-  font-size: 20px;
-  line-height: 1.2;
-}
-.rating {
-  grid-column: firstCol/lastCol;
-  grid-row: 5;
-  font-size: 20px;
-  line-height: 1.2;
-}
-
-.addToCartButton {
-  grid-column: secondCol/lastCol;
-  grid-row: 7;
-  align-self: flex-end;
-  display: grid;
-  grid-template-columns: auto auto;
-  column-gap: 5px;
-  text-align: end;
-  color: var(--light-grey);
-  font-size: 20px;
-}
-
-.cartIcon {
-  margin: 0;
-  width: 22px;
-  height: 22px;
-  fill: var(--light-grey);
-  align-self: center;
-}
-
 .addToFavoritesButton {
-  grid-column: firstCol/secondCol;
+  grid-column: firstCol/lastCol;
   grid-row: 7;
   align-self: flex-end;
   display: grid;

@@ -1,12 +1,13 @@
 import React from 'react';
 
 import { ENavLinkTypes } from '../../enums';
+import { ENavLinkIds } from '../../enums/navLinks';
 import { routes } from '../../routesMap';
 import { IHeaderNavLinkProps } from '../HeaderNavLink/HeaderNavLink.props';
 
 export const navLinksConfig: IHeaderNavLinkProps[] = [
   {
-    id: '1',
+    id: ENavLinkIds.favorite,
     to: routes.favorites,
     title: 'Избранное',
     linkType: ENavLinkTypes.icon,
@@ -24,7 +25,7 @@ export const navLinksConfig: IHeaderNavLinkProps[] = [
     ),
   },
   {
-    id: '2',
+    id: ENavLinkIds.cart,
     to: routes.shoppingCart,
     title: 'Корзина',
     linkType: ENavLinkTypes.icon,

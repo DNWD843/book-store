@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useAppSelector } from '../../redux/hooks';
+import { selectUserData } from '../../redux/store';
 import { TBookInfo } from '../../types';
 
 import { CardToolBar } from './CardToolBar';
@@ -13,6 +15,7 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
   const navigate = useNavigate();
   const mouseOverRef = useRef<boolean>(false);
   const [visible, setVisible] = useState(false);
+  const { isAnonymous } = useAppSelector(selectUserData);
 
   const showTooltip = () => {
     mouseOverRef.current = true;
@@ -50,6 +53,7 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
     <CardToolBar
       author={author}
       className={classNames({ [styles.isVisible]: visible })}
+      isAnonymous={isAnonymous}
       price={price}
       title={title}
       onBookCardClick={onBookClick(id)}

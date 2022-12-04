@@ -1,4 +1,4 @@
 export { EFetchStatuses } from './fetchStatuses';
-export { ENavLinkTypes } from './navLinkTypes';
+export { ENavLinkTypes } from './navLinks';
 export { EMonths } from './months';
 export { EAuthTypes } from './authTypes';

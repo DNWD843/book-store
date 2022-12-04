@@ -6,7 +6,7 @@ import { ESlicesNames } from '../slicesNames';
 import { auth } from '../thunks';
 import { loginUserAnonymously, logoutUser } from '../thunks/authThunks';
 
-export type TUserData = TUser | null;
+export type TUserData = TUser;
 
 export interface IAuthState {
   status: EFetchStatuses,

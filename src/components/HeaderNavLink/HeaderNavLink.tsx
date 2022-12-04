@@ -8,17 +8,21 @@ import { IHeaderNavLinkProps } from './HeaderNavLink.props';
 
 import styles from './HeaderNavLink.module.css';
 
-const HeaderNavLink: React.FC<IHeaderNavLinkProps> = ({ to, children = '', linkType = ENavLinkTypes.default, ...props }) => (
+const HeaderNavLink: React.FC<IHeaderNavLinkProps> = (
+  { to, children = '', linkType = ENavLinkTypes.default, isVisible = true, ...props },
+) => (
   <li className={styles.navLink}>
-    <NavLink
-      className={classNames({
-        [styles.icon]: linkType === ENavLinkTypes.icon,
-      })}
-      to={to}
-      {...props}
-    >
-      {children}
-    </NavLink>
+    {isVisible && (
+      <NavLink
+        className={classNames({
+          [styles.icon]: linkType === ENavLinkTypes.icon,
+        })}
+        to={to}
+        {...props}
+      >
+        {children}
+      </NavLink>
+    )}
   </li>
 );
 

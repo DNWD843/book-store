@@ -27,7 +27,7 @@ const ProfileComponent: React.FC = () => {
 
   return (
     <Profile
-      isAnonymous={userData?.isAnonymous ?? true}
+      isAnonymous={userData?.isAnonymous}
       isMenuOpened={isMenuOpened}
       photoUrl={userData?.photoURL || ava}
       title={title}
