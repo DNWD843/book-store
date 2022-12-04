@@ -14,20 +14,20 @@ export interface IAuthState {
   userData: TUserData,
 }
 
-// const userDefault: TUser = {
-//   userId: null,
-//   email: null,
-//   displayName: null,
-//   phoneNumber: null,
-//   photoURL: null,
-//   isAnonymous: false,
-//   isAdmin: false,
-// };
+const userDefault: TUser = {
+  userId: null,
+  email: null,
+  displayName: null,
+  phoneNumber: null,
+  photoURL: null,
+  isAnonymous: true,
+  isAdmin: false,
+};
 
 const initialState: IAuthState = {
   status: EFetchStatuses.fulfilled,
   authError: '',
-  userData: null,
+  userData: userDefault,
 };
 
 const authSlice = createSlice({
@@ -77,7 +77,7 @@ const authSlice = createSlice({
       })
       .addCase(logoutUser.fulfilled, (state) => {
         state.status = EFetchStatuses.fulfilled;
-        state.userData = null;
+        state.userData = userDefault;
         state.authError = '';
       });
 

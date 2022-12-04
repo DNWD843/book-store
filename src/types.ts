@@ -24,12 +24,12 @@ export type TUrlParams = {
 };
 
 export type TUser = {
-  userId: string | null,
-  email: string | null,
-  displayName: string | null,
-  phoneNumber: string | null,
-  photoURL: string | null,
+  userId?: string | null,
+  email?: string | null,
+  displayName?: string | null,
+  phoneNumber?: string | null,
+  photoURL?: string | null,
   isAnonymous: boolean,
-  isAdmin: false,
-  lastLoginAt: number,
+  isAdmin?: false,
+  lastLoginAt?: number,
 };
