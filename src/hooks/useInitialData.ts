@@ -1,12 +1,12 @@
 import { ONE_DAY_TIMESTAMP } from '../constants';
 import { EFetchStatuses } from '../enums';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { authActions, TUserData } from '../redux/slices/authSlice';
+import { authActions } from '../redux/slices/authSlice';
 import { booksActions } from '../redux/slices/booksSlice';
 import { selectBooksCollection, selectUserData } from '../redux/store';
 import { getBooks } from '../redux/thunks';
-import { IBooksCollection } from '../types';
-import { checkNeedToDataUpdate, keys, storage } from '../utils';
+import { IBooksCollection, TUserData } from '../types';
+import { checkNeedToDataUpdate, storageKeys, storage } from '../utils';
 
 export const useInitialData = ({ authStatus, booksStatus }: { authStatus: EFetchStatuses, booksStatus: EFetchStatuses }) => {
   const dispatch = useAppDispatch();
@@ -17,8 +17,8 @@ export const useInitialData = ({ authStatus, booksStatus }: { authStatus: EFetch
 
   if (booksStatus !== EFetchStatuses.fulfilled || authStatus !== EFetchStatuses.fulfilled) return;
 
-  const savedUser = storage.getData<TUserData>(keys.USER);
-  const savedBooks = storage.getData<IBooksCollection>(keys.BOOKS);
+  const savedUser = storage.getData<TUserData>(storageKeys.USER);
+  const savedBooks = storage.getData<IBooksCollection>(storageKeys.BOOKS);
 
   if (savedUser && !userInStore) {
     dispatch(setUserToStore(savedUser));
@@ -38,7 +38,7 @@ export const useInitialData = ({ authStatus, booksStatus }: { authStatus: EFetch
     || (savedBooks && (checkNeedToDataUpdate({ date: savedBooks.updatedAt!, limit: ONE_DAY_TIMESTAMP })))
   ) {
     dispatch(getBooks()).then((res) => {
-      storage.setData(keys.BOOKS, res.payload);
+      storage.setData(storageKeys.BOOKS, res.payload);
     });
   } else if (savedBooks && !booksCollectionInStore) {
     dispatch(setBooksToStore(savedBooks));

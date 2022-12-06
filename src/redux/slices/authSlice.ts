@@ -1,12 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { EFetchStatuses } from '../../enums';
-import { TUser } from '../../types';
+import { TUser, TUserData } from '../../types';
 import { ESlicesNames } from '../slicesNames';
 import { auth } from '../thunks';
-import { loginUserAnonymously, logoutUser } from '../thunks/authThunks';
-
-export type TUserData = TUser;
 
 export interface IAuthState {
   status: EFetchStatuses,
@@ -15,7 +12,7 @@ export interface IAuthState {
 }
 
 const userDefault: TUser = {
-  userId: null,
+  userId: '',
   email: null,
   displayName: null,
   phoneNumber: null,
@@ -68,28 +65,28 @@ const authSlice = createSlice({
       });
 
     builder
-      .addCase(logoutUser.pending, (state) => {
+      .addCase(auth.logoutUser.pending, (state) => {
         state.status = EFetchStatuses.pending;
       })
-      .addCase(logoutUser.rejected, (state, action) => {
+      .addCase(auth.logoutUser.rejected, (state, action) => {
         state.status = EFetchStatuses.rejected;
         state.authError = action.error.message ?? 'Error';
       })
-      .addCase(logoutUser.fulfilled, (state) => {
+      .addCase(auth.logoutUser.fulfilled, (state) => {
         state.status = EFetchStatuses.fulfilled;
         state.userData = userDefault;
         state.authError = '';
       });
 
     builder
-      .addCase(loginUserAnonymously.pending, (state) => {
+      .addCase(auth.loginUserAnonymously.pending, (state) => {
         state.status = EFetchStatuses.pending;
       })
-      .addCase(loginUserAnonymously.rejected, (state, action) => {
+      .addCase(auth.loginUserAnonymously.rejected, (state, action) => {
         state.status = EFetchStatuses.rejected;
         state.authError = action.error.message ?? 'Error';
       })
-      .addCase(loginUserAnonymously.fulfilled, (state, action: PayloadAction<TUser>) => {
+      .addCase(auth.loginUserAnonymously.fulfilled, (state, action: PayloadAction<TUser>) => {
         state.status = EFetchStatuses.fulfilled;
         state.userData = action.payload;
         state.authError = '';

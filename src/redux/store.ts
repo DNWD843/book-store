@@ -5,16 +5,20 @@ import {
 } from 'react-redux-firebase';
 import { constants as rfConstants } from 'redux-firestore';
 
+import { TUserSavings } from '../types';
+
 import authReducer, { IAuthState } from './slices/authSlice';
 // import bookDetailsReducer from './slices/bookDetailsSlice';
 import booksReducer, { IBooksState } from './slices/booksSlice';
 import profileReducer, { IProfileState } from './slices/profileSlice';
+import userSavingsReducer from './slices/userSavingsSlice';
 
 export const store = configureStore({
   reducer: {
     books: booksReducer,
     // bookDetails: bookDetailsReducer,
     auth: authReducer,
+    userSavings: userSavingsReducer,
     profile: profileReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
@@ -58,3 +62,16 @@ export const selectAuthError = (state: RootState): IAuthState['authError'] => st
 export const selectAuthStatus = (state: RootState): IAuthState['status'] => state.auth.status;
 export const selectUserData = (state: RootState): IAuthState['userData'] => state.auth.userData;
 export const selectProfileMenuState = (state: RootState): IProfileState['isMenuOpened'] => state.profile.isMenuOpened;
+export const selectUserSavings = (state: RootState): TUserSavings => state.userSavings;
+
+// service actions
+const SERVICE_ACTION_PREFIX = 'service';
+const STORAGE_ACTION_PREFIX = 'storage';
+export const serviceActions = {
+  setSavings: { type: `${SERVICE_ACTION_PREFIX}/${STORAGE_ACTION_PREFIX}_setUserSavings` },
+  getSavings: { type: `${SERVICE_ACTION_PREFIX}/${STORAGE_ACTION_PREFIX}_getSavings` },
+  setBooks: { type: `${SERVICE_ACTION_PREFIX}/${STORAGE_ACTION_PREFIX}_setBooks` },
+  getBooks: { type: `${SERVICE_ACTION_PREFIX}/${STORAGE_ACTION_PREFIX}_getBooks` },
+  setUserInfo: { type: `${SERVICE_ACTION_PREFIX}/${STORAGE_ACTION_PREFIX}_setUserInfo` },
+  getUserInfo: { type: `${SERVICE_ACTION_PREFIX}/${STORAGE_ACTION_PREFIX}_getUserInfo` },
+};

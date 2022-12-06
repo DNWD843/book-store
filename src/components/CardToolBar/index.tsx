@@ -1,10 +1,15 @@
 import classNames from 'classnames';
+import omit from 'lodash/omit';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppSelector } from '../../redux/hooks';
-import { selectUserData } from '../../redux/store';
+import { ECollectionPaths } from '../../enums';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { userSavingsActions } from '../../redux/slices/userSavingsSlice';
+import { selectUserData, selectUserSavings } from '../../redux/store';
+import { updateSavings } from '../../redux/thunks';
 import { TBookInfo } from '../../types';
+import { storage, storageKeys } from '../../utils';
 
 import { CardToolBar } from './CardToolBar';
 
@@ -15,7 +20,10 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
   const navigate = useNavigate();
   const mouseOverRef = useRef<boolean>(false);
   const [visible, setVisible] = useState(false);
-  const { isAnonymous } = useAppSelector(selectUserData);
+  const dispatch = useAppDispatch();
+  const { setUserSavingsToStore } = userSavingsActions;
+  const { isAnonymous, userId } = useAppSelector(selectUserData);
+  const userSavings = useAppSelector(selectUserSavings);
 
   const showTooltip = () => {
     mouseOverRef.current = true;
@@ -38,10 +46,14 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
     navigate(String(bookId));
   };
 
-  // TODO: затипизировать evt
-  const onBookmarkClick = (evt: any) => {
+  const onBookmarkClick = (evt: MouseEvent) => {
     evt.preventDefault();
     evt.stopPropagation();
+
+    const savings = { ...omit(userSavings, 'resetStatus'), [ECollectionPaths.favorites]: [...userSavings.favorites, id] };
+    dispatch(updateSavings({ userId, savings }))
+      .then(() => { dispatch(setUserSavingsToStore(savings)); })
+      .then(() => storage.setData(storageKeys.USER_SAVINGS, savings));
   };
 
   const onCartButtonClick = (evt: any) => {

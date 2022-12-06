@@ -1,3 +1,5 @@
+import { ECollectionPaths, EFetchStatuses } from './enums';
+
 export type TBookInfo = {
   id: string,
   title: string,
@@ -24,7 +26,7 @@ export type TUrlParams = {
 };
 
 export type TUser = {
-  userId?: string | null,
+  userId: string,
   email?: string | null,
   displayName?: string | null,
   phoneNumber?: string | null,
@@ -32,4 +34,21 @@ export type TUser = {
   isAnonymous: boolean,
   isAdmin?: false,
   lastLoginAt?: number,
+};
+
+export type TUserData = TUser;
+
+export type TUserSavings = {
+  resetStatus?: EFetchStatuses,
+  id?: string,
+  favorites: string[],
+  cartValue: TBookInfo[],
+};
+
+export type TUserSavingsToUpdate = {
+  savings: {
+    [ECollectionPaths.favorites]: Array<TBookInfo['id']>,
+    [ECollectionPaths.cartValue]: TBookInfo[],
+  },
+  userId: TUserData['userId'],
 };

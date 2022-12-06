@@ -13,6 +13,7 @@
     "@types/react-dom": "^18.0.5",
     "@types/react-router-dom": "^5.3.3",
     "@types/uuid": "^8.3.4",
+    "@types/lodash": "^4.14.191",
     "firebase": "^9.9.0",
     "react-redux-firebase": "^3.11.0",
     "redux-firestore":  "^1.0.0",
@@ -23,7 +24,8 @@
     "react-scripts": "5.0.1",
     "typescript": "^4.6.4",
     "uuid": "^8.3.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.22.0",

@@ -1,4 +1,4 @@
-import { collection, getDocs, setDoc, doc, getDoc } from 'firebase/firestore';
+import { collection, getDocs, setDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
 import { db } from '../firebase';
@@ -44,5 +44,15 @@ export const fetchBookByBookId = async (bookId: TBookInfo['id']) => {
     // eslint-disable-next-line no-console
     console.error(e);
     throw e;
+  }
+};
+
+export const updateBook = async (bookInfo: TBookInfo) => {
+  try {
+    return await updateDoc(doc(db, ESlicesNames.booksCollection, bookInfo.id), { ...bookInfo });
+
+    // return bookInfo;
+  } catch (e) {
+    console.error(e);
   }
 };

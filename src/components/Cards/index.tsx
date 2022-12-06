@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { ONE_DAY_TIMESTAMP } from '../../constants';
 import { EFetchStatuses } from '../../enums';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { selectBooksCollection, selectBooksFetchingStatus, selectFetchingDate } from '../../redux/store';
 import { getBooks } from '../../redux/thunks';
-import { checkNeedToDataUpdate, keys, storage } from '../../utils';
+import { checkNeedToDataUpdate, storageKeys, storage } from '../../utils';
 import { Card } from '../Card';
 import { ContentLoader } from '../ContentLoader';
 
@@ -17,6 +17,12 @@ const CardsComponent: React.FC = () => {
   const booksFetchingDate = useAppSelector(selectFetchingDate);
   const fetchBooksStatus = useAppSelector(selectBooksFetchingStatus);
 
+  useEffect(() => {
+    if (booksCollection) {
+      storage.setData(storageKeys.BOOKS, { books: booksCollection, updatedAt: booksFetchingDate });
+    }
+  }, [booksCollection, booksFetchingDate]);
+
   if (fetchBooksStatus === EFetchStatuses.pending) {
     return (<ContentLoader />);
   }
@@ -27,7 +33,7 @@ const CardsComponent: React.FC = () => {
 
   if (needsToUpdate) {
     dispatch(getBooks()).then((res) => {
-      storage.setData(keys.BOOKS, res.payload);
+      storage.setData(storageKeys.BOOKS, res.payload);
     });
   }
 

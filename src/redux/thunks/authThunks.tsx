@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { createUser, loginUserByEmail } from '../../api';
-import { loginAnonymously, logout } from '../../api/authApi';
+import { createUser, loginUserByEmail, loginAnonymously, logout } from '../../api';
 import { TFormState } from '../../hooks/useAuthForm';
 import { ESlicesNames } from '../slicesNames';
 
