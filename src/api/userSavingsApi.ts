@@ -5,19 +5,15 @@ import { db } from '../firebase';
 import { ESlicesNames } from '../redux/slicesNames';
 import { TUserSavings, TUserSavingsToUpdate } from '../types';
 
-export const setUserSavings = async (id: TUserSavings['id']) => setDoc(
+export const createSavings = async (id: TUserSavings['id']) => setDoc(
   doc(db, ESlicesNames.userSavings, id!), { favorites: [], cartValue: [{}] },
 );
 
-export const updateUserActions = async ({ id, cartValue, favorites }: TUserSavings) => updateDoc(
-  doc(db, ESlicesNames.userSavings, id!), { favorites, cartValue },
-);
-
-export const updateUserSavings = async ({ userId, savings }: TUserSavingsToUpdate) => updateDoc(
+export const updateSavings = async ({ userId, savings }: TUserSavingsToUpdate) => updateDoc(
   doc(db, ESlicesNames.userSavings, userId!), { ...savings },
 );
 
-export const fetchUserSavings = async (id: TUserSavings['id']): Promise<TUserSavings> => {
+export const fetchSavings = async (id: TUserSavings['id']): Promise<TUserSavings> => {
   try {
     const docSnap = await getDoc(doc(db, ESlicesNames.userSavings, id!));
 

@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { EFetchStatuses } from '../../enums';
 import { TUserSavings } from '../../types';
 import { ESlicesNames } from '../slicesNames';
-import { createUserSavings, resetUserActions, updateSavings } from '../thunks';
+import { createUserSavings, updateUserSavings } from '../thunks';
 
 const initialState: TUserSavings = {
   resetStatus: EFetchStatuses.fulfilled,
@@ -29,26 +29,12 @@ const userSavingsSlice = createSlice({
     builder
       .addCase(createUserSavings.pending, (state) => { state.resetStatus = EFetchStatuses.pending; })
       .addCase(createUserSavings.rejected, (state) => { state.resetStatus = EFetchStatuses.rejected; })
-      .addCase(createUserSavings.fulfilled, (state) => {
-        state.resetStatus = EFetchStatuses.fulfilled;
-        // TODO дописать редьюсер
-      });
+      .addCase(createUserSavings.fulfilled, (state) => { state.resetStatus = EFetchStatuses.fulfilled; });
 
     builder
-      .addCase(resetUserActions.pending, (state) => { state.resetStatus = EFetchStatuses.pending; })
-      .addCase(resetUserActions.rejected, (state) => { state.resetStatus = EFetchStatuses.rejected; })
-      .addCase(resetUserActions.fulfilled, (state) => {
-        state.resetStatus = EFetchStatuses.fulfilled;
-        // TODO дописать редьюсер
-      });
-
-    builder
-      .addCase(updateSavings.pending, (state) => { state.resetStatus = EFetchStatuses.pending; })
-      .addCase(updateSavings.rejected, (state) => { state.resetStatus = EFetchStatuses.rejected; })
-      .addCase(updateSavings.fulfilled, (state) => {
-        state.resetStatus = EFetchStatuses.fulfilled;
-        // TODO дописать редьюсер
-      });
+      .addCase(updateUserSavings.pending, (state) => { state.resetStatus = EFetchStatuses.pending; })
+      .addCase(updateUserSavings.rejected, (state) => { state.resetStatus = EFetchStatuses.rejected; })
+      .addCase(updateUserSavings.fulfilled, (state) => { state.resetStatus = EFetchStatuses.fulfilled; });
   },
 });
 

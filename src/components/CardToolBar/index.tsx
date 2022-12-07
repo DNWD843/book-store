@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { ECollectionPaths } from '../../enums';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { userSavingsActions } from '../../redux/slices/userSavingsSlice';
-import { selectUserData, selectUserSavings } from '../../redux/store';
-import { updateSavings } from '../../redux/thunks';
+import { selectUserData, selectUserSavings, serviceActions } from '../../redux/store';
+import { updateUserSavings } from '../../redux/thunks';
 import { TBookInfo } from '../../types';
 import { storage, storageKeys } from '../../utils';
 
@@ -51,9 +51,12 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
     evt.stopPropagation();
 
     const savings = { ...omit(userSavings, 'resetStatus'), [ECollectionPaths.favorites]: [...userSavings.favorites, id] };
-    dispatch(updateSavings({ userId, savings }))
+    dispatch(updateUserSavings({ userId, savings }))
       .then(() => { dispatch(setUserSavingsToStore(savings)); })
-      .then(() => storage.setData(storageKeys.USER_SAVINGS, savings));
+      .then(() => {
+        storage.setData(storageKeys.USER_SAVINGS, savings);
+        dispatch(serviceActions.setSavings);
+      });
   };
 
   const onCartButtonClick = (evt: any) => {

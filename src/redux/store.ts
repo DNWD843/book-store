@@ -74,4 +74,5 @@ export const serviceActions = {
   getBooks: { type: `${SERVICE_ACTION_PREFIX}/${STORAGE_ACTION_PREFIX}_getBooks` },
   setUserInfo: { type: `${SERVICE_ACTION_PREFIX}/${STORAGE_ACTION_PREFIX}_setUserInfo` },
   getUserInfo: { type: `${SERVICE_ACTION_PREFIX}/${STORAGE_ACTION_PREFIX}_getUserInfo` },
+  removeUserData: { type: `${SERVICE_ACTION_PREFIX}/${STORAGE_ACTION_PREFIX}_removeUserData` },
 };

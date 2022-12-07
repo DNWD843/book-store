@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { profileActions } from '../../redux/slices/profileSlice';
-import { selectProfileMenuState, selectUserData } from '../../redux/store';
+import { selectProfileMenuState, selectUserData, serviceActions } from '../../redux/store';
 import { auth } from '../../redux/thunks';
 import { storageKeys, storage } from '../../utils';
 import ava from '../../vendor/images/login_ava.png';
@@ -21,6 +21,7 @@ const ProfileComponent: React.FC = () => {
 
   const handleLogout = async () => {
     storage.deleteData(storageKeys.USER);
+    dispatch(serviceActions.removeUserData);
     await dispatch(auth.logoutUser());
     dispatch(profileActions.toggleMenu());
   };
