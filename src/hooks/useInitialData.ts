@@ -42,7 +42,8 @@ export const useInitialData = ({ authStatus, booksStatus }: { authStatus: EFetch
     dispatch(getBooks()).then((res) => {
       storage.setData(storageKeys.BOOKS, res.payload);
       dispatch(serviceActions.setBooks);
-    });
+    })
+      .catch((err) => { console.error(err); });
   } else if (savedBooks && !booksCollectionInStore) {
     dispatch(setBooksToStore(savedBooks));
   }

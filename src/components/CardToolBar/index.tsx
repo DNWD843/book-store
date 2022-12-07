@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import omit from 'lodash/omit';
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ECollectionPaths } from '../../enums';
@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { userSavingsActions } from '../../redux/slices/userSavingsSlice';
 import { selectUserData, selectUserSavings, serviceActions } from '../../redux/store';
 import { updateUserSavings } from '../../redux/thunks';
-import { TBookInfo } from '../../types';
+import { TBookInfo, TUserSavingsToUpdate } from '../../types';
 import { storage, storageKeys } from '../../utils';
 
 import { CardToolBar } from './CardToolBar';
@@ -46,22 +46,34 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
     navigate(String(bookId));
   };
 
+  const updateSavings = useCallback((key: TUserSavingsToUpdate['userId'], data: TUserSavingsToUpdate['savings']) => {
+    if (isAnonymous) {
+      dispatch(setUserSavingsToStore(data));
+    } else {
+      dispatch(updateUserSavings({ userId: key, savings: data }))
+        .then(() => { dispatch(setUserSavingsToStore(data)); })
+        .then(() => {
+          storage.setData(storageKeys.USER_SAVINGS, data);
+          dispatch(serviceActions.setSavings);
+        })
+        .catch((err) => { console.error(err); });
+    }
+  }, [dispatch, isAnonymous, setUserSavingsToStore]);
+
   const onBookmarkClick = (evt: MouseEvent) => {
     evt.preventDefault();
     evt.stopPropagation();
 
     const savings = { ...omit(userSavings, 'resetStatus'), [ECollectionPaths.favorites]: [...userSavings.favorites, id] };
-    dispatch(updateUserSavings({ userId, savings }))
-      .then(() => { dispatch(setUserSavingsToStore(savings)); })
-      .then(() => {
-        storage.setData(storageKeys.USER_SAVINGS, savings);
-        dispatch(serviceActions.setSavings);
-      });
+    updateSavings(userId, savings);
   };
 
   const onCartButtonClick = (evt: any) => {
     evt.preventDefault();
     evt.stopPropagation();
+
+    const savings = { ...omit(userSavings, 'resetStatus'), [ECollectionPaths.cartValue]: [...userSavings.cartValue, { ...props }] };
+    updateSavings(userId, savings);
   };
 
   return (

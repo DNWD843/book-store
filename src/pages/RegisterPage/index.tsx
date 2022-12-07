@@ -23,7 +23,8 @@ const RegisterPageComponent: React.FC = () => {
         if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
           navigate(routes.login);
         }
-      });
+      })
+      .catch((err) => { console.error(err); });
   };
 
   const clearFormError = () => { dispatch(clearAuthError()); };

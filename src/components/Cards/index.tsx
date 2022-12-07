@@ -36,7 +36,8 @@ const CardsComponent: React.FC = () => {
     dispatch(getBooks()).then((res) => {
       storage.setData(storageKeys.BOOKS, res.payload);
       dispatch(serviceActions.setBooks);
-    });
+    })
+      .catch((err) => { console.error(err); });
   }
 
   return (

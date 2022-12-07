@@ -2,6 +2,7 @@ import React from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { profileActions } from '../../redux/slices/profileSlice';
+import { userSavingsActions } from '../../redux/slices/userSavingsSlice';
 import { selectProfileMenuState, selectUserData, serviceActions } from '../../redux/store';
 import { auth } from '../../redux/thunks';
 import { storageKeys, storage } from '../../utils';
@@ -11,6 +12,7 @@ import { Profile } from './Profile';
 
 const ProfileComponent: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { removeUserActionsFromStore } = userSavingsActions;
   const isMenuOpened = useAppSelector(selectProfileMenuState);
   const userData = useAppSelector(selectUserData);
 
@@ -19,11 +21,15 @@ const ProfileComponent: React.FC = () => {
     ? 'Гость'
     : `Привет, ${userData?.displayName || 'Гость'}`;
 
-  const handleLogout = async () => {
-    storage.deleteData(storageKeys.USER);
-    dispatch(serviceActions.removeUserData);
-    await dispatch(auth.logoutUser());
-    dispatch(profileActions.toggleMenu());
+  const handleLogout = () => {
+    dispatch(auth.logoutUser())
+      .then(() => { dispatch(removeUserActionsFromStore()); })
+      .then(() => {
+        storage.deleteData([storageKeys.USER, storageKeys.USER_SAVINGS]);
+        dispatch(serviceActions.removeUserData);
+      })
+      .then(() => { dispatch(profileActions.toggleMenu()); })
+      .catch((err) => { console.error(err); });
   };
 
   return (

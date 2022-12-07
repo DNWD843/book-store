@@ -10,8 +10,12 @@ const setData = (key: string, value: any) => {
   localStorage.setItem(key, JSON.stringify(value));
 };
 
-const deleteData = (key: string) => {
-  localStorage.removeItem(key);
+const deleteData = (key: string | string[]) => {
+  if (Array.isArray(key)) {
+    key.forEach((str) => localStorage.removeItem(str));
+  } else {
+    localStorage.removeItem(key);
+  }
 };
 
 const clearAllData = () => localStorage.clear();

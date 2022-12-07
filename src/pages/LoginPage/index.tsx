@@ -27,7 +27,8 @@ const LoginPageComponent: React.FC = () => {
 
         storage.setData(storageKeys.USER, res.payload);
         dispatch(serviceActions.setUserInfo);
-      });
+      })
+      .catch((err) => { console.error(err); });
   };
 
   const clearFormError = () => { dispatch(clearAuthError()); };
