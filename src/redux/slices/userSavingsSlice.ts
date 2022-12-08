@@ -3,10 +3,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { EFetchStatuses } from '../../enums';
 import { TUserSavings } from '../../types';
 import { ESlicesNames } from '../slicesNames';
-import { createUserSavings, updateUserSavings } from '../thunks';
+import { createUserSavings, getUserSavings, updateUserSavings } from '../thunks';
 
 const initialState: TUserSavings = {
-  resetStatus: EFetchStatuses.fulfilled,
+  status: EFetchStatuses.fulfilled,
   favorites: [],
   cartValue: [],
 };
@@ -22,19 +22,28 @@ const userSavingsSlice = createSlice({
     removeUserActionsFromStore: (state) => {
       state.cartValue = initialState.cartValue;
       state.favorites = initialState.favorites;
-      state.resetStatus = initialState.resetStatus;
+      state.status = initialState.status;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(createUserSavings.pending, (state) => { state.resetStatus = EFetchStatuses.pending; })
-      .addCase(createUserSavings.rejected, (state) => { state.resetStatus = EFetchStatuses.rejected; })
-      .addCase(createUserSavings.fulfilled, (state) => { state.resetStatus = EFetchStatuses.fulfilled; });
+      .addCase(createUserSavings.pending, (state) => { state.status = EFetchStatuses.pending; })
+      .addCase(createUserSavings.rejected, (state) => { state.status = EFetchStatuses.rejected; })
+      .addCase(createUserSavings.fulfilled, (state) => { state.status = EFetchStatuses.fulfilled; });
 
     builder
-      .addCase(updateUserSavings.pending, (state) => { state.resetStatus = EFetchStatuses.pending; })
-      .addCase(updateUserSavings.rejected, (state) => { state.resetStatus = EFetchStatuses.rejected; })
-      .addCase(updateUserSavings.fulfilled, (state) => { state.resetStatus = EFetchStatuses.fulfilled; });
+      .addCase(getUserSavings.pending, (state) => { state.status = EFetchStatuses.pending; })
+      .addCase(getUserSavings.rejected, (state) => { state.status = EFetchStatuses.rejected; })
+      .addCase(getUserSavings.fulfilled, (state, { payload }: PayloadAction<TUserSavings>) => {
+        state.status = EFetchStatuses.rejected;
+        state.favorites = payload.favorites;
+        state.cartValue = payload.cartValue;
+      });
+
+    builder
+      .addCase(updateUserSavings.pending, (state) => { state.status = EFetchStatuses.pending; })
+      .addCase(updateUserSavings.rejected, (state) => { state.status = EFetchStatuses.rejected; })
+      .addCase(updateUserSavings.fulfilled, (state) => { state.status = EFetchStatuses.fulfilled; });
   },
 });
 

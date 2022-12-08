@@ -39,7 +39,7 @@ export type TUser = {
 export type TUserData = TUser;
 
 export type TUserSavings = {
-  resetStatus?: EFetchStatuses,
+  status?: EFetchStatuses,
   id?: string,
   favorites: string[],
   cartValue: TBookInfo[],

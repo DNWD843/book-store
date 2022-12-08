@@ -7,8 +7,9 @@ import { withReduxStore } from '../../provider/withReduxStore';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { authActions } from '../../redux/slices/authSlice';
 import { booksActions } from '../../redux/slices/booksSlice';
+import { userSavingsActions } from '../../redux/slices/userSavingsSlice';
 import { selectAuthStatus, selectBooksFetchingStatus, serviceActions } from '../../redux/store';
-import { getBooks } from '../../redux/thunks';
+import { getBooks, getUserSavings } from '../../redux/thunks';
 import { IBooksCollection, TUserData } from '../../types';
 import { checkNeedToDataUpdate, storage, storageKeys } from '../../utils';
 import { ContentLoader } from '../ContentLoader';
@@ -19,6 +20,7 @@ const AppComponent: React.FC = () => {
   const dispatch = useAppDispatch();
   const { setUserToStore } = authActions;
   const { setBooksToStore } = booksActions;
+  const { setUserSavingsToStore } = userSavingsActions;
   const authStatus = useAppSelector(selectAuthStatus);
   const booksStatus = useAppSelector(selectBooksFetchingStatus);
 
@@ -30,7 +32,8 @@ const AppComponent: React.FC = () => {
     const savedBooks = storage.getData<IBooksCollection>(storageKeys.BOOKS);
 
     if (savedUser) {
-      dispatch(setUserToStore(savedUser));
+      dispatch(getUserSavings(savedUser.userId))
+        .then(() => { dispatch(setUserToStore(savedUser)); });
     }
 
     if (!savedBooks
@@ -43,7 +46,7 @@ const AppComponent: React.FC = () => {
     } else {
       dispatch(setBooksToStore(savedBooks));
     }
-  }, [dispatch, setBooksToStore, setUserToStore]);
+  }, [dispatch, setBooksToStore, setUserSavingsToStore, setUserToStore]);
 
   if (authStatus === EFetchStatuses.pending || booksStatus === EFetchStatuses.pending) {
     return (

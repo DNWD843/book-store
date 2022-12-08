@@ -6,10 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { ECollectionPaths } from '../../enums';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { userSavingsActions } from '../../redux/slices/userSavingsSlice';
-import { selectUserData, selectUserSavings, serviceActions } from '../../redux/store';
+import { selectUserData, selectUserSavings } from '../../redux/store';
 import { updateUserSavings } from '../../redux/thunks';
 import { TBookInfo, TUserSavingsToUpdate } from '../../types';
-import { storage, storageKeys } from '../../utils';
 
 import { CardToolBar } from './CardToolBar';
 
@@ -52,10 +51,10 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
     } else {
       dispatch(updateUserSavings({ userId: key, savings: data }))
         .then(() => { dispatch(setUserSavingsToStore(data)); })
-        .then(() => {
-          storage.setData(storageKeys.USER_SAVINGS, data);
-          dispatch(serviceActions.setSavings);
-        })
+        // .then(() => {
+        //   storage.setData(storageKeys.USER_SAVINGS, data);
+        //   dispatch(serviceActions.setSavings);
+        // })
         .catch((err) => { console.error(err); });
     }
   }, [dispatch, isAnonymous, setUserSavingsToStore]);
