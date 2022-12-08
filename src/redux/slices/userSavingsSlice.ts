@@ -35,7 +35,7 @@ const userSavingsSlice = createSlice({
       .addCase(getUserSavings.pending, (state) => { state.status = EFetchStatuses.pending; })
       .addCase(getUserSavings.rejected, (state) => { state.status = EFetchStatuses.rejected; })
       .addCase(getUserSavings.fulfilled, (state, { payload }: PayloadAction<TUserSavings>) => {
-        state.status = EFetchStatuses.rejected;
+        state.status = EFetchStatuses.fulfilled;
         state.favorites = payload.favorites;
         state.cartValue = payload.cartValue;
       });

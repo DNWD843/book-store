@@ -7,8 +7,9 @@ import { TFormState } from '../../hooks/useAuthForm';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { authActions } from '../../redux/slices/authSlice';
 import { selectAuthError, serviceActions } from '../../redux/store';
-import { auth } from '../../redux/thunks';
+import { auth, getUserSavings } from '../../redux/thunks';
 import { routes } from '../../routesMap';
+import { TUser } from '../../types';
 import { storage, storageKeys } from '../../utils';
 
 const LoginPageComponent: React.FC = () => {
@@ -20,13 +21,19 @@ const LoginPageComponent: React.FC = () => {
   const handleSubmit = async ({ email, password }: TFormState['values']) => {
     dispatch(clearAuthError());
     await dispatch(auth.loginUser({ email, password }))
+      .then(async (user) => {
+        const userData = user.payload as TUser;
+        await dispatch(getUserSavings(userData.userId));
+
+        return user;
+      })
       .then((res) => {
         if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
           navigate(routes.books);
         }
 
-        storage.setData(storageKeys.USER, res.payload);
         dispatch(serviceActions.setUserInfo);
+        storage.setData(storageKeys.USER, res.payload);
       })
       .catch((err) => { console.error(err); });
   };
