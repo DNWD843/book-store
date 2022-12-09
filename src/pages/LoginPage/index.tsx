@@ -21,11 +21,11 @@ const LoginPageComponent: React.FC = () => {
   const handleSubmit = async ({ email, password }: TFormState['values']) => {
     dispatch(clearAuthError());
     await dispatch(auth.loginUser({ email, password }))
-      .then(async (user) => {
-        const userData = user.payload as TUser;
+      .then(async (res) => {
+        const userData = res.payload as TUser;
         await dispatch(getUserSavings(userData.userId));
 
-        return user;
+        return res;
       })
       .then((res) => {
         if (res.meta.requestStatus === EFetchStatuses.fulfilled) {

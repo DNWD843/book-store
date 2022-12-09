@@ -6,7 +6,7 @@ import { ESlicesNames } from '../redux/slicesNames';
 import { TUserSavings, TUserSavingsToUpdate } from '../types';
 
 export const createSavings = async (id: TUserSavings['id']) => setDoc(
-  doc(db, ESlicesNames.userSavings, id!), { favorites: [], cartValue: [{}] },
+  doc(db, ESlicesNames.userSavings, id!), { favorites: [], cartValue: [] },
 );
 
 export const updateSavings = async ({ userId, savings }: TUserSavingsToUpdate) => updateDoc(

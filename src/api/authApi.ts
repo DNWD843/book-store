@@ -4,10 +4,21 @@ import { appAuth } from '../firebase';
 import { TFormState } from '../hooks/useAuthForm';
 import { TUser } from '../types';
 
-export const createUser = async ({ email, password }: TFormState['values']) => {
+export const createUser = async ({ email, password }: TFormState['values']): Promise<TUser> => {
   try {
     const credentials = await createUserWithEmailAndPassword(appAuth, email, password);
-    return credentials.user;
+    const { uid, email: userEmail, displayName, phoneNumber, photoURL, isAnonymous } = credentials.user;
+
+    return {
+      userId: uid,
+      email: userEmail,
+      phoneNumber,
+      photoURL,
+      displayName,
+      isAnonymous,
+      isAdmin: false,
+      lastLoginAt: new Date().getTime(),
+    };
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);

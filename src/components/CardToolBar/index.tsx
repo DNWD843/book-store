@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import omit from 'lodash/omit';
-import React, { useCallback, useRef, useState } from 'react';
+import React, {useCallback, useMemo, useRef, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ECollectionPaths } from '../../enums';
@@ -22,7 +22,9 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
   const dispatch = useAppDispatch();
   const { setUserSavingsToStore } = userSavingsActions;
   const { isAnonymous, userId } = useAppSelector(selectUserData);
-  const userSavings = useAppSelector(selectUserSavings);
+  const { favorites, cartValue } = useAppSelector(selectUserSavings);
+  const isAddedToFavorites = useMemo(() => favorites.includes(id), [id, favorites]);
+  const isAddedToCart = useMemo(() => cartValue.some((book) => book.id === id), [cartValue, id]);
 
   const showTooltip = () => {
     mouseOverRef.current = true;
@@ -59,19 +61,29 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
     }
   }, [dispatch, isAnonymous, setUserSavingsToStore]);
 
-  const onBookmarkClick = (evt: MouseEvent) => {
+  const onBookmarkClick = useCallback((evt: MouseEvent) => {
     evt.preventDefault();
     evt.stopPropagation();
 
-    const savings = { ...omit(userSavings, 'resetStatus'), [ECollectionPaths.favorites]: [...userSavings.favorites, id] };
+    let savings: TUserSavingsToUpdate['savings'];
+
+    if (isAddedToFavorites) {
+      const filteredFavorites = favorites.filter((bookId) => bookId !== id);
+      savings = { cartValue, [ECollectionPaths.favorites]: filteredFavorites };
+    } else {
+      savings = { cartValue, [ECollectionPaths.favorites]: [...favorites, id] };
+    }
+
     updateSavings(userId, savings);
-  };
+  }, [cartValue, favorites, id, isAddedToFavorites, updateSavings, userId]);
 
-  const onCartButtonClick = (evt: any) => {
+  const onCartButtonClick = (evt: MouseEvent) => {
     evt.preventDefault();
     evt.stopPropagation();
 
-    const savings = { ...omit(userSavings, 'resetStatus'), [ECollectionPaths.cartValue]: [...userSavings.cartValue, { ...props }] };
+    if (isAddedToCart) return;
+
+    const savings = { favorites, [ECollectionPaths.cartValue]: [...cartValue, { ...props }] };
     updateSavings(userId, savings);
   };
 
