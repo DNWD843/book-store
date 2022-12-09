@@ -19,7 +19,7 @@ const ProfileComponent: React.FC = () => {
   const handleClickOnMenuButton = () => { dispatch(profileActions.toggleMenu()); };
   const title = userData?.isAnonymous
     ? 'Гость'
-    : `Привет, ${userData?.displayName || 'Гость'}`;
+    : `Привет, ${userData?.displayName || userData?.email || 'Гость'}`;
 
   const handleLogout = () => {
     dispatch(auth.logoutUser())
