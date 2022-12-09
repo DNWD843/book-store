@@ -2,14 +2,15 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { AuthForm } from '../../components/AuthForm';
-import { EAuthTypes, EFetchStatuses } from '../../enums';
+import { EAuthTypes, ECollectionPaths, EFetchStatuses } from '../../enums';
 import { TFormState } from '../../hooks/useAuthForm';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { authActions } from '../../redux/slices/authSlice';
-import { selectAuthError, storageActions } from '../../redux/store';
-import { auth, getUserSavings } from '../../redux/thunks';
+import { userSavingsActions } from '../../redux/slices/userSavingsSlice';
+import { selectAuthError, selectUserSavings, storageActions } from '../../redux/store';
+import { auth, getUserSavings, updateUserSavings } from '../../redux/thunks';
 import { routes } from '../../routesMap';
-import { TUser } from '../../types';
+import { TUser, TUserSavings } from '../../types';
 import { storage, storageKeys } from '../../utils';
 
 const LoginPageComponent: React.FC = () => {
@@ -17,13 +18,27 @@ const LoginPageComponent: React.FC = () => {
   const navigate = useNavigate();
   const { clearAuthError } = authActions;
   const loginError = useAppSelector(selectAuthError);
+  const { cartValue } = useAppSelector(selectUserSavings);
+  const { setUserSavingsToStore } = userSavingsActions;
 
   const handleSubmit = async ({ email, password }: TFormState['values']) => {
     dispatch(clearAuthError());
     await dispatch(auth.loginUser({ email, password }))
       .then(async (res) => {
         const userData = res.payload as TUser;
-        await dispatch(getUserSavings(userData.userId));
+
+        await dispatch(getUserSavings(userData.userId))
+          .then(async (savedData) => {
+            if (cartValue.length) {
+              const { favorites: savedFavorites, cartValue: savedCartValue } = savedData.payload as TUserSavings;
+
+              const savings = { [ECollectionPaths.favorites]: [...savedFavorites],
+                [ECollectionPaths.cartValue]: [...cartValue, ...savedCartValue] };
+
+              await dispatch(updateUserSavings({ userId: userData.userId, savings }))
+                .then(() => { dispatch(setUserSavingsToStore(savings)); });
+            }
+          });
 
         return res;
       })

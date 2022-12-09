@@ -1,6 +1,5 @@
 import classNames from 'classnames';
-import omit from 'lodash/omit';
-import React, {useCallback, useMemo, useRef, useState} from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ECollectionPaths } from '../../enums';
@@ -81,9 +80,15 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
     evt.preventDefault();
     evt.stopPropagation();
 
-    if (isAddedToCart) return;
+    let savings: TUserSavingsToUpdate['savings'];
 
-    const savings = { favorites, [ECollectionPaths.cartValue]: [...cartValue, { ...props }] };
+    if (isAddedToCart) {
+      const filteredCartValue = cartValue.filter((book) => book.id !== id);
+      savings = { favorites, [ECollectionPaths.cartValue]: filteredCartValue };
+    } else {
+      savings = { favorites, [ECollectionPaths.cartValue]: [...cartValue, { ...props }] };
+    }
+
     updateSavings(userId, savings);
   };
 
