@@ -3,7 +3,7 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { profileActions } from '../../redux/slices/profileSlice';
 import { userSavingsActions } from '../../redux/slices/userSavingsSlice';
-import { selectProfileMenuState, selectUserData, serviceActions } from '../../redux/store';
+import { selectProfileMenuState, selectUserData, storageActions } from '../../redux/store';
 import { auth } from '../../redux/thunks';
 import { storageKeys, storage } from '../../utils';
 import ava from '../../vendor/images/login_ava.png';
@@ -26,7 +26,7 @@ const ProfileComponent: React.FC = () => {
       .then(() => { dispatch(removeUserActionsFromStore()); })
       .then(() => {
         storage.deleteData([storageKeys.USER, storageKeys.USER_SAVINGS]);
-        dispatch(serviceActions.removeUserData);
+        dispatch(storageActions.removeUserData);
       })
       .then(() => { dispatch(profileActions.toggleMenu()); })
       .catch((err) => { console.error(err); });

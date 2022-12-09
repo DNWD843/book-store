@@ -65,14 +65,13 @@ export const selectProfileMenuState = (state: RootState): IProfileState['isMenuO
 export const selectUserSavings = (state: RootState): TUserSavings => state.userSavings;
 
 // service actions
-const SERVICE_ACTION_PREFIX = 'service';
 const STORAGE_ACTION_PREFIX = 'storage';
-export const serviceActions = {
-  setSavings: { type: `${SERVICE_ACTION_PREFIX}/${STORAGE_ACTION_PREFIX}_setUserSavings` },
-  getSavings: { type: `${SERVICE_ACTION_PREFIX}/${STORAGE_ACTION_PREFIX}_getSavings` },
-  setBooks: { type: `${SERVICE_ACTION_PREFIX}/${STORAGE_ACTION_PREFIX}_setBooks` },
-  getBooks: { type: `${SERVICE_ACTION_PREFIX}/${STORAGE_ACTION_PREFIX}_getBooks` },
-  setUserInfo: { type: `${SERVICE_ACTION_PREFIX}/${STORAGE_ACTION_PREFIX}_setUserInfo` },
-  getUserInfo: { type: `${SERVICE_ACTION_PREFIX}/${STORAGE_ACTION_PREFIX}_getUserInfo` },
-  removeUserData: { type: `${SERVICE_ACTION_PREFIX}/${STORAGE_ACTION_PREFIX}_removeUserData` },
+export const storageActions = {
+  setSavings: { type: `${STORAGE_ACTION_PREFIX}/setUserSavings` },
+  getSavings: { type: `${STORAGE_ACTION_PREFIX}/getSavings` },
+  setBooks: { type: `${STORAGE_ACTION_PREFIX}/setBooks` },
+  getBooks: { type: `${STORAGE_ACTION_PREFIX}/getBooks` },
+  setUserInfo: { type: `${STORAGE_ACTION_PREFIX}/setUserInfo` },
+  getUserInfo: { type: `${STORAGE_ACTION_PREFIX}/getUserInfo` },
+  removeUserData: { type: `${STORAGE_ACTION_PREFIX}/removeUserData` },
 };

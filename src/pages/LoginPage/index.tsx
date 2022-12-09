@@ -6,7 +6,7 @@ import { EAuthTypes, EFetchStatuses } from '../../enums';
 import { TFormState } from '../../hooks/useAuthForm';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { authActions } from '../../redux/slices/authSlice';
-import { selectAuthError, serviceActions } from '../../redux/store';
+import { selectAuthError, storageActions } from '../../redux/store';
 import { auth, getUserSavings } from '../../redux/thunks';
 import { routes } from '../../routesMap';
 import { TUser } from '../../types';
@@ -32,7 +32,7 @@ const LoginPageComponent: React.FC = () => {
           navigate(routes.books);
         }
 
-        dispatch(serviceActions.setUserInfo);
+        dispatch(storageActions.setUserInfo);
         storage.setData(storageKeys.USER, res.payload);
       })
       .catch((err) => { console.error(err); });

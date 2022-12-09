@@ -8,7 +8,7 @@ import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { authActions } from '../../redux/slices/authSlice';
 import { booksActions } from '../../redux/slices/booksSlice';
 import { userSavingsActions } from '../../redux/slices/userSavingsSlice';
-import { selectAuthStatus, selectBooksFetchingStatus, serviceActions } from '../../redux/store';
+import { selectAuthStatus, selectBooksFetchingStatus, storageActions } from '../../redux/store';
 import { getBooks, getUserSavings } from '../../redux/thunks';
 import { IBooksCollection, TUserData } from '../../types';
 import { checkNeedToDataUpdate, storage, storageKeys } from '../../utils';
@@ -25,10 +25,10 @@ const AppComponent: React.FC = () => {
   const booksStatus = useAppSelector(selectBooksFetchingStatus);
 
   useEffect(() => {
-    dispatch(serviceActions.getUserInfo);
+    dispatch(storageActions.getUserInfo);
     const savedUser = storage.getData<TUserData>(storageKeys.USER);
 
-    dispatch(serviceActions.getBooks);
+    dispatch(storageActions.getBooks);
     const savedBooks = storage.getData<IBooksCollection>(storageKeys.BOOKS);
 
     if (savedUser) {
@@ -39,7 +39,7 @@ const AppComponent: React.FC = () => {
     if (!savedBooks
       || (savedBooks.books && savedBooks.updatedAt && checkNeedToDataUpdate({ date: savedBooks.updatedAt, limit: ONE_DAY_TIMESTAMP }))) {
       dispatch(getBooks()).then((res) => {
-        dispatch(serviceActions.setBooks);
+        dispatch(storageActions.setBooks);
         storage.setData(storageKeys.BOOKS, res.payload);
       })
         .catch((err) => { console.error(err); });
