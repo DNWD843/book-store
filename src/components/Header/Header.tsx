@@ -4,7 +4,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import { routes } from '../../routesMap';
 import { BookSearch } from '../BookSearch';
 import { DateWidget } from '../DateWidget';
-import { NavLinks } from '../NavLinks';
+import { NavLinks } from '../HeaderNavLinks';
 import { ProfileComponent } from '../Profile';
 
 import styles from './Header.module.css';

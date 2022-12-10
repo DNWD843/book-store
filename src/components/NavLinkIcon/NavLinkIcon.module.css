@@ -7,6 +7,8 @@
 .icon svg {
   transition: all 0.15s ease-in-out;
   fill: var(--dark-grey);
+  width: 30px;
+  height: 30px;
 }
 
 .icon svg:hover {

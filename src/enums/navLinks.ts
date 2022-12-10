@@ -1,9 +1,4 @@
-export const enum ENavLinkTypes {
-  icon = 'icon',
-  default = '',
-}
-
-export const enum ENavLinkIds {
-  favorite = 'favorite',
-  cart = 'cart',
+export const enum EIconTypes {
+  favorites = 'favorites',
+  cartValue = 'cartValue',
 }
