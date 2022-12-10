@@ -10,7 +10,7 @@ import styles from './BookDetails.module.css';
 
 const BookDetails: React.FC<TBookDetailsProps> = (
   { title, author: { surname, name }, price, genre, cover, description,
-    isAnonymous, isAddedToCart, isAddedToFavorites },
+    isAnonymous, isAddedToCart, isAddedToFavorites, onBookmarkButtonClick, onCartButtonClick },
 ) => (
   <article className={styles.card}>
     <img alt="book cover" className={styles.coverImage} src={cover} />
@@ -18,7 +18,11 @@ const BookDetails: React.FC<TBookDetailsProps> = (
     <h2 className={styles.title}>{title}</h2>
     <p className={styles.author}>{`${name} ${surname}`}</p>
     {!isAnonymous && (
-      <button className={classNames(styles.addToFavoritesButton, 'btn', 'btn-secondary')} type="button">
+      <button
+        className={classNames(styles.addToFavoritesButton, 'btn', 'btn-secondary')}
+        type="button"
+        onClick={onBookmarkButtonClick}
+      >
         {isAddedToFavorites ? 'Удалить из избранного' : 'Добавить в избранное'}
         <i className={styles.bookmarkIcon}>{isAddedToFavorites ? bookmarkActiveIcon : bookmarkIcon}</i>
       </button>
@@ -27,6 +31,7 @@ const BookDetails: React.FC<TBookDetailsProps> = (
       className={classNames(styles.buyButton, 'btn', 'btn-primary')}
       title={isAddedToCart ? 'Книга добавлена в корзину' : 'Книга будет добавлена в корзину'}
       type="button"
+      onClick={onCartButtonClick}
     >
       {isAddedToCart ? 'Убрать из корзины' : `Купить за ${price} ${RUBLE_SIGN}`}
     </button>

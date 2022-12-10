@@ -1,13 +1,9 @@
 import classNames from 'classnames';
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { ECollectionPaths } from '../../enums';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { userSavingsActions } from '../../redux/slices/userSavingsSlice';
-import { selectUserData, selectUserSavings } from '../../redux/store';
-import { updateUserSavings } from '../../redux/thunks';
-import { TBookInfo, TUserSavingsToUpdate } from '../../types';
+import { useUserSavingsHandlers } from '../../hooks/useUserSavingsHandlers';
+import { TBookInfo } from '../../types';
 
 import { CardToolBar } from './CardToolBar';
 
@@ -18,13 +14,8 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
   const navigate = useNavigate();
   const mouseOverRef = useRef<boolean>(false);
   const [visible, setVisible] = useState(false);
-  const dispatch = useAppDispatch();
-  const { setUserSavingsToStore } = userSavingsActions;
-  const { isAnonymous, userId } = useAppSelector(selectUserData);
-  const { favorites, cartValue } = useAppSelector(selectUserSavings);
 
-  const isAddedToFavorites = useMemo(() => favorites.includes(id), [id, favorites]);
-  const isAddedToCart = useMemo(() => cartValue.some((book) => book.id === id), [cartValue, id]);
+  const { isAnonymous, isAddedToFavorites, isAddedToCart, handleBookmarkClick, handleCartButtonClick } = useUserSavingsHandlers(id);
 
   const showTooltip = () => {
     mouseOverRef.current = true;
@@ -47,50 +38,18 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
     navigate(String(bookId));
   };
 
-  const updateSavings = useCallback((key: TUserSavingsToUpdate['userId'], data: TUserSavingsToUpdate['savings']) => {
-    if (isAnonymous) {
-      dispatch(setUserSavingsToStore(data));
-    } else {
-      dispatch(updateUserSavings({ userId: key, savings: data }))
-        .then(() => { dispatch(setUserSavingsToStore(data)); })
-        // .then(() => {
-        //   storage.setData(storageKeys.USER_SAVINGS, data);
-        //   dispatch(serviceActions.setSavings);
-        // })
-        .catch((err) => { console.error(err); });
-    }
-  }, [dispatch, isAnonymous, setUserSavingsToStore]);
-
-  const onBookmarkClick = useCallback((evt: MouseEvent) => {
+  const onBookmarkClick = (evt: MouseEvent) => {
     evt.preventDefault();
     evt.stopPropagation();
 
-    let savings: TUserSavingsToUpdate['savings'];
-
-    if (isAddedToFavorites) {
-      const filteredFavorites = favorites.filter((bookId) => bookId !== id);
-      savings = { cartValue, [ECollectionPaths.favorites]: filteredFavorites };
-    } else {
-      savings = { cartValue, [ECollectionPaths.favorites]: [...favorites, id] };
-    }
-
-    updateSavings(userId, savings);
-  }, [cartValue, favorites, id, isAddedToFavorites, updateSavings, userId]);
+    handleBookmarkClick();
+  };
 
   const onCartButtonClick = (evt: MouseEvent) => {
     evt.preventDefault();
     evt.stopPropagation();
 
-    let savings: TUserSavingsToUpdate['savings'];
-
-    if (isAddedToCart) {
-      const filteredCartValue = cartValue.filter((book) => book.id !== id);
-      savings = { favorites, [ECollectionPaths.cartValue]: filteredCartValue };
-    } else {
-      savings = { favorites, [ECollectionPaths.cartValue]: [...cartValue, { ...props }] };
-    }
-
-    updateSavings(userId, savings);
+    handleCartButtonClick(props);
   };
 
   return (
