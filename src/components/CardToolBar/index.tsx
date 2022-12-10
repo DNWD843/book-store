@@ -22,6 +22,7 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
   const { setUserSavingsToStore } = userSavingsActions;
   const { isAnonymous, userId } = useAppSelector(selectUserData);
   const { favorites, cartValue } = useAppSelector(selectUserSavings);
+
   const isAddedToFavorites = useMemo(() => favorites.includes(id), [id, favorites]);
   const isAddedToCart = useMemo(() => cartValue.some((book) => book.id === id), [cartValue, id]);
 
@@ -96,6 +97,8 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
     <CardToolBar
       author={author}
       className={classNames({ [styles.isVisible]: visible })}
+      isAddedToCart={isAddedToCart}
+      isAddedToFavorites={isAddedToFavorites}
       isAnonymous={isAnonymous}
       price={price}
       title={title}
