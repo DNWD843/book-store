@@ -3,11 +3,7 @@ import { ECollectionPaths, EFetchStatuses } from './enums';
 export type TBookInfo = {
   id: string,
   title: string,
-  author: {
-    surname: string,
-    name: string,
-    patronymic: string,
-  },
+  author: string,
   price: number,
   cover: string,
   description: string,

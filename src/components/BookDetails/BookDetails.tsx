@@ -9,14 +9,14 @@ import { TBookDetailsProps } from './BookDetails.props';
 import styles from './BookDetails.module.css';
 
 const BookDetails: React.FC<TBookDetailsProps> = (
-  { title, author: { surname, name }, price, genre, cover, description,
+  { title, author, price, genre, cover, description,
     isAnonymous, isAddedToCart, isAddedToFavorites, onBookmarkButtonClick, onCartButtonClick },
 ) => (
   <article className={styles.card}>
     <img alt="book cover" className={styles.coverImage} src={cover} />
     <p className={styles.genre}>{genre}</p>
     <h2 className={styles.title}>{title}</h2>
-    <p className={styles.author}>{`${name} ${surname}`}</p>
+    <p className={styles.author}>{author}</p>
     {!isAnonymous && (
       <button
         className={classNames(styles.addToFavoritesButton, 'btn', 'btn-secondary')}

@@ -15,7 +15,7 @@ const ShoppingCartTableRow: React.FC<TShoppingCartTableRowProps> = ({ bookInfo, 
       <span className={styles.rowNumber}>{String(index + 1)}</span>
       <img alt="book cover" className={styles.cover} src={cover} />
       <h3 className={styles.title}>{title}</h3>
-      <span className={styles.author}>{`${author.name} ${author.surname}`}</span>
+      <span className={styles.author}>{author}</span>
       <span className={styles.priceTitle}>Цена</span>
       <span className={styles.price}>{`${price} ${RUBLE_SIGN}`}</span>
       <span className={styles.quantityTitle}>Количество</span>
