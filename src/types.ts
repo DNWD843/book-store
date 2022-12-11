@@ -10,6 +10,7 @@ export type TBookInfo = {
   genre: string,
   isAddedToFavorites?: boolean,
   isAddedToCart?: boolean,
+  quantity?: number,
 };
 
 export interface IBooksCollection {

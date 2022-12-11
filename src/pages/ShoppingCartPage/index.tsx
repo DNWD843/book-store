@@ -1,1 +1,0 @@
-export { ShoppingCartPage } from './ShoppingCartPage';

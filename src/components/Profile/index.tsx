@@ -12,7 +12,7 @@ import { Profile } from './Profile';
 
 const ProfileComponent: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { removeUserActionsFromStore } = userSavingsActions;
+  const { removeUserSavingsFromStore } = userSavingsActions;
   const isMenuOpened = useAppSelector(selectProfileMenuState);
   const userData = useAppSelector(selectUserData);
 
@@ -23,7 +23,7 @@ const ProfileComponent: React.FC = () => {
 
   const handleLogout = () => {
     dispatch(auth.logoutUser())
-      .then(() => { dispatch(removeUserActionsFromStore()); })
+      .then(() => { dispatch(removeUserSavingsFromStore()); })
       .then(() => {
         storage.deleteData([storageKeys.USER, storageKeys.USER_SAVINGS]);
         dispatch(storageActions.removeUserData);

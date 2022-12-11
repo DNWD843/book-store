@@ -1,0 +1,1 @@
+export { CartTotalPrice } from './CartTotalPrice';

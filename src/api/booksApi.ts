@@ -39,6 +39,7 @@ export const fetchBookByBookId = async (bookId: TBookInfo['id']) => {
     if (docSnap.exists()) {
       return docSnap.data() as unknown as TBookInfo;
     }
+
     return null;
   } catch (e) {
     // eslint-disable-next-line no-console
@@ -50,9 +51,8 @@ export const fetchBookByBookId = async (bookId: TBookInfo['id']) => {
 export const updateBook = async (bookInfo: TBookInfo) => {
   try {
     return await updateDoc(doc(db, ESlicesNames.booksCollection, bookInfo.id), { ...bookInfo });
-
-    // return bookInfo;
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e);
   }
 };

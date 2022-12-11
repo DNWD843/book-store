@@ -14,3 +14,11 @@
   margin: 0;
   padding-bottom: 30px;
 }
+
+.table {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  row-gap: 20px;
+}
