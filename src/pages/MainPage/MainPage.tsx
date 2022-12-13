@@ -5,6 +5,7 @@ import { BookDetails } from '../../components/BookDetails';
 import { BooksCatalogue } from '../../components/BooksCatalogue';
 import { routes } from '../../routesMap';
 import { BooksPage } from '../BooksPage';
+import { FavoritesPage } from '../FavoritesPage/FavoritesPage';
 import { LoginPage } from '../LoginPage';
 import { NotFoundPage } from '../NotFoundPage';
 import { RegisterPage } from '../RegisterPage';
@@ -21,7 +22,7 @@ const MainPage: React.FC = () => (
         <Route element={<BookDetails />} path={routes.bookId} />
       </Route>
       <Route element={<ShoppingCartPage />} path={routes.shoppingCart} />
-      <Route element={<div>Favorites</div>} path={routes.favorites} />
+      <Route element={<FavoritesPage />} path={routes.favorites} />
       <Route element={<div>User Profile</div>} path={routes.profile} />
       <Route element={<RegisterPage />} path={routes.register} />
       <Route element={<LoginPage />} path={routes.login} />
