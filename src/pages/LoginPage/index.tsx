@@ -10,7 +10,7 @@ import { userSavingsActions } from '../../redux/slices/userSavingsSlice';
 import { selectAuthError, selectUserSavings, storageActions } from '../../redux/store';
 import { auth, getUserSavings, updateUserSavings } from '../../redux/thunks';
 import { routes } from '../../routesMap';
-import { TUser, TUserSavings } from '../../types';
+import { TBookInfo, TUser, TUserSavings } from '../../types';
 import { storage, storageKeys } from '../../utils';
 
 const LoginPageComponent: React.FC = () => {
@@ -30,10 +30,19 @@ const LoginPageComponent: React.FC = () => {
         await dispatch(getUserSavings(userData.userId))
           .then(async (savedData) => {
             if (cartValue.length) {
-              const { favorites: savedFavorites, cartValue: savedCartValue } = savedData.payload as TUserSavings;
+              const { favorites: savedFavorites = [], cartValue: savedCartValue = [] } = savedData.payload as TUserSavings;
+
+              const filteredSavings = cartValue.reduce<TBookInfo[]>((acc, book) => {
+                if (acc.some((savedBook) => savedBook.id === book.id)) {
+                  return acc;
+                }
+
+                acc.push(book);
+                return acc;
+              }, [...savedCartValue]);
 
               const savings = { [ECollectionPaths.favorites]: [...savedFavorites],
-                [ECollectionPaths.cartValue]: [...cartValue, ...savedCartValue] };
+                [ECollectionPaths.cartValue]: [...filteredSavings] };
 
               await dispatch(updateUserSavings({ userId: userData.userId, savings }))
                 .then(() => { dispatch(setUserSavingsToStore(savings)); });

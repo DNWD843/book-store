@@ -1,1 +1,0 @@
-export { ShoppingCartTotalPrice } from './ShoppingCartTotalPrice';

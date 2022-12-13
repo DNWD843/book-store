@@ -128,6 +128,16 @@
   border: none;
   color: var(--grey);
   padding: 0 10px;
+  transition: all .125s ease-in-out;
+}
+
+.decrementButton:hover, .incrementButton:hover {
+  text-shadow: 0 0 10px var(--dark-grey);
+  color: var(--dark-grey);
+}
+
+.decrementButton:disabled, .incrementButton:disabled {
+  color: var(--light-grey);
 }
 
 .totalPriceTitle {
@@ -156,13 +166,13 @@
   padding: 20px 0;
 }
 
-.deleteIcon {
+.deleteIcon svg {
   fill: var(--bs-danger);
   width: 24px;
   height: 24px;
   transition: all 0.125s ease-in-out;
 }
 
-.deleteButton:hover .deleteIcon {
-  transform: scale(1.25);
+.deleteButton:hover .deleteIcon svg {
+  stroke: rgba(253, 1, 1, 0.5);
 }

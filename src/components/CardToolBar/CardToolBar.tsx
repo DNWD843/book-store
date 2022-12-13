@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import { RUBLE_SIGN } from '../../constants';
-import { bookmarkIcon, bookmarkActiveIcon, shoppingCartEmpty, shoppingCartFilled } from '../../vendor/icons';
+import { bookmarkIcon, bookmarkActiveIcon, shoppingCartEmptyIcon, shoppingCartFilledIcon } from '../../vendor/icons';
 
 import { ICardToolBarProps } from './CardToolBar.props';
 
@@ -34,8 +34,8 @@ const CardToolBar: React.FC<ICardToolBarProps> = (
       )}
       <div className={styles.cartIcon} title={isAddedToCart ? 'Удалить из корзины' : 'Положить в корзину'} onClick={onCartButtonClick}>
         {isAddedToCart
-          ? shoppingCartFilled
-          : shoppingCartEmpty}
+          ? shoppingCartFilledIcon
+          : shoppingCartEmptyIcon}
       </div>
 
     </div>

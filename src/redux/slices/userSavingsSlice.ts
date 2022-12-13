@@ -19,7 +19,7 @@ const userSavingsSlice = createSlice({
       state.favorites = payload.favorites;
       state.cartValue = payload.cartValue;
     },
-    removeUserActionsFromStore: (state) => {
+    removeUserSavingsFromStore: (state) => {
       state.cartValue = initialState.cartValue;
       state.favorites = initialState.favorites;
       state.status = initialState.status;

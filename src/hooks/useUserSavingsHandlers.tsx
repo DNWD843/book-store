@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
+import { MINIMAL_BOOKS_QUANTITY } from '../constants';
 import { ECollectionPaths } from '../enums';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { userSavingsActions } from '../redux/slices/userSavingsSlice';
@@ -11,7 +12,7 @@ export const useUserSavingsHandlers = (id: TBookInfo['id']) => {
   const dispatch = useAppDispatch();
   const { setUserSavingsToStore } = userSavingsActions;
   const { isAnonymous, userId } = useAppSelector(selectUserData);
-  const { favorites, cartValue } = useAppSelector(selectUserSavings);
+  const { favorites = [], cartValue = [] } = useAppSelector(selectUserSavings);
 
   const isAddedToFavorites = useMemo(() => favorites.includes(id), [id, favorites]);
   const isAddedToCart = useMemo(() => cartValue.some((book) => book.id === id), [cartValue, id]);
@@ -22,10 +23,6 @@ export const useUserSavingsHandlers = (id: TBookInfo['id']) => {
     } else {
       dispatch(updateUserSavings({ userId: key, savings: data }))
         .then(() => { dispatch(setUserSavingsToStore(data)); })
-        // .then(() => {
-        //   storage.setData(storageKeys.USER_SAVINGS, data);
-        //   dispatch(serviceActions.setSavings);
-        // })
         .catch((err) => { console.error(err); });
     }
   }, [dispatch, isAnonymous, setUserSavingsToStore]);
@@ -35,9 +32,9 @@ export const useUserSavingsHandlers = (id: TBookInfo['id']) => {
 
     if (isAddedToFavorites) {
       const filteredFavorites = favorites.filter((bookId) => bookId !== id);
-      savings = { cartValue, [ECollectionPaths.favorites]: filteredFavorites };
+      savings = { [ECollectionPaths.cartValue]: [...cartValue], [ECollectionPaths.favorites]: filteredFavorites };
     } else {
-      savings = { cartValue, [ECollectionPaths.favorites]: [...favorites, id] };
+      savings = { [ECollectionPaths.cartValue]: [...cartValue], [ECollectionPaths.favorites]: [...favorites, id] };
     }
 
     updateSavings(userId, savings);
@@ -48,19 +45,51 @@ export const useUserSavingsHandlers = (id: TBookInfo['id']) => {
 
     if (isAddedToCart) {
       const filteredCartValue = cartValue.filter((book) => book.id !== id);
-      savings = { favorites, [ECollectionPaths.cartValue]: filteredCartValue };
+      savings = { [ECollectionPaths.favorites]: [...favorites], [ECollectionPaths.cartValue]: filteredCartValue };
     } else {
-      savings = { favorites, [ECollectionPaths.cartValue]: [...cartValue, { ...bookInfo }] };
+      savings = {
+        [ECollectionPaths.favorites]: [...favorites],
+        [ECollectionPaths.cartValue]: [...cartValue, { ...bookInfo, quantity: bookInfo.quantity ?? MINIMAL_BOOKS_QUANTITY }],
+      };
     }
 
     updateSavings(userId, savings);
+  };
+
+  const increaseBooksQuantity = () => {
+    const changedCartValue = cartValue.map((book) => {
+      if (book.id === id && book.quantity) {
+        return ({ ...book, quantity: book.quantity + 1 });
+      }
+
+      return book;
+    });
+
+    updateSavings(userId, { [ECollectionPaths.favorites]: [...favorites], [ECollectionPaths.cartValue]: changedCartValue });
+  };
+
+  const decreaseBooksQuantity = () => {
+    const changedCartValue = cartValue.map((book) => {
+      if (book.id === id && book.quantity) {
+        return ({ ...book, quantity: book.quantity - 1 });
+      }
+
+      return book;
+    });
+
+    updateSavings(userId, { [ECollectionPaths.favorites]: [...favorites], [ECollectionPaths.cartValue]: changedCartValue });
   };
 
   return {
     isAddedToFavorites,
     isAddedToCart,
     isAnonymous,
+    userId,
+    favorites,
+    cartValue,
     handleCartButtonClick,
     handleBookmarkClick,
+    increaseBooksQuantity,
+    decreaseBooksQuantity,
   };
 };
