@@ -35,7 +35,7 @@ const BookDetails: React.FC<TBookDetailsProps> = (
     >
       {isAddedToCart ? 'Убрать из корзины' : `Купить за ${price} ${RUBLE_SIGN}`}
     </button>
-    <h3 className={styles.descriptionTitle}>Описание книги</h3>
+    <h3 className={styles.descriptionTitle}>Сюжет</h3>
     <textarea readOnly className={styles.descriptionText} rows={10} value={description} wrap="soft" />
   </article>
 );
