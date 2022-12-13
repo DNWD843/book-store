@@ -8,8 +8,7 @@ import { selectUserData, selectUserSavings } from '../../redux/store';
 import { routes } from '../../routesMap';
 
 export const FavoritesPage: React.FC = () => {
-  // FIXME: вернуть тут favorites, когда исправлю слайс
-  const { cartValue } = useAppSelector(selectUserSavings);
+  const { favorites } = useAppSelector(selectUserSavings);
   const { isAnonymous } = useAppSelector(selectUserData);
   const navigate = useNavigate();
 
@@ -20,8 +19,8 @@ export const FavoritesPage: React.FC = () => {
   }, [isAnonymous, navigate]);
 
   return (
-    <Page subtitle={!cartValue.length ? 'Вы ничего не выбрали.' : ''} title="Избранное">
-      <Cards books={cartValue} />
+    <Page subtitle={!favorites.length ? 'Вы ничего не выбрали.' : ''} title="Избранное">
+      <Cards books={favorites} />
     </Page>
   );
 };

@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { TBookInfo } from '../../types';
-import { CardToolBar } from '../CardToolBar';
 
 import { Card } from './Card';
+import { CardToolBar } from './CardToolBar';
 
 const CardComponent: React.FC<TBookInfo> = (props) => (
   <>

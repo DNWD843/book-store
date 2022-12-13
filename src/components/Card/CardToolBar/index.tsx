@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useUserSavingsHandlers } from '../../hooks/useUserSavingsHandlers';
-import { TBookInfo } from '../../types';
+import { useUserSavingsHandlers } from '../../../hooks/useUserSavingsHandlers';
+import { TBookInfo } from '../../../types';
 
 import { CardToolBar } from './CardToolBar';
 
@@ -42,7 +42,7 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
     evt.preventDefault();
     evt.stopPropagation();
 
-    handleBookmarkClick();
+    handleBookmarkClick(props);
   };
 
   const onCartButtonClick = (evt: MouseEvent) => {

@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { RUBLE_SIGN } from '../../constants';
-import { bookmarkIcon, bookmarkActiveIcon, shoppingCartEmptyIcon, shoppingCartFilledIcon } from '../../vendor/icons';
+import { RUBLE_SIGN } from '../../../constants';
+import { bookmarkIcon, bookmarkActiveIcon, shoppingCartEmptyIcon, shoppingCartFilledIcon } from '../../../vendor/icons';
 
 import { ICardToolBarProps } from './CardToolBar.props';
 

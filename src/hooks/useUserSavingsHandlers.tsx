@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 
 import { MINIMAL_BOOKS_QUANTITY } from '../constants';
 import { ECollectionPaths } from '../enums';
@@ -14,8 +14,8 @@ export const useUserSavingsHandlers = (id: TBookInfo['id']) => {
   const { isAnonymous, userId } = useAppSelector(selectUserData);
   const { favorites = [], cartValue = [] } = useAppSelector(selectUserSavings);
 
-  const isAddedToFavorites = useMemo(() => favorites.includes(id), [id, favorites]);
-  const isAddedToCart = useMemo(() => cartValue.some((book) => book.id === id), [cartValue, id]);
+  const isAddedToFavorites = favorites.some((book) => book.id === id);
+  const isAddedToCart = cartValue.some((book) => book.id === id);
 
   const updateSavings = useCallback((key: TUserSavingsToUpdate['userId'], data: TUserSavingsToUpdate['savings']) => {
     if (isAnonymous) {
@@ -27,14 +27,15 @@ export const useUserSavingsHandlers = (id: TBookInfo['id']) => {
     }
   }, [dispatch, isAnonymous, setUserSavingsToStore]);
 
-  const handleBookmarkClick = () => {
+  const handleBookmarkClick = (bookInfo: TBookInfo) => {
     let savings: TUserSavingsToUpdate['savings'];
 
     if (isAddedToFavorites) {
-      const filteredFavorites = favorites.filter((bookId) => bookId !== id);
+      const filteredFavorites = favorites.filter((book) => book.id !== id);
+
       savings = { [ECollectionPaths.cartValue]: [...cartValue], [ECollectionPaths.favorites]: filteredFavorites };
     } else {
-      savings = { [ECollectionPaths.cartValue]: [...cartValue], [ECollectionPaths.favorites]: [...favorites, id] };
+      savings = { [ECollectionPaths.cartValue]: [...cartValue], [ECollectionPaths.favorites]: [...favorites, { ...bookInfo }] };
     }
 
     updateSavings(userId, savings);
@@ -45,6 +46,7 @@ export const useUserSavingsHandlers = (id: TBookInfo['id']) => {
 
     if (isAddedToCart) {
       const filteredCartValue = cartValue.filter((book) => book.id !== id);
+
       savings = { [ECollectionPaths.favorites]: [...favorites], [ECollectionPaths.cartValue]: filteredCartValue };
     } else {
       savings = {

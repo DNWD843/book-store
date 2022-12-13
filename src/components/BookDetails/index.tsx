@@ -17,6 +17,12 @@ const BookDetailsComponent: React.FC = () => {
 
   const { isAnonymous, isAddedToFavorites, isAddedToCart, handleBookmarkClick, handleCartButtonClick } = useUserSavingsHandlers(bookId);
 
+  const onBookmarkClick = () => {
+    if (!bookInfo) return;
+
+    handleBookmarkClick(bookInfo);
+  };
+
   const onCartButtonClick = () => {
     if (!bookInfo) return;
 
@@ -32,7 +38,7 @@ const BookDetailsComponent: React.FC = () => {
             isAddedToCart={isAddedToCart}
             isAddedToFavorites={isAddedToFavorites}
             isAnonymous={isAnonymous}
-            onBookmarkButtonClick={handleBookmarkClick}
+            onBookmarkButtonClick={onBookmarkClick}
             onCartButtonClick={onCartButtonClick}
           />
         )

@@ -38,13 +38,13 @@ export type TUserData = TUser;
 export type TUserSavings = {
   status?: EFetchStatuses,
   id?: string,
-  favorites: string[],
+  favorites: TBookInfo[],
   cartValue: TBookInfo[],
 };
 
 export type TUserSavingsToUpdate = {
   savings: {
-    [ECollectionPaths.favorites]: Array<TBookInfo['id']>,
+    [ECollectionPaths.favorites]: TBookInfo[],
     [ECollectionPaths.cartValue]: TBookInfo[],
   },
   userId: TUserData['userId'],
