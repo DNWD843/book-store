@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { BookDetails } from '../../components/BookDetails';
-import { Cards } from '../../components/Cards';
+import { BooksCatalogue } from '../../components/BooksCatalogue';
 import { ShoppingCart } from '../../components/ShoppingCart';
 import { routes } from '../../routesMap';
 import { BooksPage } from '../BooksPage';
@@ -17,7 +17,7 @@ const MainPage: React.FC = () => (
     <Routes>
       <Route element={<Navigate to={routes.books} />} path={routes.home} />
       <Route element={<BooksPage />} path={routes.books}>
-        <Route index element={<Cards />} />
+        <Route index element={<BooksCatalogue />} />
         <Route element={<BookDetails />} path={routes.bookId} />
       </Route>
       <Route element={<ShoppingCart />} path={routes.shoppingCart} />
