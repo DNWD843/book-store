@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { AuthForm } from '../../components/AuthForm';
+import { Page } from '../../components/Page';
 import { EAuthTypes, EFetchStatuses } from '../../enums';
 import { TFormState } from '../../hooks/useAuthForm';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -37,12 +38,14 @@ const RegisterPageComponent: React.FC = () => {
   const clearFormError = () => { dispatch(clearAuthError()); };
 
   return (
-    <AuthForm
-      authType={EAuthTypes.register}
-      clearFormError={clearFormError}
-      formError={registerError}
-      handleSubmit={handleSubmit}
-    />
+    <Page title="">
+      <AuthForm
+        authType={EAuthTypes.register}
+        clearFormError={clearFormError}
+        formError={registerError}
+        handleSubmit={handleSubmit}
+      />
+    </Page>
   );
 };
 

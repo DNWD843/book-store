@@ -25,8 +25,8 @@
 .title {
   grid-column: firstCol/lastCol;
   grid-row: 2;
-  font-size: 36px;
-  font-weight: 700;
+  font-size: 28px;
+  font-weight: 600;
   line-height: 1.2;
   margin: 0;
   align-self: flex-start;
@@ -37,7 +37,7 @@
   grid-row: 3;
   font-size: 22px;
   line-height: 1.2;
-  font-weight: 600;
+  font-weight: 500;
   margin: 0;
   align-self: flex-start;
 }

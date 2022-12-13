@@ -1,33 +1,19 @@
 import React from 'react';
 
-import { RUBLE_SIGN } from '../../constants';
-
 import { CartTableRow } from './CartTableRow';
 import { TShoppingCartProps } from './ShoppingCart.props';
 import { CartTotalPrice } from './ShoppingCartTotalPrice';
 
-import styles from './ShoppingCartPage.module.css';
+import styles from './ShoppingCart.module.css';
 
-const ShoppingCart: React.FC<TShoppingCartProps> = ({ selectedBooks, orderPrice, isEmpty }) => (
+const ShoppingCart: React.FC<TShoppingCartProps> = ({ selectedBooks, orderPrice }) => (
   <div className={styles.cart}>
-    <h2 className={styles.title}>Корзина</h2>
-    <p className={styles.subTitle}>
+    <ul className={styles.table}>
       {
-        isEmpty
-          ? 'В Вашей корзине пока пусто.'
-          : `В Вашей корзине ${selectedBooks.length} книг на общую сумму ${orderPrice} ${RUBLE_SIGN} `
+        selectedBooks.map((book, index) => (<CartTableRow bookInfo={book} index={index} key={String(book.id)} />))
       }
-    </p>
-    {!isEmpty && (
-      <>
-        <ul className={styles.table}>
-          {
-            selectedBooks.map((book, index) => (<CartTableRow bookInfo={book} index={index} key={String(book.id)} />))
-          }
-        </ul>
-        <CartTotalPrice totalPrice={orderPrice} />
-      </>
-    )}
+    </ul>
+    <CartTotalPrice totalPrice={orderPrice} />
   </div>
 );
 

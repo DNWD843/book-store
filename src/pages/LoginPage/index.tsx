@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { AuthForm } from '../../components/AuthForm';
+import { Page } from '../../components/Page';
 import { EAuthTypes, ECollectionPaths, EFetchStatuses } from '../../enums';
 import { TFormState } from '../../hooks/useAuthForm';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -65,12 +66,14 @@ const LoginPageComponent: React.FC = () => {
   const clearFormError = () => { dispatch(clearAuthError()); };
 
   return (
-    <AuthForm
-      authType={EAuthTypes.login}
-      clearFormError={clearFormError}
-      formError={loginError}
-      handleSubmit={handleSubmit}
-    />
+    <Page title="">
+      <AuthForm
+        authType={EAuthTypes.login}
+        clearFormError={clearFormError}
+        formError={loginError}
+        handleSubmit={handleSubmit}
+      />
+    </Page>
   );
 };
 

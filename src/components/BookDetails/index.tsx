@@ -6,6 +6,7 @@ import { NotFoundPage } from '../../pages/NotFoundPage';
 import { useAppSelector } from '../../redux/hooks';
 import { selectBooksCollection } from '../../redux/store';
 import { TUrlParams } from '../../types';
+import { Page } from '../Page';
 
 import { BookDetails } from './BookDetails';
 
@@ -16,23 +17,27 @@ const BookDetailsComponent: React.FC = () => {
 
   const { isAnonymous, isAddedToFavorites, isAddedToCart, handleBookmarkClick, handleCartButtonClick } = useUserSavingsHandlers(bookId);
 
-  if (!bookInfo) {
-    return (<NotFoundPage />);
-  }
-
   const onCartButtonClick = () => {
+    if (!bookInfo) return;
+
     handleCartButtonClick(bookInfo);
   };
 
   return (
-    <BookDetails
-      {...bookInfo}
-      isAddedToCart={isAddedToCart}
-      isAddedToFavorites={isAddedToFavorites}
-      isAnonymous={isAnonymous}
-      onBookmarkButtonClick={handleBookmarkClick}
-      onCartButtonClick={onCartButtonClick}
-    />
+    <Page title="Описание книги">
+      {bookInfo
+        ? (
+          <BookDetails
+            {...bookInfo}
+            isAddedToCart={isAddedToCart}
+            isAddedToFavorites={isAddedToFavorites}
+            isAnonymous={isAnonymous}
+            onBookmarkButtonClick={handleBookmarkClick}
+            onCartButtonClick={onCartButtonClick}
+          />
+        )
+        : (<NotFoundPage />)}
+    </Page>
   );
 };
 
