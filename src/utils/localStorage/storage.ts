@@ -1,9 +1,11 @@
-const getData = <T>(key: string): T => {
-  if (localStorage.getItem(key)) {
-    return JSON.parse(localStorage.getItem(key)!);
+const getData = <T>(key: string): T | null => {
+  const bookData = localStorage.getItem(key);
+
+  if (bookData) {
+    return JSON.parse(bookData);
   }
 
-  return null as unknown as T;
+  return null;
 };
 
 const setData = (key: string, value: any) => {

@@ -8,7 +8,7 @@ import { constants as rfConstants } from 'redux-firestore';
 import { TUserSavings } from '../types';
 
 import authReducer, { IAuthState } from './slices/authSlice';
-// import bookDetailsReducer from './slices/bookDetailsSlice';
+import bookDetailsReducer, { TBookDetailsState } from './slices/bookDetailsSlice';
 import booksReducer, { IBooksState } from './slices/booksSlice';
 import profileReducer, { IProfileState } from './slices/profileSlice';
 import userSavingsReducer from './slices/userSavingsSlice';
@@ -16,7 +16,7 @@ import userSavingsReducer from './slices/userSavingsSlice';
 export const store = configureStore({
   reducer: {
     books: booksReducer,
-    // bookDetails: bookDetailsReducer,
+    bookDetails: bookDetailsReducer,
     auth: authReducer,
     userSavings: userSavingsReducer,
     profile: profileReducer,
@@ -57,7 +57,7 @@ export const selectFetchingDate = (state: RootState): IBooksState['updatedAt'] =
 // export const getSelectedBooks = (state: RootState): TSelectedBooks => state.books.selectedBooks;
 // export const selectActiveCardId = (state:RootState): IBooksState['activeCardId'] => state.books.activeCardId;
 // export const selectBookDetailsFetchingStatus = (state: RootState): TBookDetailsState['status'] => state.bookDetails.status;
-// export const selectBookDetails = (state: RootState): TBookDetailsState['book'] => state.bookDetails.book;
+export const selectBookDetails = (state: RootState): TBookDetailsState => state.bookDetails;
 export const selectAuthError = (state: RootState): IAuthState['authError'] => state.auth.authError;
 export const selectAuthStatus = (state: RootState): IAuthState['status'] => state.auth.status;
 export const selectUserData = (state: RootState): IAuthState['userData'] => state.auth.userData;
@@ -65,13 +65,15 @@ export const selectProfileMenuState = (state: RootState): IProfileState['isMenuO
 export const selectUserSavings = (state: RootState): TUserSavings => state.userSavings;
 
 // service actions
-const STORAGE_ACTION_PREFIX = 'storage';
+const STORAGE_ACTION_PREFIX = 'STORAGE';
 export const storageActions = {
-  setSavings: { type: `${STORAGE_ACTION_PREFIX}/setUserSavings` },
-  getSavings: { type: `${STORAGE_ACTION_PREFIX}/getSavings` },
-  setBooks: { type: `${STORAGE_ACTION_PREFIX}/setBooks` },
-  getBooks: { type: `${STORAGE_ACTION_PREFIX}/getBooks` },
-  setUserInfo: { type: `${STORAGE_ACTION_PREFIX}/setUserInfo` },
-  getUserInfo: { type: `${STORAGE_ACTION_PREFIX}/getUserInfo` },
-  removeUserData: { type: `${STORAGE_ACTION_PREFIX}/removeUserData` },
+  setSavings: { type: `${STORAGE_ACTION_PREFIX}/SET_USER_SAVINGS` },
+  getSavings: { type: `${STORAGE_ACTION_PREFIX}/GET_USER_SAVINGS` },
+  setBooks: { type: `${STORAGE_ACTION_PREFIX}/SET_BOOKS` },
+  getBooks: { type: `${STORAGE_ACTION_PREFIX}/GET_BOOKS` },
+  setUserInfo: { type: `${STORAGE_ACTION_PREFIX}/SET_USER_INFO` },
+  getUserInfo: { type: `${STORAGE_ACTION_PREFIX}/GET_USER_INFO` },
+  setBookDetails: { type: `${STORAGE_ACTION_PREFIX}/SET_BOOK_DETAILS` },
+  getBookDetails: { type: `${STORAGE_ACTION_PREFIX}/GET_BOOK_DETAILS` },
+  removeUserData: { type: `${STORAGE_ACTION_PREFIX}/REMOVE_USER_DATA` },
 };

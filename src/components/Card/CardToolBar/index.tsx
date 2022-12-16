@@ -3,7 +3,10 @@ import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useUserSavingsHandlers } from '../../../hooks/useUserSavingsHandlers';
+import { useAppDispatch } from '../../../redux/hooks';
+import { bookDetailsActions } from '../../../redux/slices/bookDetailsSlice';
 import { TBookInfo } from '../../../types';
+import { storage, storageKeys } from '../../../utils/localStorage';
 
 import { CardToolBar } from './CardToolBar';
 
@@ -14,6 +17,8 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
   const navigate = useNavigate();
   const mouseOverRef = useRef<boolean>(false);
   const [visible, setVisible] = useState(false);
+  const dispatch = useAppDispatch();
+  const { setBookDetails } = bookDetailsActions;
 
   const { isAnonymous, isAddedToFavorites, isAddedToCart, handleBookmarkClick, handleCartButtonClick } = useUserSavingsHandlers(id);
 
@@ -35,6 +40,8 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
   };
 
   const onBookClick = (bookId: TBookInfo['id']) => () => {
+    dispatch(setBookDetails(props));
+    storage.setData(storageKeys.BOOK_DETAILS, props);
     navigate(String(bookId));
   };
 

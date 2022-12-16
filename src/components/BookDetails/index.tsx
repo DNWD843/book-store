@@ -1,40 +1,74 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { EFetchStatuses } from '../../enums';
 import { useUserSavingsHandlers } from '../../hooks/useUserSavingsHandlers';
+import { ContentErrorPage } from '../../pages/ContentErrorPage';
 import { NotFoundPage } from '../../pages/NotFoundPage';
-import { useAppSelector } from '../../redux/hooks';
-import { selectBooksCollection } from '../../redux/store';
-import { TUrlParams } from '../../types';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { bookDetailsActions } from '../../redux/slices/bookDetailsSlice';
+import { selectBookDetails, storageActions } from '../../redux/store';
+import { getBookById } from '../../redux/thunks';
+import { TBookInfo, TUrlParams } from '../../types';
+import { storage, storageKeys } from '../../utils';
+import { ContentLoader } from '../ContentLoader';
 import { Page } from '../Page';
 
 import { BookDetails } from './BookDetails';
 
 const BookDetailsComponent: React.FC = () => {
+  const dispatch = useAppDispatch();
   const { bookId = '' } = useParams<TUrlParams>();
-  const booksCollection = useAppSelector(selectBooksCollection);
-  const bookInfo = booksCollection?.find((book) => book.id === bookId);
+  const { book, status: fetchingStatus } = useAppSelector(selectBookDetails);
 
+  const { setBookDetails } = bookDetailsActions;
   const { isAnonymous, isAddedToFavorites, isAddedToCart, handleBookmarkClick, handleCartButtonClick } = useUserSavingsHandlers(bookId);
 
-  const onBookmarkClick = () => {
-    if (!bookInfo) return;
+  const savedBookRef = useRef<TBookInfo | null>(null);
 
-    handleBookmarkClick(bookInfo);
+  if (!book && !savedBookRef.current && fetchingStatus === EFetchStatuses.fulfilled) {
+    dispatch(storageActions.getBookDetails);
+    savedBookRef.current = storage.getData<TBookInfo>(storageKeys.BOOK_DETAILS);
+  }
+
+  if (!book && savedBookRef.current) {
+    dispatch(setBookDetails(savedBookRef.current));
+  }
+
+  if (!book && !savedBookRef.current && fetchingStatus === EFetchStatuses.fulfilled) {
+    dispatch(getBookById(bookId))
+      .then(({ payload }) => {
+        dispatch(storageActions.setBookDetails);
+        storage.setData(storageKeys.BOOK_DETAILS, payload);
+      });
+  }
+
+  if (fetchingStatus === EFetchStatuses.pending) {
+    return (<ContentLoader />);
+  }
+
+  if (fetchingStatus === EFetchStatuses.rejected) {
+    return (<ContentErrorPage />);
+  }
+
+  const onBookmarkClick = () => {
+    if (!book) return;
+
+    handleBookmarkClick(book);
   };
 
   const onCartButtonClick = () => {
-    if (!bookInfo) return;
+    if (!book) return;
 
-    handleCartButtonClick(bookInfo);
+    handleCartButtonClick(book);
   };
 
   return (
     <Page title="Описание книги">
-      {bookInfo
+      {book
         ? (
           <BookDetails
-            {...bookInfo}
+            {...book}
             isAddedToCart={isAddedToCart}
             isAddedToFavorites={isAddedToFavorites}
             isAnonymous={isAnonymous}
