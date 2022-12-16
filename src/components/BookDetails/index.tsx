@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { EFetchStatuses } from '../../enums';
@@ -21,10 +21,16 @@ const BookDetailsComponent: React.FC = () => {
   const { bookId = '' } = useParams<TUrlParams>();
   const { book, status: fetchingStatus } = useAppSelector(selectBookDetails);
 
-  const { setBookDetails } = bookDetailsActions;
+  const { setBookDetails, clearBookDetailsState } = bookDetailsActions;
   const { isAnonymous, isAddedToFavorites, isAddedToCart, handleBookmarkClick, handleCartButtonClick } = useUserSavingsHandlers(bookId);
 
   const savedBookRef = useRef<TBookInfo | null>(null);
+
+  useEffect(() => () => {
+    dispatch(clearBookDetailsState());
+    dispatch(storageActions.removeBookDetails);
+    storage.deleteData(storageKeys.BOOK_DETAILS);
+  }, [clearBookDetailsState, dispatch]);
 
   if (!book && !savedBookRef.current && fetchingStatus === EFetchStatuses.fulfilled) {
     dispatch(storageActions.getBookDetails);
