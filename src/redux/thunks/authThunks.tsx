@@ -1,17 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { createUser, loginUserByEmail, loginAnonymously, logout } from '../../api';
-import { TFormState } from '../../hooks/useAuthForm';
+import { TAuthFormValues } from '../../types';
 import { ESlicesNames } from '../slicesNames';
 
 export const registerUser = createAsyncThunk(
   `${[ESlicesNames.auth]}/registerUser`,
-  async (data: TFormState['values']) => createUser(data),
+  async (data: TAuthFormValues) => createUser(data),
 );
 
 export const loginUser = createAsyncThunk(
   `${[ESlicesNames.auth]}/loginUser`,
-  async (data: TFormState['values']) => loginUserByEmail(data),
+  async (data: TAuthFormValues) => loginUserByEmail(data),
 );
 
 export const loginUserAnonymously = createAsyncThunk(

@@ -49,3 +49,5 @@ export type TUserSavingsToUpdate = {
   },
   userId: TUserData['userId'],
 };
+
+export type TAuthFormValues = { email: string, password: string };

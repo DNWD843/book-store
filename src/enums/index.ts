@@ -1,5 +1,5 @@
 export { EFetchStatuses } from './fetchStatuses';
 export { EIconTypes } from './navLinks';
 export { EMonths } from './months';
-export { EAuthTypes } from './authTypes';
+export { EAuthTypes } from './auth';
 export { ECollectionPaths } from './collectionPaths';
