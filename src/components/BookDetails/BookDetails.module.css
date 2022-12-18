@@ -42,16 +42,19 @@
   align-self: flex-start;
 }
 
-.addToFavoritesButton {
-  grid-column: firstCol/lastCol;
-  grid-row: 7;
-  align-self: flex-end;
+.button {
   display: grid;
   grid-template-columns: auto auto;
   column-gap: 5px;
   text-align: end;
   color: var(--light-grey);
   font-size: 20px;
+}
+
+.addToFavoritesButton {
+  grid-column: firstCol/lastCol;
+  grid-row: 7;
+  align-self: flex-end;
 }
 
 .bookmarkIcon {
@@ -70,8 +73,6 @@
   grid-column: firstCol/lastCol;
   grid-row: 8;
   align-self: flex-end;
-  color: var(--light-grey);
-  font-size: 20px;
 }
 
 .descriptionTitle {

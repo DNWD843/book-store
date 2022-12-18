@@ -3,6 +3,7 @@ import React from 'react';
 
 import { RUBLE_SIGN } from '../../constants';
 import { bookmarkActiveIcon, bookmarkIcon } from '../../vendor/icons';
+import { SimpleButton } from '../Buttons';
 
 import { TBookDetailsProps } from './BookDetails.props';
 
@@ -18,23 +19,22 @@ const BookDetails: React.FC<TBookDetailsProps> = (
     <h2 className={styles.title}>{title}</h2>
     <p className={styles.author}>{author}</p>
     {!isAnonymous && (
-      <button
-        className={classNames(styles.addToFavoritesButton, 'btn', 'btn-secondary')}
-        type="button"
+      <SimpleButton
+        className={classNames(styles.button, styles.addToFavoritesButton, 'btn-secondary')}
         onClick={onBookmarkButtonClick}
       >
         {isAddedToFavorites ? 'Удалить из избранного' : 'Добавить в избранное'}
         <i className={styles.bookmarkIcon}>{isAddedToFavorites ? bookmarkActiveIcon : bookmarkIcon}</i>
-      </button>
+      </SimpleButton>
     )}
-    <button
-      className={classNames(styles.buyButton, 'btn', 'btn-primary')}
+
+    <SimpleButton
+      className={classNames(styles.button, styles.buyButton, 'btn-primary')}
       title={isAddedToCart ? 'Книга добавлена в корзину' : 'Книга будет добавлена в корзину'}
-      type="button"
       onClick={onCartButtonClick}
     >
       {isAddedToCart ? 'Убрать из корзины' : `Купить за ${price} ${RUBLE_SIGN}`}
-    </button>
+    </SimpleButton>
     <h3 className={styles.descriptionTitle}>Сюжет</h3>
     <textarea readOnly className={styles.descriptionText} rows={10} value={description} wrap="soft" />
   </article>

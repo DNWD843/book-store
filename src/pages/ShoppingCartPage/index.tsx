@@ -2,6 +2,8 @@ import React, { useMemo } from 'react';
 
 import { Page } from '../../components/Page';
 import { ShoppingCart } from '../../components/ShoppingCart';
+import { CartActionButtons } from '../../components/ShoppingCart/CartActionButtons';
+import { CartTotalPrice } from '../../components/ShoppingCart/ShoppingCartTotalPrice';
 import { MINIMAL_BOOKS_QUANTITY, RUBLE_SIGN } from '../../constants';
 import { useAppSelector } from '../../redux/hooks';
 import { selectUserSavings } from '../../redux/store';
@@ -25,6 +27,8 @@ export const ShoppingCartPage: React.FC = () => {
   return (
     <Page subtitle={subTitle} title="Корзина">
       {Boolean(cartValue.length) && (<ShoppingCart orderPrice={orderPrice} selectedBooks={[...cartValue]} />)}
+      <CartTotalPrice totalPrice={orderPrice} />
+      <CartActionButtons />
     </Page>
   );
 };

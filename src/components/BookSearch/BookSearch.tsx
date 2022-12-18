@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { SimpleButton, SubmitButton } from '../Buttons';
+
 import { TBookSearchProps } from './BookSearch.props';
 
 import styles from './BookSearch.module.css';
@@ -15,8 +17,8 @@ const BookSearch: React.FC<TBookSearchProps> = ({ value, onChange, onSubmit, onC
       value={value}
       onChange={onChange}
     />
-    <button className="btn btn-outline-success " type="submit">Искать</button>
-    <button className="btn btn-outline-danger" type="button" onClick={onClear}>Очистить</button>
+    <SubmitButton className="btn-outline-success ">Искать</SubmitButton>
+    <SimpleButton className="btn-outline-danger" onClick={onClear}>Очистить</SimpleButton>
   </form>
 );
 
