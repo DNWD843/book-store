@@ -7,6 +7,7 @@ import { EAuthFormFieldNames } from '../../enums/auth';
 import { InputComponent } from '../Inputs';
 
 import { TAuthFormProps } from './AuthForm.props';
+import { email, password } from './validators';
 
 import styles from './AuthForm.module.css';
 
@@ -27,12 +28,18 @@ const AuthForm: React.FC<TAuthFormProps> = (
     id={formId}
     onSubmit={onSubmit}
   >
-    {({ handleSubmit, form, submitting, pristine }) => (
+    {({ handleSubmit, form, submitting, pristine, invalid }) => (
       <div className={styles.page}>
         <h3 className={styles.title}>{formTitle}</h3>
         <form noValidate className={styles.form} onSubmit={handleSubmit}>
 
-          <Field id={`${formId}-${EAuthFormFieldNames.email}`} name={`${formId}-${EAuthFormFieldNames.email}`}>
+          <Field
+            id={`${formId}-${EAuthFormFieldNames.email}`}
+            initialValue=""
+            name={EAuthFormFieldNames.email}
+            validate={email}
+            validateFields={[]}
+          >
             {(props) => (
               <InputComponent
                 {...props}
@@ -48,8 +55,10 @@ const AuthForm: React.FC<TAuthFormProps> = (
 
           <Field
             id={`${formId}-${EAuthFormFieldNames.password}`}
-            name={`${formId}-${EAuthFormFieldNames.password}`}
-            validate={(value) => (value?.length < 3 ? 'Length must be more than 3 digits' : '')}
+            initialValue=""
+            name={EAuthFormFieldNames.password}
+            validate={password}
+            validateFields={[]}
           >
             {(props) => (
               <InputComponent
@@ -67,14 +76,14 @@ const AuthForm: React.FC<TAuthFormProps> = (
           <div className={styles.buttons}>
             <button
               className={classNames('btn btn-success btn-lg', styles.submitButton)}
-              disabled={submitting || pristine}
+              disabled={invalid || pristine || submitting}
               type="submit"
             >
               {submitButtonTitle}
             </button>
             <button
               className={classNames('btn btn-outline-secondary btn-lg', styles.cancelButton)}
-              disabled={submitting || pristine}
+              disabled={pristine || submitting}
               type="button"
               onClick={() => { form.reset(); }}
             >
