@@ -51,3 +51,4 @@ export type TUserSavingsToUpdate = {
 };
 
 export type TAuthFormValues = { email: string, password: string };
+export type TOrderFormValues = { email: string };

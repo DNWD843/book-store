@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { Input } from './Input';
-import { IInputComponentProps } from './Input.props';
+import styles from '../Input.module.css';
+import { IInputComponentProps } from '../Input.props';
 
-import styles from './Input.module.css';
+import { Input } from './Input';
 
 export const InputComponent: React.FC<IInputComponentProps> = ({ input, meta, inputElementProps, label }) => {
   const { error = '' } = meta;

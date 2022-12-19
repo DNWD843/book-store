@@ -3,16 +3,14 @@ import React from 'react';
 import styles from '../Input.module.css';
 import { TInputProps } from '../Input.props';
 
-export const Input: React.FC<TInputProps> = ({ label = '', error = '', inputElementProps }) => (
+export const Checkbox: React.FC<TInputProps> = ({ label = '', error = '', inputElementProps }) => (
   <div className={styles.fieldset}>
     <label className={styles.label}>
       <span className={styles.inputLabel}>{label}</span>
-      <input
-        {...inputElementProps}
-      />
+      <input type="checkbox" {...inputElementProps} />
+      <span className={styles.error}>{error}</span>
     </label>
-    <span className={styles.error}>{error}</span>
   </div>
 );
 
-Input.displayName = 'Input';
+Checkbox.displayName = 'Checkbox';
