@@ -4,7 +4,7 @@ import { Form, Field } from 'react-final-form';
 import { Link } from 'react-router-dom';
 
 import { EAuthFormFieldNames } from '../../enums/auth';
-import { InputComponent } from '../../ui-components/Inputs';
+import { Input } from '../../ui-components/Inputs';
 
 import { TAuthFormProps } from './AuthForm.props';
 import { email, password } from './validators';
@@ -41,7 +41,7 @@ const AuthForm: React.FC<TAuthFormProps> = (
             validateFields={[]}
           >
             {(props) => (
-              <InputComponent
+              <Input
                 {...props}
                 inputElementProps={{
                   id: EAuthFormFieldNames.email,
@@ -61,7 +61,7 @@ const AuthForm: React.FC<TAuthFormProps> = (
             validateFields={[]}
           >
             {(props) => (
-              <InputComponent
+              <Input
                 {...props}
                 inputElementProps={{
                   id: EAuthFormFieldNames.password,

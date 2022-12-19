@@ -14,7 +14,7 @@ export const InputComponent: React.FC<IInputComponentProps> = ({ input, meta, in
   return (
     <Input
       error={error}
-      inputElementProps={{ ...input, ...inputElementProps, className: inputClassName }}
+      inputElementProps={{ type: 'text', ...input, ...inputElementProps, className: inputClassName }}
       label={label}
     />
   );

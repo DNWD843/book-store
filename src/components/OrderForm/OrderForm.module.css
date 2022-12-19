@@ -1,0 +1,13 @@
+.formWrapper {
+}
+
+.formTitle {
+  color: var(--dark-grey);
+  font-weight: 500;
+}
+
+.form {
+  width: 100%;
+  display: grid;
+  row-gap: 20px;
+}

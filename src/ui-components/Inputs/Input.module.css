@@ -1,4 +1,4 @@
-.fieldset {
+.inputContainer {
   position: relative;
   width: 100%;
   display: flex;
@@ -15,7 +15,6 @@
   color: var(--grey);
   font-style: italic;
 }
-
 
 .inputLabel {
   color: var(--grey);
@@ -54,3 +53,17 @@
   color: red;
   font-size: 14px;
 }
+
+/*radio*/
+.radioInputContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, auto));
+  padding: 0 0 10px;
+  width: auto;
+}
+
+.radioLabel {
+  align-items: center;
+  row-gap: 20px;
+}
+

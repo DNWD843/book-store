@@ -1,5 +1,6 @@
 import { TOrderFormValues } from '../../types';
 
 export type TOrderFormProps = {
-  onSubmit: (data: TOrderFormValues) => void
+  onSubmit: (data: TOrderFormValues) => void,
+  formTitle?: string,
 };
