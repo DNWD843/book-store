@@ -4,7 +4,7 @@ import { Form, Field } from 'react-final-form';
 import { Link } from 'react-router-dom';
 
 import { EAuthFormFieldNames } from '../../enums/auth';
-import { InputComponent } from '../Inputs';
+import { InputComponent } from '../../ui-components/Inputs';
 
 import { TAuthFormProps } from './AuthForm.props';
 import { email, password } from './validators';

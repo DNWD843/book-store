@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SimpleButton, SubmitButton } from '../Buttons';
+import { SimpleButton, SubmitButton } from '../../ui-components/Buttons';
 
 import { TBookSearchProps } from './BookSearch.props';
 

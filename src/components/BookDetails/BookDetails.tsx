@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import React from 'react';
 
 import { RUBLE_SIGN } from '../../constants';
+import { SimpleButton } from '../../ui-components/Buttons';
 import { bookmarkActiveIcon, bookmarkIcon } from '../../vendor/icons';
-import { SimpleButton } from '../Buttons';
 
 import { TBookDetailsProps } from './BookDetails.props';
 

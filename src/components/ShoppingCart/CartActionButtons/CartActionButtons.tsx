@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { SimpleButton } from '../../Buttons';
+import { SimpleButton } from '../../../ui-components/Buttons';
 
 import { TActionButtonsProps } from './CartActionButtons.props';
 
