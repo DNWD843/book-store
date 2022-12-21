@@ -50,10 +50,17 @@
 }
 
 .radioLabel {
-  color: var(--grey);
-  font-style: italic;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   row-gap: 20px;
+  cursor: pointer;
+  color: var(--grey);
+  font-style: italic;
+}
+
+input[type='radio'] {
+  cursor: pointer;
 }
 
 .input::placeholder {

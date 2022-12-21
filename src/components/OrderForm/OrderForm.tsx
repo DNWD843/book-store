@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from 'react-final-form';
 
-import { AddressInfo, ContactInfo, PersonalInfo, SendingTypeChoice } from './FormBlocks';
+import { AddressInfo, ContactInfo, PersonalInfo, SendingTypeSelect } from './FormBlocks';
 import { TOrderFormProps } from './OrderForm.props';
 import { FORM_ID } from './constants';
 
@@ -12,16 +12,15 @@ export const OrderForm: React.FC<TOrderFormProps> = ({ onSubmit, formTitle = '' 
     {({ handleSubmit }) => (
       <div className={styles.formWrapper}>
         {formTitle && (<h3 className={styles.formTitle}>{formTitle}</h3>)}
-        <form noValidate className={styles.form} onSubmit={handleSubmit}>
 
-          <SendingTypeChoice />
+        <form noValidate className={styles.form} onSubmit={handleSubmit}>
+          <SendingTypeSelect />
 
           <PersonalInfo />
 
           <AddressInfo />
 
           <ContactInfo />
-
         </form>
       </div>
     )}
