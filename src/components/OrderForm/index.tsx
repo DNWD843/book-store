@@ -1,15 +1,11 @@
 import React from 'react';
 
 import { OrderForm } from './OrderForm';
+import { TOrderFormProps } from './OrderForm.props';
 
-const OrderFormComponent = () => {
-  const onSubmit = () => {};
-
-  return (
-    <OrderForm onSubmit={onSubmit} />
-  );
-};
-
+const OrderFormComponent:React.FC<TOrderFormProps> = ({ formTitle, onSubmit }) => (
+  <OrderForm formTitle={formTitle} onSubmit={onSubmit} />
+);
 OrderFormComponent.displayName = 'OrderForm';
 
 export { OrderFormComponent as OrderForm };

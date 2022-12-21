@@ -52,3 +52,12 @@ export type TUserSavingsToUpdate = {
 
 export type TAuthFormValues = { email: string, password: string };
 export type TOrderFormValues = { email: string };
+export type TSendingTypeRadioButton = {
+  name: string,
+  component: 'input',
+  value: string,
+  id: string,
+  label: string,
+  className: string,
+};
+export type TSendingTypeRadioButtons = TSendingTypeRadioButton[];

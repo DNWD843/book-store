@@ -1,0 +1,57 @@
+import React from 'react';
+import { Field } from 'react-final-form';
+
+import { Col, Input, Region, Row } from '../../../ui-components';
+import { createFormFieldId } from '../../../utils';
+import { FORM_ID, orderFormFields } from '../constants';
+
+export const PersonalInfo: React.FC = () => (
+  <Region>
+    <Row>
+      <Col>
+        <Field id={createFormFieldId(FORM_ID, orderFormFields.lastName.name)} name={orderFormFields.lastName.name}>
+          {(props) => (
+            <Input
+              {...props}
+              inputElementProps={{
+                id: orderFormFields.lastName.name,
+                placeholder: orderFormFields.lastName.placeholder,
+              }}
+              label={orderFormFields.lastName.label}
+            />
+          )}
+        </Field>
+      </Col>
+      <Col>
+        <Field id={createFormFieldId(FORM_ID, orderFormFields.firstName.name)} name={orderFormFields.firstName.name}>
+          {(props) => (
+            <Input
+              {...props}
+              inputElementProps={{
+                id: orderFormFields.firstName.name,
+                placeholder: orderFormFields.firstName.placeholder,
+              }}
+              label={orderFormFields.firstName.label}
+            />
+          )}
+        </Field>
+      </Col>
+      <Col>
+        <Field id={createFormFieldId(FORM_ID, orderFormFields.patronymic.name)} name={orderFormFields.patronymic.name}>
+          {(props) => (
+            <Input
+              {...props}
+              inputElementProps={{
+                id: orderFormFields.patronymic.name,
+                placeholder: orderFormFields.patronymic.placeholder,
+              }}
+              label={orderFormFields.patronymic.label}
+            />
+          )}
+        </Field>
+      </Col>
+    </Row>
+  </Region>
+);
+
+PersonalInfo.displayName = 'PersonalInfo';

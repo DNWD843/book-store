@@ -10,6 +10,6 @@ export interface IInputComponentProps extends FieldRenderProps<string> {
 
 export type TInputProps = {
   label: string,
-  error: string,
+  error?: string,
   inputElementProps: TInputElementProps,
 };

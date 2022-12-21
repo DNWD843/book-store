@@ -1,4 +1,5 @@
 export const orderFormFields: { [key: string]: { name: string, placeholder: string, label: string } } = {
+  sendingType: { name: 'sendingType', placeholder: '', label: '' },
   sendingTypeEmail: { name: 'sendingTypeEmail', placeholder: '', label: 'Отправить на email' },
   sendingTypePost: { name: 'sendingTypePost', placeholder: '', label: 'Отправить на почтовый адрес' },
   postalCode: { name: 'postalCode', placeholder: 'Почтовый индекс', label: 'Почтовый индекс' },
@@ -17,5 +18,4 @@ export const orderFormFields: { [key: string]: { name: string, placeholder: stri
   patronymic: { name: 'patronymic', placeholder: 'Отчество', label: 'Отчество' },
 };
 
-export const ORDER_FORM_TITLE = 'Оформление заказа';
 export const FORM_ID = 'order';

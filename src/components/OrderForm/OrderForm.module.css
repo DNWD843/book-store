@@ -4,10 +4,17 @@
 .formTitle {
   color: var(--dark-grey);
   font-weight: 500;
+  padding-bottom: 30px;
 }
 
 .form {
   width: 100%;
   display: grid;
   row-gap: 20px;
+}
+
+.block {
+  display: flex;
+  width: 100%;
+  position: relative;
 }
