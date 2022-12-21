@@ -1,4 +1,4 @@
-import { ECollectionPaths, EFetchStatuses } from './enums';
+import { ECollectionPaths, EFetchStatuses, ESendingTypes } from './enums';
 
 export type TBookInfo = {
   id: string,
@@ -55,7 +55,7 @@ export type TOrderFormValues = { email: string };
 export type TSendingTypeRadioButton = {
   name: string,
   component: 'input',
-  value: string,
+  value: ESendingTypes,
   id: string,
   label: string,
   className: string,
