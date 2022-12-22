@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form } from 'react-final-form';
 
+import { FormButtons } from './ActionButtons';
 import { AddressInfo, ContactInfo, PersonalInfo, SendingTypeSelect } from './FormBlocks';
 import { TOrderFormProps } from './OrderForm.props';
 import { FORM_ID } from './constants';
@@ -21,6 +22,8 @@ export const OrderForm: React.FC<TOrderFormProps> = ({ onSubmit, formTitle = '' 
           <AddressInfo />
 
           <ContactInfo />
+
+          <FormButtons />
         </form>
       </div>
     )}

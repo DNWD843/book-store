@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useFormState } from 'react-final-form';
 
 import { ESendingTypes } from '../../../../enums';
-import { orderFormFields } from '../../constants';
 
 import { AddressForm } from './AddressForm';
 
 const AddressInfoComponent: React.FC = () => {
-  const { values } = useFormState();
+  const { values: { sendingType } } = useFormState();
 
-  return values[orderFormFields.sendingType.name] === ESendingTypes.post
-    ? (<AddressForm />)
-    : null;
+  return useMemo(
+    () => (sendingType === ESendingTypes.post ? (<AddressForm />) : null),
+    [sendingType],
+  );
 };
 
 AddressInfoComponent.displayName = 'AddressInfo';

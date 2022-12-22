@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { Col, Radio, Region, Row } from '../../../../ui-components';
 import styles from '../../OrderForm.module.css';
 
 import { sendingTypeConfig } from './sendingTypeConfig';
 
-export const SendingTypeSelect: React.FC = () => (
+const SendingTypeSelect: React.FC = () => (
   <Region className={styles.block}>
     <Row>
       {
@@ -20,3 +20,7 @@ export const SendingTypeSelect: React.FC = () => (
 );
 
 SendingTypeSelect.displayName = 'SendingTypeChoice';
+
+const memoSendingTypeSelect = memo(SendingTypeSelect);
+
+export { memoSendingTypeSelect as SendingTypeSelect };

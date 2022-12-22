@@ -1,0 +1,7 @@
+.formButtons {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  padding-left: calc(100% - 280px);
+  padding-right: 20px;
+}

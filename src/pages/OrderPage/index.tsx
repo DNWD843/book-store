@@ -6,6 +6,7 @@ import { TOrderFormValues } from '../../types';
 
 export const OrderPage = () => {
   const onSubmit = (data: TOrderFormValues) => {
+    // TODO: сюда прикрутить моковый метод сабмита данных
     console.log('data', data);
   };
 

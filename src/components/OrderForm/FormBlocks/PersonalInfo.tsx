@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Field } from 'react-final-form';
 
 import { Col, Input, Region, Row } from '../../../ui-components';
 import { createFormFieldId } from '../../../utils';
 import { FORM_ID, orderFormFields } from '../constants';
 
-export const PersonalInfo: React.FC = () => (
+const PersonalInfo: React.FC = () => (
   <Region>
     <Row>
       <Col>
@@ -55,3 +55,7 @@ export const PersonalInfo: React.FC = () => (
 );
 
 PersonalInfo.displayName = 'PersonalInfo';
+
+const memoPersonalInfo = memo(PersonalInfo);
+
+export { memoPersonalInfo as PersonalInfo };
