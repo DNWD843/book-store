@@ -1,9 +1,4 @@
 .error {
-  position: absolute;
-  left: 20px;
-  bottom: 5px;
-
-  font-size: 12px;
+  font-size: 14px;
   color: red;
-  letter-spacing: 1px;
 }

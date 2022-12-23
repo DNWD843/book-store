@@ -7,7 +7,7 @@ import styles from '../../OrderForm.module.css';
 import { sendingTypeConfig } from './sendingTypeConfig';
 
 const SendingTypeSelect: React.FC<{ error: string }> = ({ error }) => (
-  <Region className={classNames(styles.block, { [styles.error]: error })}>
+  <Region className={classNames(styles.block, { [styles.blockError]: error })}>
     <Row>
       {
         sendingTypeConfig.map((params: any) => (
@@ -17,7 +17,7 @@ const SendingTypeSelect: React.FC<{ error: string }> = ({ error }) => (
         ))
       }
     </Row>
-    <Error error={error} />
+    <Error className={styles.error} error={error} />
   </Region>
 );
 
