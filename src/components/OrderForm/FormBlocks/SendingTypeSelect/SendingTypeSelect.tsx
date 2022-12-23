@@ -1,12 +1,13 @@
+import classNames from 'classnames';
 import React, { memo } from 'react';
 
-import { Col, Radio, Region, Row } from '../../../../ui-components';
+import { Col, Radio, Region, Row, Error } from '../../../../ui-components';
 import styles from '../../OrderForm.module.css';
 
 import { sendingTypeConfig } from './sendingTypeConfig';
 
-const SendingTypeSelect: React.FC = () => (
-  <Region className={styles.block}>
+const SendingTypeSelect: React.FC<{ error: string }> = ({ error }) => (
+  <Region className={classNames(styles.block, { [styles.error]: error })}>
     <Row>
       {
         sendingTypeConfig.map((params: any) => (
@@ -16,6 +17,7 @@ const SendingTypeSelect: React.FC = () => (
         ))
       }
     </Row>
+    <Error error={error} />
   </Region>
 );
 

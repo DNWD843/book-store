@@ -16,3 +16,8 @@
 .block {
   position: relative;
 }
+
+.error {
+  border: 1px solid red;
+  box-shadow: 0 0 3px red;
+}
