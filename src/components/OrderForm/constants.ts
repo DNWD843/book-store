@@ -1,4 +1,6 @@
-export const orderFormFields: { [key: string]: { name: string, placeholder: string, label: string } } = {
+type TOrderFormFieldsConfig = { [key: string]: { name: string, placeholder: string, label: string } };
+
+export const orderFormFields: TOrderFormFieldsConfig = {
   sendingType: { name: 'sendingType', placeholder: '', label: '' },
   sendingTypeEmail: { name: 'sendingTypeEmail', placeholder: '', label: 'Отправить на email' },
   sendingTypePost: { name: 'sendingTypePost', placeholder: '', label: 'Отправить на почтовый адрес' },

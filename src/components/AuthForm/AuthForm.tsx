@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 
 import { EAuthFormFieldNames } from '../../enums/auth';
 import { Input } from '../../ui-components/Inputs';
+import { email, password } from '../../validators';
 
 import { TAuthFormProps } from './AuthForm.props';
-import { email, password } from './validators';
 
 import styles from './AuthForm.module.css';
 

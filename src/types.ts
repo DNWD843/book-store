@@ -51,7 +51,24 @@ export type TUserSavingsToUpdate = {
 };
 
 export type TAuthFormValues = { email: string, password: string };
-export type TOrderFormValues = { email: string };
+export type TOrderFormValues = {
+  sendingType: ESendingTypes,
+  postalCode: string,
+  country: string,
+  regionName: string,
+  cityName: string,
+  streetName: string,
+  houseNumber: string,
+  buildingNumber: string,
+  housingNumber: string,
+  flatNumber: string,
+  email: string,
+  phoneNumber: string,
+  firstName: string,
+  lastName: string,
+  patronymic: string,
+};
+
 export type TSendingTypeRadioButton = {
   name: string,
   component: 'input',

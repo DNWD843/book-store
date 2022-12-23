@@ -1,7 +1,7 @@
 import { FieldState } from 'final-form';
 
-import { EPasswordLength } from '../../../enums/auth';
-import { TAuthFormValues } from '../../../types';
+import { EPasswordLength } from '../enums/auth';
+import { TAuthFormValues } from '../types';
 
 export const email = (value: TAuthFormValues['password'], allValues?: Object, meta?: FieldState<string>) => {
   if (!meta?.visited) return;
