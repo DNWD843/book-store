@@ -4,6 +4,7 @@ import { Form, Field } from 'react-final-form';
 import { Link } from 'react-router-dom';
 
 import { EAuthFormFieldNames } from '../../enums/auth';
+import { SimpleButton, SubmitButton } from '../../ui-components';
 import { Input } from '../../ui-components/Inputs';
 import { email, password } from '../../validators';
 
@@ -28,7 +29,7 @@ const AuthForm: React.FC<TAuthFormProps> = (
     id={formId}
     onSubmit={onSubmit}
   >
-    {({ handleSubmit, form, submitting, pristine, invalid }) => (
+    {({ handleSubmit, form, submitting, pristine, invalid, values }) => (
       <div className={styles.page}>
         <h3 className={styles.title}>{formTitle}</h3>
         <form noValidate className={styles.form} onSubmit={handleSubmit}>
@@ -74,21 +75,19 @@ const AuthForm: React.FC<TAuthFormProps> = (
           </Field>
 
           <div className={styles.buttons}>
-            <button
-              className={classNames('btn btn-success btn-lg', styles.submitButton)}
+            <SubmitButton
+              className={classNames('btn-success btn-lg', styles.submitButton)}
               disabled={invalid || pristine || submitting}
-              type="submit"
             >
               {submitButtonTitle}
-            </button>
-            <button
-              className={classNames('btn btn-outline-secondary btn-lg', styles.cancelButton)}
-              disabled={pristine || submitting}
-              type="button"
+            </SubmitButton>
+            <SimpleButton
+              className={classNames('btn-outline-secondary btn-lg', styles.cancelButton)}
+              disabled={(Object.values(values).every((value) => !value)) || submitting}
               onClick={() => { form.reset(); }}
             >
               Очистить
-            </button>
+            </SimpleButton>
           </div>
 
         </form>

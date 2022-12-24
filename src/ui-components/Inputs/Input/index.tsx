@@ -7,13 +7,13 @@ import { IInputComponentProps } from '../Input.props';
 import { Input } from './Input';
 
 export const InputComponent: React.FC<IInputComponentProps> = ({ input, meta, inputElementProps, label }) => {
-  const { error = '', submitFailed } = meta;
+  const { error = '', submitFailed, touched } = meta;
   const { className } = inputElementProps;
-  const inputClassName = classNames(className, styles.input, { [styles.hasError]: submitFailed && error });
+  const inputClassName = classNames(className, styles.input, { [styles.hasError]: (submitFailed || touched) && error });
 
   return (
     <Input
-      error={submitFailed ? error : ''}
+      error={(submitFailed || touched) ? error : ''}
       inputElementProps={{ type: 'text', ...input, ...inputElementProps, className: inputClassName }}
       label={label}
     />

@@ -3,7 +3,7 @@ import { Field } from 'react-final-form';
 
 import { Col, Input, Region, Row } from '../../../ui-components';
 import { createFormFieldId } from '../../../utils';
-import { firstNameValidator, lastNameValidator } from '../../../validators/OrderFormValidators';
+import { personalInfoValidator } from '../../../validators';
 import { FORM_ID, orderFormFields } from '../constants';
 
 const PersonalInfo: React.FC = () => (
@@ -13,7 +13,7 @@ const PersonalInfo: React.FC = () => (
         <Field
           id={createFormFieldId(FORM_ID, orderFormFields.lastName.name)}
           name={orderFormFields.lastName.name}
-          validate={lastNameValidator}
+          validate={personalInfoValidator}
           validateFields={[]}
         >
           {(props) => (
@@ -32,7 +32,7 @@ const PersonalInfo: React.FC = () => (
         <Field
           id={createFormFieldId(FORM_ID, orderFormFields.firstName.name)}
           name={orderFormFields.firstName.name}
-          validate={firstNameValidator}
+          validate={personalInfoValidator}
           validateFields={[]}
         >
           {(props) => (

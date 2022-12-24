@@ -1,36 +1,31 @@
-import { FieldState } from 'final-form';
-
+import { errorMessages } from '../constants';
 import { EPasswordLength } from '../enums/auth';
 import { TAuthFormValues } from '../types';
 
-export const email = (value: TAuthFormValues['password'], allValues?: Object, meta?: FieldState<string>) => {
-  if (!meta?.visited) return;
-
+export const email = (value: TAuthFormValues['password']) => {
   if (!value) {
-    return 'Поле обязательно для заполнения';
+    return errorMessages.required;
   }
 
   if (!/^[\w]{1}[\w-.]*@[\w-]+\.[a-z]{2,4}$/i.test(value)) {
-    return 'Некорректный email';
+    return errorMessages.incorrectEmail;
   }
 };
 
-export const password = (value: TAuthFormValues['password'], allValues?: Object, meta?: FieldState<string>) => {
-  if (!meta?.visited) return;
-
+export const password = (value: TAuthFormValues['password']) => {
   if (!value) {
-    return 'Поле обязательно для заполнения';
+    return errorMessages.required;
   }
 
   if (value.length < EPasswordLength.min) {
-    return `Длина пароля должна быть не менее ${EPasswordLength.min} символов`;
+    return errorMessages.minLengthIsRequired;
   }
 
   if (value.length > EPasswordLength.max) {
-    return `Длина пароля не должна превышать ${EPasswordLength.max} символов`;
+    return errorMessages.maxLengthIsRequired;
   }
 
   if (/\W/gi.test(value)) {
-    return 'Пароль может содержать только буквы и цифры';
+    return errorMessages.lettersAndDigitsOnlyAreRequired;
   }
 };

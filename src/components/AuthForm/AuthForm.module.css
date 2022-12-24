@@ -27,7 +27,7 @@
 .buttons {
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  gap: 20px;
   box-sizing: border-box;
   padding: 20px 0;
 }
@@ -40,7 +40,7 @@
   pointer-events: visible !important;
 }
 
-.submitButton:hover:disabled {
+.submitButton:hover:disabled, .cancelButton:hover:disabled {
   cursor: not-allowed;
 }
 
@@ -49,6 +49,7 @@
   max-height: 45px;
   padding: 10px;
   line-height: 1;
+  pointer-events: visible !important;
 }
 
 .redirect {
