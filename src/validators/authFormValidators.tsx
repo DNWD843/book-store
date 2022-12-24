@@ -1,5 +1,4 @@
-import { errorMessages } from '../constants';
-import { EPasswordLength } from '../enums/auth';
+import { errorMessages, passwordLength } from '../constants';
 import { TAuthFormValues } from '../types';
 
 export const email = (value: TAuthFormValues['password']) => {
@@ -17,12 +16,12 @@ export const password = (value: TAuthFormValues['password']) => {
     return errorMessages.required;
   }
 
-  if (value.length < EPasswordLength.min) {
-    return errorMessages.minLengthIsRequired;
+  if (value.length < passwordLength.min) {
+    return errorMessages.passwordMinLength;
   }
 
-  if (value.length > EPasswordLength.max) {
-    return errorMessages.maxLengthIsRequired;
+  if (value.length > passwordLength.max) {
+    return errorMessages.passwordMaxLength;
   }
 
   if (/\W/gi.test(value)) {

@@ -1,3 +1,5 @@
+import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
+
 import { ECollectionPaths, EFetchStatuses, ESendingTypes } from './enums';
 
 export type TBookInfo = {
@@ -77,4 +79,16 @@ export type TSendingTypeRadioButton = {
   label: string,
   className: string,
 };
+
 export type TSendingTypeRadioButtons = TSendingTypeRadioButton[];
+export type TInputElementProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+
+export type TFieldConfig = {
+  id: string,
+  name: string,
+  validate?: (value: string) => string | undefined,
+  InputProps: {
+    inputElementProps: TInputElementProps,
+    label: string,
+  },
+};

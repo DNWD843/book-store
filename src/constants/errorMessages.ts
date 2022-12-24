@@ -1,21 +1,15 @@
-import { EPasswordLength } from '../enums/auth';
+import { EErrorMessageTypes } from '../enums';
 
-export const enum EErrorMessageTypes {
-  required = 'required',
-  sendingTypeIsRequired = 'sendingTypeIsRequired',
-  incorrectEmail = 'incorrectEmail',
-  minLengthIsRequired = 'minLengthIsRequired',
-  maxLengthIsRequired = 'maxLengthIsRequired',
-  lettersAndDigitsOnlyAreRequired = 'lettersAndDigitsOnlyAreRequired',
-  lettersOnlyAreRequired = 'lettersOnlyAreRequired',
-}
+import { passwordLength, POSTAL_CODE_LENGTH } from './magicNumbers';
 
 export const errorMessages: Record<EErrorMessageTypes, string> = {
   [EErrorMessageTypes.required]: 'Поле обязательно для заполнения',
-  sendingTypeIsRequired: 'Выберите способ доставки',
-  incorrectEmail: 'Некорректный email',
-  minLengthIsRequired: `Длина пароля должна быть не менее ${EPasswordLength.min} символов`,
-  maxLengthIsRequired: `Длина пароля не должна превышать ${EPasswordLength.max} символов`,
-  lettersAndDigitsOnlyAreRequired: 'Пароль может содержать только буквы и цифры',
-  lettersOnlyAreRequired: 'Поле может содержать только буквы',
+  [EErrorMessageTypes.sendingTypeIsRequired]: 'Выберите способ доставки',
+  [EErrorMessageTypes.incorrectEmail]: 'Некорректный email',
+  [EErrorMessageTypes.passwordMinLength]: `Длина пароля должна быть не менее ${passwordLength.min} символов`,
+  [EErrorMessageTypes.passwordMaxLength]: `Длина пароля не должна превышать ${passwordLength.max} символов`,
+  [EErrorMessageTypes.lettersAndDigitsOnlyAreRequired]: 'Пароль может содержать только буквы и цифры',
+  [EErrorMessageTypes.lettersOnlyAreRequired]: 'Поле может содержать только буквы',
+  [EErrorMessageTypes.digitsOnlyAreRequired]: 'Поле может содержать только цифры',
+  [EErrorMessageTypes.postalCodeLength]: `Длина индекса должна быть ${POSTAL_CODE_LENGTH} символов`,
 };

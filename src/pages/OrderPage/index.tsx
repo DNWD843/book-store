@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Form } from 'react-final-form';
 
 import { OrderForm } from '../../components/OrderForm';
-import { FORM_ID } from '../../components/OrderForm/constants';
+import { FORM_ID } from '../../components/OrderForm/orderFormFieldsConfig';
 import { Page } from '../../components/Page';
 import { TOrderFormValues } from '../../types';
 

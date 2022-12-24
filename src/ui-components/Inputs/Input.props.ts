@@ -1,7 +1,6 @@
-import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
 import { FieldRenderProps } from 'react-final-form';
 
-export type TInputElementProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+import { TInputElementProps } from '../../types';
 
 export interface IInputComponentProps extends FieldRenderProps<string> {
   label: string,
