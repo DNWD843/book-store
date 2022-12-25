@@ -1,5 +1,5 @@
-import { FieldValidator } from 'final-form';
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
+import { FieldProps, FieldRenderProps } from 'react-final-form';
 
 import { ECollectionPaths, EFetchStatuses, ESendingTypes } from './enums';
 
@@ -84,12 +84,9 @@ export type TSendingTypeRadioButton = {
 export type TSendingTypeRadioButtons = TSendingTypeRadioButton[];
 export type TInputElementProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
-export type TFieldConfig = {
-  id: string,
-  name: string,
-  validate?: FieldValidator<string> | undefined,
+export interface IFieldConfig extends FieldProps<string, FieldRenderProps<string>> {
   InputProps: {
     inputElementProps: TInputElementProps,
     label: string,
   },
-};
+}

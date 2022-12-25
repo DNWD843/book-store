@@ -1,10 +1,10 @@
 import { EPersonalInfoFieldsNames } from '../../../../enums';
-import { TFieldConfig } from '../../../../types';
+import { IFieldConfig } from '../../../../types';
 import { createFormFieldId } from '../../../../utils';
 import { personalInfoValidator } from '../../../../validators';
 import { FORM_ID, orderFormFieldsConfig } from '../../orderFormFieldsConfig';
 
-type TPersonalInfoFieldsConfig = Record<keyof typeof EPersonalInfoFieldsNames, TFieldConfig>;
+type TPersonalInfoFieldsConfig = Record<keyof typeof EPersonalInfoFieldsNames, IFieldConfig>;
 
 export const personalInfoFieldsConfig: TPersonalInfoFieldsConfig = {
   lastName: {

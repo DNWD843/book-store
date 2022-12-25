@@ -7,9 +7,9 @@ import { contactInfoFieldsConfig } from './contactInfoFieldsConfig';
 
 const ContactInfo: React.FC = () => (
   <Region>
-    {Object.values(contactInfoFieldsConfig).map(({ id, name, validate, InputProps }) => (
-      <Col key={id} size={2}>
-        <Field id={id} name={name} validate={validate}>
+    {Object.values(contactInfoFieldsConfig).map(({ InputProps, ...fieldProps }) => (
+      <Col key={fieldProps.id} size={2}>
+        <Field {...fieldProps}>
           {(props) => (<Input {...props} {...InputProps} />)}
         </Field>
       </Col>

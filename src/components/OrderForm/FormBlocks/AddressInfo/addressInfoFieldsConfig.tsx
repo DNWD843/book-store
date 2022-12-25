@@ -1,5 +1,5 @@
 import { EAddressInfoFieldsNames } from '../../../../enums';
-import { TFieldConfig } from '../../../../types';
+import { IFieldConfig } from '../../../../types';
 import { createFormFieldId } from '../../../../utils';
 import {
   addressLiteralValidator,
@@ -9,7 +9,7 @@ import {
 } from '../../../../validators';
 import { FORM_ID, orderFormFieldsConfig } from '../../orderFormFieldsConfig';
 
-type TAddressInfoFieldsConfig = Record<keyof typeof EAddressInfoFieldsNames, TFieldConfig>;
+type TAddressInfoFieldsConfig = Record<keyof typeof EAddressInfoFieldsNames, IFieldConfig>;
 
 export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
   postalCode: {
