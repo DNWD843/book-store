@@ -1,3 +1,4 @@
+import { FieldValidator } from 'final-form';
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
 
 import { ECollectionPaths, EFetchStatuses, ESendingTypes } from './enums';
@@ -86,7 +87,7 @@ export type TInputElementProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInput
 export type TFieldConfig = {
   id: string,
   name: string,
-  validate?: (value: string) => string | undefined,
+  validate?: FieldValidator<string> | undefined,
   InputProps: {
     inputElementProps: TInputElementProps,
     label: string,

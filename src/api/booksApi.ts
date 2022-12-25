@@ -1,6 +1,7 @@
 import { collection, getDocs, setDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
+import { SLEEP_TIME } from '../constants';
 import { db } from '../firebase';
 import { ESlicesNames } from '../redux/slicesNames';
 import { TBookInfo } from '../types';
@@ -51,6 +52,19 @@ export const fetchBookByBookId = async (bookId: TBookInfo['id']) => {
 export const updateBook = async (bookInfo: TBookInfo) => {
   try {
     return await updateDoc(doc(db, ESlicesNames.booksCollection, bookInfo.id), { ...bookInfo });
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+  }
+};
+
+export const buyBooks = async () => {
+  try {
+    return setTimeout(() => {
+      console.log('BUY');
+
+      return Promise.resolve('Заказ успешно формлен!');
+    }, SLEEP_TIME);
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);

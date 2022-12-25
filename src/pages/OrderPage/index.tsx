@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { Form } from 'react-final-form';
 
+import { buyBooks } from '../../api';
 import { OrderForm } from '../../components/OrderForm';
 import { FORM_ID } from '../../components/OrderForm/orderFormFieldsConfig';
 import { Page } from '../../components/Page';
@@ -10,6 +11,7 @@ const OrderPage = () => {
   const onSubmit = (data: TOrderFormValues) => {
     // TODO: сюда прикрутить моковый метод сабмита данных
     console.log('data', data);
+    return buyBooks();
   };
 
   return (

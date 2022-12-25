@@ -1,9 +1,17 @@
+import { FieldState } from 'final-form';
+
 import { emailRegExp, errorMessages, phoneNumberRegExp } from '../../constants';
+import { ESendingTypes, orderFormFieldsNames } from '../../enums';
 
-export const orderFormEmailValidator = (value: string) => {
-  if (!value) return;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const orderFormEmailValidator = (value: string, allValues?: Object, meta?: FieldState<string>) => {
+  // @ts-ignore
+  if (!allValues?.[orderFormFieldsNames.sendingType]) return;
 
-  if (!emailRegExp.test(value)) return errorMessages.incorrectEmail;
+  // @ts-ignore
+  if (!value && allValues?.[orderFormFieldsNames.sendingType] === ESendingTypes.email) return errorMessages.required;
+
+  if (value && !emailRegExp.test(value)) return errorMessages.incorrectEmail;
 };
 
 export const phoneNumberValidator = (value: string) => {
