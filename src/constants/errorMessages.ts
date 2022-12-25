@@ -12,4 +12,5 @@ export const errorMessages: Record<EErrorMessageTypes, string> = {
   [EErrorMessageTypes.lettersOnlyAreRequired]: 'Поле может содержать только буквы',
   [EErrorMessageTypes.digitsOnlyAreRequired]: 'Поле может содержать только цифры',
   [EErrorMessageTypes.postalCodeLength]: `Длина индекса должна быть ${POSTAL_CODE_LENGTH} символов`,
+  [EErrorMessageTypes.incorrectValue]: 'Введено некорректное значение',
 };

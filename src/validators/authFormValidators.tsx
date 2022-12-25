@@ -24,7 +24,7 @@ export const password = (value: TAuthFormValues['password']) => {
     return errorMessages.passwordMaxLength;
   }
 
-  if (/\W/gi.test(value)) {
+  if (/\W/i.test(value)) {
     return errorMessages.lettersAndDigitsOnlyAreRequired;
   }
 };

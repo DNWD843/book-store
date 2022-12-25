@@ -8,4 +8,5 @@ export const enum EErrorMessageTypes {
   lettersOnlyAreRequired = 'lettersOnlyAreRequired',
   digitsOnlyAreRequired = 'digitsOnlyAreRequired',
   postalCodeLength = 'postalCodeLength',
+  incorrectValue = 'incorrectValue',
 }

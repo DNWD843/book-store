@@ -1,7 +1,12 @@
 import { EAddressInfoFieldsNames } from '../../../../enums';
 import { TFieldConfig } from '../../../../types';
 import { createFormFieldId } from '../../../../utils';
-import { postalCodeValidator } from '../../../../validators';
+import {
+  addressLiteralValidator,
+  addressNumberValidator,
+  notRequiredAddressNumberValidator,
+  postalCodeValidator,
+} from '../../../../validators';
 import { FORM_ID, orderFormFieldsConfig } from '../../orderFormFieldsConfig';
 
 type TAddressInfoFieldsConfig = Record<keyof typeof EAddressInfoFieldsNames, TFieldConfig>;
@@ -20,7 +25,7 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
   country: {
     id: createFormFieldId(FORM_ID, orderFormFieldsConfig.country.name),
     name: orderFormFieldsConfig.country.name,
-    validate: undefined,
+    validate: addressLiteralValidator,
     InputProps: { inputElementProps: {
       id: orderFormFieldsConfig.country.name,
       placeholder: orderFormFieldsConfig.country.placeholder,
@@ -30,7 +35,7 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
   regionName: {
     id: createFormFieldId(FORM_ID, orderFormFieldsConfig.regionName.name),
     name: orderFormFieldsConfig.regionName.name,
-    validate: undefined,
+    validate: addressLiteralValidator,
     InputProps: { inputElementProps: {
       id: orderFormFieldsConfig.regionName.name,
       placeholder: orderFormFieldsConfig.regionName.placeholder,
@@ -40,7 +45,7 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
   cityName: {
     id: createFormFieldId(FORM_ID, orderFormFieldsConfig.cityName.name),
     name: orderFormFieldsConfig.cityName.name,
-    validate: undefined,
+    validate: addressLiteralValidator,
     InputProps: { inputElementProps: {
       id: orderFormFieldsConfig.cityName.name,
       placeholder: orderFormFieldsConfig.cityName.placeholder,
@@ -50,7 +55,7 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
   streetName: {
     id: createFormFieldId(FORM_ID, orderFormFieldsConfig.streetName.name),
     name: orderFormFieldsConfig.streetName.name,
-    validate: undefined,
+    validate: addressLiteralValidator,
     InputProps: { inputElementProps: {
       id: orderFormFieldsConfig.streetName.name,
       placeholder: orderFormFieldsConfig.streetName.placeholder,
@@ -60,7 +65,7 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
   houseNumber: {
     id: createFormFieldId(FORM_ID, orderFormFieldsConfig.houseNumber.name),
     name: orderFormFieldsConfig.houseNumber.name,
-    validate: undefined,
+    validate: addressNumberValidator,
     InputProps: { inputElementProps: {
       id: orderFormFieldsConfig.houseNumber.name,
       placeholder: orderFormFieldsConfig.houseNumber.placeholder,
@@ -70,7 +75,7 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
   buildingNumber: {
     id: createFormFieldId(FORM_ID, orderFormFieldsConfig.buildingNumber.name),
     name: orderFormFieldsConfig.buildingNumber.name,
-    validate: undefined,
+    validate: notRequiredAddressNumberValidator,
     InputProps: { inputElementProps: {
       id: orderFormFieldsConfig.buildingNumber.name,
       placeholder: orderFormFieldsConfig.buildingNumber.placeholder,
@@ -80,7 +85,7 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
   housingNumber: {
     id: createFormFieldId(FORM_ID, orderFormFieldsConfig.housingNumber.name),
     name: orderFormFieldsConfig.housingNumber.name,
-    validate: undefined,
+    validate: notRequiredAddressNumberValidator,
     InputProps: { inputElementProps: {
       id: orderFormFieldsConfig.housingNumber.name,
       placeholder: orderFormFieldsConfig.housingNumber.placeholder,
@@ -90,7 +95,7 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
   flatNumber: {
     id: createFormFieldId(FORM_ID, orderFormFieldsConfig.flatNumber.name),
     name: orderFormFieldsConfig.flatNumber.name,
-    validate: undefined,
+    validate: notRequiredAddressNumberValidator,
     InputProps: { inputElementProps: {
       id: orderFormFieldsConfig.flatNumber.name,
       placeholder: orderFormFieldsConfig.flatNumber.placeholder,
