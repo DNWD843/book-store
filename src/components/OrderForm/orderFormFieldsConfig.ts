@@ -11,7 +11,7 @@ export const orderFormFieldsConfig: TOrderFormFieldsConfig = {
   postalCode: { name: 'postalCode', placeholder: 'Почтовый индекс', label: 'Почтовый индекс' },
   country: { name: 'country', placeholder: 'Страна', label: 'Страна' },
   regionName: { name: 'regionName', placeholder: 'Регион', label: 'Регион' },
-  cityName: { name: 'cityName', placeholder: 'Город', label: 'Город' },
+  cityName: { name: 'cityName', placeholder: 'Населенный пункт', label: 'Населенный пункт' },
   streetName: { name: 'streetName', placeholder: 'Улица', label: 'Улица' },
   houseNumber: { name: 'houseNumber', placeholder: 'Дом', label: 'Дом' },
   buildingNumber: { name: 'buildingNumber', placeholder: 'Корпус', label: 'Корпус' },

@@ -9,7 +9,7 @@ type TContactInfoFieldsConfig = Record<keyof typeof EContactInfoFieldsNames, IFi
 const normalizePhone = (value: string) => {
   if (!value) return value;
 
-  const onlyNums = value.replace(/[^\d ]/g, '');
+  const onlyNums = value.replace(/[^\d]/g, '');
 
   if (onlyNums.length <= 3) return onlyNums.replace(onlyNums[0], '+7 (');
   if (onlyNums.length > 3 && onlyNums.length <= 7) return `+7 (${onlyNums.slice(1, 4)}) ${onlyNums.slice(4, 7)}`;

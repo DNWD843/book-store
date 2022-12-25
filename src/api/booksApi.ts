@@ -63,7 +63,7 @@ export const buyBooks = async () => {
     return setTimeout(() => {
       console.log('BUY');
 
-      return Promise.resolve('Заказ успешно формлен!');
+      return Promise.resolve('Заказ успешно оформлен!');
     }, SLEEP_TIME);
   } catch (e) {
     // eslint-disable-next-line no-console
