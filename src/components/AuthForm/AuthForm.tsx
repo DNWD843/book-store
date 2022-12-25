@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { EAuthFormFieldNames } from '../../enums/auth';
 import { SimpleButton, SubmitButton } from '../../ui-components';
 import { Input } from '../../ui-components/Inputs';
-import { email, password } from '../../validators';
+import { authEmail, authPassword } from '../../validators';
 
 import { TAuthFormProps } from './AuthForm.props';
 
@@ -38,7 +38,7 @@ const AuthForm: React.FC<TAuthFormProps> = (
             id={`${formId}-${EAuthFormFieldNames.email}`}
             initialValue=""
             name={EAuthFormFieldNames.email}
-            validate={email}
+            validate={authEmail}
             validateFields={[]}
           >
             {(props) => (
@@ -58,7 +58,7 @@ const AuthForm: React.FC<TAuthFormProps> = (
             id={`${formId}-${EAuthFormFieldNames.password}`}
             initialValue=""
             name={EAuthFormFieldNames.password}
-            validate={password}
+            validate={authPassword}
             validateFields={[]}
           >
             {(props) => (

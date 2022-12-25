@@ -1,6 +1,7 @@
 import { EContactInfoFieldsNames } from '../../../../enums';
 import { TFieldConfig } from '../../../../types';
 import { createFormFieldId } from '../../../../utils';
+import { orderFormEmailValidator, phoneNumberValidator } from '../../../../validators';
 import { FORM_ID, orderFormFieldsConfig } from '../../orderFormFieldsConfig';
 
 type TContactInfoFieldsConfig = Record<keyof typeof EContactInfoFieldsNames, TFieldConfig>;
@@ -9,7 +10,7 @@ export const contactInfoFieldsConfig: TContactInfoFieldsConfig = {
   email: {
     id: createFormFieldId(FORM_ID, orderFormFieldsConfig.email.name),
     name: orderFormFieldsConfig.email.name,
-    validate: undefined,
+    validate: orderFormEmailValidator,
     InputProps: {
       inputElementProps: {
         id: orderFormFieldsConfig.email.name,
@@ -21,7 +22,7 @@ export const contactInfoFieldsConfig: TContactInfoFieldsConfig = {
   phoneNumber: {
     id: createFormFieldId(FORM_ID, orderFormFieldsConfig.phoneNumber.name),
     name: orderFormFieldsConfig.phoneNumber.name,
-    validate: undefined,
+    validate: phoneNumberValidator,
     InputProps: {
       inputElementProps: {
         id: orderFormFieldsConfig.phoneNumber.label,

@@ -18,7 +18,7 @@ export const orderFormFieldsConfig: TOrderFormFieldsConfig = {
   housingNumber: { name: 'housingNumber', placeholder: 'Строение', label: 'Строение' },
   flatNumber: { name: 'flatNumber', placeholder: 'Квартира', label: 'Квартира' },
   email: { name: 'email', placeholder: 'email', label: 'email' },
-  phoneNumber: { name: 'phoneNumber', placeholder: 'Телефон', label: 'Телефон' },
+  phoneNumber: { name: 'phoneNumber', placeholder: '+7(8) 999 9999999 или +7(8)9999999999', label: 'Телефон' },
   firstName: { name: 'firstName', placeholder: 'Имя', label: 'Имя' },
   lastName: { name: 'lastName', placeholder: 'Фамилия', label: 'Фамилия' },
   patronymic: { name: 'patronymic', placeholder: 'Отчество', label: 'Отчество' },

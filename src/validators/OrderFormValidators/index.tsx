@@ -1,3 +1,4 @@
-export { validateSendingType } from './SendingTypeValidator';
-export { personalInfoValidator } from './PersonalInfoValidators';
-export * from './AddressInfoValidators';
+export * from './sendingTypeValidator';
+export * from './personalInfoValidators';
+export * from './addressInfoValidators';
+export * from './contactInfoValidators';

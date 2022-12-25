@@ -6,6 +6,7 @@ export const errorMessages: Record<EErrorMessageTypes, string> = {
   [EErrorMessageTypes.required]: 'Поле обязательно для заполнения',
   [EErrorMessageTypes.sendingTypeIsRequired]: 'Выберите способ доставки',
   [EErrorMessageTypes.incorrectEmail]: 'Некорректный email',
+  [EErrorMessageTypes.incorrectPhoneNumber]: 'Некорректный номер телефона',
   [EErrorMessageTypes.passwordMinLength]: `Длина пароля должна быть не менее ${passwordLength.min} символов`,
   [EErrorMessageTypes.passwordMaxLength]: `Длина пароля не должна превышать ${passwordLength.max} символов`,
   [EErrorMessageTypes.lettersAndDigitsOnlyAreRequired]: 'Пароль может содержать только буквы и цифры',
