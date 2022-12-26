@@ -23,5 +23,3 @@ export const orderFormFieldsConfig: TOrderFormFieldsConfig = {
   lastName: { name: 'lastName', placeholder: 'Фамилия', label: 'Фамилия' },
   patronymic: { name: 'patronymic', placeholder: 'Отчество', label: 'Отчество' },
 };
-
-export const FORM_ID = 'order';

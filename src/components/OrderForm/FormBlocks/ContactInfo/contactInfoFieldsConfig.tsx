@@ -1,8 +1,9 @@
+import { ORDER_FORM_ID } from '../../../../constants';
 import { EContactInfoFieldsNames } from '../../../../enums';
 import { IFieldConfig } from '../../../../types';
 import { createFormFieldId } from '../../../../utils';
 import { orderFormEmailValidator, phoneNumberValidator } from '../../../../validators';
-import { FORM_ID, orderFormFieldsConfig } from '../../orderFormFieldsConfig';
+import { orderFormFieldsConfig } from '../../orderFormFieldsConfig';
 
 type TContactInfoFieldsConfig = Record<keyof typeof EContactInfoFieldsNames, IFieldConfig>;
 
@@ -18,7 +19,7 @@ const normalizePhone = (value: string) => {
 
 export const contactInfoFieldsConfig: TContactInfoFieldsConfig = {
   email: {
-    id: createFormFieldId(FORM_ID, orderFormFieldsConfig.email.name),
+    id: createFormFieldId(ORDER_FORM_ID, orderFormFieldsConfig.email.name),
     name: orderFormFieldsConfig.email.name,
     validate: orderFormEmailValidator,
     InputProps: {
@@ -30,7 +31,7 @@ export const contactInfoFieldsConfig: TContactInfoFieldsConfig = {
     },
   },
   phoneNumber: {
-    id: createFormFieldId(FORM_ID, orderFormFieldsConfig.phoneNumber.name),
+    id: createFormFieldId(ORDER_FORM_ID, orderFormFieldsConfig.phoneNumber.name),
     name: orderFormFieldsConfig.phoneNumber.name,
     validate: phoneNumberValidator,
     parse: normalizePhone,

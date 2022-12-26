@@ -1,14 +1,15 @@
+import { ORDER_FORM_ID } from '../../../../constants';
 import { ESendingTypes } from '../../../../enums';
 import { TSendingTypeRadioButtons } from '../../../../types';
 import { createFormFieldId } from '../../../../utils';
-import { FORM_ID, orderFormFieldsConfig } from '../../orderFormFieldsConfig';
+import { orderFormFieldsConfig } from '../../orderFormFieldsConfig';
 
 export const sendingTypeConfig: TSendingTypeRadioButtons = [
   {
     name: orderFormFieldsConfig.sendingType.name,
     component: 'input',
     value: ESendingTypes.email,
-    id: createFormFieldId(FORM_ID, orderFormFieldsConfig.sendingTypeEmail.name),
+    id: createFormFieldId(ORDER_FORM_ID, orderFormFieldsConfig.sendingTypeEmail.name),
     label: orderFormFieldsConfig.sendingTypeEmail.label,
     className: 'form-check-input',
   },
@@ -16,7 +17,7 @@ export const sendingTypeConfig: TSendingTypeRadioButtons = [
     name: orderFormFieldsConfig.sendingType.name,
     component: 'input',
     value: ESendingTypes.post,
-    id: createFormFieldId(FORM_ID, orderFormFieldsConfig.sendingTypePost.name),
+    id: createFormFieldId(ORDER_FORM_ID, orderFormFieldsConfig.sendingTypePost.name),
     label: orderFormFieldsConfig.sendingTypePost.label,
     className: 'form-check-input',
   },

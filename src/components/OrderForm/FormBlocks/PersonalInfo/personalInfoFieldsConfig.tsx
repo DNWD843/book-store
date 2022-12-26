@@ -1,14 +1,15 @@
+import { ORDER_FORM_ID } from '../../../../constants';
 import { EPersonalInfoFieldsNames } from '../../../../enums';
 import { IFieldConfig } from '../../../../types';
 import { createFormFieldId } from '../../../../utils';
 import { personalInfoValidator } from '../../../../validators';
-import { FORM_ID, orderFormFieldsConfig } from '../../orderFormFieldsConfig';
+import { orderFormFieldsConfig } from '../../orderFormFieldsConfig';
 
 type TPersonalInfoFieldsConfig = Record<keyof typeof EPersonalInfoFieldsNames, IFieldConfig>;
 
 export const personalInfoFieldsConfig: TPersonalInfoFieldsConfig = {
   lastName: {
-    id: createFormFieldId(FORM_ID, orderFormFieldsConfig.lastName.name),
+    id: createFormFieldId(ORDER_FORM_ID, orderFormFieldsConfig.lastName.name),
     name: orderFormFieldsConfig.lastName.name,
     validate: personalInfoValidator,
     InputProps: {
@@ -20,7 +21,7 @@ export const personalInfoFieldsConfig: TPersonalInfoFieldsConfig = {
     },
   },
   firstName: {
-    id: createFormFieldId(FORM_ID, orderFormFieldsConfig.firstName.name),
+    id: createFormFieldId(ORDER_FORM_ID, orderFormFieldsConfig.firstName.name),
     name: orderFormFieldsConfig.firstName.name,
     validate: personalInfoValidator,
     InputProps: {
@@ -33,7 +34,7 @@ export const personalInfoFieldsConfig: TPersonalInfoFieldsConfig = {
     },
   },
   patronymic: {
-    id: createFormFieldId(FORM_ID, orderFormFieldsConfig.patronymic.name),
+    id: createFormFieldId(ORDER_FORM_ID, orderFormFieldsConfig.patronymic.name),
     name: orderFormFieldsConfig.patronymic.name,
     InputProps: {
       inputElementProps: {

@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { buyBooks } from '../../api';
 import { OrderForm } from '../../components/OrderForm';
-import { FORM_ID } from '../../components/OrderForm/orderFormFieldsConfig';
 import { Page } from '../../components/Page';
+import { ORDER_FORM_ID } from '../../constants';
 import { useAppSelector } from '../../redux/hooks';
 import { selectUserSavings } from '../../redux/store';
 import { routes } from '../../routesMap';
@@ -28,7 +28,7 @@ const OrderPage = () => {
 
   return (
     <Page title="Оформление заказа">
-      <Form id={FORM_ID} onSubmit={onSubmit}>
+      <Form id={ORDER_FORM_ID} onSubmit={onSubmit}>
         {(formRenderProps) => (<OrderForm {...formRenderProps} />)}
       </Form>
     </Page>
