@@ -2,21 +2,16 @@ import React, { useMemo } from 'react';
 
 import { Page } from '../../components/Page';
 import { ShoppingCart, CartTotalPrice, CartActionButtons } from '../../components/ShoppingCart';
-import { MINIMAL_BOOKS_QUANTITY, RUBLE_SIGN } from '../../constants';
+import { RUBLE_SIGN } from '../../constants';
 import { useAppSelector } from '../../redux/hooks';
 import { selectUserData, selectUserSavings } from '../../redux/store';
+import { getTotalPrice } from '../../utils';
 
 export const ShoppingCartPage: React.FC = () => {
   const { cartValue, favorites } = useAppSelector(selectUserSavings);
   const { userId, displayName, email, isAnonymous } = useAppSelector(selectUserData);
 
-  const orderPrice = cartValue.reduce<number>((acc, book) => {
-    const booksQuantity = book.quantity ?? MINIMAL_BOOKS_QUANTITY;
-    // eslint-disable-next-line no-param-reassign
-    acc += (book.price * booksQuantity);
-
-    return acc;
-  }, 0);
+  const orderPrice = getTotalPrice(cartValue);
 
   const subTitle = useMemo(() => {
     const emptyTitle = isAnonymous ? 'В Вашей корзине пока пусто.' : `${displayName || email}, в Вашей корзине пока пусто.`;
