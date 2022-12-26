@@ -1,18 +1,30 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import { Form } from 'react-final-form';
+import { useNavigate } from 'react-router-dom';
 
 import { buyBooks } from '../../api';
 import { OrderForm } from '../../components/OrderForm';
 import { FORM_ID } from '../../components/OrderForm/orderFormFieldsConfig';
 import { Page } from '../../components/Page';
+import { useAppSelector } from '../../redux/hooks';
+import { selectUserSavings } from '../../redux/store';
+import { routes } from '../../routesMap';
 import { TOrderFormValues } from '../../types';
 
 const OrderPage = () => {
+  const { cartValue } = useAppSelector(selectUserSavings);
+  const navigate = useNavigate();
   const onSubmit = (data: TOrderFormValues) => {
     // TODO: сюда прикрутить моковый метод сабмита данных
     console.log('data', data);
     return buyBooks();
   };
+
+  useEffect(() => {
+    if (!cartValue.length) {
+      navigate(routes.shoppingCart);
+    }
+  }, [cartValue.length, navigate]);
 
   return (
     <Page title="Оформление заказа">
