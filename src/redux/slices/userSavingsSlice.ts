@@ -3,12 +3,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { EFetchStatuses } from '../../enums';
 import { TUserSavings } from '../../types';
 import { ESlicesNames } from '../slicesNames';
-import { createUserSavings, getUserSavings, updateUserSavings } from '../thunks';
+import { createUserSavings, getUserSavings, updateUserSavings, sendOrderData } from '../thunks';
 
 const initialState: TUserSavings = {
   status: EFetchStatuses.fulfilled,
   favorites: [],
   cartValue: [],
+  purchases: {},
 };
 
 const userSavingsSlice = createSlice({
@@ -18,10 +19,12 @@ const userSavingsSlice = createSlice({
     setUserSavingsToStore: (state, { payload }: PayloadAction<TUserSavings>) => {
       state.favorites = payload.favorites;
       state.cartValue = payload.cartValue;
+      state.purchases = payload.purchases;
     },
     removeUserSavingsFromStore: (state) => {
       state.cartValue = initialState.cartValue;
       state.favorites = initialState.favorites;
+      state.purchases = initialState.purchases;
       state.status = initialState.status;
     },
   },
@@ -38,12 +41,18 @@ const userSavingsSlice = createSlice({
         state.status = EFetchStatuses.fulfilled;
         state.favorites = payload.favorites;
         state.cartValue = payload.cartValue;
+        state.purchases = payload.purchases;
       });
 
     builder
       .addCase(updateUserSavings.pending, (state) => { state.status = EFetchStatuses.pending; })
       .addCase(updateUserSavings.rejected, (state) => { state.status = EFetchStatuses.rejected; })
       .addCase(updateUserSavings.fulfilled, (state) => { state.status = EFetchStatuses.fulfilled; });
+
+    builder
+      .addCase(sendOrderData.pending, (state) => { state.status = EFetchStatuses.pending; })
+      .addCase(sendOrderData.rejected, (state) => { state.status = EFetchStatuses.rejected; })
+      .addCase(sendOrderData.fulfilled, (state) => { state.status = EFetchStatuses.fulfilled; });
   },
 });
 

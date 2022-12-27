@@ -8,6 +8,7 @@ export const routes: Record<string, string> = {
   shoppingHistory: '/history',
   login: '/login',
   register: '/register',
+  order: '/order',
   notFound: '*',
   anyRoute: '*',
 };

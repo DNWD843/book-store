@@ -2,27 +2,27 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { AuthForm } from '../../components/AuthForm';
+import { authFormConfigs } from '../../components/AuthForm/constants';
 import { Page } from '../../components/Page';
 import { EAuthTypes, ECollectionPaths, EFetchStatuses } from '../../enums';
-import { TFormState } from '../../hooks/useAuthForm';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { authActions } from '../../redux/slices/authSlice';
 import { userSavingsActions } from '../../redux/slices/userSavingsSlice';
-import { selectAuthError, selectUserSavings, storageActions } from '../../redux/store';
+import { selectUserSavings, storageActions } from '../../redux/store';
 import { auth, getUserSavings, updateUserSavings } from '../../redux/thunks';
 import { routes } from '../../routesMap';
-import { TBookInfo, TUser, TUserSavings } from '../../types';
+import { TAuthFormValues, TBookInfo, TUser, TUserSavings } from '../../types';
 import { storage, storageKeys } from '../../utils';
 
 const LoginPageComponent: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { clearAuthError } = authActions;
-  const loginError = useAppSelector(selectAuthError);
+  // const loginError = useAppSelector(selectAuthError); // оставил для вывода в тултипе
   const { cartValue } = useAppSelector(selectUserSavings);
   const { setUserSavingsToStore } = userSavingsActions;
 
-  const handleSubmit = async ({ email, password }: TFormState['values']) => {
+  const handleSubmit = async ({ email, password }: TAuthFormValues) => {
     dispatch(clearAuthError());
     await dispatch(auth.loginUser({ email, password }))
       .then(async (res) => {
@@ -31,9 +31,13 @@ const LoginPageComponent: React.FC = () => {
         await dispatch(getUserSavings(userData.userId))
           .then(async (savedData) => {
             if (cartValue.length) {
-              const { favorites: savedFavorites = [], cartValue: savedCartValue = [] } = savedData.payload as TUserSavings;
+              const {
+                favorites: savedFavorites = [],
+                cartValue: savedCartValue = [],
+                purchases: savedPurchases = {},
+              } = savedData.payload as TUserSavings;
 
-              const filteredSavings = cartValue.reduce<TBookInfo[]>((acc, book) => {
+              const mergedCartValue = cartValue.reduce<TBookInfo[]>((acc, book) => {
                 if (acc.some((savedBook) => savedBook.id === book.id)) {
                   return acc;
                 }
@@ -43,7 +47,8 @@ const LoginPageComponent: React.FC = () => {
               }, [...savedCartValue]);
 
               const savings = { [ECollectionPaths.favorites]: [...savedFavorites],
-                [ECollectionPaths.cartValue]: [...filteredSavings] };
+                [ECollectionPaths.purchases]: { ...savedPurchases },
+                [ECollectionPaths.cartValue]: [...mergedCartValue] };
 
               await dispatch(updateUserSavings({ userId: userData.userId, savings }))
                 .then(() => { dispatch(setUserSavingsToStore(savings)); });
@@ -63,15 +68,12 @@ const LoginPageComponent: React.FC = () => {
       .catch((err) => { console.error(err); });
   };
 
-  const clearFormError = () => { dispatch(clearAuthError()); };
-
   return (
     <Page title="">
       <AuthForm
-        authType={EAuthTypes.login}
-        clearFormError={clearFormError}
-        formError={loginError}
-        handleSubmit={handleSubmit}
+        formConfig={authFormConfigs[EAuthTypes.login]}
+        id={EAuthTypes.login}
+        onSubmit={handleSubmit}
       />
     </Page>
   );

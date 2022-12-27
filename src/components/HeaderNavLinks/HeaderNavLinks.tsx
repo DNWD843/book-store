@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { EIconTypes } from '../../enums';
-import { HeaderNavLink } from '../NavLinkIcon';
+import { HeaderNavLink } from '../../ui-components/NavLinkIcon';
 
 import { THeaderNavLinksProps } from './HeaderNavLinks.props';
 import { navLinksConfig } from './navLinksConfig';

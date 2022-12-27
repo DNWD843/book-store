@@ -1,0 +1,79 @@
+.inputContainer {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0 0 25px;
+}
+
+.label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  color: var(--grey);
+  font-style: italic;
+}
+
+.inputLabel {
+  color: var(--grey);
+  font-style: italic;
+}
+
+.input {
+  border-radius: 5px;
+  border: 1px solid var(--grey);
+  box-sizing: border-box;
+  padding: 10px 15px;
+  outline: none;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.input:focus {
+  outline: 3px solid var(--dark-grey);
+}
+
+.hasError, .hasError:focus {
+  outline: 1px solid red;
+  border: 1px solid red;
+}
+
+.radioInputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  row-gap: 10px;
+  padding: 0 0 10px;
+}
+
+.radioLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+  cursor: pointer;
+  color: var(--grey);
+  font-style: italic;
+}
+
+input[type='radio'] {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.input::placeholder {
+  font-style: italic;
+  font-size: 16px;
+}
+
+.error {
+  position: absolute;
+  left: 0;
+  bottom: 5px;
+  color: red;
+  font-size: 14px;
+}

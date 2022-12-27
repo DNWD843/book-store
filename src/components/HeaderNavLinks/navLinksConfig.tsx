@@ -1,7 +1,7 @@
 import { EIconTypes } from '../../enums';
 import { routes } from '../../routesMap';
+import { IHeaderNavLinkProps } from '../../ui-components/NavLinkIcon/NavLinkIcon.props';
 import { bookmarkIcon, bookmarkActiveIcon, shoppingCartEmptyIcon, shoppingCartFilledIcon } from '../../vendor/icons';
-import { IHeaderNavLinkProps } from '../NavLinkIcon/NavLinkIcon.props';
 
 export const navLinksConfig: Array<Omit<IHeaderNavLinkProps, 'isVisible'>> = [
   {

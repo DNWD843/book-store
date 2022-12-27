@@ -1,4 +1,7 @@
-import { ECollectionPaths, EFetchStatuses } from './enums';
+import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
+import { FieldProps, FieldRenderProps } from 'react-final-form';
+
+import { ECollectionPaths, EFetchStatuses, ESendingTypes } from './enums';
 
 export type TBookInfo = {
   id: string,
@@ -35,17 +38,64 @@ export type TUser = {
 
 export type TUserData = TUser;
 
+export type TPurchases = Record<string, { books: TBookInfo[], orderPrice: number }>;
+
 export type TUserSavings = {
   status?: EFetchStatuses,
   id?: string,
   favorites: TBookInfo[],
   cartValue: TBookInfo[],
+  purchases: TPurchases,
 };
 
 export type TUserSavingsToUpdate = {
   savings: {
     [ECollectionPaths.favorites]: TBookInfo[],
     [ECollectionPaths.cartValue]: TBookInfo[],
+    [ECollectionPaths.purchases]: TPurchases,
   },
   userId: TUserData['userId'],
+};
+
+export type TAuthFormValues = { email: string, password: string };
+export type TOrderFormValues = {
+  sendingType: ESendingTypes,
+  postalCode?: string,
+  country?: string,
+  regionName?: string,
+  cityName?: string,
+  streetName?: string,
+  houseNumber?: string,
+  buildingNumber?: string,
+  housingNumber?: string,
+  flatNumber?: string,
+  email?: string,
+  phoneNumber: string,
+  firstName: string,
+  lastName: string,
+  patronymic?: string,
+};
+
+export type TSendingTypeRadioButton = {
+  name: string,
+  component: 'input',
+  value: ESendingTypes,
+  id: string,
+  label: string,
+  className: string,
+};
+
+export type TSendingTypeRadioButtons = TSendingTypeRadioButton[];
+export type TInputElementProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+
+export interface IFieldConfig extends FieldProps<string, FieldRenderProps<string>> {
+  InputProps: {
+    inputElementProps: TInputElementProps,
+    label: string,
+  },
+}
+
+export type TSendingOrderData = {
+  data: TOrderFormValues,
+  currentPurchase: TPurchases
 };

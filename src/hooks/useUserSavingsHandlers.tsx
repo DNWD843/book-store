@@ -11,11 +11,8 @@ import { TBookInfo, TUserSavingsToUpdate } from '../types';
 export const useUserSavingsHandlers = (id: TBookInfo['id']) => {
   const dispatch = useAppDispatch();
   const { setUserSavingsToStore } = userSavingsActions;
-  const { isAnonymous, userId } = useAppSelector(selectUserData);
-  const { favorites = [], cartValue = [] } = useAppSelector(selectUserSavings);
-
-  const isAddedToFavorites = favorites.some((book) => book.id === id);
-  const isAddedToCart = cartValue.some((book) => book.id === id);
+  const { isAnonymous, userId, displayName, email } = useAppSelector(selectUserData);
+  const { favorites = [], cartValue = [], purchases = {} } = useAppSelector(selectUserSavings);
 
   const updateSavings = useCallback((key: TUserSavingsToUpdate['userId'], data: TUserSavingsToUpdate['savings']) => {
     if (isAnonymous) {
@@ -27,15 +24,22 @@ export const useUserSavingsHandlers = (id: TBookInfo['id']) => {
     }
   }, [dispatch, isAnonymous, setUserSavingsToStore]);
 
+  const isAddedToFavorites = favorites.some((book) => book.id === id);
+  const isAddedToCart = cartValue.some((book) => book.id === id);
+
   const handleBookmarkClick = (bookInfo: TBookInfo) => {
     let savings: TUserSavingsToUpdate['savings'];
 
     if (isAddedToFavorites) {
       const filteredFavorites = favorites.filter((book) => book.id !== id);
 
-      savings = { [ECollectionPaths.cartValue]: [...cartValue], [ECollectionPaths.favorites]: filteredFavorites };
+      savings = { [ECollectionPaths.cartValue]: [...cartValue],
+        [ECollectionPaths.purchases]: { ...purchases },
+        [ECollectionPaths.favorites]: filteredFavorites };
     } else {
-      savings = { [ECollectionPaths.cartValue]: [...cartValue], [ECollectionPaths.favorites]: [...favorites, { ...bookInfo }] };
+      savings = { [ECollectionPaths.cartValue]: [...cartValue],
+        [ECollectionPaths.purchases]: { ...purchases },
+        [ECollectionPaths.favorites]: [...favorites, { ...bookInfo }] };
     }
 
     updateSavings(userId, savings);
@@ -47,10 +51,13 @@ export const useUserSavingsHandlers = (id: TBookInfo['id']) => {
     if (isAddedToCart) {
       const filteredCartValue = cartValue.filter((book) => book.id !== id);
 
-      savings = { [ECollectionPaths.favorites]: [...favorites], [ECollectionPaths.cartValue]: filteredCartValue };
+      savings = { [ECollectionPaths.favorites]: [...favorites],
+        [ECollectionPaths.purchases]: { ...purchases },
+        [ECollectionPaths.cartValue]: filteredCartValue };
     } else {
       savings = {
         [ECollectionPaths.favorites]: [...favorites],
+        [ECollectionPaths.purchases]: { ...purchases },
         [ECollectionPaths.cartValue]: [...cartValue, { ...bookInfo, quantity: bookInfo.quantity ?? MINIMAL_BOOKS_QUANTITY }],
       };
     }
@@ -67,7 +74,9 @@ export const useUserSavingsHandlers = (id: TBookInfo['id']) => {
       return book;
     });
 
-    updateSavings(userId, { [ECollectionPaths.favorites]: [...favorites], [ECollectionPaths.cartValue]: changedCartValue });
+    updateSavings(userId, { [ECollectionPaths.favorites]: [...favorites],
+      [ECollectionPaths.purchases]: { ...purchases },
+      [ECollectionPaths.cartValue]: changedCartValue });
   };
 
   const decreaseBooksQuantity = () => {
@@ -79,7 +88,9 @@ export const useUserSavingsHandlers = (id: TBookInfo['id']) => {
       return book;
     });
 
-    updateSavings(userId, { [ECollectionPaths.favorites]: [...favorites], [ECollectionPaths.cartValue]: changedCartValue });
+    updateSavings(userId, { [ECollectionPaths.favorites]: [...favorites],
+      [ECollectionPaths.purchases]: { ...purchases },
+      [ECollectionPaths.cartValue]: changedCartValue });
   };
 
   return {
@@ -89,9 +100,14 @@ export const useUserSavingsHandlers = (id: TBookInfo['id']) => {
     userId,
     favorites,
     cartValue,
+    purchases,
     handleCartButtonClick,
     handleBookmarkClick,
     increaseBooksQuantity,
     decreaseBooksQuantity,
+    updateSavings,
+    dispatch,
+    displayName,
+    email,
   };
 };

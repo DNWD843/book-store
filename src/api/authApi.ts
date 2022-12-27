@@ -1,10 +1,9 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously } from 'firebase/auth';
 
 import { appAuth } from '../firebase';
-import { TFormState } from '../hooks/useAuthForm';
-import { TUser } from '../types';
+import { TAuthFormValues, TUser } from '../types';
 
-export const createUser = async ({ email, password }: TFormState['values']): Promise<TUser> => {
+export const createUser = async ({ email, password }: TAuthFormValues): Promise<TUser> => {
   try {
     const credentials = await createUserWithEmailAndPassword(appAuth, email, password);
     const { uid, email: userEmail, displayName, phoneNumber, photoURL, isAnonymous } = credentials.user;
@@ -26,7 +25,7 @@ export const createUser = async ({ email, password }: TFormState['values']): Pro
   }
 };
 
-export const loginUserByEmail = async ({ email, password }: TFormState['values']): Promise<TUser> => {
+export const loginUserByEmail = async ({ email, password }: TAuthFormValues): Promise<TUser> => {
   try {
     const credentials = await signInWithEmailAndPassword(appAuth, email, password);
     const { uid, email: userEmail, displayName, phoneNumber, photoURL, isAnonymous } = credentials.user;
