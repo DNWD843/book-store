@@ -6,7 +6,11 @@ import { ESlicesNames } from '../redux/slicesNames';
 import { TUserSavings, TUserSavingsToUpdate } from '../types';
 
 export const createSavings = async (id: TUserSavings['id']) => setDoc(
-  doc(db, ESlicesNames.userSavings, id!), { favorites: [], cartValue: [] },
+  doc(db, ESlicesNames.userSavings, id!), {
+    [ECollectionPaths.favorites]: [],
+    [ECollectionPaths.cartValue]: [],
+    [ECollectionPaths.purchases]: {},
+  },
 );
 
 export const updateSavings = async ({ userId, savings }: TUserSavingsToUpdate) => updateDoc(
@@ -21,7 +25,7 @@ export const fetchSavings = async (id: TUserSavings['id']): Promise<TUserSavings
       return docSnap.data() as unknown as TUserSavings;
     }
 
-    return { [ECollectionPaths.favorites]: [], [ECollectionPaths.cartValue]: [] };
+    return { [ECollectionPaths.favorites]: [], [ECollectionPaths.cartValue]: [], [ECollectionPaths.purchases]: {} };
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);

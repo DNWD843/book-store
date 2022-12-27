@@ -6,8 +6,8 @@ import { OrderForm } from '../../components/OrderForm';
 import { Page } from '../../components/Page';
 import { ORDER_FORM_ID, RUBLE_SIGN } from '../../constants';
 import { useUserSavingsHandlers } from '../../hooks/useUserSavingsHandlers';
-import { useAppSelector } from '../../redux/hooks';
-import { selectUserSavings } from '../../redux/store';
+// import { useAppSelector } from '../../redux/hooks';
+// import { selectUserSavings } from '../../redux/store';
 import { sendOrderData } from '../../redux/thunks';
 import { routes } from '../../routesMap';
 import { TOrderFormValues } from '../../types';
@@ -15,22 +15,15 @@ import { getTotalPrice } from '../../utils';
 
 const OrderPage = () => {
   const navigate = useNavigate();
-  const { updateSavings, userId, displayName, email, dispatch } = useUserSavingsHandlers('');
-  const { favorites = [], cartValue = [], purchases = {} } = useAppSelector(selectUserSavings);
+  const { updateSavings, userId, displayName, email, dispatch, favorites, cartValue, purchases } = useUserSavingsHandlers('');
 
   const orderPrice = getTotalPrice(cartValue);
   const begin = displayName || email ? `${displayName || email}, В` : 'В';
   const subtitle = `${begin}аш заказ: ${cartValue.length} книг на сумму ${orderPrice} ${RUBLE_SIGN}`;
 
-  console.log('yo purchases', purchases);
-
   const onSubmit = async (data: TOrderFormValues) => {
-    console.log('data', data);
-
     const currentPurchase = { [new Date().toISOString()]: { books: cartValue, orderPrice } };
-
     const orderData = { data, currentPurchase };
-
     const savings = { cartValue: [],
       favorites,
       purchases: {
@@ -39,10 +32,7 @@ const OrderPage = () => {
       } };
 
     dispatch(sendOrderData(orderData))
-      .then((res) => {
-        console.log('RES', res);
-        updateSavings(userId, savings);
-      });
+      .then(() => { updateSavings(userId, savings); });
   };
 
   useEffect(() => {

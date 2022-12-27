@@ -31,9 +31,13 @@ const LoginPageComponent: React.FC = () => {
         await dispatch(getUserSavings(userData.userId))
           .then(async (savedData) => {
             if (cartValue.length) {
-              const { favorites: savedFavorites = [], cartValue: savedCartValue = [] } = savedData.payload as TUserSavings;
+              const {
+                favorites: savedFavorites = [],
+                cartValue: savedCartValue = [],
+                purchases: savedPurchases = {},
+              } = savedData.payload as TUserSavings;
 
-              const filteredSavings = cartValue.reduce<TBookInfo[]>((acc, book) => {
+              const mergedCartValue = cartValue.reduce<TBookInfo[]>((acc, book) => {
                 if (acc.some((savedBook) => savedBook.id === book.id)) {
                   return acc;
                 }
@@ -43,7 +47,8 @@ const LoginPageComponent: React.FC = () => {
               }, [...savedCartValue]);
 
               const savings = { [ECollectionPaths.favorites]: [...savedFavorites],
-                [ECollectionPaths.cartValue]: [...filteredSavings] };
+                [ECollectionPaths.purchases]: { ...savedPurchases },
+                [ECollectionPaths.cartValue]: [...mergedCartValue] };
 
               await dispatch(updateUserSavings({ userId: userData.userId, savings }))
                 .then(() => { dispatch(setUserSavingsToStore(savings)); });

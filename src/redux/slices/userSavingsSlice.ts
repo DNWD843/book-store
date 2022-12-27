@@ -24,6 +24,7 @@ const userSavingsSlice = createSlice({
     removeUserSavingsFromStore: (state) => {
       state.cartValue = initialState.cartValue;
       state.favorites = initialState.favorites;
+      state.purchases = initialState.purchases;
       state.status = initialState.status;
     },
   },
@@ -40,6 +41,7 @@ const userSavingsSlice = createSlice({
         state.status = EFetchStatuses.fulfilled;
         state.favorites = payload.favorites;
         state.cartValue = payload.cartValue;
+        state.purchases = payload.purchases;
       });
 
     builder
