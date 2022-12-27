@@ -38,18 +38,21 @@ export type TUser = {
 
 export type TUserData = TUser;
 
+export type TPurchases = Record<string, {}>;
+
 export type TUserSavings = {
   status?: EFetchStatuses,
   id?: string,
   favorites: TBookInfo[],
   cartValue: TBookInfo[],
-  purchases?: {},
+  purchases: TPurchases,
 };
 
 export type TUserSavingsToUpdate = {
   savings: {
     [ECollectionPaths.favorites]: TBookInfo[],
     [ECollectionPaths.cartValue]: TBookInfo[],
+    [ECollectionPaths.purchases]: TPurchases,
   },
   userId: TUserData['userId'],
 };

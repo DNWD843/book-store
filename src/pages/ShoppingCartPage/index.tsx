@@ -8,7 +8,7 @@ import { selectUserData, selectUserSavings } from '../../redux/store';
 import { getTotalPrice } from '../../utils';
 
 export const ShoppingCartPage: React.FC = () => {
-  const { cartValue, favorites } = useAppSelector(selectUserSavings);
+  const { cartValue, favorites, purchases } = useAppSelector(selectUserSavings);
   const { userId, displayName, email, isAnonymous } = useAppSelector(selectUserData);
 
   const orderPrice = getTotalPrice(cartValue);
@@ -29,7 +29,7 @@ export const ShoppingCartPage: React.FC = () => {
         ? (
           <>
             <CartTotalPrice totalPrice={orderPrice} />
-            <CartActionButtons savings={{ cartValue, favorites }} userId={userId} />
+            <CartActionButtons savings={{ cartValue, favorites, purchases }} userId={userId} />
           </>
         )
         : null}

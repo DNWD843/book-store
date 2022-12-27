@@ -6,8 +6,8 @@ import { OrderForm } from '../../components/OrderForm';
 import { Page } from '../../components/Page';
 import { ORDER_FORM_ID, RUBLE_SIGN } from '../../constants';
 import { useUserSavingsHandlers } from '../../hooks/useUserSavingsHandlers';
-import { useAppSelector } from '../../redux/hooks';
-import { selectUserSavings } from '../../redux/store';
+// import { useAppSelector } from '../../redux/hooks';
+// import { selectUserSavings } from '../../redux/store';
 import { sendOrderData } from '../../redux/thunks';
 import { routes } from '../../routesMap';
 import { TOrderFormValues } from '../../types';
@@ -15,8 +15,8 @@ import { getTotalPrice } from '../../utils';
 
 const OrderPage = () => {
   const navigate = useNavigate();
-  const { updateSavings, userId, displayName, email, dispatch } = useUserSavingsHandlers('');
-  const { favorites = [], cartValue = [], purchases = {} } = useAppSelector(selectUserSavings);
+  const { updateSavings, userId, displayName, email, dispatch, favorites, cartValue, purchases } = useUserSavingsHandlers('');
+  // const { favorites = [], cartValue = [], purchases = {} } = useAppSelector(selectUserSavings);
 
   const orderPrice = getTotalPrice(cartValue);
   const begin = displayName || email ? `${displayName || email}, В` : 'В';
