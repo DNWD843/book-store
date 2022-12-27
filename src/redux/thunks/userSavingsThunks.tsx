@@ -1,8 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { buyBooks, createSavings, fetchSavings } from '../../api';
-import { updateSavings } from '../../api/userSavingsApi';
-import { TUserSavings, TUserSavingsToUpdate } from '../../types';
+import { buyBooks, createSavings, fetchSavings, updateSavings } from '../../api';
+import { TSendingOrderData, TUserSavings, TUserSavingsToUpdate } from '../../types';
 import { ESlicesNames } from '../slicesNames';
 
 export const createUserSavings = createAsyncThunk(
@@ -22,5 +21,5 @@ export const getUserSavings = createAsyncThunk(
 
 export const sendOrderData = createAsyncThunk(
   `${ESlicesNames.userSavings}/sendOrderData`,
-  async (orderData: any) => buyBooks(orderData),
+  async (orderData: TSendingOrderData) => buyBooks(orderData),
 );

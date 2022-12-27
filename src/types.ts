@@ -38,7 +38,7 @@ export type TUser = {
 
 export type TUserData = TUser;
 
-export type TPurchases = Record<string, {}>;
+export type TPurchases = Record<string, { books: TBookInfo[], orderPrice: number }>;
 
 export type TUserSavings = {
   status?: EFetchStatuses,
@@ -60,20 +60,20 @@ export type TUserSavingsToUpdate = {
 export type TAuthFormValues = { email: string, password: string };
 export type TOrderFormValues = {
   sendingType: ESendingTypes,
-  postalCode: string,
-  country: string,
-  regionName: string,
-  cityName: string,
-  streetName: string,
-  houseNumber: string,
-  buildingNumber: string,
-  housingNumber: string,
-  flatNumber: string,
-  email: string,
+  postalCode?: string,
+  country?: string,
+  regionName?: string,
+  cityName?: string,
+  streetName?: string,
+  houseNumber?: string,
+  buildingNumber?: string,
+  housingNumber?: string,
+  flatNumber?: string,
+  email?: string,
   phoneNumber: string,
   firstName: string,
   lastName: string,
-  patronymic: string,
+  patronymic?: string,
 };
 
 export type TSendingTypeRadioButton = {
@@ -94,3 +94,8 @@ export interface IFieldConfig extends FieldProps<string, FieldRenderProps<string
     label: string,
   },
 }
+
+export type TSendingOrderData = {
+  data: TOrderFormValues,
+  currentPurchase: TPurchases
+};
