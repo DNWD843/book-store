@@ -2,30 +2,48 @@ import React, { memo, useEffect } from 'react';
 import { Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
-import { buyBooks } from '../../api';
 import { OrderForm } from '../../components/OrderForm';
 import { Page } from '../../components/Page';
 import { ORDER_FORM_ID, RUBLE_SIGN } from '../../constants';
+import { useUserSavingsHandlers } from '../../hooks/useUserSavingsHandlers';
 import { useAppSelector } from '../../redux/hooks';
-import { selectUserData, selectUserSavings } from '../../redux/store';
+import { selectUserSavings } from '../../redux/store';
+import { sendOrderData } from '../../redux/thunks';
 import { routes } from '../../routesMap';
 import { TOrderFormValues } from '../../types';
 import { getTotalPrice } from '../../utils';
 
 const OrderPage = () => {
-  const { cartValue } = useAppSelector(selectUserSavings);
-  const { userId, isAnonymous, displayName, email, phoneNumber } = useAppSelector(selectUserData);
   const navigate = useNavigate();
-  const onSubmit = (data: TOrderFormValues) => {
-    // TODO: сюда прикрутить моковый метод сабмита данных
-    console.log('data', data);
-    return buyBooks();
-  };
+  const { updateSavings, userId, displayName, email, dispatch } = useUserSavingsHandlers('');
+  const { favorites = [], cartValue = [], purchases = {} } = useAppSelector(selectUserSavings);
 
   const orderPrice = getTotalPrice(cartValue);
   const begin = displayName || email ? `${displayName || email}, В` : 'В';
-
   const subtitle = `${begin}аш заказ: ${cartValue.length} книг на сумму ${orderPrice} ${RUBLE_SIGN}`;
+
+  console.log('yo purchases', purchases);
+
+  const onSubmit = async (data: TOrderFormValues) => {
+    console.log('data', data);
+
+    const currentPurchase = { [new Date().toISOString()]: { books: cartValue, orderPrice } };
+
+    const orderData = { data, currentPurchase };
+
+    const savings = { cartValue: [],
+      favorites,
+      purchases: {
+        ...purchases,
+        ...currentPurchase,
+      } };
+
+    dispatch(sendOrderData(orderData))
+      .then((res) => {
+        console.log('RES', res);
+        updateSavings(userId, savings);
+      });
+  };
 
   useEffect(() => {
     if (!cartValue.length) {

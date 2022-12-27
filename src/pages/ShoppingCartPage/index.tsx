@@ -14,7 +14,7 @@ export const ShoppingCartPage: React.FC = () => {
   const orderPrice = getTotalPrice(cartValue);
 
   const subTitle = useMemo(() => {
-    const emptyTitle = isAnonymous ? 'В Вашей корзине пока пусто.' : `${displayName || email}, в Вашей корзине пока пусто.`;
+    const emptyTitle = isAnonymous ? 'В Вашей корзине ничего нет.' : `${displayName || email}, в Вашей корзине ничего нет.`;
     const title = isAnonymous
       ? `В Вашей корзине ${cartValue.length} книг на общую сумму ${orderPrice} ${RUBLE_SIGN}`
       : `${displayName || email}, в Вашей корзине ${cartValue.length} книг на общую сумму ${orderPrice} ${RUBLE_SIGN}`;

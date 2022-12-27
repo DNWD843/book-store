@@ -43,6 +43,7 @@ export type TUserSavings = {
   id?: string,
   favorites: TBookInfo[],
   cartValue: TBookInfo[],
+  purchases?: {},
 };
 
 export type TUserSavingsToUpdate = {

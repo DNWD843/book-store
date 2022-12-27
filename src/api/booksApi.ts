@@ -1,7 +1,7 @@
 import { collection, getDocs, setDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
-import { SLEEP_TIME } from '../constants';
+import { DELAY } from '../constants';
 import { db } from '../firebase';
 import { ESlicesNames } from '../redux/slicesNames';
 import { TBookInfo } from '../types';
@@ -58,13 +58,10 @@ export const updateBook = async (bookInfo: TBookInfo) => {
   }
 };
 
-export const buyBooks = async () => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const buyBooks = async (data: any) => {
   try {
-    return setTimeout(() => {
-      console.log('BUY');
-
-      return Promise.resolve('Заказ успешно оформлен!');
-    }, SLEEP_TIME);
+    return await new Promise((resolve) => setTimeout(() => resolve({ message: 'Заказ оформлен!' }), DELAY));
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);

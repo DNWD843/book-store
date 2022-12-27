@@ -6,4 +6,4 @@ export const passwordLength = {
   max: 20,
 };
 export const COL_SIZE_DEFAULT = 1;
-export const SLEEP_TIME = 1500;
+export const DELAY = 1500;

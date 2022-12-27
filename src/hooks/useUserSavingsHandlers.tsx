@@ -11,11 +11,8 @@ import { TBookInfo, TUserSavingsToUpdate } from '../types';
 export const useUserSavingsHandlers = (id: TBookInfo['id']) => {
   const dispatch = useAppDispatch();
   const { setUserSavingsToStore } = userSavingsActions;
-  const { isAnonymous, userId } = useAppSelector(selectUserData);
-  const { favorites = [], cartValue = [] } = useAppSelector(selectUserSavings);
-
-  const isAddedToFavorites = favorites.some((book) => book.id === id);
-  const isAddedToCart = cartValue.some((book) => book.id === id);
+  const { isAnonymous, userId, displayName, email } = useAppSelector(selectUserData);
+  const { favorites = [], cartValue = [], purchases = {} } = useAppSelector(selectUserSavings);
 
   const updateSavings = useCallback((key: TUserSavingsToUpdate['userId'], data: TUserSavingsToUpdate['savings']) => {
     if (isAnonymous) {
@@ -26,6 +23,9 @@ export const useUserSavingsHandlers = (id: TBookInfo['id']) => {
         .catch((err) => { console.error(err); });
     }
   }, [dispatch, isAnonymous, setUserSavingsToStore]);
+
+  const isAddedToFavorites = favorites.some((book) => book.id === id);
+  const isAddedToCart = cartValue.some((book) => book.id === id);
 
   const handleBookmarkClick = (bookInfo: TBookInfo) => {
     let savings: TUserSavingsToUpdate['savings'];
@@ -89,9 +89,14 @@ export const useUserSavingsHandlers = (id: TBookInfo['id']) => {
     userId,
     favorites,
     cartValue,
+    purchases,
     handleCartButtonClick,
     handleBookmarkClick,
     increaseBooksQuantity,
     decreaseBooksQuantity,
+    updateSavings,
+    dispatch,
+    displayName,
+    email,
   };
 };
