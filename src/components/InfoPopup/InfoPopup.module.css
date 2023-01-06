@@ -1,0 +1,27 @@
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(550px);
+  }
+  40% {
+    transform: translateX(-50px);
+  }
+  60% {
+    transform: translateX(0);
+  }
+  80% {
+    transform: translateX(-50px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.content {
+  width: 500px;
+  background-color: var(--popup-background);
+  border-radius: 10px;
+  border: 1px solid var(--popup-border);
+  padding: 10px;
+  position: relative;
+  animation: .5s ease-in both slideInLeft;
+}

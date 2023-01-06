@@ -13,6 +13,7 @@ root.render(
   <BrowserRouter>
     <ErrorBoundary component={AppErrorPage}>
       <App />
+      <div className="modal-container" id="modal-container" />
     </ErrorBoundary>
   </BrowserRouter>,
 );

@@ -17,11 +17,13 @@ code {
 
 :root {
   --white: #fff;
-  --card-background: #FFFFFF;
   --body: rgb(255, 255, 255, 0.5);
   --grey: rgb(135, 135, 135);
   --light-grey: rgb(225, 225, 225);
   --super-light-grey: #D3D3D3FF;
   --ultra-light-grey: rgba(246, 246, 246, 0.7);
-  --dark-grey: rgba(35, 35, 35, 0.82)
+  --dark-grey: rgba(35, 35, 35, 0.82);
+  --card-background: #FFFFFF;
+  --popup-background: rgb(245, 245, 245);
+  --popup-border: rgb(165, 165, 165);
 }
