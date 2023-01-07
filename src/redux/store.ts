@@ -10,6 +10,7 @@ import { TUserSavings } from '../types';
 import authReducer, { IAuthState } from './slices/authSlice';
 import bookDetailsReducer, { TBookDetailsState } from './slices/bookDetailsSlice';
 import booksReducer, { IBooksState } from './slices/booksSlice';
+import popupsReducer from './slices/popupsSlice';
 import profileReducer, { IProfileState } from './slices/profileSlice';
 import userSavingsReducer from './slices/userSavingsSlice';
 
@@ -20,6 +21,7 @@ export const store = configureStore({
     auth: authReducer,
     userSavings: userSavingsReducer,
     profile: profileReducer,
+    popups: popupsReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: {
@@ -63,6 +65,7 @@ export const selectAuthStatus = (state: RootState): IAuthState['status'] => stat
 export const selectUserData = (state: RootState): IAuthState['userData'] => state.auth.userData;
 export const selectProfileMenuState = (state: RootState): IProfileState['isMenuOpened'] => state.profile.isMenuOpened;
 export const selectUserSavings = (state: RootState): TUserSavings => state.userSavings;
+export const selectPopups = (state: RootState) => state.popups;
 
 // service actions
 const STORAGE_ACTION_PREFIX = 'STORAGE';

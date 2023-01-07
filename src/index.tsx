@@ -14,6 +14,7 @@ root.render(
     <ErrorBoundary component={AppErrorPage}>
       <App />
       <div className="modal-container" id="modal-container" />
+      <div className="popup-container" id="popup-container" />
     </ErrorBoundary>
   </BrowserRouter>,
 );

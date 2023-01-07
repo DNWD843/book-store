@@ -5,7 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { OrderForm } from '../../components/OrderForm';
 import { Page } from '../../components/Page';
 import { ORDER_FORM_ID, RUBLE_SIGN } from '../../constants';
+import { EPopupTypes } from '../../enums';
 import { useUserSavingsHandlers } from '../../hooks/useUserSavingsHandlers';
+import { popupsActions } from '../../redux/slices/popupsSlice';
 import { sendOrderData } from '../../redux/thunks';
 import { routes } from '../../routesMap';
 import { TOrderFormValues } from '../../types';
@@ -14,6 +16,7 @@ import { getTotalPrice } from '../../utils';
 const OrderPage = () => {
   const navigate = useNavigate();
   const { updateSavings, userId, displayName, email, dispatch, favorites, cartValue, purchases } = useUserSavingsHandlers('');
+  const { addPopup } = popupsActions;
 
   const orderPrice = getTotalPrice(cartValue);
   const begin = displayName || email ? `${displayName || email}, В` : 'В';
@@ -30,12 +33,20 @@ const OrderPage = () => {
       } };
 
     dispatch(sendOrderData(orderData))
+      .then(({ meta, payload }) => {
+        dispatch(addPopup({
+          id: meta.requestId,
+          // @ts-ignore
+          message: payload.message ?? '',
+          type: EPopupTypes.success,
+        }));
+      })
       .then(() => { updateSavings(userId, savings); });
   };
 
   useEffect(() => {
     if (!cartValue.length) {
-      navigate(routes.shoppingCart);
+      navigate(routes.books);
     }
   }, [cartValue.length, navigate]);
 

@@ -61,7 +61,7 @@ export const updateBook = async (bookInfo: TBookInfo) => {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const buyBooks = async (data: TSendingOrderData) => {
   try {
-    return await new Promise<{ message: string }>((resolve) => setTimeout(() => resolve({ message: 'Заказ оформлен!' }), DELAY));
+    return await new Promise<{ message: string }>((resolve) => setTimeout(() => resolve({ message: 'Ваш заказ успешно оформлен!' }), DELAY));
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);

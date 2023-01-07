@@ -1,7 +1,7 @@
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
 import { FieldProps, FieldRenderProps } from 'react-final-form';
 
-import { ECollectionPaths, EFetchStatuses, ESendingTypes } from './enums';
+import { ECollectionPaths, EFetchStatuses, EPopupTypes, ESendingTypes } from './enums';
 
 export type TBookInfo = {
   id: string,
@@ -99,3 +99,10 @@ export type TSendingOrderData = {
   data: TOrderFormValues,
   currentPurchase: TPurchases
 };
+
+export type TPopupConfig = {
+  id: string,
+  message: string,
+  type: EPopupTypes,
+};
+export type TPopupsState = TPopupConfig[];

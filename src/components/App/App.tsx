@@ -6,6 +6,7 @@ import { MainPage } from '../../pages/MainPage';
 import { ErrorBoundary } from '../ErrorBoundry';
 import { Footer } from '../Footer';
 import { Header } from '../Header';
+import { PopupsContainer } from '../PopupsContainer';
 
 const App: React.FC = () => (
   <div className="root_container app">
@@ -14,6 +15,7 @@ const App: React.FC = () => (
       <MainPage />
     </ErrorBoundary>
     <Footer />
+    <PopupsContainer />
   </div>
 );
 

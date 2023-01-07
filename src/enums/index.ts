@@ -5,3 +5,4 @@ export { EAuthTypes } from './auth';
 export { ECollectionPaths } from './collectionPaths';
 export * from './orderFormEnums';
 export { EErrorMessageTypes } from './errorMessagesTypes';
+export { EPopupTypes } from './popupTypes';

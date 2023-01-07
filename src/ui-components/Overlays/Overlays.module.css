@@ -1,9 +1,4 @@
 .popup {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 1000;
-
   padding: 20px;
   box-sizing: border-box;
 
@@ -42,6 +37,49 @@
   cursor: pointer;
 }
 
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(550px);
+  }
+  40% {
+    transform: translateX(-50px);
+  }
+  60% {
+    transform: translateX(0);
+  }
+  80% {
+    transform: translateX(-50px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 .content {
+  width: 500px;
+  border-radius: 10px;
+
+  padding: 10px;
   position: relative;
+  animation: .5s ease-in both slideInLeft;
+}
+
+.success {
+  background-color: var(--success-background);
+  border: 1px solid var(--success-border);
+}
+
+.danger {
+  background-color: var(--danger-background);
+  border: 1px solid var(--danger-border);
+}
+
+.warning {
+  background-color: var(--warning-background);
+  border: 1px solid var(--warning-border);
+}
+
+.info {
+  background-color: var(--info-background);
+  border: 1px solid var(--info-border);
 }

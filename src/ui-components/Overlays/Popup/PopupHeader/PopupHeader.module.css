@@ -8,3 +8,12 @@
 .closeButton {
   width: 1em !important;
 }
+
+.closeButton:hover {
+  border: none;
+  background-color: transparent;
+}
+
+.title {
+  font-weight: 600;
+}
