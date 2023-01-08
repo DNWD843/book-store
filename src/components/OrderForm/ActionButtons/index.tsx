@@ -6,9 +6,7 @@ import { ActionButtons } from './ActionButtons';
 const ActionButtonsComponent: React.FC = () => {
   const { reset } = useForm();
 
-  return (
-    <ActionButtons onClear={reset} />
-  );
+  return (<ActionButtons onClear={reset} />);
 };
 
 ActionButtonsComponent.displayName = 'FormActionButtons';

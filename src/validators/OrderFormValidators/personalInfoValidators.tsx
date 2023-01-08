@@ -1,8 +1,8 @@
-import { errorMessages } from '../../constants';
+import { validationErrorMessages } from '../../constants';
 import { TOrderFormValues } from '../../types';
 
 export const personalInfoValidator = (value: TOrderFormValues['firstName'] | TOrderFormValues['lastName']) => {
-  if (!value) return errorMessages.required;
+  if (!value) return validationErrorMessages.required;
 
-  if (/[^a-zа-я-]/i.test(value)) return errorMessages.lettersOnlyAreRequired;
+  if (/[^a-zа-я-]/i.test(value)) return validationErrorMessages.lettersOnlyAreRequired;
 };

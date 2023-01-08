@@ -5,3 +5,7 @@ export type TBookDetailsProps = TBookInfo & {
   onBookmarkButtonClick: () => void,
   onCartButtonClick: () => void,
 };
+
+export type TBookDetailsComponentProps = {
+  book: TBookInfo,
+};

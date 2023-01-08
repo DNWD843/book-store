@@ -6,4 +6,5 @@ export const passwordLength = {
   max: 20,
 };
 export const COL_SIZE_DEFAULT = 1;
-export const DELAY = 1500;
+export const REQUEST_DELAY = 1500;
+export const FILTER_DELAY = 1000;

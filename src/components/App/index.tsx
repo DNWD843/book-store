@@ -11,7 +11,7 @@ import { selectAuthStatus, selectBooksFetchingStatus, storageActions } from '../
 import { getBooks, getUserSavings } from '../../redux/thunks';
 import { IBooksCollection, TUserData } from '../../types';
 import { checkNeedToDataUpdate, storage, storageKeys } from '../../utils';
-import { ContentLoader } from '../ContentLoader';
+import { ScreenLoader } from '../Loaders';
 
 import { App } from './App';
 
@@ -46,16 +46,15 @@ const AppComponent: React.FC = () => {
     }
   }, [dispatch, setBooksToStore, setUserToStore]);
 
-  if (authStatus === EFetchStatuses.pending || booksStatus === EFetchStatuses.pending) {
-    return (
-      <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <ContentLoader />
-      </div>
-    );
-  }
+  const isLoading = authStatus === EFetchStatuses.pending || booksStatus === EFetchStatuses.pending;
 
   return (
-    <App />
+    <>
+      <App />
+      {isLoading
+        ? (<ScreenLoader />)
+        : null}
+    </>
   );
 };
 

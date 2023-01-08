@@ -1,8 +1,8 @@
 const getData = <T>(key: string): T | null => {
-  const bookData = localStorage.getItem(key);
+  const data = localStorage.getItem(key);
 
-  if (bookData) {
-    return JSON.parse(bookData);
+  if (data) {
+    return JSON.parse(data);
   }
 
   return null;

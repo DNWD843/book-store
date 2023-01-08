@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 238px));
+  grid-template-columns: repeat(5, minmax(100px, 240px));
   gap: 20px;
 
 }
@@ -12,4 +12,5 @@
   border: 1px solid lightgray;
   position: relative;
   overflow: hidden;
+  border-radius: 5px;
 }

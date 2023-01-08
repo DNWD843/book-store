@@ -1,4 +1,4 @@
-export const enum EErrorMessageTypes {
+export const enum EValidationErrorMessages {
   required = 'required',
   sendingTypeIsRequired = 'sendingTypeIsRequired',
   incorrectEmail = 'incorrectEmail',

@@ -1,12 +1,15 @@
+import uniqueId from 'lodash/uniqueId';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { AuthForm } from '../../components/AuthForm';
 import { authFormConfigs } from '../../components/AuthForm/constants';
 import { Page } from '../../components/Page';
-import { EAuthTypes, ECollectionPaths, EFetchStatuses } from '../../enums';
+import { loginRequestMessages, POPUP_ID_PREFIX } from '../../constants';
+import { EAuthTypes, ECollectionPaths, EFetchStatuses, EPopupTypes } from '../../enums';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { authActions } from '../../redux/slices/authSlice';
+import { popupsActions } from '../../redux/slices/popupsSlice';
 import { userSavingsActions } from '../../redux/slices/userSavingsSlice';
 import { selectUserSavings, storageActions } from '../../redux/store';
 import { auth, getUserSavings, updateUserSavings } from '../../redux/thunks';
@@ -21,11 +24,16 @@ const LoginPageComponent: React.FC = () => {
   // const loginError = useAppSelector(selectAuthError); // оставил для вывода в тултипе
   const { cartValue } = useAppSelector(selectUserSavings);
   const { setUserSavingsToStore } = userSavingsActions;
+  const { addPopup } = popupsActions;
 
   const handleSubmit = async ({ email, password }: TAuthFormValues) => {
     dispatch(clearAuthError());
     await dispatch(auth.loginUser({ email, password }))
       .then(async (res) => {
+        if (res.meta.requestStatus === EFetchStatuses.rejected) {
+          // eslint-disable-next-line @typescript-eslint/no-throw-literal
+          throw res;
+        }
         const userData = res.payload as TUser;
 
         await dispatch(getUserSavings(userData.userId))
@@ -58,14 +66,26 @@ const LoginPageComponent: React.FC = () => {
         return res;
       })
       .then((res) => {
-        if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
-          navigate(routes.books);
-        }
+        dispatch(addPopup({
+          id: res.meta.requestId || uniqueId(POPUP_ID_PREFIX),
+          message: loginRequestMessages.success,
+          type: EPopupTypes.success,
+        }));
 
+        navigate(routes.books);
         dispatch(storageActions.setUserInfo);
         storage.setData(storageKeys.USER, res.payload);
       })
-      .catch((err) => { console.error(err); });
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.error(err);
+
+        dispatch(addPopup({
+          id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
+          message: err?.error?.message ?? loginRequestMessages.unexpectedError,
+          type: EPopupTypes.danger,
+        }));
+      });
   };
 
   return (

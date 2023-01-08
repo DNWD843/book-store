@@ -1,11 +1,11 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-import { BookDetails } from '../../components/BookDetails';
-import { BooksCatalogue } from '../../components/BooksCatalogue';
 import { routes } from '../../routesMap';
+import { BookDetailsPage } from '../BookDetailsPage';
+import { BooksCataloguePage } from '../BooksCataloguePage';
 import { BooksPage } from '../BooksPage';
-import { FavoritesPage } from '../FavoritesPage/FavoritesPage';
+import { FavoritesPage } from '../FavoritesPage';
 import { LoginPage } from '../LoginPage';
 import { NotFoundPage } from '../NotFoundPage';
 import { OrderPage } from '../OrderPage';
@@ -19,8 +19,8 @@ const MainPage: React.FC = () => (
     <Routes>
       <Route element={<Navigate to={routes.books} />} path={routes.home} />
       <Route element={<BooksPage />} path={routes.books}>
-        <Route index element={<BooksCatalogue />} />
-        <Route element={<BookDetails />} path={routes.bookId} />
+        <Route index element={<BooksCataloguePage />} />
+        <Route element={<BookDetailsPage />} path={routes.bookId} />
       </Route>
       <Route element={<ShoppingCartPage />} path={routes.shoppingCart} />
       <Route element={<FavoritesPage />} path={routes.favorites} />

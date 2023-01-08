@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 10px;
+}
+
+.closeButton {
+  width: 1em !important;
+}
+
+.closeButton:hover {
+  border: none;
+  background-color: transparent;
+}
+
+.title {
+  font-weight: 600;
+}

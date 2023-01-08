@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 
 import { MINIMAL_BOOKS_QUANTITY } from '../constants';
-import { ECollectionPaths } from '../enums';
+import { ECollectionPaths, EFetchStatuses } from '../enums';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { userSavingsActions } from '../redux/slices/userSavingsSlice';
 import { selectUserData, selectUserSavings } from '../redux/store';
@@ -12,7 +12,7 @@ export const useUserSavingsHandlers = (id: TBookInfo['id']) => {
   const dispatch = useAppDispatch();
   const { setUserSavingsToStore } = userSavingsActions;
   const { isAnonymous, userId, displayName, email } = useAppSelector(selectUserData);
-  const { favorites = [], cartValue = [], purchases = {} } = useAppSelector(selectUserSavings);
+  const { favorites = [], cartValue = [], purchases = {}, status = EFetchStatuses.fulfilled } = useAppSelector(selectUserSavings);
 
   const updateSavings = useCallback((key: TUserSavingsToUpdate['userId'], data: TUserSavingsToUpdate['savings']) => {
     if (isAnonymous) {
@@ -20,6 +20,7 @@ export const useUserSavingsHandlers = (id: TBookInfo['id']) => {
     } else {
       dispatch(updateUserSavings({ userId: key, savings: data }))
         .then(() => { dispatch(setUserSavingsToStore(data)); })
+        // eslint-disable-next-line no-console
         .catch((err) => { console.error(err); });
     }
   }, [dispatch, isAnonymous, setUserSavingsToStore]);
@@ -109,5 +110,6 @@ export const useUserSavingsHandlers = (id: TBookInfo['id']) => {
     dispatch,
     displayName,
     email,
+    status,
   };
 };

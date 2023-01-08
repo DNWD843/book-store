@@ -1,11 +1,15 @@
+import uniqueId from 'lodash/uniqueId';
 import React, { memo, useEffect } from 'react';
 import { Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
+import { ScreenLoader } from '../../components/Loaders';
 import { OrderForm } from '../../components/OrderForm';
 import { Page } from '../../components/Page';
-import { ORDER_FORM_ID, RUBLE_SIGN } from '../../constants';
+import { ORDER_FORM_ID, orderSubmitMessages, POPUP_ID_PREFIX, RUBLE_SIGN } from '../../constants';
+import { EFetchStatuses, EPopupTypes } from '../../enums';
 import { useUserSavingsHandlers } from '../../hooks/useUserSavingsHandlers';
+import { popupsActions } from '../../redux/slices/popupsSlice';
 import { sendOrderData } from '../../redux/thunks';
 import { routes } from '../../routesMap';
 import { TOrderFormValues } from '../../types';
@@ -13,7 +17,8 @@ import { getTotalPrice } from '../../utils';
 
 const OrderPage = () => {
   const navigate = useNavigate();
-  const { updateSavings, userId, displayName, email, dispatch, favorites, cartValue, purchases } = useUserSavingsHandlers('');
+  const { updateSavings, userId, displayName, email, dispatch, favorites, cartValue, purchases, status } = useUserSavingsHandlers('');
+  const { addPopup } = popupsActions;
 
   const orderPrice = getTotalPrice(cartValue);
   const begin = displayName || email ? `${displayName || email}, В` : 'В';
@@ -30,12 +35,31 @@ const OrderPage = () => {
       } };
 
     dispatch(sendOrderData(orderData))
-      .then(() => { updateSavings(userId, savings); });
+      .then((res) => {
+        if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
+          dispatch(addPopup({
+            id: res.meta.requestId || uniqueId(POPUP_ID_PREFIX),
+            message: res.payload?.message ?? '',
+            type: EPopupTypes.success,
+          }));
+        } else {
+          // eslint-disable-next-line @typescript-eslint/no-throw-literal
+          throw res;
+        }
+      })
+      .then(() => { updateSavings(userId, savings); })
+      .catch((err) => {
+        dispatch(addPopup({
+          id: err.meta.requestId || uniqueId(POPUP_ID_PREFIX),
+          message: err.error.message || orderSubmitMessages.unexpectedError,
+          type: EPopupTypes.danger,
+        }));
+      });
   };
 
   useEffect(() => {
     if (!cartValue.length) {
-      navigate(routes.shoppingCart);
+      navigate(routes.books);
     }
   }, [cartValue.length, navigate]);
 
@@ -44,6 +68,7 @@ const OrderPage = () => {
       <Form id={ORDER_FORM_ID} onSubmit={onSubmit}>
         {(formRenderProps) => (<OrderForm {...formRenderProps} />)}
       </Form>
+      {status === EFetchStatuses.pending ? (<ScreenLoader />) : null}
     </Page>
   );
 };

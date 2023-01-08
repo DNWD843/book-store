@@ -5,3 +5,4 @@ export { RowComponent as Row } from './Row';
 export { ColComponent as Col } from './Col';
 export { HeaderNavLink } from './NavLinkIcon';
 export { Error } from './Error';
+export * from './Overlays';
