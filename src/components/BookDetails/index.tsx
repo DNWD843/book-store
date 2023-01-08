@@ -11,7 +11,7 @@ import { selectBookDetails, storageActions } from '../../redux/store';
 import { getBookById } from '../../redux/thunks';
 import { TBookInfo, TUrlParams } from '../../types';
 import { storage, storageKeys } from '../../utils';
-import { ContentLoader } from '../ContentLoader';
+import { ContentLoader } from '../Loaders/ContentLoader';
 import { Page } from '../Page';
 
 import { BookDetails } from './BookDetails';

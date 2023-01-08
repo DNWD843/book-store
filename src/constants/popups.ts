@@ -1,4 +1,4 @@
-import { EPopupTypes } from '../../../enums';
+import { EPopupTypes } from '../enums';
 
 export const popupTitles = {
   [EPopupTypes.success]: 'Операция выполнена!',
@@ -6,3 +6,5 @@ export const popupTitles = {
   [EPopupTypes.danger]: 'Произошла ошибка!',
   [EPopupTypes.info]: 'Информация.',
 };
+
+export const POPUP_ID_PREFIX = 'popup_';

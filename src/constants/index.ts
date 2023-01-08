@@ -2,6 +2,7 @@ export { mockedData } from './mocks';
 export { validationErrorMessages } from './validationErrorMessages';
 export * from './magicNumbers';
 export * from './requestResultMessages';
+export * from './popups';
 
 export const RUBLE_SIGN = '₽';
 export const emailRegExp = /^[\w ]{1}[\w-.]*@[\w-]+\.[a-z]{2,4}$/i;

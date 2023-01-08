@@ -55,12 +55,12 @@ Action<string>
 
 export const selectBooksCollection = (state: RootState): IBooksState['books'] => state.books.books;
 export const selectBooksFetchingStatus = (state: RootState): IBooksState['status'] => state.books.status;
-export const selectFetchingDate = (state: RootState): IBooksState['updatedAt'] => state.books.updatedAt;
+// export const selectFetchingDate = (state: RootState): IBooksState['updatedAt'] => state.books.updatedAt;
 // export const getSelectedBooks = (state: RootState): TSelectedBooks => state.books.selectedBooks;
 // export const selectActiveCardId = (state:RootState): IBooksState['activeCardId'] => state.books.activeCardId;
 // export const selectBookDetailsFetchingStatus = (state: RootState): TBookDetailsState['status'] => state.bookDetails.status;
 export const selectBookDetails = (state: RootState): TBookDetailsState => state.bookDetails;
-export const selectAuthError = (state: RootState): IAuthState['authError'] => state.auth.authError;
+// export const selectAuthError = (state: RootState): IAuthState['authError'] => state.auth.authError;
 export const selectAuthStatus = (state: RootState): IAuthState['status'] => state.auth.status;
 export const selectUserData = (state: RootState): IAuthState['userData'] => state.auth.userData;
 export const selectProfileMenuState = (state: RootState): IProfileState['isMenuOpened'] => state.profile.isMenuOpened;

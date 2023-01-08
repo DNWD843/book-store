@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { OrderForm } from '../../components/OrderForm';
 import { Page } from '../../components/Page';
-import { ORDER_FORM_ID, orderSubmitMessages, RUBLE_SIGN } from '../../constants';
+import { ORDER_FORM_ID, orderSubmitMessages, POPUP_ID_PREFIX, RUBLE_SIGN } from '../../constants';
 import { EFetchStatuses, EPopupTypes } from '../../enums';
 import { useUserSavingsHandlers } from '../../hooks/useUserSavingsHandlers';
 import { popupsActions } from '../../redux/slices/popupsSlice';
@@ -37,7 +37,7 @@ const OrderPage = () => {
       .then((res) => {
         if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
           dispatch(addPopup({
-            id: res.meta.requestId || uniqueId('popup_'),
+            id: res.meta.requestId || uniqueId(POPUP_ID_PREFIX),
             message: res.payload?.message ?? '',
             type: EPopupTypes.success,
           }));
@@ -49,7 +49,7 @@ const OrderPage = () => {
       .then(() => { updateSavings(userId, savings); })
       .catch((err) => {
         dispatch(addPopup({
-          id: err.meta.requestId || uniqueId('popup_'),
+          id: err.meta.requestId || uniqueId(POPUP_ID_PREFIX),
           message: err.error.message || orderSubmitMessages.unexpectedError,
           type: EPopupTypes.danger,
         }));

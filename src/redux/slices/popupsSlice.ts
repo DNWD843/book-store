@@ -9,7 +9,9 @@ const popupsSlice = createSlice({
   name: ESlicesNames.popups,
   initialState,
   reducers: {
-    addPopup: (state, { payload }: PayloadAction<TPopupConfig>) => [...state, payload],
+    addPopup: (state, { payload }: PayloadAction<TPopupConfig>) => {
+      state.push(payload);
+    },
     removePopup: (state, { payload }: PayloadAction<TPopupConfig['id']>) => [...state.filter((popup) => popup.id !== payload)],
   },
 });
