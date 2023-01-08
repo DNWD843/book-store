@@ -1,7 +1,7 @@
 import { collection, getDocs, setDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
-import { DELAY } from '../constants';
+import { DELAY, orderSubmitMessages } from '../constants';
 import { db } from '../firebase';
 import { ESlicesNames } from '../redux/slicesNames';
 import { TBookInfo, TSendingOrderData } from '../types';
@@ -59,11 +59,15 @@ export const updateBook = async (bookInfo: TBookInfo) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const buyBooks = async (data: TSendingOrderData) => {
-  try {
-    return await new Promise<{ message: string }>((resolve) => setTimeout(() => resolve({ message: 'Ваш заказ успешно оформлен!' }), DELAY));
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error(e);
-  }
+export const buyBooks = async (data: TSendingOrderData): Promise<any> => {
+  const randomNumber = Math.round(Math.random() * 10);
+
+  return new Promise<{ message: string }>((resolve, reject) => {
+    setTimeout(() => {
+      if (randomNumber < 7) {
+        return resolve({ message: orderSubmitMessages.success });
+      }
+      return reject(new Error(orderSubmitMessages.error));
+    }, DELAY);
+  });
 };

@@ -1,6 +1,6 @@
 import { FieldState } from 'final-form';
 
-import { emailRegExp, errorMessages, phoneNumberRegExp } from '../../constants';
+import { emailRegExp, validationErrorMessages, phoneNumberRegExp } from '../../constants';
 import { ESendingTypes, orderFormFieldsNames } from '../../enums';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -9,13 +9,13 @@ export const orderFormEmailValidator = (value: string, allValues?: Object, meta?
   if (!allValues?.[orderFormFieldsNames.sendingType]) return;
 
   // @ts-ignore
-  if (!value && allValues?.[orderFormFieldsNames.sendingType] === ESendingTypes.email) return errorMessages.required;
+  if (!value && allValues?.[orderFormFieldsNames.sendingType] === ESendingTypes.email) return validationErrorMessages.required;
 
-  if (value && !emailRegExp.test(value)) return errorMessages.incorrectEmail;
+  if (value && !emailRegExp.test(value)) return validationErrorMessages.incorrectEmail;
 };
 
 export const phoneNumberValidator = (value: string) => {
-  if (!value) return errorMessages.required;
+  if (!value) return validationErrorMessages.required;
 
-  if (!phoneNumberRegExp.test(value)) return errorMessages.incorrectPhoneNumber;
+  if (!phoneNumberRegExp.test(value)) return validationErrorMessages.incorrectPhoneNumber;
 };

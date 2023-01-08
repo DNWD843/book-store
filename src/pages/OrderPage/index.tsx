@@ -1,11 +1,12 @@
+import uniqueId from 'lodash/uniqueId';
 import React, { memo, useEffect } from 'react';
 import { Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
 import { OrderForm } from '../../components/OrderForm';
 import { Page } from '../../components/Page';
-import { ORDER_FORM_ID, RUBLE_SIGN } from '../../constants';
-import { EPopupTypes } from '../../enums';
+import { ORDER_FORM_ID, orderSubmitMessages, RUBLE_SIGN } from '../../constants';
+import { EFetchStatuses, EPopupTypes } from '../../enums';
 import { useUserSavingsHandlers } from '../../hooks/useUserSavingsHandlers';
 import { popupsActions } from '../../redux/slices/popupsSlice';
 import { sendOrderData } from '../../redux/thunks';
@@ -33,15 +34,26 @@ const OrderPage = () => {
       } };
 
     dispatch(sendOrderData(orderData))
-      .then(({ meta, payload }) => {
-        dispatch(addPopup({
-          id: meta.requestId,
-          // @ts-ignore
-          message: payload.message ?? '',
-          type: EPopupTypes.success,
-        }));
+      .then((res) => {
+        if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
+          dispatch(addPopup({
+            id: res.meta.requestId || uniqueId('popup_'),
+            message: res.payload?.message ?? '',
+            type: EPopupTypes.success,
+          }));
+        } else {
+          // eslint-disable-next-line @typescript-eslint/no-throw-literal
+          throw res;
+        }
       })
-      .then(() => { updateSavings(userId, savings); });
+      .then(() => { updateSavings(userId, savings); })
+      .catch((err) => {
+        dispatch(addPopup({
+          id: err.meta.requestId || uniqueId('popup_'),
+          message: err.error.message || orderSubmitMessages.unexpectedError,
+          type: EPopupTypes.danger,
+        }));
+      });
   };
 
   useEffect(() => {
