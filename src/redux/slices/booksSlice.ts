@@ -8,12 +8,14 @@ import { getBooks } from '../thunks';
 export interface IBooksState extends IBooksCollection{
   status: EFetchStatuses;
   favoriteStatus: EFetchStatuses;
+  filteredCollection: IBooksCollection['books']
 }
 
 const initialState: IBooksState = {
   status: EFetchStatuses.fulfilled,
   favoriteStatus: EFetchStatuses.fulfilled,
   books: null,
+  filteredCollection: null,
 };
 
 const booksSlice = createSlice({
@@ -24,16 +26,16 @@ const booksSlice = createSlice({
       state.books = null;
     },
     setBooksToStore: (state, action: PayloadAction<IBooksCollection>) => ({ ...state, ...action.payload }),
-    // updateBookInStore: (state, action: PayloadAction<TBookInfo>) => {
-    //   const updatedBooks = state.books?.map((book) => {
-    //     if (book.id === action.payload.id) {
-    //       return action.payload;
-    //     }
-    //
-    //     return book;
-    //   });
-    //   state.books = updatedBooks ?? null;
-    // },
+    filterCollection: (state, { payload }:PayloadAction<string>) => {
+      if (state.books && state.books.length && payload) {
+        state.filteredCollection = state.books.filter(
+          (book) => book.author.toLowerCase().includes(payload.toLowerCase()) || book.title.toLowerCase().includes(payload.toLowerCase()),
+        );
+      } else {
+        state.filteredCollection = null;
+      }
+    },
+    resetFilterCollection: (state) => { state.filteredCollection = null; },
   },
   extraReducers: (builder) => {
     builder
@@ -46,21 +48,6 @@ const booksSlice = createSlice({
       .addCase(getBooks.fulfilled, (state, { payload }: PayloadAction<IBooksCollection>) => (
         { ...state, ...payload, status: EFetchStatuses.fulfilled }
       ));
-
-    // builder
-    //   .addCase(updateBookInCollection.pending, (state) => { state.favoriteStatus = EFetchStatuses.pending; })
-    //   .addCase(updateBookInCollection.rejected, (state) => { state.favoriteStatus = EFetchStatuses.rejected; })
-    //   .addCase(updateBookInCollection.fulfilled, (state, { payload }: PayloadAction<TBookInfo>) => {
-    //     const updatedBooks = state.books?.map((book) => {
-    //       if (book.id === payload.id) {
-    //         return payload;
-    //       }
-    //
-    //       return book;
-    //     });
-    //
-    //     return ({ ...state, books: updatedBooks || null, favoriteStatus: EFetchStatuses.fulfilled });
-    //   });
   },
 });
 

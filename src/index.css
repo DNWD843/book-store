@@ -22,6 +22,12 @@ code {
   z-index: 1000;
 }
 
+.btn-outline-danger:focus {
+  box-shadow: none;
+  background-color: transparent;
+  color: #dc3545;
+}
+
 :root {
   --white: #fff;
   --body: rgb(255, 255, 255, 0.5);

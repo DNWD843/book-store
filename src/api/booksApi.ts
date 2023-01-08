@@ -1,7 +1,7 @@
 import { collection, getDocs, setDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
-import { DELAY, orderSubmitMessages } from '../constants';
+import { REQUEST_DELAY, orderSubmitMessages } from '../constants';
 import { db } from '../firebase';
 import { ESlicesNames } from '../redux/slicesNames';
 import { TBookInfo, TSendingOrderData } from '../types';
@@ -68,6 +68,6 @@ export const buyBooks = async (data: TSendingOrderData): Promise<any> => {
         return resolve({ message: orderSubmitMessages.success });
       }
       return reject(new Error(orderSubmitMessages.error));
-    }, DELAY);
+    }, REQUEST_DELAY);
   });
 };

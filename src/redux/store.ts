@@ -5,7 +5,7 @@ import {
 } from 'react-redux-firebase';
 import { constants as rfConstants } from 'redux-firestore';
 
-import { TUserSavings } from '../types';
+import { TPopupsState, TUserSavings } from '../types';
 
 import authReducer, { IAuthState } from './slices/authSlice';
 import bookDetailsReducer, { TBookDetailsState } from './slices/bookDetailsSlice';
@@ -54,6 +54,7 @@ Action<string>
 >;
 
 export const selectBooksCollection = (state: RootState): IBooksState['books'] => state.books.books;
+export const selectFilteredCollection = (state: RootState): IBooksState['filteredCollection'] => state.books.filteredCollection;
 export const selectBooksFetchingStatus = (state: RootState): IBooksState['status'] => state.books.status;
 // export const selectFetchingDate = (state: RootState): IBooksState['updatedAt'] => state.books.updatedAt;
 // export const getSelectedBooks = (state: RootState): TSelectedBooks => state.books.selectedBooks;
@@ -65,7 +66,7 @@ export const selectAuthStatus = (state: RootState): IAuthState['status'] => stat
 export const selectUserData = (state: RootState): IAuthState['userData'] => state.auth.userData;
 export const selectProfileMenuState = (state: RootState): IProfileState['isMenuOpened'] => state.profile.isMenuOpened;
 export const selectUserSavings = (state: RootState): TUserSavings => state.userSavings;
-export const selectPopups = (state: RootState) => state.popups;
+export const selectPopups = (state: RootState): TPopupsState => state.popups;
 
 // service actions
 const STORAGE_ACTION_PREFIX = 'STORAGE';
