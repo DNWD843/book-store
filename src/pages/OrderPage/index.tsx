@@ -3,6 +3,7 @@ import React, { memo, useEffect } from 'react';
 import { Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
+import { ScreenLoader } from '../../components/Loaders';
 import { OrderForm } from '../../components/OrderForm';
 import { Page } from '../../components/Page';
 import { ORDER_FORM_ID, orderSubmitMessages, POPUP_ID_PREFIX, RUBLE_SIGN } from '../../constants';
@@ -16,7 +17,7 @@ import { getTotalPrice } from '../../utils';
 
 const OrderPage = () => {
   const navigate = useNavigate();
-  const { updateSavings, userId, displayName, email, dispatch, favorites, cartValue, purchases } = useUserSavingsHandlers('');
+  const { updateSavings, userId, displayName, email, dispatch, favorites, cartValue, purchases, status } = useUserSavingsHandlers('');
   const { addPopup } = popupsActions;
 
   const orderPrice = getTotalPrice(cartValue);
@@ -67,6 +68,7 @@ const OrderPage = () => {
       <Form id={ORDER_FORM_ID} onSubmit={onSubmit}>
         {(formRenderProps) => (<OrderForm {...formRenderProps} />)}
       </Form>
+      {status === EFetchStatuses.pending ? (<ScreenLoader />) : null}
     </Page>
   );
 };
