@@ -1,5 +1,6 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously } from 'firebase/auth';
 
+import { loginRequestMessages } from '../constants';
 import { appAuth } from '../firebase';
 import { TAuthFormValues, TUser } from '../types';
 
@@ -43,7 +44,8 @@ export const loginUserByEmail = async ({ email, password }: TAuthFormValues): Pr
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
-    throw err;
+    // eslint-disable-next-line @typescript-eslint/no-throw-literal
+    throw { message: loginRequestMessages.error };
   }
 };
 
