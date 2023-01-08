@@ -1,28 +1,12 @@
-import React from 'react';
+import React, { memo } from 'react';
 
-import { useAppSelector } from '../../redux/hooks';
-import { selectBooksCollection, selectFilteredCollection } from '../../redux/store';
+import { TBookInfo } from '../../types';
 import { Cards } from '../Cards';
-import { Page } from '../Page';
 
-import styles from './BooksCatalogue.module.css';
-
-export function BooksCatalogue() {
-  const booksCollection = useAppSelector(selectBooksCollection) || [];
-  const filteredCollection = useAppSelector(selectFilteredCollection);
-
-  return (
-    <Page subtitle={filteredCollection && !filteredCollection.length ? 'По вашему запросу ничего не найдено' : ''} title="Каталог">
-      {booksCollection.length
-        ? (<Cards books={filteredCollection || booksCollection} />)
-        : (
-          <div className={styles.messageContainer}>
-            <span className={styles.message}>Упс! А мы как раз обновляем ассортимент!</span>
-            <span className={styles.message}>Пожалуйста, загляните к нам позже.</span>
-          </div>
-        )}
-    </Page>
-  );
-}
+const BooksCatalogue: React.FC<{ books: TBookInfo[] }> = ({ books }) => (<Cards books={books} />);
 
 BooksCatalogue.displayName = 'BooksCatalogue';
+
+const MemoBooksCatalogue = memo(BooksCatalogue);
+
+export { MemoBooksCatalogue as BooksCatalogue };

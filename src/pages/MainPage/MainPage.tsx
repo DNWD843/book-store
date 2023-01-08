@@ -1,9 +1,9 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-import { BooksCatalogue } from '../../components/BooksCatalogue';
 import { routes } from '../../routesMap';
 import { BookDetailsPage } from '../BookDetailsPage';
+import { BooksCataloguePage } from '../BooksCataloguePage';
 import { BooksPage } from '../BooksPage';
 import { FavoritesPage } from '../FavoritesPage';
 import { LoginPage } from '../LoginPage';
@@ -19,7 +19,7 @@ const MainPage: React.FC = () => (
     <Routes>
       <Route element={<Navigate to={routes.books} />} path={routes.home} />
       <Route element={<BooksPage />} path={routes.books}>
-        <Route index element={<BooksCatalogue />} />
+        <Route index element={<BooksCataloguePage />} />
         <Route element={<BookDetailsPage />} path={routes.bookId} />
       </Route>
       <Route element={<ShoppingCartPage />} path={routes.shoppingCart} />
