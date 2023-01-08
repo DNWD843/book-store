@@ -1,10 +1,10 @@
-import React, { PropsWithChildren } from 'react';
+import React, { memo, PropsWithChildren } from 'react';
 
 import { TPageProps } from './Page.props';
 
 import styles from './Page.module.css';
 
-export const Page: React.FC<PropsWithChildren<TPageProps>> = ({ title, subtitle, children }) => (
+const Page: React.FC<PropsWithChildren<TPageProps>> = ({ title, subtitle, children }) => (
   <div className={styles.pageContainer}>
     <div className={styles.pageHeader}>
       <h2 className={styles.pageTitle}>{title}</h2>
@@ -17,3 +17,7 @@ export const Page: React.FC<PropsWithChildren<TPageProps>> = ({ title, subtitle,
 );
 
 Page.displayName = 'Page';
+
+const MemoPage = memo(Page);
+
+export { MemoPage as Page };

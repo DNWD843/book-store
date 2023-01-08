@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { TBookInfo } from '../../types';
 import { Card } from '../Card';
@@ -17,4 +17,5 @@ const CardsComponent: React.FC<{ books: TBookInfo[] }> = ({ books = [] }) => (
 
 CardsComponent.displayName = 'Cards';
 
-export { CardsComponent as Cards };
+const MemoCards = memo(CardsComponent);
+export { MemoCards as Cards };

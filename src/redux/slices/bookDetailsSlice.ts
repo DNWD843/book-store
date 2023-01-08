@@ -33,6 +33,7 @@ const bookDetailsSlice = createSlice({
       })
       .addCase(getBookById.rejected, (state) => {
         state.status = EFetchStatuses.rejected;
+        state.book = null;
       })
       .addCase(getBookById.fulfilled, (state, action) => {
         state.status = EFetchStatuses.fulfilled;
