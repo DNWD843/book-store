@@ -6,3 +6,9 @@ export { ECollectionPaths } from './collectionPaths';
 export * from './orderFormEnums';
 export { EValidationErrorMessages } from './errorMessagesTypes';
 export { EPopupTypes } from './popupTypes';
+
+export const enum EKey {
+  nominativeCaseIndex = 'nominativeCaseIndex',
+  genitiveCaseIndex = 'genitiveCaseIndex',
+  pluralFormIndex = 'pluralFormIndex',
+}

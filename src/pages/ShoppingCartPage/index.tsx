@@ -2,33 +2,35 @@ import React, { useMemo } from 'react';
 
 import { Page } from '../../components/Page';
 import { ShoppingCart, CartTotalPrice, CartActionButtons } from '../../components/ShoppingCart';
-import { RUBLE_SIGN } from '../../constants';
+import { bookWordForms, RUBLE_SIGN } from '../../constants';
 import { useAppSelector } from '../../redux/hooks';
 import { selectUserData, selectUserSavings } from '../../redux/store';
-import { getTotalPrice } from '../../utils';
+import { getTotalPrice, pluralize } from '../../utils';
 
 export const ShoppingCartPage: React.FC = () => {
   const { cartValue, favorites, purchases } = useAppSelector(selectUserSavings);
   const { userId, displayName, email, isAnonymous } = useAppSelector(selectUserData);
 
-  const orderPrice = getTotalPrice(cartValue);
+  const { totalPrice, booksQuantity } = getTotalPrice(cartValue);
+
+  const pluralizedBookWord = useMemo(() => pluralize({ quantity: booksQuantity, textForms: bookWordForms }), [booksQuantity]);
 
   const subTitle = useMemo(() => {
     const emptyTitle = isAnonymous ? 'В Вашей корзине ничего нет.' : `${displayName || email}, в Вашей корзине ничего нет.`;
     const title = isAnonymous
-      ? `В Вашей корзине ${cartValue.length} книг на общую сумму ${orderPrice} ${RUBLE_SIGN}`
-      : `${displayName || email}, в Вашей корзине ${cartValue.length} книг на общую сумму ${orderPrice} ${RUBLE_SIGN}`;
+      ? `В Вашей корзине ${booksQuantity} ${pluralizedBookWord} на общую сумму ${totalPrice} ${RUBLE_SIGN}`
+      : `${displayName || email}, в Вашей корзине ${booksQuantity} ${pluralizedBookWord} на общую сумму ${totalPrice} ${RUBLE_SIGN}`;
 
     return (!cartValue.length ? emptyTitle : title);
-  }, [cartValue.length, displayName, email, isAnonymous, orderPrice]);
+  }, [isAnonymous, displayName, email, booksQuantity, pluralizedBookWord, totalPrice, cartValue.length]);
 
   return (
     <Page subtitle={subTitle} title="Корзина">
-      {Boolean(cartValue.length) && (<ShoppingCart orderPrice={orderPrice} selectedBooks={[...cartValue]} />)}
+      {Boolean(cartValue.length) && (<ShoppingCart orderPrice={totalPrice} selectedBooks={[...cartValue]} />)}
       {cartValue.length
         ? (
           <>
-            <CartTotalPrice totalPrice={orderPrice} />
+            <CartTotalPrice totalPrice={totalPrice} />
             <CartActionButtons savings={{ cartValue, favorites, purchases }} userId={userId} />
           </>
         )

@@ -1,7 +1,7 @@
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
 import { FieldProps, FieldRenderProps } from 'react-final-form';
 
-import { ECollectionPaths, EFetchStatuses, EPopupTypes, ESendingTypes } from './enums';
+import { ECollectionPaths, EFetchStatuses, EKey, EPopupTypes, ESendingTypes } from './enums';
 
 export type TBookInfo = {
   id: string,
@@ -106,3 +106,5 @@ export type TPopupConfig = {
   type: EPopupTypes,
 };
 export type TPopupsState = TPopupConfig[];
+
+export type TPluralizedTextForms = Record<EKey, string>;
