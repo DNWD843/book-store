@@ -1,4 +1,4 @@
-export type TProfileProps = {
+export type THeaderProfileProps = {
   title: string,
   onLogout: () => void,
   onDelete: () => void,

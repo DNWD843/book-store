@@ -2,12 +2,13 @@ import React, { useMemo, useRef } from 'react';
 
 import { DateWidget } from './DateWidget';
 import { IDateWidgetProps } from './DateWidget.props';
-import { months } from './months';
+import { daysOfWeek, months } from './constants';
 
 const DateWidgetComponent: React.FC<Omit<IDateWidgetProps, 'date'>> = (props) => {
   const currentDate = useRef<Date>(new Date());
   const dateString = useMemo(
-    () => `Сегодня ${currentDate.current.getDate()} ${months[currentDate.current.getMonth()]} ${currentDate.current.getFullYear()}г.`,
+    // eslint-disable-next-line max-len
+    () => `Сегодня ${currentDate.current.getDate()} ${months[currentDate.current.getMonth()]} ${currentDate.current.getFullYear()}г., ${daysOfWeek[currentDate.current.getDay()]}`,
     [],
   );
 

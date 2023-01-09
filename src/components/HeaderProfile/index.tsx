@@ -8,9 +8,9 @@ import { auth } from '../../redux/thunks';
 import { storageKeys, storage } from '../../utils';
 import ava from '../../vendor/images/login_ava.png';
 
-import { Profile } from './Profile';
+import { HeaderProfile } from './HeaderProfile';
 
-const ProfileComponent: React.FC = () => {
+const HeaderProfileComponent: React.FC = () => {
   const dispatch = useAppDispatch();
   const { removeUserSavingsFromStore } = userSavingsActions;
   const isMenuOpened = useAppSelector(selectProfileMenuState);
@@ -29,11 +29,12 @@ const ProfileComponent: React.FC = () => {
         dispatch(storageActions.removeUserData);
       })
       .then(() => { dispatch(profileActions.toggleMenu()); })
+      // eslint-disable-next-line no-console
       .catch((err) => { console.error(err); });
   };
 
   return (
-    <Profile
+    <HeaderProfile
       isAnonymous={userData?.isAnonymous}
       isMenuOpened={isMenuOpened}
       photoUrl={userData?.photoURL || ava}
@@ -45,6 +46,6 @@ const ProfileComponent: React.FC = () => {
   );
 };
 
-ProfileComponent.displayName = 'ProfileComponent';
+HeaderProfileComponent.displayName = 'HeaderProfileComponent';
 
-export { ProfileComponent };
+export { HeaderProfileComponent };

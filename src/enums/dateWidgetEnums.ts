@@ -12,3 +12,13 @@ export const enum EMonths {
   november = 'ноября',
   december = 'декабря',
 }
+
+export const enum EDaysOfWeek {
+  sunday = 'воскресенье',
+  monday = 'понедельник',
+  tuesday = 'вторник',
+  wednesday = 'среда',
+  thursday = 'четверг',
+  friday = 'пятница',
+  saturday = 'суббота',
+}

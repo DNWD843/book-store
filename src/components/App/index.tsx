@@ -40,6 +40,7 @@ const AppComponent: React.FC = () => {
         dispatch(storageActions.setBooks);
         storage.setData(storageKeys.BOOKS, res.payload);
       })
+        // eslint-disable-next-line no-console
         .catch((err) => { console.error(err); });
     } else {
       dispatch(setBooksToStore(savedBooks));

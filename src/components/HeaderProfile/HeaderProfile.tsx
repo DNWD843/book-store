@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 
 import { routes } from '../../routesMap';
 
-import { TProfileProps } from './Profile.props';
+import { THeaderProfileProps } from './HeaderProfile.props';
 
-import styles from './Profile.module.css';
+import styles from './HeaderProfile.module.css';
 
-const Profile: React.FC<TProfileProps> = ({ title, onLogout, onDelete, onProfileClick, isMenuOpened, isAnonymous, photoUrl }) => (
+const HeaderProfile: React.FC<THeaderProfileProps> = ({ title, onLogout, onDelete, onProfileClick, isMenuOpened, isAnonymous, photoUrl }) => (
   <div className={styles.profile}>
     {isAnonymous
       ? (
@@ -48,6 +48,6 @@ const Profile: React.FC<TProfileProps> = ({ title, onLogout, onDelete, onProfile
   </div>
 );
 
-Profile.displayName = 'Profile';
+HeaderProfile.displayName = 'Profile';
 
-export { Profile };
+export { HeaderProfile };

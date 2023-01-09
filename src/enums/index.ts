@@ -1,6 +1,6 @@
 export { EFetchStatuses } from './fetchStatuses';
 export { EIconTypes } from './navLinks';
-export { EMonths } from './months';
+export { EMonths } from './dateWidgetEnums';
 export { EAuthTypes } from './auth';
 export { ECollectionPaths } from './collectionPaths';
 export * from './orderFormEnums';
