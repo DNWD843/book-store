@@ -1,47 +1,44 @@
 import { ORDER_FORM_ID } from '../../../../constants';
-import { EPersonalInfoFieldsNames } from '../../../../enums';
-import { IFieldConfig } from '../../../../types';
+import { TPersonalInfoFormFieldsConfig } from '../../../../types';
 import { createFormFieldId } from '../../../../utils';
 import { personalInfoValidator } from '../../../../validators';
-import { orderFormFieldsConfig } from '../../orderFormFieldsConfig';
+import { orderFormInputsConfig } from '../../orderFormInputsConfig';
 
-type TPersonalInfoFieldsConfig = Record<keyof typeof EPersonalInfoFieldsNames, IFieldConfig>;
-
-export const personalInfoFieldsConfig: TPersonalInfoFieldsConfig = {
+export const personalInfoFieldsConfig: TPersonalInfoFormFieldsConfig = {
   lastName: {
-    id: createFormFieldId(ORDER_FORM_ID, orderFormFieldsConfig.lastName.name),
-    name: orderFormFieldsConfig.lastName.name,
+    id: createFormFieldId(ORDER_FORM_ID, orderFormInputsConfig.lastName.name),
+    name: orderFormInputsConfig.lastName.name,
     validate: personalInfoValidator,
     InputProps: {
       inputElementProps: {
-        id: orderFormFieldsConfig.lastName.name,
-        placeholder: orderFormFieldsConfig.lastName.placeholder,
+        id: orderFormInputsConfig.lastName.name,
+        placeholder: orderFormInputsConfig.lastName.placeholder,
       },
-      label: orderFormFieldsConfig.lastName.label,
+      label: orderFormInputsConfig.lastName.label,
     },
   },
   firstName: {
-    id: createFormFieldId(ORDER_FORM_ID, orderFormFieldsConfig.firstName.name),
-    name: orderFormFieldsConfig.firstName.name,
+    id: createFormFieldId(ORDER_FORM_ID, orderFormInputsConfig.firstName.name),
+    name: orderFormInputsConfig.firstName.name,
     validate: personalInfoValidator,
     InputProps: {
       inputElementProps: {
 
-        id: orderFormFieldsConfig.firstName.name,
-        placeholder: orderFormFieldsConfig.firstName.placeholder,
+        id: orderFormInputsConfig.firstName.name,
+        placeholder: orderFormInputsConfig.firstName.placeholder,
       },
-      label: orderFormFieldsConfig.firstName.label,
+      label: orderFormInputsConfig.firstName.label,
     },
   },
   patronymic: {
-    id: createFormFieldId(ORDER_FORM_ID, orderFormFieldsConfig.patronymic.name),
-    name: orderFormFieldsConfig.patronymic.name,
+    id: createFormFieldId(ORDER_FORM_ID, orderFormInputsConfig.patronymic.name),
+    name: orderFormInputsConfig.patronymic.name,
     InputProps: {
       inputElementProps: {
-        id: orderFormFieldsConfig.patronymic.name,
-        placeholder: orderFormFieldsConfig.patronymic.placeholder,
+        id: orderFormInputsConfig.patronymic.name,
+        placeholder: orderFormInputsConfig.patronymic.placeholder,
       },
-      label: orderFormFieldsConfig.patronymic.label,
+      label: orderFormInputsConfig.patronymic.label,
     },
   },
 };

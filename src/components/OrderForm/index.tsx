@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
-import { FormRenderProps } from 'react-final-form';
+import { FormRenderProps, useForm } from 'react-final-form';
 
-import { ESendingTypes } from '../../enums';
+import { EOrderForm, ESendingTypes } from '../../enums';
 import { TOrderFormValues } from '../../types';
+import { ActionButtons } from '../ActionButtons';
 
-import { FormButtons } from './ActionButtons';
 import { AddressInfo, ContactInfo, PersonalInfo, SendingTypeSelect } from './FormBlocks';
 
 import styles from './OrderForm.module.css';
@@ -12,6 +12,7 @@ import styles from './OrderForm.module.css';
 const OrderForm: React.FC<FormRenderProps<TOrderFormValues, Partial<TOrderFormValues>>> = (
   { handleSubmit, values: { sendingType }, submitFailed, errors },
 ) => {
+  const { reset } = useForm();
   const sendingTypeError = submitFailed && errors?.sendingType ? errors.sendingType : '';
   const isVisible = sendingType === ESendingTypes.post;
 
@@ -26,7 +27,7 @@ const OrderForm: React.FC<FormRenderProps<TOrderFormValues, Partial<TOrderFormVa
 
         <ContactInfo />
 
-        <FormButtons />
+        <ActionButtons submitButtonTitle={EOrderForm.submitButtonTitle} onClear={reset} />
       </form>
     </div>
   );

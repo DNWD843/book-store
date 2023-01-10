@@ -4,7 +4,7 @@ import { emailRegExp, validationErrorMessages, phoneNumberRegExp } from '../../c
 import { ESendingTypes, orderFormFieldsNames } from '../../enums';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const orderFormEmailValidator = (value: string, allValues?: Object, meta?: FieldState<string>) => {
+export const emailValidator = (value: string, allValues?: Object, meta?: FieldState<string>) => {
   // @ts-ignore
   if (!allValues?.[orderFormFieldsNames.sendingType]) return;
 

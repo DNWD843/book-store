@@ -1,5 +1,5 @@
 import uniqueId from 'lodash/uniqueId';
-import React, { memo, useEffect, useMemo } from 'react';
+import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import { Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,7 +25,7 @@ const OrderPage = () => {
   const begin = displayName || email ? `${displayName || email}, В` : 'В';
   const subtitle = `${begin}аш заказ: ${booksQuantity} ${pluralizedBookWord} на сумму ${orderPrice} ${RUBLE_SIGN}`;
 
-  const onSubmit = async (data: TOrderFormValues) => {
+  const onSubmit = useCallback(async (data: TOrderFormValues) => {
     const currentPurchase = { [new Date().toISOString()]: { books: cartValue, orderPrice } };
     const orderData = { data, currentPurchase };
     const savings = { cartValue: [],
@@ -56,7 +56,7 @@ const OrderPage = () => {
           type: EPopupTypes.danger,
         }));
       });
-  };
+  }, [addPopup, cartValue, dispatch, favorites, orderPrice, purchases, updateSavings, userId]);
 
   useEffect(() => {
     if (!cartValue.length) {

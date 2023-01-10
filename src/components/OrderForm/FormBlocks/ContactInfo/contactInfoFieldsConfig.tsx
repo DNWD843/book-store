@@ -2,8 +2,8 @@ import { ORDER_FORM_ID } from '../../../../constants';
 import { EContactInfoFieldsNames } from '../../../../enums';
 import { IFieldConfig } from '../../../../types';
 import { createFormFieldId } from '../../../../utils';
-import { orderFormEmailValidator, phoneNumberValidator } from '../../../../validators';
-import { orderFormFieldsConfig } from '../../orderFormFieldsConfig';
+import { emailValidator, phoneNumberValidator } from '../../../../validators';
+import { orderFormInputsConfig } from '../../orderFormInputsConfig';
 
 type TContactInfoFieldsConfig = Record<keyof typeof EContactInfoFieldsNames, IFieldConfig>;
 
@@ -19,28 +19,28 @@ const normalizePhone = (value: string) => {
 
 export const contactInfoFieldsConfig: TContactInfoFieldsConfig = {
   email: {
-    id: createFormFieldId(ORDER_FORM_ID, orderFormFieldsConfig.email.name),
-    name: orderFormFieldsConfig.email.name,
-    validate: orderFormEmailValidator,
+    id: createFormFieldId(ORDER_FORM_ID, orderFormInputsConfig.email.name),
+    name: orderFormInputsConfig.email.name,
+    validate: emailValidator,
     InputProps: {
       inputElementProps: {
-        id: orderFormFieldsConfig.email.name,
-        placeholder: orderFormFieldsConfig.email.placeholder,
+        id: orderFormInputsConfig.email.name,
+        placeholder: orderFormInputsConfig.email.placeholder,
       },
-      label: orderFormFieldsConfig.email.label,
+      label: orderFormInputsConfig.email.label,
     },
   },
   phoneNumber: {
-    id: createFormFieldId(ORDER_FORM_ID, orderFormFieldsConfig.phoneNumber.name),
-    name: orderFormFieldsConfig.phoneNumber.name,
+    id: createFormFieldId(ORDER_FORM_ID, orderFormInputsConfig.phoneNumber.name),
+    name: orderFormInputsConfig.phoneNumber.name,
     validate: phoneNumberValidator,
     parse: normalizePhone,
     InputProps: {
       inputElementProps: {
-        id: orderFormFieldsConfig.phoneNumber.label,
-        placeholder: orderFormFieldsConfig.phoneNumber.placeholder,
+        id: orderFormInputsConfig.phoneNumber.label,
+        placeholder: orderFormInputsConfig.phoneNumber.placeholder,
       },
-      label: orderFormFieldsConfig.phoneNumber.label,
+      label: orderFormInputsConfig.phoneNumber.label,
     },
   },
 };

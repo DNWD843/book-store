@@ -38,3 +38,7 @@ export const orderFormFieldsNames = {
   ...EAddressInfoFieldsNames,
   ...EContactInfoFieldsNames,
 };
+
+export const enum EOrderForm {
+  submitButtonTitle = 'Оформить заказ',
+}

@@ -6,9 +6,10 @@ export { ECollectionPaths } from './collectionPaths';
 export * from './orderFormEnums';
 export { EValidationErrorMessages } from './errorMessagesTypes';
 export { EPopupTypes } from './popupTypes';
+export * from './profileFormEnums';
 
-export const enum EKey {
-  nominativeCaseIndex = 'nominativeCaseIndex',
-  genitiveCaseIndex = 'genitiveCaseIndex',
-  pluralFormIndex = 'pluralFormIndex',
+export const enum EPluralizeConfigKey {
+  nominativeCaseForm = 'nominativeCaseForm',
+  genitiveCaseForm = 'genitiveCaseForm',
+  pluralForm = 'pluralForm',
 }

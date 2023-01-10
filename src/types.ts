@@ -1,7 +1,20 @@
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
 import { FieldProps, FieldRenderProps } from 'react-final-form';
 
-import { ECollectionPaths, EFetchStatuses, EKey, EPopupTypes, ESendingTypes } from './enums';
+import {
+  ECollectionPaths,
+  EFetchStatuses,
+  EPluralizeConfigKey,
+  EPersonalInfoFieldsNames,
+  EPopupTypes,
+  EProfileFormFieldsNames,
+  ESendingTypes,
+  orderFormFieldsNames,
+  profileFormFieldsNames,
+  ESendingTypeFieldsNames,
+  EContactInfoFieldsNames,
+  EAddressInfoFieldsNames,
+} from './enums';
 
 export type TBookInfo = {
   id: string,
@@ -58,22 +71,30 @@ export type TUserSavingsToUpdate = {
 };
 
 export type TAuthFormValues = { email: string, password: string };
+
 export type TOrderFormValues = {
-  sendingType: ESendingTypes,
-  postalCode?: string,
-  country?: string,
-  regionName?: string,
-  cityName?: string,
-  streetName?: string,
-  houseNumber?: string,
-  buildingNumber?: string,
-  housingNumber?: string,
-  flatNumber?: string,
-  email?: string,
-  phoneNumber: string,
-  firstName: string,
-  lastName: string,
-  patronymic?: string,
+  [ESendingTypeFieldsNames.sendingType]: ESendingTypes,
+  [EAddressInfoFieldsNames.postalCode]?: string,
+  [EAddressInfoFieldsNames.country]?: string,
+  [EAddressInfoFieldsNames.regionName]?: string,
+  [EAddressInfoFieldsNames.cityName]?: string,
+  [EAddressInfoFieldsNames.streetName]?: string,
+  [EAddressInfoFieldsNames.houseNumber]?: string,
+  [EAddressInfoFieldsNames.buildingNumber]?: string,
+  [EAddressInfoFieldsNames.housingNumber]?: string,
+  [EAddressInfoFieldsNames.flatNumber]?: string,
+  [EContactInfoFieldsNames.email]?: string,
+  [EContactInfoFieldsNames.phoneNumber]: string,
+  [EPersonalInfoFieldsNames.firstName]: string,
+  [EPersonalInfoFieldsNames.lastName]: string,
+  [EPersonalInfoFieldsNames.patronymic]?: string,
+};
+
+export type TProfileFormValues = {
+  [EProfileFormFieldsNames.email]: string | null,
+  [EProfileFormFieldsNames.displayName]: string | null,
+  [EProfileFormFieldsNames.phoneNumber]: string | null,
+  [EProfileFormFieldsNames.photoURL]: string | null,
 };
 
 export type TSendingTypeRadioButton = {
@@ -88,13 +109,6 @@ export type TSendingTypeRadioButton = {
 export type TSendingTypeRadioButtons = TSendingTypeRadioButton[];
 export type TInputElementProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
-export interface IFieldConfig extends FieldProps<string, FieldRenderProps<string>> {
-  InputProps: {
-    inputElementProps: TInputElementProps,
-    label: string,
-  },
-}
-
 export type TSendingOrderData = {
   data: TOrderFormValues,
   currentPurchase: TPurchases
@@ -107,4 +121,30 @@ export type TPopupConfig = {
 };
 export type TPopupsState = TPopupConfig[];
 
-export type TPluralizedTextForms = Record<EKey, string>;
+export type TPluralizedTextForms = Record<EPluralizeConfigKey, string>;
+
+// inputs configs
+type TFormInputsConfigValue = { name: string, placeholder: string, label: string };
+type TFormInputsConfig<TFormFieldsConfigKeys extends string> = Record<TFormFieldsConfigKeys, TFormInputsConfigValue>;
+
+type TOrderFormInputsConfigKeys = keyof typeof orderFormFieldsNames;
+export type TOrderFormInputsConfig = TFormInputsConfig<TOrderFormInputsConfigKeys>;
+
+type TProfileFormInputsConfigKeys = keyof typeof profileFormFieldsNames;
+export type TProfileFormInputsConfig = TFormInputsConfig<TProfileFormInputsConfigKeys>;
+
+// form fields configs
+export interface IFieldConfig extends FieldProps<string, FieldRenderProps<string>> {
+  InputProps: {
+    inputElementProps: TInputElementProps,
+    label: string,
+  },
+}
+
+type TFormFieldsConfig<T extends string> = Record<T, IFieldConfig>;
+
+type TPersonalInfoFormFieldsConfigKeys = keyof typeof EPersonalInfoFieldsNames;
+export type TPersonalInfoFormFieldsConfig = TFormFieldsConfig<TPersonalInfoFormFieldsConfigKeys>;
+
+type TProfileFormFieldsConfigKeys = keyof typeof EProfileFormFieldsNames;
+export type TProfileFormFieldsConfig = TFormFieldsConfig<TProfileFormFieldsConfigKeys>;

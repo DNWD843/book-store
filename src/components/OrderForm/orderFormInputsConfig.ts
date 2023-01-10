@@ -1,10 +1,6 @@
-import {
-  orderFormFieldsNames,
-} from '../../enums';
+import { TOrderFormInputsConfig } from '../../types';
 
-type TOrderFormFieldsConfig = Record<keyof typeof orderFormFieldsNames, { name: string, placeholder: string, label: string }>;
-
-export const orderFormFieldsConfig: TOrderFormFieldsConfig = {
+export const orderFormInputsConfig: TOrderFormInputsConfig = {
   sendingType: { name: 'sendingType', placeholder: '', label: '' },
   sendingTypeEmail: { name: 'sendingTypeEmail', placeholder: '', label: 'Отправить на email' },
   sendingTypePost: { name: 'sendingTypePost', placeholder: '', label: 'Отправить на почтовый адрес' },
