@@ -1,10 +1,11 @@
 .pageContainer {
-
 }
 
 .pageHeader {
   display: grid;
   row-gap: 24px;
+  grid-template-columns: [start] 1fr [goBackLink] auto [goHomeLink] auto [end];
+
   padding-bottom: 40px;
   box-sizing: border-box;
 }
@@ -20,4 +21,21 @@
   font-weight: 400;
   font-size: 24px;
   line-height: 1.2;
+}
+
+.pageNavLink {
+  text-decoration: none;
+  align-self: center;
+  padding-left: 15px;
+  color: var(--dark-grey);
+  font-weight: 600;
+  font-size: 18px;
+  border: none;
+  outline: none;
+}
+
+.pageNavLink:hover, .pageNavLink:focus {
+  border: none;
+  outline: none;
+  color: var(--light-grey);
 }

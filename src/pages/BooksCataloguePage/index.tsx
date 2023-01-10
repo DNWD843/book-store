@@ -12,7 +12,7 @@ export const BooksCataloguePage: React.FC = () => {
   const filteredCollection = useAppSelector(selectFilteredCollection);
 
   return (
-    <Page subtitle={filteredCollection && !filteredCollection.length ? 'По вашему запросу ничего не найдено' : ''} title="Каталог">
+    <Page subtitle={filteredCollection && !filteredCollection.length ? 'По вашему запросу ничего не найдено' : ''} title="Каталог" withNavLinks={false}>
       {booksCollection.length
         ? (<BooksCatalogue books={filteredCollection || booksCollection} />)
         : (
