@@ -8,9 +8,9 @@ import { IProfileFormProps } from './ProfileForm.props';
 
 const ProfileForm: React.FC<IProfileFormProps> = ({ disabled }) => (
   <Region>
-    {Object.values(profileFormFieldsConfig).map(({ id, name, validate, InputProps }) => (
-      <Col key={id} size={2}>
-        <Field disabled={disabled} id={id} name={name} validate={validate} validateFields={[]}>
+    {Object.values(profileFormFieldsConfig).map(({ InputProps, ...fieldProps }) => (
+      <Col key={fieldProps.id} size={2}>
+        <Field {...fieldProps} disabled={disabled} validateFields={[]}>
           {(props) => (
             <Input {...props} {...InputProps} />
           )}

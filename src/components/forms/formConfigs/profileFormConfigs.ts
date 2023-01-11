@@ -1,6 +1,6 @@
 import { PROFILE_FORM_ID, PROFILE_FORM_INPUT_NAME_PREFIX } from '../../../constants';
 import { TProfileFormFieldsConfig, TProfileFormInputsConfig } from '../../../types';
-import { createFormFieldId } from '../../../utils';
+import { createFormFieldId, normalizePhone } from '../../../utils';
 import { profileEmailValidator, profilePhoneNumberValidator } from '../../../validators';
 
 const profileFormInputsConfig: TProfileFormInputsConfig = {
@@ -51,6 +51,7 @@ const profileFormFieldsConfig: TProfileFormFieldsConfig = {
     id: createFormFieldId(PROFILE_FORM_ID, profileFormInputsConfig.phoneNumber.name),
     name: profileFormInputsConfig.phoneNumber.name,
     validate: profilePhoneNumberValidator,
+    parse: normalizePhone,
     InputProps: {
       inputElementProps: {
         id: profileFormInputsConfig.phoneNumber.name,

@@ -1,6 +1,5 @@
 import { MINIMAL_BOOKS_QUANTITY } from '../constants';
-import { EPluralizeConfigKey } from '../enums';
-import { TBookInfo, TPluralizedTextForms } from '../types';
+import { TBookInfo } from '../types';
 
 export const createFormFieldId = (formId: string, fieldId: string) => `${formId}-${fieldId}`;
 
@@ -13,13 +12,12 @@ export const getTotalPrice = (collection: TBookInfo[]) => collection.reduce<{ to
   return acc;
 }, { totalPrice: 0, booksQuantity: 0 });
 
-export const pluralize = ({ quantity, textForms }: { quantity: number, textForms: TPluralizedTextForms }): string => {
-  const value = Math.abs(quantity) % 100;
-  const lastDigit = value % 10;
+export const normalizePhone = (value: string) => {
+  if (!value) return value;
 
-  if (value > 10 && value < 20) { return textForms[EPluralizeConfigKey.pluralForm]; }
-  if (lastDigit > 1 && lastDigit < 5) { return textForms[EPluralizeConfigKey.genitiveCaseForm]; }
-  if (lastDigit === 1) { return textForms[EPluralizeConfigKey.nominativeCaseForm]; }
+  const onlyNums = value.replace(/[^\d]/g, '');
 
-  return textForms[EPluralizeConfigKey.pluralForm];
+  if (onlyNums.length <= 3) return onlyNums.replace(onlyNums[0], '+7 (');
+  if (onlyNums.length > 3 && onlyNums.length <= 7) return `+7 (${onlyNums.slice(1, 4)}) ${onlyNums.slice(4, 7)}`;
+  return `+7 (${onlyNums.slice(1, 4)}) ${onlyNums.slice(4, 7)}-${onlyNums.slice(7, 11)}`;
 };
