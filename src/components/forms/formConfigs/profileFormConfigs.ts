@@ -1,13 +1,12 @@
-import { PROFILE_FORM_ID, PROFILE_FORM_INPUT_NAME_PREFIX } from '../../../constants';
+import { COL_SIZE_1, COL_SIZE_2, PROFILE_FORM_ID, PROFILE_FORM_INPUT_NAME_PREFIX } from '../../../constants';
 import { TProfileFormFieldsConfig, TProfileFormInputsConfig } from '../../../types';
-import { createFormFieldId, normalizePhone } from '../../../utils';
-import { profileEmailValidator, profilePhoneNumberValidator, profileUrlValidator } from '../../../validators';
+import { createFormFieldId } from '../../../utils';
+import { profileEmailValidator, profileUrlValidator } from '../../../validators';
 
 const profileFormInputsConfig: TProfileFormInputsConfig = {
   email: { name: `${PROFILE_FORM_INPUT_NAME_PREFIX}email`, label: 'Email', placeholder: 'Введите email' },
   displayName: { name: `${PROFILE_FORM_INPUT_NAME_PREFIX}displayName`, label: 'Отображаемое имя', placeholder: 'Введите отображаемое имя' },
   photoURL: { name: `${PROFILE_FORM_INPUT_NAME_PREFIX}photoURL`, label: 'Ссылка на фото', placeholder: 'Введите ссылку на фото' },
-  phoneNumber: { name: `${PROFILE_FORM_INPUT_NAME_PREFIX}phoneNumber`, label: 'Мобильный телефон', placeholder: 'Введите мобильный телефон' },
 };
 
 const profileFormFieldsConfig: TProfileFormFieldsConfig = {
@@ -22,6 +21,7 @@ const profileFormFieldsConfig: TProfileFormFieldsConfig = {
       },
       label: profileFormInputsConfig.email.label,
     },
+    size: COL_SIZE_2,
   },
   displayName: {
     id: createFormFieldId(PROFILE_FORM_ID, profileFormInputsConfig.displayName.name),
@@ -34,6 +34,7 @@ const profileFormFieldsConfig: TProfileFormFieldsConfig = {
       },
       label: profileFormInputsConfig.displayName.label,
     },
+    size: COL_SIZE_2,
   },
   photoURL: {
     id: createFormFieldId(PROFILE_FORM_ID, profileFormInputsConfig.photoURL.name),
@@ -46,19 +47,7 @@ const profileFormFieldsConfig: TProfileFormFieldsConfig = {
       },
       label: profileFormInputsConfig.photoURL.label,
     },
-  },
-  phoneNumber: {
-    id: createFormFieldId(PROFILE_FORM_ID, profileFormInputsConfig.phoneNumber.name),
-    name: profileFormInputsConfig.phoneNumber.name,
-    validate: profilePhoneNumberValidator,
-    parse: normalizePhone,
-    InputProps: {
-      inputElementProps: {
-        id: profileFormInputsConfig.phoneNumber.name,
-        placeholder: profileFormInputsConfig.phoneNumber.placeholder,
-      },
-      label: profileFormInputsConfig.phoneNumber.label,
-    },
+    size: COL_SIZE_1,
   },
 };
 

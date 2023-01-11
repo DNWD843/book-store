@@ -1,7 +1,6 @@
 export enum EProfileFormFieldsNames {
   email = 'email',
   displayName = 'displayName',
-  phoneNumber = 'phoneNumber',
   photoURL = 'photoURL',
 }
 

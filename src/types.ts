@@ -15,6 +15,7 @@ import {
   EContactInfoFieldsNames,
   EAddressInfoFieldsNames,
 } from './enums';
+import { TColProps } from './ui-components/Col/Col.props';
 
 export type TBookInfo = {
   id: string,
@@ -90,12 +91,7 @@ export type TOrderFormValues = {
   [EPersonalInfoFieldsNames.patronymic]?: string,
 };
 
-export type TProfileFormValues = {
-  [EProfileFormFieldsNames.email]: string | null,
-  [EProfileFormFieldsNames.displayName]: string | null,
-  [EProfileFormFieldsNames.phoneNumber]: string | null,
-  [EProfileFormFieldsNames.photoURL]: string | null,
-};
+export type TProfileFormValues = Record<EProfileFormFieldsNames, string | null>;
 
 export type TSendingTypeRadioButton = {
   name: string,
@@ -139,12 +135,19 @@ export interface IFieldConfig extends FieldProps<string, FieldRenderProps<string
     inputElementProps: TInputElementProps,
     label: string,
   },
+  size: TColProps['size'],
 }
 
 type TFormFieldsConfig<T extends string> = Record<T, IFieldConfig>;
 
 type TPersonalInfoFormFieldsConfigKeys = keyof typeof EPersonalInfoFieldsNames;
 export type TPersonalInfoFormFieldsConfig = TFormFieldsConfig<TPersonalInfoFormFieldsConfigKeys>;
+
+type TContactInfoFieldsConfigKeys = keyof typeof EContactInfoFieldsNames;
+export type TContactInfoFieldsConfig = TFormFieldsConfig<TContactInfoFieldsConfigKeys>;
+
+type TAddressInfoFieldsConfigKeys = keyof typeof EAddressInfoFieldsNames;
+export type TAddressInfoFieldsConfig = TFormFieldsConfig<TAddressInfoFieldsConfigKeys>;
 
 type TProfileFormFieldsConfigKeys = keyof typeof EProfileFormFieldsNames;
 export type TProfileFormFieldsConfig = TFormFieldsConfig<TProfileFormFieldsConfigKeys>;

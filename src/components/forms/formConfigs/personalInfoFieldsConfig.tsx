@@ -1,4 +1,4 @@
-import { ORDER_FORM_ID } from '../../../constants';
+import { COL_SIZE_3, ORDER_FORM_ID } from '../../../constants';
 import { TPersonalInfoFormFieldsConfig } from '../../../types';
 import { createFormFieldId } from '../../../utils';
 import { personalInfoValidator } from '../../../validators';
@@ -17,6 +17,7 @@ export const personalInfoFieldsConfig: TPersonalInfoFormFieldsConfig = {
       },
       label: orderFormInputsConfig.lastName.label,
     },
+    size: COL_SIZE_3,
   },
   firstName: {
     id: createFormFieldId(ORDER_FORM_ID, orderFormInputsConfig.firstName.name),
@@ -30,6 +31,7 @@ export const personalInfoFieldsConfig: TPersonalInfoFormFieldsConfig = {
       },
       label: orderFormInputsConfig.firstName.label,
     },
+    size: COL_SIZE_3,
   },
   patronymic: {
     id: createFormFieldId(ORDER_FORM_ID, orderFormInputsConfig.patronymic.name),
@@ -41,5 +43,6 @@ export const personalInfoFieldsConfig: TPersonalInfoFormFieldsConfig = {
       },
       label: orderFormInputsConfig.patronymic.label,
     },
+    size: COL_SIZE_3,
   },
 };

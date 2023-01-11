@@ -6,8 +6,8 @@ import { addressInfoFieldsConfig } from '../../../formConfigs';
 
 export const AddressForm: React.FC = () => (
   <Region>
-    {Object.values(addressInfoFieldsConfig).map(({ InputProps, ...fieldProps }) => (
-      <Col key={fieldProps.id} size={3}>
+    {Object.values(addressInfoFieldsConfig).map(({ InputProps, size, ...fieldProps }) => (
+      <Col key={fieldProps.id} size={size}>
         <Field {...fieldProps} validateFields={[]}>
           {(props) => (
             <Input {...props} {...InputProps} />

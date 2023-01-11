@@ -1,6 +1,5 @@
-import { ORDER_FORM_ID } from '../../../constants';
-import { EAddressInfoFieldsNames } from '../../../enums';
-import { IFieldConfig } from '../../../types';
+import { COL_SIZE_3, ORDER_FORM_ID } from '../../../constants';
+import { TAddressInfoFieldsConfig } from '../../../types';
 import { createFormFieldId } from '../../../utils';
 import {
   addressLiteralValidator,
@@ -10,8 +9,6 @@ import {
 } from '../../../validators';
 
 import { orderFormInputsConfig } from './orderFormInputsConfig';
-
-type TAddressInfoFieldsConfig = Record<keyof typeof EAddressInfoFieldsNames, IFieldConfig>;
 
 export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
   postalCode: {
@@ -23,6 +20,7 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
       placeholder: orderFormInputsConfig.postalCode.placeholder,
     },
     label: orderFormInputsConfig.postalCode.label },
+    size: COL_SIZE_3,
   },
   country: {
     id: createFormFieldId(ORDER_FORM_ID, orderFormInputsConfig.country.name),
@@ -33,6 +31,7 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
       placeholder: orderFormInputsConfig.country.placeholder,
     },
     label: orderFormInputsConfig.country.label },
+    size: COL_SIZE_3,
   },
   regionName: {
     id: createFormFieldId(ORDER_FORM_ID, orderFormInputsConfig.regionName.name),
@@ -43,6 +42,7 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
       placeholder: orderFormInputsConfig.regionName.placeholder,
     },
     label: orderFormInputsConfig.regionName.label },
+    size: COL_SIZE_3,
   },
   cityName: {
     id: createFormFieldId(ORDER_FORM_ID, orderFormInputsConfig.cityName.name),
@@ -53,6 +53,7 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
       placeholder: orderFormInputsConfig.cityName.placeholder,
     },
     label: orderFormInputsConfig.cityName.label },
+    size: COL_SIZE_3,
   },
   streetName: {
     id: createFormFieldId(ORDER_FORM_ID, orderFormInputsConfig.streetName.name),
@@ -63,6 +64,7 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
       placeholder: orderFormInputsConfig.streetName.placeholder,
     },
     label: orderFormInputsConfig.streetName.label },
+    size: COL_SIZE_3,
   },
   houseNumber: {
     id: createFormFieldId(ORDER_FORM_ID, orderFormInputsConfig.houseNumber.name),
@@ -73,6 +75,7 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
       placeholder: orderFormInputsConfig.houseNumber.placeholder,
     },
     label: orderFormInputsConfig.houseNumber.label },
+    size: COL_SIZE_3,
   },
   buildingNumber: {
     id: createFormFieldId(ORDER_FORM_ID, orderFormInputsConfig.buildingNumber.name),
@@ -83,6 +86,7 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
       placeholder: orderFormInputsConfig.buildingNumber.placeholder,
     },
     label: orderFormInputsConfig.buildingNumber.label },
+    size: COL_SIZE_3,
   },
   housingNumber: {
     id: createFormFieldId(ORDER_FORM_ID, orderFormInputsConfig.housingNumber.name),
@@ -93,6 +97,7 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
       placeholder: orderFormInputsConfig.housingNumber.placeholder,
     },
     label: orderFormInputsConfig.housingNumber.label },
+    size: COL_SIZE_3,
   },
   flatNumber: {
     id: createFormFieldId(ORDER_FORM_ID, orderFormInputsConfig.flatNumber.name),
@@ -103,5 +108,6 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
       placeholder: orderFormInputsConfig.flatNumber.placeholder,
     },
     label: orderFormInputsConfig.flatNumber.label },
+    size: COL_SIZE_3,
   },
 };
