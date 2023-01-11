@@ -1,7 +1,7 @@
 import { emailRegExp, validationErrorMessages, passwordLength } from '../constants';
 import { TAuthFormValues } from '../types';
 
-export const authEmail = (value: TAuthFormValues['password']) => {
+export const authEmail = (value: TAuthFormValues['email']) => {
   if (!value) return validationErrorMessages.required;
 
   if (!emailRegExp.test(value)) return validationErrorMessages.incorrectEmail;

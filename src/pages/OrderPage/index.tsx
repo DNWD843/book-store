@@ -4,12 +4,12 @@ import { Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
 import { ScreenLoader } from '../../components/Loaders';
-import { OrderForm } from '../../components/OrderForm';
 import { Page } from '../../components/Page';
+import { OrderForm } from '../../components/forms';
 import { bookWordForms, ORDER_FORM_ID, orderSubmitMessages, POPUP_ID_PREFIX, RUBLE_SIGN } from '../../constants';
 import { EFetchStatuses, EPopupTypes } from '../../enums';
-import { useUserSavingsHandlers } from '../../hooks/useUserSavingsHandlers';
-import { popupsActions } from '../../redux/slices/popupsSlice';
+import { useUserSavingsHandlers } from '../../hooks';
+import { popupsActions } from '../../redux/slices';
 import { sendOrderData } from '../../redux/thunks';
 import { routes } from '../../routesMap';
 import { TOrderFormValues } from '../../types';

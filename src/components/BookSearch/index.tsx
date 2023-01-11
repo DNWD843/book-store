@@ -2,7 +2,7 @@ import React, { ChangeEvent, useRef, useState } from 'react';
 
 import { FILTER_DELAY } from '../../constants';
 import { useAppDispatch } from '../../redux/hooks';
-import { booksActions } from '../../redux/slices/booksSlice';
+import { booksActions } from '../../redux/slices';
 
 import { BookSearch } from './BookSearch';
 

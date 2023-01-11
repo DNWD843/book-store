@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { popupsActions } from '../../redux/slices/popupsSlice';
+import { popupsActions } from '../../redux/slices';
 import { selectPopups } from '../../redux/store';
 import { Popup } from '../../ui-components';
 

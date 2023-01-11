@@ -2,8 +2,7 @@ import React, { useMemo } from 'react';
 import { Form } from 'react-final-form';
 
 import { Page } from '../../components/Page';
-import { ProfileForm } from '../../components/ProfileForm';
-import { profileFormInputsConfig } from '../../components/ProfileForm/profileFormConfigs';
+import { ProfileForm, profileFormInputsConfig } from '../../components/forms';
 import { PROFILE_FORM_ID } from '../../constants';
 import { useAppSelector } from '../../redux/hooks';
 import { selectUserData } from '../../redux/store';

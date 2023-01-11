@@ -2,14 +2,12 @@ import uniqueId from 'lodash/uniqueId';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { AuthForm } from '../../components/AuthForm';
-import { authFormConfigs } from '../../components/AuthForm/constants';
 import { Page } from '../../components/Page';
+import { AuthForm, authFormConfigs } from '../../components/forms';
 import { POPUP_ID_PREFIX, registerRequestMessages } from '../../constants';
 import { EAuthTypes, EFetchStatuses, EPopupTypes } from '../../enums';
 import { useAppDispatch } from '../../redux/hooks';
-import { authActions } from '../../redux/slices/authSlice';
-import { popupsActions } from '../../redux/slices/popupsSlice';
+import { authActions, popupsActions } from '../../redux/slices';
 import { auth, createUserSavings } from '../../redux/thunks';
 import { routes } from '../../routesMap';
 import { TAuthFormValues, TUser } from '../../types';
