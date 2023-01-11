@@ -1,4 +1,4 @@
-import { emailRegExp, phoneNumberRegExp, validationErrorMessages } from '../constants';
+import { emailRegExp, phoneNumberRegExp, urlRegExp, validationErrorMessages } from '../constants';
 
 export const profileEmailValidator = (value: string) => {
   if (!value) return;
@@ -10,4 +10,10 @@ export const profilePhoneNumberValidator = (value: string) => {
   if (!value) return;
 
   if (!phoneNumberRegExp.test(value)) return validationErrorMessages.incorrectPhoneNumber;
+};
+
+export const profileUrlValidator = (value: string) => {
+  if (!value) return;
+
+  if (!urlRegExp.test(value)) return validationErrorMessages.incorrectURL;
 };

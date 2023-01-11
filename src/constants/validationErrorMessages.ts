@@ -14,4 +14,5 @@ export const validationErrorMessages: Record<EValidationErrorMessages, string> =
   [EValidationErrorMessages.digitsOnlyAreRequired]: 'Поле может содержать только цифры',
   [EValidationErrorMessages.postalCodeLength]: `Длина индекса должна быть ${POSTAL_CODE_LENGTH} символов`,
   [EValidationErrorMessages.incorrectValue]: 'Введено некорректное значение',
+  [EValidationErrorMessages.incorrectURL]: 'Некорректное значение URL',
 };

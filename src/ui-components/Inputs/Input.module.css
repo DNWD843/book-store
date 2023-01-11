@@ -32,7 +32,7 @@
 }
 
 .input:focus {
-  outline: 3px solid var(--dark-grey);
+  outline: 3px solid var(--grey);
 }
 
 .hasError, .hasError:focus {

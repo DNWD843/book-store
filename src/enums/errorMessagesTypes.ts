@@ -10,4 +10,5 @@ export const enum EValidationErrorMessages {
   digitsOnlyAreRequired = 'digitsOnlyAreRequired',
   postalCodeLength = 'postalCodeLength',
   incorrectValue = 'incorrectValue',
+  incorrectURL = 'incorrectURL',
 }

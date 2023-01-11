@@ -1,7 +1,7 @@
 import { PROFILE_FORM_ID, PROFILE_FORM_INPUT_NAME_PREFIX } from '../../../constants';
 import { TProfileFormFieldsConfig, TProfileFormInputsConfig } from '../../../types';
 import { createFormFieldId, normalizePhone } from '../../../utils';
-import { profileEmailValidator, profilePhoneNumberValidator } from '../../../validators';
+import { profileEmailValidator, profilePhoneNumberValidator, profileUrlValidator } from '../../../validators';
 
 const profileFormInputsConfig: TProfileFormInputsConfig = {
   email: { name: `${PROFILE_FORM_INPUT_NAME_PREFIX}email`, label: 'Email', placeholder: 'Введите email' },
@@ -38,7 +38,7 @@ const profileFormFieldsConfig: TProfileFormFieldsConfig = {
   photoURL: {
     id: createFormFieldId(PROFILE_FORM_ID, profileFormInputsConfig.photoURL.name),
     name: profileFormInputsConfig.photoURL.name,
-    validate: undefined,
+    validate: profileUrlValidator,
     InputProps: {
       inputElementProps: {
         id: profileFormInputsConfig.photoURL.name,
