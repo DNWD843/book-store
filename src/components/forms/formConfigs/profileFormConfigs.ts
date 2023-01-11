@@ -1,7 +1,7 @@
 import { PROFILE_FORM_ID, PROFILE_FORM_INPUT_NAME_PREFIX } from '../../../constants';
 import { TProfileFormFieldsConfig, TProfileFormInputsConfig } from '../../../types';
 import { createFormFieldId } from '../../../utils';
-import { orderFormEmailValidator } from '../../../validators';
+import { profileEmailValidator, profilePhoneNumberValidator } from '../../../validators';
 
 const profileFormInputsConfig: TProfileFormInputsConfig = {
   email: { name: `${PROFILE_FORM_INPUT_NAME_PREFIX}email`, label: 'Email', placeholder: 'Введите email' },
@@ -14,7 +14,7 @@ const profileFormFieldsConfig: TProfileFormFieldsConfig = {
   email: {
     id: createFormFieldId(PROFILE_FORM_ID, profileFormInputsConfig.email.name),
     name: profileFormInputsConfig.email.name,
-    validate: orderFormEmailValidator,
+    validate: profileEmailValidator,
     InputProps: {
       inputElementProps: {
         id: profileFormInputsConfig.email.name,
@@ -50,7 +50,7 @@ const profileFormFieldsConfig: TProfileFormFieldsConfig = {
   phoneNumber: {
     id: createFormFieldId(PROFILE_FORM_ID, profileFormInputsConfig.phoneNumber.name),
     name: profileFormInputsConfig.phoneNumber.name,
-    validate: undefined,
+    validate: profilePhoneNumberValidator,
     InputProps: {
       inputElementProps: {
         id: profileFormInputsConfig.phoneNumber.name,

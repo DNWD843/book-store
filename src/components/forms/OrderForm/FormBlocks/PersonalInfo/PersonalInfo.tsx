@@ -6,9 +6,9 @@ import { personalInfoFieldsConfig } from '../../../formConfigs';
 
 const PersonalInfo: React.FC = () => (
   <Region>
-    {Object.values(personalInfoFieldsConfig).map(({ id, name, validate, InputProps }) => (
-      <Col key={id} size={3}>
-        <Field id={id} name={name} validate={validate}>
+    {Object.values(personalInfoFieldsConfig).map(({ InputProps, ...fieldProps }) => (
+      <Col key={fieldProps.id} size={3}>
+        <Field {...fieldProps} validateFields={[]}>
           {(props) => (
             <Input {...props} {...InputProps} />
           )}

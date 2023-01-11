@@ -8,7 +8,7 @@ const ContactInfo: React.FC = () => (
   <Region>
     {Object.values(contactInfoFieldsConfig).map(({ InputProps, ...fieldProps }) => (
       <Col key={fieldProps.id} size={2}>
-        <Field {...fieldProps}>
+        <Field {...fieldProps} validateFields={[]}>
           {(props) => (<Input {...props} {...InputProps} />)}
         </Field>
       </Col>

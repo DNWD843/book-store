@@ -10,7 +10,7 @@ const ProfileForm: React.FC<IProfileFormProps> = ({ disabled }) => (
   <Region>
     {Object.values(profileFormFieldsConfig).map(({ id, name, validate, InputProps }) => (
       <Col key={id} size={2}>
-        <Field disabled={disabled} id={id} name={name} validate={validate}>
+        <Field disabled={disabled} id={id} name={name} validate={validate} validateFields={[]}>
           {(props) => (
             <Input {...props} {...InputProps} />
           )}
