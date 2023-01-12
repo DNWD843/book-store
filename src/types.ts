@@ -7,7 +7,7 @@ import {
   EPluralizeConfigKey,
   EPersonalInfoFieldsNames,
   EPopupTypes,
-  EEditProfileFormFieldsNames,
+  EProfileFormFieldsNames,
   ESendingTypes,
   orderFormFieldsNames,
   ESendingTypeFieldsNames,
@@ -90,7 +90,7 @@ export type TOrderFormValues = {
   [EPersonalInfoFieldsNames.patronymic]?: string,
 };
 
-export type TEditProfileFormValues = Record<EEditProfileFormFieldsNames, string | null | undefined>;
+export type TProfileFormValues = Record<EProfileFormFieldsNames, string | null | undefined>;
 
 export type TSendingTypeRadioButton = {
   name: string,
@@ -123,7 +123,7 @@ type TFormInputsConfigValue = { name: string, placeholder: string, label: string
 type TFormInputsConfig<TFormFieldsConfigKeys extends string> = Record<TFormFieldsConfigKeys, TFormInputsConfigValue>;
 
 export type TOrderFormInputsConfig = TFormInputsConfig<keyof typeof orderFormFieldsNames>;
-export type TProfileFormInputsConfig = TFormInputsConfig<EEditProfileFormFieldsNames>;
+export type TProfileFormInputsConfig = TFormInputsConfig<EProfileFormFieldsNames>;
 
 // form fields configs
 export interface IFieldConfig extends FieldProps<string, FieldRenderProps<string>> {
@@ -139,4 +139,11 @@ type TFormFieldsConfig<T extends string> = Record<T, IFieldConfig>;
 export type TPersonalInfoFormFieldsConfig = TFormFieldsConfig<EPersonalInfoFieldsNames>;
 export type TContactInfoFieldsConfig = TFormFieldsConfig<EContactInfoFieldsNames>;
 export type TAddressInfoFieldsConfig = TFormFieldsConfig<EAddressInfoFieldsNames>;
-export type TEditProfileFormFieldsConfig = TFormFieldsConfig<EEditProfileFormFieldsNames>;
+export type TProfileFormFieldsConfig = TFormFieldsConfig<EProfileFormFieldsNames>;
+
+export type TOnEditArgs = {
+  fieldKey: EProfileFormFieldsNames,
+  currentValue: string | null,
+};
+export type TEditProfileModalConfig = TOnEditArgs | null;
+export type TEditedData = { [key: string]: TOnEditArgs['currentValue'] };

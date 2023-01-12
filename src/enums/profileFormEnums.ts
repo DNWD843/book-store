@@ -1,4 +1,4 @@
-export const enum EEditProfileFormFieldsNames {
+export const enum EProfileFormFieldsNames {
   email = 'email',
   displayName = 'displayName',
   photoURL = 'photoURL',

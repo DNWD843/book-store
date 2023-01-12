@@ -6,15 +6,15 @@ import { useNavigate } from 'react-router-dom';
 
 import { ScreenLoader } from '../../components/Loaders';
 import { Page } from '../../components/Page';
-import { EditProfileForm } from '../../components/forms';
+import { ProfileForm } from '../../components/forms';
 import { POPUP_ID_PREFIX, PROFILE_FORM_ID, updateProfileRequestMessages } from '../../constants';
-import { EFetchStatuses, EPopupTypes, EEditProfileFormFieldsNames } from '../../enums';
+import { EFetchStatuses, EPopupTypes, EProfileFormFieldsNames } from '../../enums';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { authActions, popupsActions } from '../../redux/slices';
 import { selectAuthStatus, selectUserData } from '../../redux/store';
 import { updateUserData } from '../../redux/thunks/authThunks';
 import { routes } from '../../routesMap';
-import { TEditProfileFormValues } from '../../types';
+import { TProfileFormValues } from '../../types';
 
 export const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
@@ -26,15 +26,15 @@ export const ProfilePage: React.FC = () => {
 
   const { email: currentEmail, displayName: currentName, photoURL: currentURL } = userData;
 
-  const currentValues: TEditProfileFormValues = useMemo(() => ({
-    [EEditProfileFormFieldsNames.email]: currentEmail,
-    [EEditProfileFormFieldsNames.displayName]: currentName,
-    [EEditProfileFormFieldsNames.photoURL]: currentURL,
+  const currentValues: TProfileFormValues = useMemo(() => ({
+    [EProfileFormFieldsNames.email]: currentEmail,
+    [EProfileFormFieldsNames.displayName]: currentName,
+    [EProfileFormFieldsNames.photoURL]: currentURL,
   }), [currentEmail, currentName, currentURL]);
 
   const isLoading = useMemo(() => (updateProfileStatus === EFetchStatuses.pending), [updateProfileStatus]);
 
-  const onSubmit = useCallback(({ displayName, photoURL }: TEditProfileFormValues) => {
+  const onSubmit = useCallback(({ displayName, photoURL }: TProfileFormValues) => {
     // if (prevEmailRef.current !== email) {
     //   dispatch(updateUserLogin({ email }));
     //   // TODO: все-таки написать редьюсер и вынести в отдельный сабмит метод
@@ -75,8 +75,8 @@ export const ProfilePage: React.FC = () => {
 
   return (
     <Page title="Данные профиля">
-      <Form<TEditProfileFormValues> id={PROFILE_FORM_ID} initialValues={currentValues} onSubmit={onSubmit}>
-        {(formRenderProps) => (<EditProfileForm {...formRenderProps} />)}
+      <Form<TProfileFormValues> id={PROFILE_FORM_ID} initialValues={currentValues} onSubmit={onSubmit}>
+        {(formRenderProps) => (<ProfileForm {...formRenderProps} />)}
       </Form>
       { isLoading
         ? (<ScreenLoader />)
