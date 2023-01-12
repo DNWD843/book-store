@@ -146,4 +146,5 @@ export type TOnEditArgs = {
   currentValue: string | null,
 };
 export type TEditProfileModalConfig = TOnEditArgs | null;
-export type TEditedData = { [key: string]: TOnEditArgs['currentValue'] };
+// export type TEditedData = { [key: string]: TOnEditArgs['currentValue'] };
+export type TEditedData = Record<EProfileFormFieldsNames, TOnEditArgs['currentValue']>;

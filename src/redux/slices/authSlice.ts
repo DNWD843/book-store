@@ -32,8 +32,8 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     clearAuthError: (state) => { state.authError = ''; },
-    setUserToStore: (state, action: PayloadAction<TUserData>) => {
-      state.userData = action.payload;
+    setUserToStore: (state, action: PayloadAction<Partial<TUserData>>) => {
+      state.userData = { ...state.userData, ...action.payload };
     },
   },
   extraReducers: (builder) => {

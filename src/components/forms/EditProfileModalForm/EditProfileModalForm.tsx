@@ -10,8 +10,8 @@ import { TEditProfileModalFormProps } from './EditProfileModalForm.props';
 
 import styles from './EditProfileModalForm.module.css';
 
-const EditProfileModalForm:React.FC<TEditProfileModalFormProps> = ({ InputProps, size, onCancel, initialFormValue, ...fieldProps }) => (
-  <Form initialValues={initialFormValue} onSubmit={() => {}}>
+const EditProfileModalForm:React.FC<TEditProfileModalFormProps> = ({ InputProps, size, onCancel, onSubmit, initialFormValue, ...fieldProps }) => (
+  <Form initialValues={initialFormValue} onSubmit={onSubmit}>
     {(renderProps) => (
       <form className={styles.form} onSubmit={renderProps.handleSubmit}>
         <Region className={styles.formRegion}>

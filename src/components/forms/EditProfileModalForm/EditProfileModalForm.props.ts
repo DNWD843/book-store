@@ -8,5 +8,5 @@ type TEditProfileModalCallbacks = {
 export type TEditProfileModalFormComponentProps = TOnEditArgs & TEditProfileModalCallbacks;
 
 export type TEditProfileModalFormProps = TEditProfileModalCallbacks & IFieldConfig & {
-  initialFormValue: TEditedData,
+  initialFormValue: { [key: string]: string | null },
 };
