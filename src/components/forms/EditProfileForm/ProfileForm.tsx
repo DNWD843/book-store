@@ -1,10 +1,14 @@
+import classNames from 'classnames';
 import React, { memo } from 'react';
 import { Field } from 'react-final-form';
 
-import { Col, Input, Region } from '../../../ui-components';
+import { Col, Input, Region, SimpleButton } from '../../../ui-components';
+import { pencilIcon } from '../../../vendor/icons';
 import { profileFormFieldsConfig } from '../formConfigs';
 
 import { IProfileFormProps } from './ProfileForm.props';
+
+import styles from './ProfileForm.module.css';
 
 const ProfileForm: React.FC<IProfileFormProps> = ({ disabled }) => (
   <Region>
@@ -12,7 +16,12 @@ const ProfileForm: React.FC<IProfileFormProps> = ({ disabled }) => (
       <Col key={fieldProps.id} size={size}>
         <Field {...fieldProps} disabled={disabled} validateFields={[]}>
           {(props) => (
-            <Input {...props} {...InputProps} />
+            <div className={styles.inputWrapper}>
+              <Input {...props} {...InputProps} />
+              <SimpleButton className={classNames('btn-outline-secondary', styles.editButton)}>
+                <i className={styles.editIcon}>{pencilIcon}</i>
+              </SimpleButton>
+            </div>
           )}
         </Field>
       </Col>

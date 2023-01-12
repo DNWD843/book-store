@@ -12,7 +12,6 @@ export const personalInfoFieldsConfig: TPersonalInfoFormFieldsConfig = {
     validate: personalInfoValidator,
     InputProps: {
       inputElementProps: {
-        id: orderFormInputsConfig.lastName.name,
         placeholder: orderFormInputsConfig.lastName.placeholder,
       },
       label: orderFormInputsConfig.lastName.label,
@@ -25,8 +24,6 @@ export const personalInfoFieldsConfig: TPersonalInfoFormFieldsConfig = {
     validate: personalInfoValidator,
     InputProps: {
       inputElementProps: {
-
-        id: orderFormInputsConfig.firstName.name,
         placeholder: orderFormInputsConfig.firstName.placeholder,
       },
       label: orderFormInputsConfig.firstName.label,
@@ -38,7 +35,6 @@ export const personalInfoFieldsConfig: TPersonalInfoFormFieldsConfig = {
     name: orderFormInputsConfig.patronymic.name,
     InputProps: {
       inputElementProps: {
-        id: orderFormInputsConfig.patronymic.name,
         placeholder: orderFormInputsConfig.patronymic.placeholder,
       },
       label: orderFormInputsConfig.patronymic.label,

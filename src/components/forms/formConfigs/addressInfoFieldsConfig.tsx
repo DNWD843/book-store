@@ -16,7 +16,6 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
     name: orderFormInputsConfig.postalCode.name,
     validate: postalCodeValidator,
     InputProps: { inputElementProps: {
-      id: orderFormInputsConfig.postalCode.name,
       placeholder: orderFormInputsConfig.postalCode.placeholder,
     },
     label: orderFormInputsConfig.postalCode.label },
@@ -27,7 +26,6 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
     name: orderFormInputsConfig.country.name,
     validate: addressLiteralValidator,
     InputProps: { inputElementProps: {
-      id: orderFormInputsConfig.country.name,
       placeholder: orderFormInputsConfig.country.placeholder,
     },
     label: orderFormInputsConfig.country.label },
@@ -38,7 +36,6 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
     name: orderFormInputsConfig.regionName.name,
     validate: addressLiteralValidator,
     InputProps: { inputElementProps: {
-      id: orderFormInputsConfig.regionName.name,
       placeholder: orderFormInputsConfig.regionName.placeholder,
     },
     label: orderFormInputsConfig.regionName.label },
@@ -49,7 +46,6 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
     name: orderFormInputsConfig.cityName.name,
     validate: addressLiteralValidator,
     InputProps: { inputElementProps: {
-      id: orderFormInputsConfig.cityName.name,
       placeholder: orderFormInputsConfig.cityName.placeholder,
     },
     label: orderFormInputsConfig.cityName.label },
@@ -60,7 +56,6 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
     name: orderFormInputsConfig.streetName.name,
     validate: addressLiteralValidator,
     InputProps: { inputElementProps: {
-      id: orderFormInputsConfig.streetName.name,
       placeholder: orderFormInputsConfig.streetName.placeholder,
     },
     label: orderFormInputsConfig.streetName.label },
@@ -71,7 +66,6 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
     name: orderFormInputsConfig.houseNumber.name,
     validate: addressNumberValidator,
     InputProps: { inputElementProps: {
-      id: orderFormInputsConfig.houseNumber.name,
       placeholder: orderFormInputsConfig.houseNumber.placeholder,
     },
     label: orderFormInputsConfig.houseNumber.label },
@@ -82,7 +76,6 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
     name: orderFormInputsConfig.buildingNumber.name,
     validate: notRequiredAddressNumberValidator,
     InputProps: { inputElementProps: {
-      id: orderFormInputsConfig.buildingNumber.name,
       placeholder: orderFormInputsConfig.buildingNumber.placeholder,
     },
     label: orderFormInputsConfig.buildingNumber.label },
@@ -93,7 +86,6 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
     name: orderFormInputsConfig.housingNumber.name,
     validate: notRequiredAddressNumberValidator,
     InputProps: { inputElementProps: {
-      id: orderFormInputsConfig.housingNumber.name,
       placeholder: orderFormInputsConfig.housingNumber.placeholder,
     },
     label: orderFormInputsConfig.housingNumber.label },
@@ -104,7 +96,6 @@ export const addressInfoFieldsConfig: TAddressInfoFieldsConfig = {
     name: orderFormInputsConfig.flatNumber.name,
     validate: notRequiredAddressNumberValidator,
     InputProps: { inputElementProps: {
-      id: orderFormInputsConfig.flatNumber.name,
       placeholder: orderFormInputsConfig.flatNumber.placeholder,
     },
     label: orderFormInputsConfig.flatNumber.label },

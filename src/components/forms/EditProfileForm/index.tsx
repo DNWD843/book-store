@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import React, { memo, useCallback, useState } from 'react';
-import { useForm } from 'react-final-form';
 
 import { EProfileForm } from '../../../enums';
 import styles from '../../../pages/ProfilePage/PageProfile.module.css';
@@ -10,21 +9,19 @@ import { ActionButtons } from '../FormActionButtons';
 import { ProfileForm } from './ProfileForm';
 import { IProfileFormComponentProps } from './ProfileForm.props';
 
-const ProfileFormComponent: React.FC<IProfileFormComponentProps> = (props) => {
-  const { reset } = useForm();
+const EditProfileFormComponent: React.FC<IProfileFormComponentProps> = (props) => {
   const [isFormDisabled, setFormDisabled] = useState<boolean>(true);
-  const { initialValues } = props;
 
   const toggleDisabled = useCallback(() => setFormDisabled((prev) => !prev), []);
 
   const onCancel = useCallback(() => {
-    reset(initialValues);
     toggleDisabled();
-  }, [initialValues, reset, toggleDisabled]);
+  }, [toggleDisabled]);
 
   return (
     <form noValidate onSubmit={props.handleSubmit}>
-      <ProfileForm {...props} disabled={isFormDisabled} />
+      <ProfileForm {...props} disabled />
+      {/* TODO: here must be a modal with form and action buttons  */}
       {isFormDisabled
         ? (
           <SimpleButton
@@ -45,8 +42,8 @@ const ProfileFormComponent: React.FC<IProfileFormComponentProps> = (props) => {
   );
 };
 
-ProfileFormComponent.displayName = 'ProfileFormComponent';
+EditProfileFormComponent.displayName = 'EditProfileFormComponent';
 
-const MemoProfileFormComponent = memo(ProfileFormComponent);
+const MemoEditProfileFormComponent = memo(EditProfileFormComponent);
 
-export { MemoProfileFormComponent as ProfileForm };
+export { MemoEditProfileFormComponent as EditProfileForm };

@@ -7,10 +7,9 @@ import {
   EPluralizeConfigKey,
   EPersonalInfoFieldsNames,
   EPopupTypes,
-  EProfileFormFieldsNames,
+  EEditProfileFormFieldsNames,
   ESendingTypes,
   orderFormFieldsNames,
-  profileFormFieldsNames,
   ESendingTypeFieldsNames,
   EContactInfoFieldsNames,
   EAddressInfoFieldsNames,
@@ -91,7 +90,7 @@ export type TOrderFormValues = {
   [EPersonalInfoFieldsNames.patronymic]?: string,
 };
 
-export type TProfileFormValues = Record<EProfileFormFieldsNames, string | null>;
+export type TEditProfileFormValues = Record<EEditProfileFormFieldsNames, string | null | undefined>;
 
 export type TSendingTypeRadioButton = {
   name: string,
@@ -123,11 +122,8 @@ export type TPluralizedTextForms = Record<EPluralizeConfigKey, string>;
 type TFormInputsConfigValue = { name: string, placeholder: string, label: string };
 type TFormInputsConfig<TFormFieldsConfigKeys extends string> = Record<TFormFieldsConfigKeys, TFormInputsConfigValue>;
 
-type TOrderFormInputsConfigKeys = keyof typeof orderFormFieldsNames;
-export type TOrderFormInputsConfig = TFormInputsConfig<TOrderFormInputsConfigKeys>;
-
-type TProfileFormInputsConfigKeys = keyof typeof profileFormFieldsNames;
-export type TProfileFormInputsConfig = TFormInputsConfig<TProfileFormInputsConfigKeys>;
+export type TOrderFormInputsConfig = TFormInputsConfig<keyof typeof orderFormFieldsNames>;
+export type TProfileFormInputsConfig = TFormInputsConfig<EEditProfileFormFieldsNames>;
 
 // form fields configs
 export interface IFieldConfig extends FieldProps<string, FieldRenderProps<string>> {
@@ -140,14 +136,7 @@ export interface IFieldConfig extends FieldProps<string, FieldRenderProps<string
 
 type TFormFieldsConfig<T extends string> = Record<T, IFieldConfig>;
 
-type TPersonalInfoFormFieldsConfigKeys = keyof typeof EPersonalInfoFieldsNames;
-export type TPersonalInfoFormFieldsConfig = TFormFieldsConfig<TPersonalInfoFormFieldsConfigKeys>;
-
-type TContactInfoFieldsConfigKeys = keyof typeof EContactInfoFieldsNames;
-export type TContactInfoFieldsConfig = TFormFieldsConfig<TContactInfoFieldsConfigKeys>;
-
-type TAddressInfoFieldsConfigKeys = keyof typeof EAddressInfoFieldsNames;
-export type TAddressInfoFieldsConfig = TFormFieldsConfig<TAddressInfoFieldsConfigKeys>;
-
-type TProfileFormFieldsConfigKeys = keyof typeof EProfileFormFieldsNames;
-export type TProfileFormFieldsConfig = TFormFieldsConfig<TProfileFormFieldsConfigKeys>;
+export type TPersonalInfoFormFieldsConfig = TFormFieldsConfig<EPersonalInfoFieldsNames>;
+export type TContactInfoFieldsConfig = TFormFieldsConfig<EContactInfoFieldsNames>;
+export type TAddressInfoFieldsConfig = TFormFieldsConfig<EAddressInfoFieldsNames>;
+export type TEditProfileFormFieldsConfig = TFormFieldsConfig<EEditProfileFormFieldsNames>;

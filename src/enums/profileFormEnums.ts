@@ -1,10 +1,8 @@
-export enum EProfileFormFieldsNames {
+export const enum EEditProfileFormFieldsNames {
   email = 'email',
   displayName = 'displayName',
   photoURL = 'photoURL',
 }
-
-export const profileFormFieldsNames = { ...EProfileFormFieldsNames };
 
 export const enum EProfileForm {
   submitButtonTitle = 'Сохранить',

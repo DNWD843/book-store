@@ -1,22 +1,25 @@
-import { COL_SIZE_1, COL_SIZE_2, PROFILE_FORM_ID, PROFILE_FORM_INPUT_NAME_PREFIX } from '../../../constants';
-import { TProfileFormFieldsConfig, TProfileFormInputsConfig } from '../../../types';
+import { COL_SIZE_1, COL_SIZE_2, PROFILE_FORM_ID } from '../../../constants';
+import { EEditProfileFormFieldsNames } from '../../../enums';
+import {
+  TEditProfileFormFieldsConfig,
+  TProfileFormInputsConfig,
+} from '../../../types';
 import { createFormFieldId } from '../../../utils';
 import { profileEmailValidator, profileUrlValidator } from '../../../validators';
 
 const profileFormInputsConfig: TProfileFormInputsConfig = {
-  email: { name: `${PROFILE_FORM_INPUT_NAME_PREFIX}email`, label: 'Email', placeholder: 'Введите email' },
-  displayName: { name: `${PROFILE_FORM_INPUT_NAME_PREFIX}displayName`, label: 'Отображаемое имя', placeholder: 'Введите отображаемое имя' },
-  photoURL: { name: `${PROFILE_FORM_INPUT_NAME_PREFIX}photoURL`, label: 'Ссылка на фото', placeholder: 'Введите ссылку на фото' },
+  email: { name: EEditProfileFormFieldsNames.email, label: 'Email', placeholder: 'Введите email' },
+  displayName: { name: EEditProfileFormFieldsNames.displayName, label: 'Отображаемое имя', placeholder: 'Введите отображаемое имя' },
+  photoURL: { name: EEditProfileFormFieldsNames.photoURL, label: 'Ссылка на фото', placeholder: 'Введите ссылку на фото' },
 };
 
-const profileFormFieldsConfig: TProfileFormFieldsConfig = {
+const profileFormFieldsConfig: TEditProfileFormFieldsConfig = {
   email: {
     id: createFormFieldId(PROFILE_FORM_ID, profileFormInputsConfig.email.name),
     name: profileFormInputsConfig.email.name,
     validate: profileEmailValidator,
     InputProps: {
       inputElementProps: {
-        id: profileFormInputsConfig.email.name,
         placeholder: profileFormInputsConfig.email.placeholder,
       },
       label: profileFormInputsConfig.email.label,
@@ -29,7 +32,6 @@ const profileFormFieldsConfig: TProfileFormFieldsConfig = {
     validate: undefined,
     InputProps: {
       inputElementProps: {
-        id: profileFormInputsConfig.displayName.name,
         placeholder: profileFormInputsConfig.displayName.placeholder,
       },
       label: profileFormInputsConfig.displayName.label,
@@ -42,7 +44,6 @@ const profileFormFieldsConfig: TProfileFormFieldsConfig = {
     validate: profileUrlValidator,
     InputProps: {
       inputElementProps: {
-        id: profileFormInputsConfig.photoURL.name,
         placeholder: profileFormInputsConfig.photoURL.placeholder,
       },
       label: profileFormInputsConfig.photoURL.label,

@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { MINIMAL_BOOKS_QUANTITY } from '../constants';
 import { TBookInfo } from '../types';
 
@@ -21,3 +23,5 @@ export const normalizePhone = (value: string) => {
   if (onlyNums.length > 3 && onlyNums.length <= 7) return `+7 (${onlyNums.slice(1, 4)}) ${onlyNums.slice(4, 7)}`;
   return `+7 (${onlyNums.slice(1, 4)}) ${onlyNums.slice(4, 7)}-${onlyNums.slice(7, 11)}`;
 };
+
+export const getBlur = (evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) => evt.currentTarget.blur();

@@ -1,6 +1,6 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously, updateProfile, updateEmail, getAuth } from 'firebase/auth';
 
-import { loginRequestMessages, registerRequestMessages } from '../constants';
+import { loginRequestMessages, registerRequestMessages, updateProfileRequestMessages } from '../constants';
 import { appAuth } from '../firebase';
 import { TAuthFormValues, TUser } from '../types';
 
@@ -79,5 +79,39 @@ export const loginAnonymously = async (): Promise<TUser> => {
     // eslint-disable-next-line no-console
     console.error(err);
     throw err;
+  }
+};
+
+export const updateUserProfile = async ({ displayName, photoURL }: { displayName: TUser['displayName'], photoURL: TUser['photoURL'] }) => {
+  const auth = getAuth();
+
+  if (!auth.currentUser) return;
+
+  try {
+    return await updateProfile(auth.currentUser, { displayName, photoURL });
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+
+    // eslint-disable-next-line @typescript-eslint/no-throw-literal
+    throw { message: updateProfileRequestMessages.error };
+  }
+};
+
+export const updateUserEmail = async ({ email }: { email: TUser['email'] }) => {
+  if (!email) return;
+
+  const auth = getAuth();
+
+  if (!auth.currentUser) return;
+
+  try {
+    return await updateEmail(auth.currentUser, email);
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+
+    // eslint-disable-next-line @typescript-eslint/no-throw-literal
+    throw { message: updateProfileRequestMessages.error };
   }
 };

@@ -12,7 +12,6 @@ export const contactInfoFieldsConfig: TContactInfoFieldsConfig = {
     validate: orderFormEmailValidator,
     InputProps: {
       inputElementProps: {
-        id: orderFormInputsConfig.email.name,
         placeholder: orderFormInputsConfig.email.placeholder,
       },
       label: orderFormInputsConfig.email.label,
@@ -26,7 +25,6 @@ export const contactInfoFieldsConfig: TContactInfoFieldsConfig = {
     parse: normalizePhone,
     InputProps: {
       inputElementProps: {
-        id: orderFormInputsConfig.phoneNumber.label,
         placeholder: orderFormInputsConfig.phoneNumber.placeholder,
       },
       label: orderFormInputsConfig.phoneNumber.label,
