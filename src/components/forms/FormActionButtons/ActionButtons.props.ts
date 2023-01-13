@@ -1,5 +1,6 @@
 export type TActionButtonsProps = {
-  onClear: () => void,
+  onCancel: () => void,
   submitButtonTitle: string,
   clearButtonTitle?: string,
+  onSubmit? : () => void,
 };

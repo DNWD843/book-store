@@ -6,10 +6,10 @@ import { TActionButtonsProps } from './ActionButtons.props';
 
 import styles from './ActionButtons.module.css';
 
-const ActionButtons:React.FC<TActionButtonsProps> = ({ onClear, submitButtonTitle, clearButtonTitle = 'Очистить форму' }) => (
+const ActionButtons:React.FC<TActionButtonsProps> = ({ onCancel, submitButtonTitle, clearButtonTitle = 'Очистить форму', onSubmit }) => (
   <div className={styles.formButtons}>
-    <SimpleButton className="btn-outline-secondary" onClick={onClear}>{clearButtonTitle}</SimpleButton>
-    <SubmitButton className="btn-primary">{submitButtonTitle}</SubmitButton>
+    <SimpleButton className="btn-outline-secondary" onClick={onCancel}>{clearButtonTitle}</SimpleButton>
+    <SubmitButton className="btn-primary" onClick={onSubmit}>{submitButtonTitle}</SubmitButton>
   </div>
 );
 

@@ -27,7 +27,7 @@ const OrderForm: React.FC<FormRenderProps<TOrderFormValues, Partial<TOrderFormVa
 
         <ContactInfo />
 
-        <ActionButtons submitButtonTitle={EOrderForm.submitButtonTitle} onClear={reset} />
+        <ActionButtons submitButtonTitle={EOrderForm.submitButtonTitle} onCancel={reset} />
       </form>
     </div>
   );

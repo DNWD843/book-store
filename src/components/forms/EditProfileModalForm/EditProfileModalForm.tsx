@@ -27,7 +27,7 @@ const EditProfileModalForm:React.FC<TEditProfileModalFormProps> = ({ InputProps,
             <ActionButtons
               clearButtonTitle={EProfileForm.cancelButtonTitle}
               submitButtonTitle={EProfileForm.submitButtonTitle}
-              onClear={onCancel}
+              onCancel={onCancel}
             />
           </Col>
         </Region>

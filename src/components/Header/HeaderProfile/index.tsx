@@ -9,6 +9,7 @@ import { selectUserData, storageActions } from '../../../redux/store';
 import { auth } from '../../../redux/thunks';
 import { storageKeys, storage } from '../../../utils';
 import ava from '../../../vendor/images/login_ava.png';
+import { ConfirmModal } from '../../Modals';
 
 import { HeaderProfile } from './HeaderProfile';
 
@@ -18,7 +19,10 @@ const HeaderProfileComponent: React.FC = () => {
   const { addPopup } = popupsActions;
   const userData = useAppSelector(selectUserData);
 
+  const [isModalOpened, setModalOpened] = useState<boolean>(false);
   const [isMenuOpened, setMenuOpened] = useState<boolean>(false);
+
+  const closeModal = useCallback(() => { setModalOpened(false); }, []);
 
   const handleClickOnMenuButton = useCallback(() => { setMenuOpened((prev) => !prev); }, []);
 
@@ -52,6 +56,8 @@ const HeaderProfileComponent: React.FC = () => {
       });
   }, [addPopup, dispatch, removeUserSavingsFromStore]);
 
+  const onDelete = useCallback(() => { setModalOpened(true); }, []);
+
   const handleDeleteUser = useCallback(() => {
     dispatch(auth.deleteUser())
       .then((res) => {
@@ -64,6 +70,7 @@ const HeaderProfileComponent: React.FC = () => {
 
           storage.deleteData([storageKeys.USER, storageKeys.USER_SAVINGS]);
           dispatch(storageActions.removeUserInfo);
+          closeModal();
         } else {
           // eslint-disable-next-line @typescript-eslint/no-throw-literal
           throw res;
@@ -76,18 +83,28 @@ const HeaderProfileComponent: React.FC = () => {
           type: EPopupTypes.danger,
         }));
       });
-  }, [addPopup, dispatch]);
+  }, [addPopup, closeModal, dispatch]);
 
   return (
-    <HeaderProfile
-      isAnonymous={userData?.isAnonymous}
-      isMenuOpened={isMenuOpened}
-      photoUrl={userData?.photoURL || ava}
-      title={title}
-      onDelete={handleDeleteUser}
-      onLogout={handleLogout}
-      onProfileClick={handleClickOnMenuButton}
-    />
+    <>
+      <HeaderProfile
+        isAnonymous={userData?.isAnonymous}
+        isMenuOpened={isMenuOpened}
+        photoUrl={userData?.photoURL || ava}
+        title={title}
+        onDelete={onDelete}
+        onLogout={handleLogout}
+        onProfileClick={handleClickOnMenuButton}
+      />
+      <ConfirmModal
+        clearButtonTitle="Отменить"
+        isOpened={isModalOpened}
+        submitButtonTitle="Удалить"
+        onCancel={closeModal}
+        onClose={closeModal}
+        onSubmit={handleDeleteUser}
+      />
+    </>
   );
 };
 
