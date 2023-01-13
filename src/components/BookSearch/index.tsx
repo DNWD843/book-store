@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, memo, useCallback, useEffect, useRef, useState } from 'react';
 
 import { FILTER_DELAY } from '../../constants';
 import { useAppDispatch } from '../../redux/hooks';
@@ -13,7 +13,7 @@ const BookSearchComponent: React.FC = () => {
 
   const [value, setValue] = useState<string>('');
 
-  const handleChangeValue = (evt: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeValue = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
     if (prevTimerIdRef.current) {
       clearTimeout(prevTimerIdRef.current);
     }
@@ -26,16 +26,22 @@ const BookSearchComponent: React.FC = () => {
     }, FILTER_DELAY);
 
     prevTimerIdRef.current = id;
-  };
+  }, [dispatch, filterCollection]);
 
-  const handleClickOnClearButton = () => {
+  const handleClickOnClearButton = useCallback(() => {
     setValue('');
     dispatch(resetFilterCollection());
-  };
+  }, [dispatch, resetFilterCollection]);
+
+  useEffect(() => () => {
+    handleClickOnClearButton();
+  }, [handleClickOnClearButton]);
 
   return (<BookSearch value={value} onChange={handleChangeValue} onClear={handleClickOnClearButton} />);
 };
 
 BookSearchComponent.displayName = 'BookSearchComponent';
 
-export { BookSearchComponent as BookSearch };
+const MemoBookSearchComponent = memo(BookSearchComponent);
+
+export { MemoBookSearchComponent as BookSearch };
