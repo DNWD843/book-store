@@ -59,6 +59,7 @@ export const selectBookDetails = (state: RootState): TBookDetailsState => state.
 export const selectAuthStatus = (state: RootState): IAuthState['status'] => state.auth.status;
 export const selectUserData = (state: RootState): IAuthState['userData'] => state.auth.userData;
 export const selectUserSavings = (state: RootState): TUserSavings => state.userSavings;
+export const selectUserPurchases = (state: RootState): TUserSavings['purchases'] => state.userSavings.purchases;
 export const selectPopups = (state: RootState): TPopupsState => state.popups;
 
 // service actions

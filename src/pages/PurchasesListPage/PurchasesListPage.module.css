@@ -1,0 +1,15 @@
+.pageContent {
+  display: grid;
+  row-gap: 25px;
+}
+
+.pageRegion {
+  padding: 15px;
+  background-color: var(--ultra-light-grey);
+}
+
+.regionHeader {
+  display: flex;
+  gap: 25px;
+  padding: 0 0 20px;
+}

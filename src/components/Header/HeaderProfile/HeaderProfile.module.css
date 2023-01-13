@@ -30,10 +30,6 @@
   z-index: 12;
 }
 
-.menuButton {
-  z-index: 12;
-}
-
 .menu {
   position: absolute;
   top: -300px;
@@ -75,6 +71,8 @@
   border: none;
   font-size: 20px;
   font-weight: bold;
+
+  z-index: 12;
 }
 
 .navLinks {

@@ -20,21 +20,27 @@ const HeaderProfile: React.FC<THeaderProfileProps> = ({ title, onLogout, onDelet
       : (
         <>
           <img alt="аватар пользователя" className={styles.avatar} src={photoUrl} />
-          <button className={classNames('btn btn-outline-secondary btn-sm', styles.menuButton)} type="button" onClick={onProfileClick}>{title}</button>
+          <button
+            className={classNames('btn btn-outline-secondary btn-sm', styles.menuButton)}
+            type="button"
+            onBlur={onProfileClick}
+            onClick={onProfileClick}
+          >
+            {title}
+          </button>
 
           <div className={styles.overlay} />
           <div
             className={classNames(styles.menu, {
               [styles.isMenuOpened]: isMenuOpened,
             })}
-            onMouseLeave={onProfileClick}
           >
             <nav className={styles.navLinks}>
               <li>
                 <Link className={styles.link} to={routes.profile}>Данные профиля</Link>
               </li>
               <li>
-                <Link className={styles.link} to={routes.shoppingHistory}>История покупок</Link>
+                <Link className={styles.link} to={routes.purchasesHistory}>История покупок</Link>
               </li>
             </nav>
             <div className={styles.buttons}>

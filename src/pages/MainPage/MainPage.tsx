@@ -10,6 +10,7 @@ import { LoginPage } from '../LoginPage';
 import { NotFoundPage } from '../NotFoundPage';
 import { OrderPage } from '../OrderPage';
 import { ProfilePage } from '../ProfilePage';
+import { PurchasesListPage } from '../PurchasesListPage';
 import { RegisterPage } from '../RegisterPage';
 import { ShoppingCartPage } from '../ShoppingCartPage';
 
@@ -30,6 +31,7 @@ const MainPage: React.FC = () => (
       <Route element={<LoginPage />} path={routes.login} />
       <Route element={<NotFoundPage />} path={routes.notFound} />
       <Route element={<OrderPage />} path={routes.order} />
+      <Route element={<PurchasesListPage />} path={routes.purchasesHistory} />
     </Routes>
   </main>
 );
