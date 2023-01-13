@@ -102,6 +102,18 @@ const authSlice = createSlice({
         state.status = EFetchStatuses.fulfilled;
         state.authError = '';
       });
+
+    builder
+      .addCase(auth.deleteUser.pending, (state) => { state.status = EFetchStatuses.pending; })
+      .addCase(auth.deleteUser.rejected, (state, action) => {
+        state.status = EFetchStatuses.rejected;
+        state.authError = action.error.message ?? 'Error';
+      })
+      .addCase(auth.deleteUser.fulfilled, (state) => {
+        state.userData = userDefault;
+        state.status = EFetchStatuses.fulfilled;
+        state.authError = '';
+      });
   },
 });
 

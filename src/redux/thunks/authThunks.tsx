@@ -1,6 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { createUser, loginUserByEmail, loginAnonymously, logout, updateUserProfile, updateUserEmail } from '../../api';
+import {
+  createUser,
+  loginUserByEmail,
+  loginAnonymously,
+  logout,
+  updateUserProfile,
+  updateUserEmail,
+  deleteUserProfile,
+} from '../../api';
 import { TAuthFormValues, TUser } from '../../types';
 import { ESlicesNames } from '../slicesNames';
 
@@ -32,4 +40,9 @@ export const updateUserData = createAsyncThunk(
 export const updateUserLogin = createAsyncThunk(
   `${[ESlicesNames.auth]}/updateUserEmail`,
   async ({ email }: { email: TUser['email'] }) => updateUserEmail({ email }),
+);
+
+export const deleteUser = createAsyncThunk(
+  `${ESlicesNames.auth}/deleteUser`,
+  async () => deleteUserProfile(),
 );

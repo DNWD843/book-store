@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import uniqueId from 'lodash/uniqueId';
+import React, { useCallback, useState } from 'react';
 
+import { deleteUserRequestMessages, POPUP_ID_PREFIX } from '../../../constants';
+import { EFetchStatuses, EPopupTypes } from '../../../enums';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { userSavingsActions } from '../../../redux/slices';
+import { popupsActions, userSavingsActions } from '../../../redux/slices';
 import { selectUserData, storageActions } from '../../../redux/store';
 import { auth } from '../../../redux/thunks';
 import { storageKeys, storage } from '../../../utils';
@@ -12,27 +15,68 @@ import { HeaderProfile } from './HeaderProfile';
 const HeaderProfileComponent: React.FC = () => {
   const dispatch = useAppDispatch();
   const { removeUserSavingsFromStore } = userSavingsActions;
+  const { addPopup } = popupsActions;
   const userData = useAppSelector(selectUserData);
 
   const [isMenuOpened, setMenuOpened] = useState<boolean>(false);
 
-  const handleClickOnMenuButton = () => { setMenuOpened((prev) => !prev); };
+  const handleClickOnMenuButton = useCallback(() => { setMenuOpened((prev) => !prev); }, []);
 
   const title = userData?.isAnonymous
     ? 'Гость'
     : `Привет, ${userData?.displayName || userData?.email || 'Гость'}`;
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     dispatch(auth.logoutUser())
-      .then(() => { dispatch(removeUserSavingsFromStore()); })
-      .then(() => {
-        storage.deleteData([storageKeys.USER, storageKeys.USER_SAVINGS]);
-        dispatch(storageActions.removeUserInfo);
+      .then((res) => {
+        if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
+          dispatch(removeUserSavingsFromStore());
+          storage.deleteData([storageKeys.USER, storageKeys.USER_SAVINGS]);
+          dispatch(storageActions.removeUserInfo);
+        } else {
+          // eslint-disable-next-line @typescript-eslint/no-throw-literal
+          throw res;
+        }
       })
       .then(() => { setMenuOpened(false); })
       // eslint-disable-next-line no-console
-      .catch((err) => { console.error(err); });
-  };
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.error(err);
+
+        dispatch(addPopup({
+          id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
+          message: err?.error?.message ?? deleteUserRequestMessages.unexpectedError,
+          type: EPopupTypes.danger,
+        }));
+      });
+  }, [addPopup, dispatch, removeUserSavingsFromStore]);
+
+  const handleDeleteUser = useCallback(() => {
+    dispatch(auth.deleteUser())
+      .then((res) => {
+        if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
+          dispatch(addPopup({
+            id: res.meta.requestId || uniqueId(POPUP_ID_PREFIX),
+            message: deleteUserRequestMessages.success,
+            type: EPopupTypes.success,
+          }));
+
+          storage.deleteData([storageKeys.USER, storageKeys.USER_SAVINGS]);
+          dispatch(storageActions.removeUserInfo);
+        } else {
+          // eslint-disable-next-line @typescript-eslint/no-throw-literal
+          throw res;
+        }
+      })
+      .catch((err) => {
+        dispatch(addPopup({
+          id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
+          message: err?.error?.message ?? deleteUserRequestMessages.unexpectedError,
+          type: EPopupTypes.danger,
+        }));
+      });
+  }, [addPopup, dispatch]);
 
   return (
     <HeaderProfile
@@ -40,7 +84,7 @@ const HeaderProfileComponent: React.FC = () => {
       isMenuOpened={isMenuOpened}
       photoUrl={userData?.photoURL || ava}
       title={title}
-      onDelete={() => {}}
+      onDelete={handleDeleteUser}
       onLogout={handleLogout}
       onProfileClick={handleClickOnMenuButton}
     />

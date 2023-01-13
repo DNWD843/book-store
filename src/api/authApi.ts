@@ -1,6 +1,11 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously, updateProfile, updateEmail, getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously, updateProfile, updateEmail, getAuth, deleteUser } from 'firebase/auth';
 
-import { loginRequestMessages, registerRequestMessages, updateProfileRequestMessages } from '../constants';
+import {
+  deleteUserRequestMessages,
+  loginRequestMessages,
+  registerRequestMessages,
+  updateProfileRequestMessages,
+} from '../constants';
 import { appAuth } from '../firebase';
 import { TAuthFormValues, TUser } from '../types';
 
@@ -56,7 +61,8 @@ export const logout = async () => {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
-    throw err;
+    // eslint-disable-next-line @typescript-eslint/no-throw-literal
+    throw { message: deleteUserRequestMessages.unexpectedError };
   }
 };
 
@@ -113,5 +119,20 @@ export const updateUserEmail = async ({ email }: { email: TUser['email'] }) => {
 
     // eslint-disable-next-line @typescript-eslint/no-throw-literal
     throw { message: updateProfileRequestMessages.updateLoginError };
+  }
+};
+
+export const deleteUserProfile = async () => {
+  try {
+    const auth = getAuth();
+
+    if (!auth.currentUser) return;
+
+    return await deleteUser(auth.currentUser);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error(err);
+    // eslint-disable-next-line @typescript-eslint/no-throw-literal
+    throw { message: deleteUserRequestMessages.unexpectedError };
   }
 };

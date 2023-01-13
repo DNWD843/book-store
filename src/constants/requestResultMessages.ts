@@ -22,3 +22,9 @@ export const updateProfileRequestMessages = {
   unexpectedError: 'Что-то пошло не так. Попробуйте повторить позднее.',
   updateLoginError: 'С момента входа в аккаунт прошло много времени. Авторизуйтесь повторно и попробуйте обновить email еще раз.',
 };
+
+export const deleteUserRequestMessages = {
+  success: 'Профиль удален.',
+  error: 'Ошибка удаления профиля. Попробуйте еще раз позднее.',
+  unexpectedError: 'Что-то пошло не так. Попробуйте повторить позднее.',
+};
