@@ -7,15 +7,15 @@ import { useAppDispatch } from '../redux/hooks';
 import { authActions, popupsActions } from '../redux/slices';
 import { updateUserData, updateUserLogin } from '../redux/thunks/authThunks';
 import { TEditedData, TProfileFormValues } from '../types';
+import { storage, storageKeys } from '../utils/localStorage';
 
 export const useEditProfileFormMethods = () => {
   const dispatch = useAppDispatch();
   const { addPopup } = popupsActions;
   const { setUserToStore } = authActions;
 
-  const updateProfileData = useCallback(({ displayName, photoURL }: TProfileFormValues) => dispatch(updateUserData({ displayName, photoURL }))
+  const updateProfileData = useCallback((data: TProfileFormValues) => dispatch(updateUserData(data))
     .then((res) => {
-      console.log('res', res);
       if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
         dispatch(addPopup({
           id: res.meta.requestId || uniqueId(POPUP_ID_PREFIX),
@@ -23,8 +23,8 @@ export const useEditProfileFormMethods = () => {
           type: EPopupTypes.success,
         }));
 
-        dispatch(setUserToStore({ displayName, photoURL }));
-        // TODO: тут сетать в локал сторейдж
+        dispatch(setUserToStore(data));
+        storage.updateData(storageKeys.USER, data);
       } else {
         // eslint-disable-next-line @typescript-eslint/no-throw-literal
         throw res;
@@ -48,7 +48,7 @@ export const useEditProfileFormMethods = () => {
         }));
 
         dispatch(setUserToStore({ email }));
-        // TODO: тут сетать в локал сторейдж
+        storage.updateData(storageKeys.USER, { email });
       } else {
         // eslint-disable-next-line @typescript-eslint/no-throw-literal
         throw res;

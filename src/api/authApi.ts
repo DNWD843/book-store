@@ -112,6 +112,6 @@ export const updateUserEmail = async ({ email }: { email: TUser['email'] }) => {
     console.error(e);
 
     // eslint-disable-next-line @typescript-eslint/no-throw-literal
-    throw { message: updateProfileRequestMessages.error };
+    throw { message: updateProfileRequestMessages.updateLoginError };
   }
 };

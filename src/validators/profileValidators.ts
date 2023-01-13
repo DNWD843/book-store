@@ -1,7 +1,7 @@
 import { emailRegExp, phoneNumberRegExp, urlRegExp, validationErrorMessages } from '../constants';
 
 export const profileEmailValidator = (value: string) => {
-  if (!value) return;
+  if (!value) return validationErrorMessages.required;
 
   if (value && !emailRegExp.test(value)) return validationErrorMessages.incorrectEmail;
 };

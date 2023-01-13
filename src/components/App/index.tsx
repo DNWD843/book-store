@@ -37,7 +37,7 @@ const AppComponent: React.FC = () => {
       || (savedBooks.books && savedBooks.updatedAt && checkNeedToDataUpdate({ date: savedBooks.updatedAt, limit: ONE_DAY_TIMESTAMP }))) {
       dispatch(getBooks()).then((res) => {
         dispatch(storageActions.setBooks);
-        storage.setData(storageKeys.BOOKS, res.payload);
+        storage.setData(storageKeys.BOOKS, res.payload as Object);
       })
         // eslint-disable-next-line no-console
         .catch((err) => { console.error(err); });

@@ -17,7 +17,7 @@ const EditProfileModalForm:React.FC<TEditProfileModalFormProps> = ({ InputProps,
         <Region className={styles.formRegion}>
           <Col key={fieldProps.id} size={COL_SIZE_1}>
             <h2 className={styles.title}>Редактирование профиля</h2>
-            <Field {...fieldProps} disabled={false} validateFields={[]}>
+            <Field {...fieldProps} defaultValue="" disabled={false} validateFields={[]}>
               {(props) => (
                 <div className={styles.inputWrapper}>
                   <Input {...props} {...InputProps} />

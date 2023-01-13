@@ -37,7 +37,7 @@ export const BookDetailsPage: React.FC = () => {
     dispatch(getBookById(bookId))
       .then((res) => {
         dispatch(storageActions.setBookDetails);
-        storage.setData(storageKeys.BOOK_DETAILS, res.payload);
+        storage.setData(storageKeys.BOOK_DETAILS, res.payload as Object);
       });
   }
 

@@ -29,13 +29,16 @@ const ProfileFormComponent: React.FC<IProfileFormComponentProps> = (props) => {
     if (!modalConfig) return;
 
     const { fieldKey } = modalConfig;
-    console.log('modal data', data);
+    const isEmptyObject = !(fieldKey in data);
+
+    if (fieldKey === EProfileFormFieldsNames.email && isEmptyObject) return;
+
+    const dataToUpdate = isEmptyObject ? { [fieldKey]: '' } as TEditedData : { ...data };
+
     if (fieldKey === EProfileFormFieldsNames.email) {
-      console.log('EMAIL');
-      updateEmail(data)
+      updateEmail(dataToUpdate)
         .then(() => { closeModal(); });
     } else {
-      console.log('OTHER');
       updateProfileData(data)
         .then(() => { closeModal(); });
     }

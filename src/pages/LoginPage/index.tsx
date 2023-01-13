@@ -71,7 +71,7 @@ const LoginPageComponent: React.FC = () => {
 
         navigate(routes.books);
         dispatch(storageActions.setUserInfo);
-        storage.setData(storageKeys.USER, res.payload);
+        storage.setData(storageKeys.USER, res.payload as Object);
       })
       .catch((err) => {
         // eslint-disable-next-line no-console
