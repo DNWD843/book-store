@@ -5,6 +5,7 @@ import { POPUP_ID_PREFIX, updateProfileRequestMessages } from '../constants';
 import { EFetchStatuses, EPopupTypes } from '../enums';
 import { useAppDispatch } from '../redux/hooks';
 import { authActions, popupsActions } from '../redux/slices';
+import { storageActions } from '../redux/store';
 import { updateUserData, updateUserLogin } from '../redux/thunks/authThunks';
 import { TEditedData, TProfileFormValues } from '../types';
 import { storage, storageKeys } from '../utils/localStorage';
@@ -25,6 +26,7 @@ export const useEditProfileFormMethods = () => {
 
         dispatch(setUserToStore(data));
         storage.updateData(storageKeys.USER, data);
+        dispatch(storageActions.updateUserInfo);
       } else {
         // eslint-disable-next-line @typescript-eslint/no-throw-literal
         throw res;
@@ -49,6 +51,7 @@ export const useEditProfileFormMethods = () => {
 
         dispatch(setUserToStore({ email }));
         storage.updateData(storageKeys.USER, { email });
+        dispatch(storageActions.updateUserInfo);
       } else {
         // eslint-disable-next-line @typescript-eslint/no-throw-literal
         throw res;
