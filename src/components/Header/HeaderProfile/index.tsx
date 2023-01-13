@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { profileActions } from '../../../redux/slices/profileSlice';
-import { userSavingsActions } from '../../../redux/slices/userSavingsSlice';
-import { selectProfileMenuState, selectUserData, storageActions } from '../../../redux/store';
+import { userSavingsActions } from '../../../redux/slices';
+import { selectUserData, storageActions } from '../../../redux/store';
 import { auth } from '../../../redux/thunks';
 import { storageKeys, storage } from '../../../utils';
 import ava from '../../../vendor/images/login_ava.png';
@@ -13,10 +12,12 @@ import { HeaderProfile } from './HeaderProfile';
 const HeaderProfileComponent: React.FC = () => {
   const dispatch = useAppDispatch();
   const { removeUserSavingsFromStore } = userSavingsActions;
-  const isMenuOpened = useAppSelector(selectProfileMenuState);
   const userData = useAppSelector(selectUserData);
 
-  const handleClickOnMenuButton = () => { dispatch(profileActions.toggleMenu()); };
+  const [isMenuOpened, setMenuOpened] = useState<boolean>(false);
+
+  const handleClickOnMenuButton = () => { setMenuOpened((prev) => !prev); };
+
   const title = userData?.isAnonymous
     ? 'Гость'
     : `Привет, ${userData?.displayName || userData?.email || 'Гость'}`;
@@ -26,9 +27,9 @@ const HeaderProfileComponent: React.FC = () => {
       .then(() => { dispatch(removeUserSavingsFromStore()); })
       .then(() => {
         storage.deleteData([storageKeys.USER, storageKeys.USER_SAVINGS]);
-        dispatch(storageActions.removeUserData);
+        dispatch(storageActions.removeUserInfo);
       })
-      .then(() => { dispatch(profileActions.toggleMenu()); })
+      .then(() => { setMenuOpened(false); })
       // eslint-disable-next-line no-console
       .catch((err) => { console.error(err); });
   };
