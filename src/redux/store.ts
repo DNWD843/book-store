@@ -74,5 +74,6 @@ export const storageActions = {
   getBookDetails: { type: `${STORAGE_ACTION_PREFIX}/GET_BOOK_DETAILS` },
   removeBookDetails: { type: `${STORAGE_ACTION_PREFIX}/REMOVE_BOOK_DETAILS` },
   removeUserInfo: { type: `${STORAGE_ACTION_PREFIX}/REMOVE_USER_INFO` },
+  removeUserSavings: { type: `${STORAGE_ACTION_PREFIX}/REMOVE_USER_SAVINGS` },
   updateUserInfo: { type: `${STORAGE_ACTION_PREFIX}/UPDATE_USER_INFO` },
 };

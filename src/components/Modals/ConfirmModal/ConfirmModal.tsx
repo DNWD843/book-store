@@ -13,7 +13,13 @@ export const ConfirmModal: React.FC<TModalProps & TActionButtonsProps> = (
   <Modal isOpened={isOpened} onClose={onClose}>
     <div className={styles.content}>
       <h2 className={styles.title}>Подтверждение удаления профиля</h2>
-      <ActionButtons clearButtonTitle={clearButtonTitle} submitButtonTitle={submitButtonTitle} onCancel={onCancel} onSubmit={onSubmit} />
+      <ActionButtons
+        clearButtonTitle={clearButtonTitle}
+        submitButtonClassName="btn-danger"
+        submitButtonTitle={submitButtonTitle}
+        onCancel={onCancel}
+        onSubmit={onSubmit}
+      />
     </div>
   </Modal>
 );

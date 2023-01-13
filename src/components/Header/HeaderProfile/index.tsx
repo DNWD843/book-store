@@ -6,7 +6,7 @@ import { EFetchStatuses, EPopupTypes } from '../../../enums';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { popupsActions, userSavingsActions } from '../../../redux/slices';
 import { selectUserData, storageActions } from '../../../redux/store';
-import { auth } from '../../../redux/thunks';
+import { auth, deleteUserSavings } from '../../../redux/thunks';
 import { storageKeys, storage } from '../../../utils';
 import ava from '../../../vendor/images/login_ava.png';
 import { ConfirmModal } from '../../Modals';
@@ -58,8 +58,26 @@ const HeaderProfileComponent: React.FC = () => {
 
   const onDelete = useCallback(() => { setModalOpened(true); }, []);
 
-  const handleDeleteUser = useCallback(() => {
-    dispatch(auth.deleteUser())
+  const handleDeleteUser = useCallback(async () => {
+    await dispatch(deleteUserSavings())
+      .then((res) => {
+        if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
+          storage.deleteData(storageKeys.USER_SAVINGS);
+          dispatch(storageActions.removeUserSavings);
+        } else {
+          // eslint-disable-next-line @typescript-eslint/no-throw-literal
+          throw res;
+        }
+      })
+      .catch((err) => {
+        dispatch(addPopup({
+          id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
+          message: err?.error?.message ?? deleteUserRequestMessages.unexpectedError,
+          type: EPopupTypes.danger,
+        }));
+      });
+
+    await dispatch(auth.deleteUser())
       .then((res) => {
         if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
           dispatch(addPopup({
@@ -68,14 +86,14 @@ const HeaderProfileComponent: React.FC = () => {
             type: EPopupTypes.success,
           }));
 
-          storage.deleteData([storageKeys.USER, storageKeys.USER_SAVINGS]);
+          storage.deleteData(storageKeys.USER);
           dispatch(storageActions.removeUserInfo);
-          closeModal();
         } else {
           // eslint-disable-next-line @typescript-eslint/no-throw-literal
           throw res;
         }
       })
+      .then(() => { closeModal(); })
       .catch((err) => {
         dispatch(addPopup({
           id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),

@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { MINIMAL_BOOKS_QUANTITY } from '../constants';
 import { ECollectionPaths, EFetchStatuses } from '../enums';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { userSavingsActions } from '../redux/slices/userSavingsSlice';
+import { userSavingsActions } from '../redux/slices';
 import { selectUserData, selectUserSavings } from '../redux/store';
 import { updateUserSavings } from '../redux/thunks';
 import { TBookInfo, TUserSavingsToUpdate } from '../types';

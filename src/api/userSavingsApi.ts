@@ -1,5 +1,7 @@
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { doc, getDoc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 
+import { deleteUserRequestMessages } from '../constants';
 import { ECollectionPaths } from '../enums';
 import { db } from '../firebase';
 import { ESlicesNames } from '../redux/slicesNames';
@@ -30,5 +32,20 @@ export const fetchSavings = async (id: TUserSavings['id']): Promise<TUserSavings
     // eslint-disable-next-line no-console
     console.error(e);
     throw e;
+  }
+};
+
+export const deleteSavings = async () => {
+  try {
+    const auth = getAuth();
+
+    if (!auth.currentUser) return;
+
+    return await deleteDoc(doc(db, ESlicesNames.userSavings, auth.currentUser.uid));
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error(err);
+    // eslint-disable-next-line @typescript-eslint/no-throw-literal
+    throw { message: deleteUserRequestMessages.unexpectedError };
   }
 };

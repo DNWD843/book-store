@@ -3,4 +3,5 @@ export type TActionButtonsProps = {
   submitButtonTitle: string,
   clearButtonTitle?: string,
   onSubmit? : () => void,
+  submitButtonClassName?: string,
 };
