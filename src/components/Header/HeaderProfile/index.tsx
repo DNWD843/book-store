@@ -1,8 +1,9 @@
 import uniqueId from 'lodash/uniqueId';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import { deleteUserRequestMessages, POPUP_ID_PREFIX } from '../../../constants';
 import { EFetchStatuses, EPopupTypes } from '../../../enums';
+import { useClickOutside } from '../../../hooks';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { popupsActions, userSavingsActions } from '../../../redux/slices';
 import { selectUserData, storageActions } from '../../../redux/store';
@@ -103,12 +104,20 @@ const HeaderProfileComponent: React.FC = () => {
       });
   }, [addPopup, closeModal, dispatch]);
 
+  const profileMenuRef = useRef<HTMLDivElement | null>(null);
+  const menuButtonRef = useRef<HTMLButtonElement | null>(null);
+  const closeProfileMenu = useCallback(() => { setMenuOpened(false); }, []);
+
+  useClickOutside(closeProfileMenu, [profileMenuRef, menuButtonRef]);
+
   return (
     <>
       <HeaderProfile
         isAnonymous={userData?.isAnonymous}
         isMenuOpened={isMenuOpened}
+        menuButtonRef={menuButtonRef}
         photoUrl={userData?.photoURL || ava}
+        ref={profileMenuRef}
         title={title}
         onDelete={onDelete}
         onLogout={handleLogout}
