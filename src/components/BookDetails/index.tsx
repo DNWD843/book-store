@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useUserSavingsHandlers } from '../../hooks/useUserSavingsHandlers';
+import { useUserSavingsHandlers } from '../../hooks';
 import { TUrlParams } from '../../types';
 
 import { BookDetails } from './BookDetails';

@@ -6,7 +6,7 @@ import { ScreenLoader } from '../../components/Loaders';
 import { Page } from '../../components/Page';
 import { EFetchStatuses } from '../../enums';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { bookDetailsActions } from '../../redux/slices/bookDetailsSlice';
+import { bookDetailsActions } from '../../redux/slices';
 import { selectBookDetails, storageActions } from '../../redux/store';
 import { getBookById } from '../../redux/thunks';
 import { TBookInfo, TUrlParams } from '../../types';
@@ -37,7 +37,7 @@ export const BookDetailsPage: React.FC = () => {
     dispatch(getBookById(bookId))
       .then((res) => {
         dispatch(storageActions.setBookDetails);
-        storage.setData(storageKeys.BOOK_DETAILS, res.payload);
+        storage.setData(storageKeys.BOOK_DETAILS, res.payload as Object);
       });
   }
 

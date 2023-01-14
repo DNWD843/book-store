@@ -2,15 +2,12 @@ import uniqueId from 'lodash/uniqueId';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { AuthForm } from '../../components/AuthForm';
-import { authFormConfigs } from '../../components/AuthForm/constants';
 import { Page } from '../../components/Page';
+import { AuthForm, authFormConfigs } from '../../components/forms';
 import { loginRequestMessages, POPUP_ID_PREFIX } from '../../constants';
 import { EAuthTypes, ECollectionPaths, EFetchStatuses, EPopupTypes } from '../../enums';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { authActions } from '../../redux/slices/authSlice';
-import { popupsActions } from '../../redux/slices/popupsSlice';
-import { userSavingsActions } from '../../redux/slices/userSavingsSlice';
+import { authActions, popupsActions, userSavingsActions } from '../../redux/slices';
 import { selectUserSavings, storageActions } from '../../redux/store';
 import { auth, getUserSavings, updateUserSavings } from '../../redux/thunks';
 import { routes } from '../../routesMap';
@@ -74,7 +71,7 @@ const LoginPageComponent: React.FC = () => {
 
         navigate(routes.books);
         dispatch(storageActions.setUserInfo);
-        storage.setData(storageKeys.USER, res.payload);
+        storage.setData(storageKeys.USER, res.payload as Object);
       })
       .catch((err) => {
         // eslint-disable-next-line no-console

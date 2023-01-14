@@ -8,7 +8,7 @@ const getData = <T>(key: string): T | null => {
   return null;
 };
 
-const setData = (key: string, value: any) => {
+const setData = (key: string, value: Object) => {
   localStorage.setItem(key, JSON.stringify(value));
 };
 
@@ -20,5 +20,15 @@ const deleteData = (key: string | string[]) => {
   }
 };
 
+const updateData = (key: string, newData: Object) => {
+  const currentData: Object | null = getData(key);
+
+  if (currentData) {
+    setData(key, { ...currentData, ...newData });
+  } else {
+    setData(key, newData);
+  }
+};
+
 const clearAllData = () => localStorage.clear();
-export { getData, setData, deleteData, clearAllData };
+export { getData, setData, deleteData, clearAllData, updateData };

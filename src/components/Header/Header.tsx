@@ -3,9 +3,10 @@ import { Link, Route, Routes } from 'react-router-dom';
 
 import { routes } from '../../routesMap';
 import { BookSearch } from '../BookSearch';
-import { DateWidget } from '../HeaderDateWidget';
-import { NavLinks } from '../HeaderNavLinks';
-import { HeaderProfileComponent } from '../HeaderProfile';
+
+import { DateWidget } from './HeaderDateWidget';
+import { NavLinks } from './HeaderNavLinks';
+import { HeaderProfileComponent } from './HeaderProfile';
 
 import styles from './Header.module.css';
 

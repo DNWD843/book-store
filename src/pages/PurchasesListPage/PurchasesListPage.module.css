@@ -1,0 +1,30 @@
+.pageContent {
+  display: grid;
+  row-gap: 25px;
+}
+
+.pageRegion {
+  padding: 15px;
+  background-color: var(--ultra-light-grey);
+}
+
+.regionHeader {
+  display: flex;
+  gap: 35px;
+  padding: 0 0 20px;
+}
+
+.purchaseDateAndTime, .purchasePrice {
+  margin: 0;
+  font-size: 18px;
+}
+
+.accentBold {
+  font-weight: 600;
+  padding-right: 10px;
+}
+
+.purchaseInfoValue {
+  font-size: 20px;
+  letter-spacing: 1px;
+}

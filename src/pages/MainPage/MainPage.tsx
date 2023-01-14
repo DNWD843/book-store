@@ -9,6 +9,8 @@ import { FavoritesPage } from '../FavoritesPage';
 import { LoginPage } from '../LoginPage';
 import { NotFoundPage } from '../NotFoundPage';
 import { OrderPage } from '../OrderPage';
+import { ProfilePage } from '../ProfilePage';
+import { PurchasesListPage } from '../PurchasesListPage';
 import { RegisterPage } from '../RegisterPage';
 import { ShoppingCartPage } from '../ShoppingCartPage';
 
@@ -24,11 +26,12 @@ const MainPage: React.FC = () => (
       </Route>
       <Route element={<ShoppingCartPage />} path={routes.shoppingCart} />
       <Route element={<FavoritesPage />} path={routes.favorites} />
-      <Route element={<div>User Profile</div>} path={routes.profile} />
+      <Route element={<ProfilePage />} path={routes.profile} />
       <Route element={<RegisterPage />} path={routes.register} />
       <Route element={<LoginPage />} path={routes.login} />
       <Route element={<NotFoundPage />} path={routes.notFound} />
       <Route element={<OrderPage />} path={routes.order} />
+      <Route element={<PurchasesListPage />} path={routes.purchasesHistory} />
     </Routes>
   </main>
 );

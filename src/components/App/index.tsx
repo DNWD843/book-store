@@ -5,8 +5,7 @@ import { ONE_DAY_TIMESTAMP } from '../../constants';
 import { EFetchStatuses } from '../../enums';
 import { withReduxStore } from '../../provider/withReduxStore';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
-import { authActions } from '../../redux/slices/authSlice';
-import { booksActions } from '../../redux/slices/booksSlice';
+import { authActions, booksActions } from '../../redux/slices';
 import { selectAuthStatus, selectBooksFetchingStatus, storageActions } from '../../redux/store';
 import { getBooks, getUserSavings } from '../../redux/thunks';
 import { IBooksCollection, TUserData } from '../../types';
@@ -38,7 +37,7 @@ const AppComponent: React.FC = () => {
       || (savedBooks.books && savedBooks.updatedAt && checkNeedToDataUpdate({ date: savedBooks.updatedAt, limit: ONE_DAY_TIMESTAMP }))) {
       dispatch(getBooks()).then((res) => {
         dispatch(storageActions.setBooks);
-        storage.setData(storageKeys.BOOKS, res.payload);
+        storage.setData(storageKeys.BOOKS, res.payload as Object);
       })
         // eslint-disable-next-line no-console
         .catch((err) => { console.error(err); });

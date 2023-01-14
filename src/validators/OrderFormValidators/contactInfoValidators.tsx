@@ -14,7 +14,7 @@ export const orderFormEmailValidator = (value: string, allValues?: Object, meta?
   if (value && !emailRegExp.test(value)) return validationErrorMessages.incorrectEmail;
 };
 
-export const phoneNumberValidator = (value: string) => {
+export const orderFormPhoneNumberValidator = (value: string) => {
   if (!value) return validationErrorMessages.required;
 
   if (!phoneNumberRegExp.test(value)) return validationErrorMessages.incorrectPhoneNumber;

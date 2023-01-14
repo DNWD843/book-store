@@ -1,4 +1,4 @@
-import { EKey } from '../enums';
+import { EPluralizeConfigKey } from '../enums';
 import { TPluralizedTextForms } from '../types';
 
 export { mockedData } from './mocks';
@@ -10,10 +10,14 @@ export * from './popups';
 export const RUBLE_SIGN = '₽';
 export const emailRegExp = /^[\w ]{1}[\w-.]*@[\w-]+\.[a-z]{2,4}$/i;
 export const phoneNumberRegExp = /^(\+7)(\s\(\d{3}\))\s[\d ]{3}-[\d ]{4}$/;
+export const urlRegExp = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/;
 export const ORDER_FORM_ID = 'order';
+export const PROFILE_FORM_ID = 'profile';
 
 export const bookWordForms: TPluralizedTextForms = {
-  [EKey.nominativeCaseIndex]: 'книга',
-  [EKey.genitiveCaseIndex]: 'книги',
-  [EKey.pluralFormIndex]: 'книг',
+  [EPluralizeConfigKey.nominativeCaseForm]: 'книга',
+  [EPluralizeConfigKey.genitiveCaseForm]: 'книги',
+  [EPluralizeConfigKey.pluralForm]: 'книг',
 };
+
+export const purchaseDateTemplate = 'DD.MM.YYYY HH:mm';

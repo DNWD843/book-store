@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { EFetchStatuses } from '../../enums';
 import { TUserSavings } from '../../types';
 import { ESlicesNames } from '../slicesNames';
-import { createUserSavings, getUserSavings, updateUserSavings, sendOrderData } from '../thunks';
+import { createUserSavings, getUserSavings, updateUserSavings, sendOrderData, deleteUserSavings } from '../thunks';
 
 const initialState: TUserSavings = {
   status: EFetchStatuses.fulfilled,
@@ -53,6 +53,16 @@ const userSavingsSlice = createSlice({
       .addCase(sendOrderData.pending, (state) => { state.status = EFetchStatuses.pending; })
       .addCase(sendOrderData.rejected, (state) => { state.status = EFetchStatuses.rejected; })
       .addCase(sendOrderData.fulfilled, (state) => { state.status = EFetchStatuses.fulfilled; });
+
+    builder
+      .addCase(deleteUserSavings.pending, (state) => { state.status = EFetchStatuses.pending; })
+      .addCase(deleteUserSavings.rejected, (state) => { state.status = EFetchStatuses.rejected; })
+      .addCase(deleteUserSavings.fulfilled, (state) => {
+        state.status = initialState.status;
+        state.cartValue = initialState.cartValue;
+        state.favorites = initialState.favorites;
+        state.purchases = initialState.purchases;
+      });
   },
 });
 
