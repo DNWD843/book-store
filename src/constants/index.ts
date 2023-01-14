@@ -19,3 +19,5 @@ export const bookWordForms: TPluralizedTextForms = {
   [EPluralizeConfigKey.genitiveCaseForm]: 'книги',
   [EPluralizeConfigKey.pluralForm]: 'книг',
 };
+
+export const purchaseDateTemplate = 'DD.MM.YYYY HH:mm';

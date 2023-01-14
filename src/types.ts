@@ -51,7 +51,8 @@ export type TUser = {
 
 export type TUserData = TUser;
 
-export type TPurchases = Record<string, { books: TBookInfo[], orderPrice: number }>;
+export type TPurchase = { books: TBookInfo[], orderPrice: number };
+export type TPurchases = Record<string, TPurchase>;
 
 export type TUserSavings = {
   status?: EFetchStatuses,
