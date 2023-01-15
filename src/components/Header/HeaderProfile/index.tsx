@@ -1,7 +1,7 @@
 import uniqueId from 'lodash/uniqueId';
 import React, { useCallback, useRef, useState } from 'react';
 
-import { deleteUserRequestMessages, POPUP_ID_PREFIX } from '../../../constants';
+import { defaultMessages, deleteUserRequestMessages, POPUP_ID_PREFIX } from '../../../constants';
 import { EFetchStatuses, EPopupTypes } from '../../../enums';
 import { useClickOutside } from '../../../hooks';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
@@ -51,7 +51,7 @@ const HeaderProfileComponent: React.FC = () => {
 
         dispatch(addPopup({
           id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
-          message: err?.error?.message ?? deleteUserRequestMessages.unexpectedError,
+          message: err?.error?.message ?? defaultMessages.unexpectedError,
           type: EPopupTypes.danger,
         }));
       });
@@ -73,7 +73,7 @@ const HeaderProfileComponent: React.FC = () => {
       .catch((err) => {
         dispatch(addPopup({
           id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
-          message: err?.error?.message ?? deleteUserRequestMessages.unexpectedError,
+          message: err?.error?.message ?? defaultMessages.unexpectedError,
           type: EPopupTypes.danger,
         }));
       });
@@ -98,7 +98,7 @@ const HeaderProfileComponent: React.FC = () => {
       .catch((err) => {
         dispatch(addPopup({
           id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
-          message: err?.error?.message ?? deleteUserRequestMessages.unexpectedError,
+          message: err?.error?.message ?? defaultMessages.unexpectedError,
           type: EPopupTypes.danger,
         }));
       });

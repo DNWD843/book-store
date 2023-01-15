@@ -1,7 +1,7 @@
 import { collection, getDocs, setDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
-import { REQUEST_DELAY, orderSubmitMessages } from '../constants';
+import { REQUEST_DELAY, orderSubmitMessages, booksRequestMessages } from '../constants';
 import { db } from '../firebase';
 import { ESlicesNames } from '../redux/slicesNames';
 import { TBookInfo, TSendingOrderData } from '../types';
@@ -29,7 +29,7 @@ export const fetchBooks = async (): Promise<{ books: TBookInfo[], updatedAt: num
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);
-    throw e;
+    throw new Error(booksRequestMessages.error);
   }
 };
 
@@ -45,7 +45,7 @@ export const fetchBookByBookId = async (bookId: TBookInfo['id']) => {
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);
-    throw e;
+    throw new Error(booksRequestMessages.requestByIdError);
   }
 };
 
@@ -55,6 +55,7 @@ export const updateBook = async (bookInfo: TBookInfo) => {
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);
+    throw new Error(booksRequestMessages.updateBookInfoError);
   }
 };
 

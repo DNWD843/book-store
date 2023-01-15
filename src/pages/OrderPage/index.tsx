@@ -6,7 +6,13 @@ import { useNavigate } from 'react-router-dom';
 import { ScreenLoader } from '../../components/Loaders';
 import { Page } from '../../components/Page';
 import { OrderForm } from '../../components/forms';
-import { bookWordForms, ORDER_FORM_ID, orderSubmitMessages, POPUP_ID_PREFIX, RUBLE_SIGN } from '../../constants';
+import {
+  bookWordForms,
+  defaultMessages,
+  ORDER_FORM_ID,
+  POPUP_ID_PREFIX,
+  RUBLE_SIGN,
+} from '../../constants';
 import { EFetchStatuses, EPopupTypes } from '../../enums';
 import { useUserSavingsHandlers } from '../../hooks';
 import { popupsActions } from '../../redux/slices';
@@ -52,7 +58,7 @@ const OrderPage = () => {
       .catch((err) => {
         dispatch(addPopup({
           id: err.meta.requestId || uniqueId(POPUP_ID_PREFIX),
-          message: err.error.message || orderSubmitMessages.unexpectedError,
+          message: err.error.message || defaultMessages.unexpectedError,
           type: EPopupTypes.danger,
         }));
       });

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Page } from '../../components/Page';
 import { AuthForm, authFormConfigs } from '../../components/forms';
-import { loginRequestMessages, POPUP_ID_PREFIX } from '../../constants';
+import { defaultMessages, loginRequestMessages, POPUP_ID_PREFIX } from '../../constants';
 import { EAuthTypes, ECollectionPaths, EFetchStatuses, EPopupTypes } from '../../enums';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { authActions, popupsActions, userSavingsActions } from '../../redux/slices';
@@ -79,7 +79,7 @@ const LoginPageComponent: React.FC = () => {
 
         dispatch(addPopup({
           id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
-          message: err?.error?.message ?? loginRequestMessages.unexpectedError,
+          message: err?.error?.message ?? defaultMessages.unexpectedError,
           type: EPopupTypes.danger,
         }));
       });

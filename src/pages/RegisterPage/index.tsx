@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Page } from '../../components/Page';
 import { AuthForm, authFormConfigs } from '../../components/forms';
-import { POPUP_ID_PREFIX, registerRequestMessages } from '../../constants';
+import { defaultMessages, POPUP_ID_PREFIX, registerRequestMessages } from '../../constants';
 import { EAuthTypes, EFetchStatuses, EPopupTypes } from '../../enums';
 import { useAppDispatch } from '../../redux/hooks';
 import { authActions, popupsActions } from '../../redux/slices';
@@ -47,7 +47,7 @@ const RegisterPageComponent: React.FC = () => {
 
         dispatch(addPopup({
           id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
-          message: err?.error?.message ?? registerRequestMessages.unexpectedError,
+          message: err?.error?.message ?? defaultMessages.unexpectedError,
           type: EPopupTypes.danger,
         }));
       });

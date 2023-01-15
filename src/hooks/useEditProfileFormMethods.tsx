@@ -1,7 +1,7 @@
 import uniqueId from 'lodash/uniqueId';
 import { useCallback } from 'react';
 
-import { POPUP_ID_PREFIX, updateProfileRequestMessages } from '../constants';
+import { defaultMessages, POPUP_ID_PREFIX, updateProfileRequestMessages } from '../constants';
 import { EFetchStatuses, EPopupTypes } from '../enums';
 import { useAppDispatch } from '../redux/hooks';
 import { authActions, popupsActions } from '../redux/slices';
@@ -35,7 +35,7 @@ export const useEditProfileFormMethods = () => {
     .catch((err) => {
       dispatch(addPopup({
         id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
-        message: err?.error?.message ?? updateProfileRequestMessages.unexpectedError,
+        message: err?.error?.message ?? defaultMessages.unexpectedError,
         type: EPopupTypes.danger,
       }));
     }), [addPopup, dispatch, setUserToStore]);
@@ -60,7 +60,7 @@ export const useEditProfileFormMethods = () => {
     .catch((err) => {
       dispatch(addPopup({
         id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
-        message: err?.error?.message ?? updateProfileRequestMessages.unexpectedError,
+        message: err?.error?.message ?? defaultMessages.unexpectedError,
         type: EPopupTypes.danger,
       }));
     }), [addPopup, dispatch, setUserToStore]);
