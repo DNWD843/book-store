@@ -21,3 +21,7 @@ export const bookWordForms: TPluralizedTextForms = {
 };
 
 export const purchaseDateTemplate = 'DD.MM.YYYY HH:mm';
+
+export const LINK_TO_GITHUB = 'https://github.com/DNWD843';
+export const LINK_TO_TELEGRAM = 'https://t.me/mad_damon';
+export const LINK_TO_LINKED_IN = 'https://linkedin.com/in/maddamon';
