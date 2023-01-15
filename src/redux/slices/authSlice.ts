@@ -1,12 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { EFetchStatuses } from '../../enums';
-import { TUser } from '../../types';
+import { TUser, TUserData } from '../../types';
 import { ESlicesNames } from '../slicesNames';
 import { auth } from '../thunks';
-import { loginUserAnonymously, logoutUser } from '../thunks/authThunks';
-
-export type TUserData = TUser | null;
 
 export interface IAuthState {
   status: EFetchStatuses,
@@ -14,20 +11,20 @@ export interface IAuthState {
   userData: TUserData,
 }
 
-// const userDefault: TUser = {
-//   userId: null,
-//   email: null,
-//   displayName: null,
-//   phoneNumber: null,
-//   photoURL: null,
-//   isAnonymous: false,
-//   isAdmin: false,
-// };
+const userDefault: TUser = {
+  userId: '',
+  email: null,
+  displayName: null,
+  phoneNumber: null,
+  photoURL: null,
+  isAnonymous: true,
+  isAdmin: false,
+};
 
 const initialState: IAuthState = {
   status: EFetchStatuses.fulfilled,
   authError: '',
-  userData: null,
+  userData: userDefault,
 };
 
 const authSlice = createSlice({
@@ -35,15 +32,13 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     clearAuthError: (state) => { state.authError = ''; },
-    setUserToStore: (state, action: PayloadAction<TUserData>) => {
-      state.userData = action.payload;
+    setUserToStore: (state, action: PayloadAction<Partial<TUserData>>) => {
+      state.userData = { ...state.userData, ...action.payload };
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(auth.registerUser.pending, (state) => {
-        state.status = EFetchStatuses.pending;
-      })
+      .addCase(auth.registerUser.pending, (state) => { state.status = EFetchStatuses.pending; })
       .addCase(auth.registerUser.rejected, (state, action) => {
         state.status = EFetchStatuses.rejected;
         state.authError = action.error.message ?? 'Error';
@@ -54,9 +49,7 @@ const authSlice = createSlice({
       });
 
     builder
-      .addCase(auth.loginUser.pending, (state) => {
-        state.status = EFetchStatuses.pending;
-      })
+      .addCase(auth.loginUser.pending, (state) => { state.status = EFetchStatuses.pending; })
       .addCase(auth.loginUser.rejected, (state, action) => {
         state.status = EFetchStatuses.rejected;
         state.authError = action.error.message ?? 'Error';
@@ -68,30 +61,57 @@ const authSlice = createSlice({
       });
 
     builder
-      .addCase(logoutUser.pending, (state) => {
-        state.status = EFetchStatuses.pending;
-      })
-      .addCase(logoutUser.rejected, (state, action) => {
+      .addCase(auth.logoutUser.pending, (state) => { state.status = EFetchStatuses.pending; })
+      .addCase(auth.logoutUser.rejected, (state, action) => {
         state.status = EFetchStatuses.rejected;
         state.authError = action.error.message ?? 'Error';
       })
-      .addCase(logoutUser.fulfilled, (state) => {
+      .addCase(auth.logoutUser.fulfilled, (state) => {
         state.status = EFetchStatuses.fulfilled;
-        state.userData = null;
+        state.userData = userDefault;
         state.authError = '';
       });
 
     builder
-      .addCase(loginUserAnonymously.pending, (state) => {
-        state.status = EFetchStatuses.pending;
-      })
-      .addCase(loginUserAnonymously.rejected, (state, action) => {
+      .addCase(auth.loginUserAnonymously.pending, (state) => { state.status = EFetchStatuses.pending; })
+      .addCase(auth.loginUserAnonymously.rejected, (state) => { state.status = EFetchStatuses.rejected; })
+      .addCase(auth.loginUserAnonymously.fulfilled, (state, action: PayloadAction<TUser>) => {
+        state.status = EFetchStatuses.fulfilled;
+        state.userData = action.payload;
+        state.authError = '';
+      });
+
+    builder
+      .addCase(auth.updateUserData.pending, (state) => { state.status = EFetchStatuses.pending; })
+      .addCase(auth.updateUserData.rejected, (state, action) => {
         state.status = EFetchStatuses.rejected;
         state.authError = action.error.message ?? 'Error';
       })
-      .addCase(loginUserAnonymously.fulfilled, (state, action: PayloadAction<TUser>) => {
+      .addCase(auth.updateUserData.fulfilled, (state) => {
         state.status = EFetchStatuses.fulfilled;
-        state.userData = action.payload;
+        state.authError = '';
+      });
+
+    builder
+      .addCase(auth.updateUserLogin.pending, (state) => { state.status = EFetchStatuses.pending; })
+      .addCase(auth.updateUserLogin.rejected, (state, action) => {
+        state.status = EFetchStatuses.rejected;
+        state.authError = action.error.message ?? 'Error';
+      })
+      .addCase(auth.updateUserLogin.fulfilled, (state) => {
+        state.status = EFetchStatuses.fulfilled;
+        state.authError = '';
+      });
+
+    builder
+      .addCase(auth.deleteUser.pending, (state) => { state.status = EFetchStatuses.pending; })
+      .addCase(auth.deleteUser.rejected, (state, action) => {
+        state.status = EFetchStatuses.rejected;
+        state.authError = action.error.message ?? 'Error';
+      })
+      .addCase(auth.deleteUser.fulfilled, (state) => {
+        state.userData = userDefault;
+        state.status = EFetchStatuses.fulfilled;
         state.authError = '';
       });
   },

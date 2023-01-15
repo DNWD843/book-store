@@ -1,21 +1,41 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously, updateProfile, updateEmail, getAuth, deleteUser } from 'firebase/auth';
 
+import {
+  defaultMessages,
+  loginRequestMessages,
+  registerRequestMessages,
+  updateProfileRequestMessages,
+} from '../constants';
 import { appAuth } from '../firebase';
-import { TFormState } from '../hooks/useAuthForm';
-import { TUser } from '../types';
+import { TAuthFormValues, TUser } from '../types';
 
-export const createUser = async ({ email, password }: TFormState['values']) => {
+const admins = ['dima@mail.ru'];
+const adminsSet = new Set<string>(admins);
+
+export const createUser = async ({ email, password }: TAuthFormValues): Promise<TUser> => {
   try {
     const credentials = await createUserWithEmailAndPassword(appAuth, email, password);
-    return credentials.user;
+    const { uid, email: userEmail, displayName, phoneNumber, photoURL, isAnonymous } = credentials.user;
+
+    return {
+      userId: uid,
+      email: userEmail,
+      phoneNumber,
+      photoURL,
+      displayName,
+      isAnonymous,
+      isAdmin: adminsSet.has(userEmail ?? ''),
+      lastLoginAt: new Date().getTime(),
+    };
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
-    throw err;
+    // eslint-disable-next-line @typescript-eslint/no-throw-literal
+    throw { message: registerRequestMessages.error };
   }
 };
 
-export const loginUserByEmail = async ({ email, password }: TFormState['values']): Promise<TUser> => {
+export const loginUserByEmail = async ({ email, password }: TAuthFormValues): Promise<TUser> => {
   try {
     const credentials = await signInWithEmailAndPassword(appAuth, email, password);
     const { uid, email: userEmail, displayName, phoneNumber, photoURL, isAnonymous } = credentials.user;
@@ -27,12 +47,14 @@ export const loginUserByEmail = async ({ email, password }: TFormState['values']
       photoURL,
       displayName,
       isAnonymous,
-      isAdmin: false,
+      isAdmin: adminsSet.has(userEmail ?? ''),
+      lastLoginAt: new Date().getTime(),
     };
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
-    throw err;
+    // eslint-disable-next-line @typescript-eslint/no-throw-literal
+    throw new Error(loginRequestMessages.error);
   }
 };
 
@@ -42,7 +64,8 @@ export const logout = async () => {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
-    throw err;
+    // eslint-disable-next-line @typescript-eslint/no-throw-literal
+    throw new Error(defaultMessages.unexpectedError);
   }
 };
 
@@ -59,10 +82,60 @@ export const loginAnonymously = async (): Promise<TUser> => {
       displayName,
       isAnonymous,
       isAdmin: false,
+      lastLoginAt: new Date().getTime(),
     };
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
     throw err;
+  }
+};
+
+export const updateUserProfile = async ({ displayName, photoURL }: { displayName: TUser['displayName'], photoURL: TUser['photoURL'] }) => {
+  const auth = getAuth();
+
+  if (!auth.currentUser) return;
+
+  try {
+    return await updateProfile(auth.currentUser, { displayName, photoURL });
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+
+    // eslint-disable-next-line @typescript-eslint/no-throw-literal
+    throw new Error(updateProfileRequestMessages.error);
+  }
+};
+
+export const updateUserEmail = async ({ email }: { email: TUser['email'] }) => {
+  if (!email) return;
+
+  const auth = getAuth();
+
+  if (!auth.currentUser) return;
+
+  try {
+    return await updateEmail(auth.currentUser, email);
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+
+    // eslint-disable-next-line @typescript-eslint/no-throw-literal
+    throw new Error(updateProfileRequestMessages.updateLoginError);
+  }
+};
+
+export const deleteUserProfile = async () => {
+  try {
+    const auth = getAuth();
+
+    if (!auth.currentUser) return;
+
+    return await deleteUser(auth.currentUser);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error(err);
+    // eslint-disable-next-line @typescript-eslint/no-throw-literal
+    throw new Error(defaultMessages.unexpectedError);
   }
 };

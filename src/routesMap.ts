@@ -5,9 +5,10 @@ export const routes: Record<string, string> = {
   shoppingCart: '/cart',
   favorites: '/favorites',
   profile: '/profile',
-  shoppingHistory: '/history',
+  purchasesHistory: '/purchasesHistory',
   login: '/login',
   register: '/register',
+  order: '/order',
   notFound: '*',
   anyRoute: '*',
 };

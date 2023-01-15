@@ -1,0 +1,15 @@
+.form {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.formRegion {
+
+}
+
+.title {
+  padding: 0 0 30px;
+  color: var(--dark-grey);
+  font-size: 28px;
+}

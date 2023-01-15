@@ -1,34 +1,21 @@
-import React from 'react';
+import React, { memo } from 'react';
 
-import { EFetchStatuses } from '../../enums';
-import { useAppSelector } from '../../redux/hooks';
-import { selectBooks, selectBooksFetchingStatus } from '../../redux/store';
+import { TBookInfo } from '../../types';
 import { Card } from '../Card';
-import { ContentLoader } from '../ContentLoader';
 
 import styles from './Cards.module.css';
 
-const CardsComponent: React.FC = () => {
-  const books = useAppSelector(selectBooks);
-  const fetchBooksStatus = useAppSelector(selectBooksFetchingStatus);
+const CardsComponent: React.FC<{ books: TBookInfo[] }> = ({ books = [] }) => (
+  <ul className={styles.list}>
+    {books.map((book) => (
+      <li className={styles.listItem} key={book.id.toString()}>
+        <Card {...book} />
+      </li>
+    ))}
+  </ul>
+);
 
-  if (fetchBooksStatus === EFetchStatuses.pending) {
-    return (<ContentLoader />);
-  }
+CardsComponent.displayName = 'Cards';
 
-  if (!books) return null;
-
-  return (
-    <ul className={styles.list}>
-      {books.map((book) => (
-        <li className={styles.listItem} key={book.id.toString()}>
-          <Card {...book} />
-        </li>
-      ))}
-    </ul>
-  );
-};
-
-CardsComponent.displayName = 'BooksList';
-
-export { CardsComponent as Cards };
+const MemoCards = memo(CardsComponent);
+export { MemoCards as Cards };

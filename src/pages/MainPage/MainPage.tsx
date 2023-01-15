@@ -1,12 +1,16 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-import { BookDetails } from '../../components/BookDetails';
-import { Cards } from '../../components/Cards';
 import { routes } from '../../routesMap';
+import { BookDetailsPage } from '../BookDetailsPage';
+import { BooksCataloguePage } from '../BooksCataloguePage';
 import { BooksPage } from '../BooksPage';
+import { FavoritesPage } from '../FavoritesPage';
 import { LoginPage } from '../LoginPage';
 import { NotFoundPage } from '../NotFoundPage';
+import { OrderPage } from '../OrderPage';
+import { ProfilePage } from '../ProfilePage';
+import { PurchasesListPage } from '../PurchasesListPage';
 import { RegisterPage } from '../RegisterPage';
 import { ShoppingCartPage } from '../ShoppingCartPage';
 
@@ -17,15 +21,17 @@ const MainPage: React.FC = () => (
     <Routes>
       <Route element={<Navigate to={routes.books} />} path={routes.home} />
       <Route element={<BooksPage />} path={routes.books}>
-        <Route index element={<Cards />} />
-        <Route element={<BookDetails />} path={routes.bookId} />
+        <Route index element={<BooksCataloguePage />} />
+        <Route element={<BookDetailsPage />} path={routes.bookId} />
       </Route>
       <Route element={<ShoppingCartPage />} path={routes.shoppingCart} />
-      <Route element={<div>Favorites</div>} path={routes.favorites} />
-      <Route element={<div>User Profile</div>} path={routes.profile} />
+      <Route element={<FavoritesPage />} path={routes.favorites} />
+      <Route element={<ProfilePage />} path={routes.profile} />
       <Route element={<RegisterPage />} path={routes.register} />
       <Route element={<LoginPage />} path={routes.login} />
       <Route element={<NotFoundPage />} path={routes.notFound} />
+      <Route element={<OrderPage />} path={routes.order} />
+      <Route element={<PurchasesListPage />} path={routes.purchasesHistory} />
     </Routes>
   </main>
 );

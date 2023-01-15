@@ -1,55 +1,57 @@
 import { createSlice, Draft, PayloadAction } from '@reduxjs/toolkit';
 
 import { EFetchStatuses } from '../../enums';
-import { TBookInfo } from '../../types';
+import { IBooksCollection, TUpdateCatalogueRequestResponse } from '../../types';
 import { ESlicesNames } from '../slicesNames';
-import { getBooks } from '../thunks';
+import { getBooks, updateBooksCatalogue } from '../thunks';
 
-export type TBooksCollection = {
-  books: TBookInfo[],
-  updatedAt: number,
-} | null;
-
-export interface IBooksState {
+export interface IBooksState extends IBooksCollection{
   status: EFetchStatuses;
-  booksCollection: TBooksCollection;
-  activeCardId: string;
+  favoriteStatus: EFetchStatuses;
+  filteredCollection: IBooksCollection['books']
 }
 
 const initialState: IBooksState = {
   status: EFetchStatuses.fulfilled,
-  booksCollection: null,
-  activeCardId: '0',
+  favoriteStatus: EFetchStatuses.fulfilled,
+  books: null,
+  filteredCollection: null,
 };
 
 const booksSlice = createSlice({
-  name: ESlicesNames.books,
+  name: ESlicesNames.booksCollection,
   initialState,
   reducers: {
-    showCardTooltip: (state: Draft<IBooksState>, action: PayloadAction<string>) => {
-      state.activeCardId = action.payload;
-    },
-    hideCardTooltip: (state: Draft<IBooksState>) => {
-      state.activeCardId = '0';
-    },
     clearBooksState: (state: Draft<IBooksState>) => {
-      state.booksCollection = null;
+      state.books = null;
     },
-    setBooksToStore: (state, action: PayloadAction<TBooksCollection>) => {
-      state.booksCollection = action.payload;
+    setBooksToStore: (state, action: PayloadAction<IBooksCollection>) => ({ ...state, ...action.payload }),
+    filterCollection: (state, { payload }:PayloadAction<string>) => {
+      if (state.books && state.books.length && payload) {
+        state.filteredCollection = state.books.filter(
+          (book) => book.author.toLowerCase().includes(payload.toLowerCase()) || book.title.toLowerCase().includes(payload.toLowerCase()),
+        );
+      } else {
+        state.filteredCollection = null;
+      }
     },
+    resetFilterCollection: (state) => { state.filteredCollection = null; },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getBooks.pending, (state) => {
-        state.status = EFetchStatuses.pending;
-      })
-      .addCase(getBooks.rejected, (state) => {
-        state.status = EFetchStatuses.rejected;
-      })
-      .addCase(getBooks.fulfilled, (state, action) => {
+      .addCase(getBooks.pending, (state) => { state.status = EFetchStatuses.pending; })
+      .addCase(getBooks.rejected, (state) => { state.status = EFetchStatuses.rejected; })
+      .addCase(getBooks.fulfilled, (state, { payload }: PayloadAction<IBooksCollection>) => (
+        { ...state, ...payload, status: EFetchStatuses.fulfilled }
+      ));
+
+    builder
+      .addCase(updateBooksCatalogue.pending, (state) => { state.status = EFetchStatuses.pending; })
+      .addCase(updateBooksCatalogue.rejected, (state) => { state.status = EFetchStatuses.rejected; })
+      .addCase(updateBooksCatalogue.fulfilled, (state, { payload }: PayloadAction<TUpdateCatalogueRequestResponse>) => {
         state.status = EFetchStatuses.fulfilled;
-        state.booksCollection = action.payload;
+        state.books = payload.books;
+        state.updatedAt = payload.updatedAt;
       });
   },
 });

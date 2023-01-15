@@ -25,8 +25,8 @@
 .title {
   grid-column: firstCol/lastCol;
   grid-row: 2;
-  font-size: 36px;
-  font-weight: 700;
+  font-size: 28px;
+  font-weight: 600;
   line-height: 1.2;
   margin: 0;
   align-self: flex-start;
@@ -37,57 +37,31 @@
   grid-row: 3;
   font-size: 22px;
   line-height: 1.2;
-  font-weight: 600;
+  font-weight: 500;
   margin: 0;
   align-self: flex-start;
 }
 
-.reviews {
-  grid-column: firstCol/lastCol;
-  grid-row: 4;
-  font-size: 20px;
-  line-height: 1.2;
-}
-.rating {
-  grid-column: firstCol/lastCol;
-  grid-row: 5;
-  font-size: 20px;
-  line-height: 1.2;
-}
-
-.addToCartButton {
-  grid-column: secondCol/lastCol;
-  grid-row: 7;
-  align-self: flex-end;
+.button {
   display: grid;
   grid-template-columns: auto auto;
   column-gap: 5px;
   text-align: end;
   color: var(--light-grey);
   font-size: 20px;
-}
-
-.cartIcon {
-  margin: 0;
-  width: 22px;
-  height: 22px;
-  fill: var(--light-grey);
-  align-self: center;
 }
 
 .addToFavoritesButton {
-  grid-column: firstCol/secondCol;
+  grid-column: firstCol/lastCol;
   grid-row: 7;
   align-self: flex-end;
-  display: grid;
-  grid-template-columns: auto auto;
-  column-gap: 5px;
-  text-align: end;
-  color: var(--light-grey);
-  font-size: 20px;
 }
 
 .bookmarkIcon {
+  display: inline-flex;
+}
+
+.bookmarkIcon svg {
   margin: 0;
   width: 20px;
   height: 20px;
@@ -99,8 +73,6 @@
   grid-column: firstCol/lastCol;
   grid-row: 8;
   align-self: flex-end;
-  color: var(--light-grey);
-  font-size: 20px;
 }
 
 .descriptionTitle {

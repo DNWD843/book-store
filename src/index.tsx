@@ -10,11 +10,11 @@ import { AppErrorPage } from './pages/AppErrorPage';
 const root = createRoot(document.getElementById('root')!);
 
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <ErrorBoundary component={AppErrorPage}>
-        <App />
-      </ErrorBoundary>
-    </BrowserRouter>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <ErrorBoundary component={AppErrorPage}>
+      <App />
+      <div className="modal-container" id="modal-container" />
+      <div className="popup-container" id="popup-container" />
+    </ErrorBoundary>
+  </BrowserRouter>,
 );

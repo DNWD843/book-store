@@ -1,0 +1,178 @@
+.container {
+  display: grid;
+  grid-template-columns: 3% 8% 35% 14% 18% 14% 3%;
+  grid-template-rows: auto 1fr;
+  gap: 10px;
+  position: relative;
+  box-sizing: border-box;
+  padding: 15px;
+  background-color: var(--ultra-light-grey);
+  border-radius: 15px;
+}
+
+.container::before {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 90%;
+  border: 3px solid var(--light-grey);
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  border-bottom: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.container:hover::before {
+  content: '';
+  bottom: 50%;
+  border: 7px solid var(--light-grey);
+  border-bottom: none;
+}
+
+.container::after {
+  position: absolute;
+  content: '';
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 90%;
+  border: 3px solid var(--light-grey);
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border-top: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.container:hover::after {
+  content: '';
+  top: 50%;
+  border: 7px solid var(--light-grey);
+  border-top: none;
+}
+
+.rowNumber {
+  grid-row: 1/-1;
+  align-self: center;
+  justify-self: center;
+}
+
+.cover {
+  width: 100%;
+  object-fit: contain;
+  grid-column: 2;
+  grid-row: 1/-1;
+}
+
+.title {
+  grid-column: 3;
+  grid-row: 2/3;
+  align-self: flex-start;
+  margin: 0;
+}
+
+.author {
+  grid-column: 3;
+  grid-row: 1/2;
+  align-self: flex-end;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.priceTitle {
+  grid-column: 4;
+  grid-row: 1;
+  justify-self: center;
+  font-size: 18px;
+}
+
+.price {
+  grid-column: 4;
+  grid-row: 1/-1;
+  align-self: center;
+  justify-self: center;
+  font-size: 24px;
+}
+
+.quantityTitle {
+  grid-column: 5;
+  grid-row: 1;
+  justify-self: center;
+  font-size: 18px;
+}
+
+.quantity {
+  grid-column: 5;
+  grid-row: 1/-1;
+  align-self: center;
+  justify-self: center;
+  font-size: 24px;
+}
+
+.quantityButtons {
+  grid-column: 5;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto;
+  align-items: center;
+  justify-items: center;
+  z-index: 2;
+}
+
+.decrementButton, .incrementButton {
+  font-size: 30px;
+  line-height: 1;
+  outline: none;
+  border: none;
+  color: var(--grey);
+  padding: 0 10px;
+  transition: all .125s ease-in-out;
+}
+
+.decrementButton:hover, .incrementButton:hover {
+  text-shadow: 0 0 10px var(--dark-grey);
+  color: var(--dark-grey);
+}
+
+.decrementButton:disabled, .incrementButton:disabled {
+  color: var(--light-grey);
+}
+
+.totalPriceTitle {
+  grid-column: 6;
+  grid-row: 1;
+  justify-self: center;
+  font-size: 18px;
+}
+
+.totalPrice {
+  grid-column: 6;
+  grid-row: 1/-1;
+  align-self: center;
+  justify-self: center;
+  font-size: 24px;
+}
+
+.deleteButton {
+  grid-column: 7;
+  grid-row: 1/-1;
+  z-index: 2;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  align-self: center;
+  padding: 20px 0;
+}
+
+.deleteIcon svg {
+  fill: var(--bs-danger);
+  width: 24px;
+  height: 24px;
+  transition: all 0.125s ease-in-out;
+}
+
+.deleteButton:hover .deleteIcon svg {
+  stroke: rgba(253, 1, 1, 0.5);
+}

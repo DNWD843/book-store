@@ -1,0 +1,87 @@
+.toolbar {
+  cursor: pointer;
+  display: grid;
+  transition: bottom 0.15s ease-in-out;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: -300px;
+}
+
+.isVisible {
+  bottom: 0;
+}
+
+.content {
+  cursor: default;
+  display: grid;
+  grid-template-columns: [start] auto [first] auto [second] auto [end];
+  grid-template-rows: [start] auto [first] auto [second] auto [end];
+  row-gap: 5px;
+  align-self: end;
+  box-sizing: border-box;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+.title {
+  font-size: 22px;
+  font-weight: bold;
+  grid-column: start/end;
+  grid-row: start/first;
+  color: var(--light-grey);
+}
+
+.author {
+  font-size: 18px;
+  grid-column: start/end;
+  grid-row: first/second;
+  color:var(--light-grey);
+}
+
+.price {
+  color: var(--light-grey);
+  padding: 24px 0 0;
+  font-weight: bold;
+  grid-column: start/first;
+  grid-row: second/end;
+  align-self: end;
+  line-height: 1;
+  font-size: 26px;
+}
+
+.bookmarkIcon {
+  cursor: pointer;
+  grid-column: first/second;
+  grid-row: second/end;
+  align-self: end;
+  justify-self: center;
+}
+
+.cartIcon {
+  grid-column: second/end;
+  grid-row: second/end;
+  justify-self: center;
+  align-self: end;
+  margin: 0;
+  cursor: pointer;
+}
+
+.bookmarkIcon svg {
+  fill: var(--grey);
+  width: 30px;
+  height: 30px;
+  transition: all 0.15s ease-in-out;
+}
+
+.cartIcon svg {
+  fill: var(--grey);
+  width: 30px;
+  height: 30px;
+  transition: all 0.15s ease-in-out;
+}
+
+.bookmarkIcon:hover svg, .cartIcon:hover svg {
+  fill: var(--light-grey);
+}

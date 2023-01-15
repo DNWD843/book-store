@@ -19,6 +19,9 @@ const bookDetailsSlice = createSlice({
   name: ESlicesNames.bookDetails,
   initialState,
   reducers: {
+    setBookDetails: (state, { payload }) => {
+      state.book = payload;
+    },
     clearBookDetailsState: (state) => {
       state.book = null;
     },
@@ -30,13 +33,13 @@ const bookDetailsSlice = createSlice({
       })
       .addCase(getBookById.rejected, (state) => {
         state.status = EFetchStatuses.rejected;
+        state.book = null;
       })
       .addCase(getBookById.fulfilled, (state, action) => {
         state.status = EFetchStatuses.fulfilled;
         state.book = action.payload;
       });
   },
-
 });
 
 export const { actions: bookDetailsActions } = bookDetailsSlice;

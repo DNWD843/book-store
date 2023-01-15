@@ -1,0 +1,62 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+  padding-top: 100px;
+}
+
+.title {
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.form {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 15px;
+  position: relative;
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  box-sizing: border-box;
+  padding: 20px 0;
+}
+
+.submitButton {
+  min-width: 225px;
+  max-height: 45px;
+  padding: 10px;
+  line-height: 1;
+  pointer-events: visible !important;
+}
+
+.submitButton:hover:disabled, .cancelButton:hover:disabled {
+  cursor: not-allowed;
+}
+
+.cancelButton {
+  min-width: 150px;
+  max-height: 45px;
+  padding: 10px;
+  line-height: 1;
+  pointer-events: visible !important;
+}
+
+.redirect {
+  letter-spacing: 0.1em;
+  color: var(--grey)
+}
+
+.redirectLink {
+  padding-left: 10px;
+}

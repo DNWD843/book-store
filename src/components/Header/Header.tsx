@@ -3,9 +3,10 @@ import { Link, Route, Routes } from 'react-router-dom';
 
 import { routes } from '../../routesMap';
 import { BookSearch } from '../BookSearch';
-import { DateWidget } from '../DateWidget';
-import { NavLinks } from '../NavLinks';
-import { ProfileComponent } from '../Profile';
+
+import { DateWidget } from './HeaderDateWidget';
+import { NavLinks } from './HeaderNavLinks';
+import { HeaderProfileComponent } from './HeaderProfile';
 
 import styles from './Header.module.css';
 
@@ -25,7 +26,7 @@ const Header: React.FC = () => (
       </Routes>
     </div>
     <div className={styles.profile}>
-      <ProfileComponent />
+      <HeaderProfileComponent />
     </div>
     <nav className={styles.navLinks}>
       <NavLinks />

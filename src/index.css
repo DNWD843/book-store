@@ -15,13 +15,42 @@ code {
   min-height: 100vh;
 }
 
+.popup-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+/*.btn-outline-danger:focus {*/
+/*  box-shadow: none;*/
+/*  background-color: transparent;*/
+/*  color: #dc3545;*/
+/*}*/
+
+
+
 :root {
   --white: #fff;
-  --card-background: #FFFFFF;
   --body: rgb(255, 255, 255, 0.5);
   --grey: rgb(135, 135, 135);
   --light-grey: rgb(225, 225, 225);
   --super-light-grey: #D3D3D3FF;
   --ultra-light-grey: rgba(246, 246, 246, 0.7);
-  --dark-grey: rgba(35, 35, 35, 0.82)
+  --dark-grey: rgba(35, 35, 35, 0.82);
+
+  --card-background: #FFFFFF;
+  --popup-background: rgb(245, 245, 245);
+  --popup-border: rgb(165, 165, 165);
+  --success-background: #a2fca4;
+  --success-border: #21fa26;
+
+  --danger-background: #faabb2;
+  --danger-border: #fa2133;
+
+  --warning-background: #fcd8a2;
+  --warning-border: #f8a222;
+
+  --info-background: #95edfa;
+  --info-border: #2de1fc;
 }
