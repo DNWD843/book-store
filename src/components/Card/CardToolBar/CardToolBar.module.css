@@ -1,12 +1,12 @@
 .toolbar {
   cursor: pointer;
   display: grid;
-  transition: bottom 0.2s ease-in-out;
+  transition: bottom 0.15s ease-in-out;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  bottom: -240px;
+  bottom: -300px;
 }
 
 .isVisible {
