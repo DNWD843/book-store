@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import {fetchBookByBookId, fetchBooks, updateBook, updateBooksCollection} from '../../api';
+import { fetchBookByBookId, fetchBooks, updateBook, updateBooksCollection } from '../../api';
 import { TBookInfo } from '../../types';
 import { ESlicesNames } from '../slicesNames';
 
