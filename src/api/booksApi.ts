@@ -1,29 +1,43 @@
 import { collection, getDocs, setDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
-import {REQUEST_DELAY, orderSubmitMessages, booksRequestMessages, mockedBooksCatalogue} from '../constants';
+import { REQUEST_DELAY, orderSubmitMessages, booksRequestMessages, mockedBooksCatalogue } from '../constants';
 import { db } from '../firebase';
 import { ESlicesNames } from '../redux/slicesNames';
-import { TBookInfo, TSendingOrderData } from '../types';
+import { TBookInfo, TSendingOrderData, TUpdateCatalogueRequestResponse } from '../types';
 
 /**
  * @description admin only available method. setting a new collection
  */
-export const updateBooksCollection = async () => {
-  // try {
-  await mockedBooksCatalogue.forEach((book) => {
-    const pathSegment = uuidv4();
-    try {
-      setDoc(doc(db, ESlicesNames.booksCollection, pathSegment), { ...book, id: pathSegment });
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error(err);
+export const updateBooksCollection = async (): Promise<TUpdateCatalogueRequestResponse> => {
+  try {
+    await mockedBooksCatalogue.forEach((book) => {
+      const pathSegment = uuidv4();
+      try {
+        setDoc(doc(db, ESlicesNames.booksCollection, pathSegment), { ...book, id: pathSegment });
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error(err);
 
-      throw new Error(booksRequestMessages.updateCollectionError);
-    }
-  });
+        throw new Error(booksRequestMessages.updateCollectionError);
+      }
+    });
 
-  return Promise.resolve({ message: booksRequestMessages.updateCollectionSuccess, books: mockedBooksCatalogue });
+    const querySnapshot = await getDocs(collection(db, ESlicesNames.booksCollection));
+
+    const books = querySnapshot.docs.map((document) => document.data() as unknown as TBookInfo);
+
+    return ({
+      message: booksRequestMessages.updateCollectionSuccess,
+      books,
+      updatedAt: new Date().getTime(),
+    });
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error(err);
+
+    throw new Error(booksRequestMessages.updateCollectionError);
+  }
 };
 
 export const fetchBooks = async (): Promise<{ books: TBookInfo[], updatedAt: number }> => {

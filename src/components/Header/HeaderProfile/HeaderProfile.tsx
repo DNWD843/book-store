@@ -47,7 +47,7 @@ const HeaderProfile = forwardRef<HTMLDivElement, THeaderProfileProps>(
                 </li>
               </nav>
               <div className={styles.buttons}>
-                { isAdmin ? <SimpleButton onClick={onUpdateBooksCatalogue}>Обновить каталог</SimpleButton> : null }
+                { isAdmin ? <SimpleButton className="btn-success" onClick={onUpdateBooksCatalogue}>Обновить каталог</SimpleButton> : null }
                 <button className={classNames('btn btn-outline-secondary btn-sm', styles.button)} type="button" onClick={onLogout}>Выйти</button>
                 <button className={classNames('btn btn-outline-danger btn-sm', styles.button)} type="button" onClick={onDelete}>Удалить аккаунт</button>
               </div>

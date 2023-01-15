@@ -1,7 +1,7 @@
 import { createSlice, Draft, PayloadAction } from '@reduxjs/toolkit';
 
 import { EFetchStatuses } from '../../enums';
-import { IBooksCollection, TBookInfo } from '../../types';
+import { IBooksCollection, TUpdateCatalogueRequestResponse } from '../../types';
 import { ESlicesNames } from '../slicesNames';
 import { getBooks, updateBooksCatalogue } from '../thunks';
 
@@ -48,7 +48,11 @@ const booksSlice = createSlice({
     builder
       .addCase(updateBooksCatalogue.pending, (state) => { state.status = EFetchStatuses.pending; })
       .addCase(updateBooksCatalogue.rejected, (state) => { state.status = EFetchStatuses.rejected; })
-      .addCase(updateBooksCatalogue.fulfilled, (state) => { state.status = EFetchStatuses.fulfilled; });
+      .addCase(updateBooksCatalogue.fulfilled, (state, { payload }: PayloadAction<TUpdateCatalogueRequestResponse>) => {
+        state.status = EFetchStatuses.fulfilled;
+        state.books = payload.books;
+        state.updatedAt = payload.updatedAt;
+      });
   },
 });
 
