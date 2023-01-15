@@ -1,9 +1,9 @@
 import { createSlice, Draft, PayloadAction } from '@reduxjs/toolkit';
 
 import { EFetchStatuses } from '../../enums';
-import { IBooksCollection } from '../../types';
+import { IBooksCollection, TUpdateCatalogueRequestResponse } from '../../types';
 import { ESlicesNames } from '../slicesNames';
-import { getBooks } from '../thunks';
+import { getBooks, updateBooksCatalogue } from '../thunks';
 
 export interface IBooksState extends IBooksCollection{
   status: EFetchStatuses;
@@ -39,15 +39,20 @@ const booksSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getBooks.pending, (state) => {
-        state.status = EFetchStatuses.pending;
-      })
-      .addCase(getBooks.rejected, (state) => {
-        state.status = EFetchStatuses.rejected;
-      })
+      .addCase(getBooks.pending, (state) => { state.status = EFetchStatuses.pending; })
+      .addCase(getBooks.rejected, (state) => { state.status = EFetchStatuses.rejected; })
       .addCase(getBooks.fulfilled, (state, { payload }: PayloadAction<IBooksCollection>) => (
         { ...state, ...payload, status: EFetchStatuses.fulfilled }
       ));
+
+    builder
+      .addCase(updateBooksCatalogue.pending, (state) => { state.status = EFetchStatuses.pending; })
+      .addCase(updateBooksCatalogue.rejected, (state) => { state.status = EFetchStatuses.rejected; })
+      .addCase(updateBooksCatalogue.fulfilled, (state, { payload }: PayloadAction<TUpdateCatalogueRequestResponse>) => {
+        state.status = EFetchStatuses.fulfilled;
+        state.books = payload.books;
+        state.updatedAt = payload.updatedAt;
+      });
   },
 });
 

@@ -1,5 +1,7 @@
 import React, { DetailedHTMLProps, HTMLAttributes } from 'react';
 
+import { TBookInfo } from '../../../types';
+
 export type THeaderProfileProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
   title: string,
   onLogout: () => void,
@@ -9,4 +11,6 @@ export type THeaderProfileProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElemen
   isAnonymous: boolean,
   photoUrl: string,
   menuButtonRef: React.MutableRefObject<HTMLButtonElement | null>
+  isAdmin: boolean,
+  onUpdateBooksCatalogue: () => void
 };

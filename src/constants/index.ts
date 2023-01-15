@@ -1,7 +1,7 @@
 import { EPluralizeConfigKey } from '../enums';
 import { TPluralizedTextForms } from '../types';
 
-export { mockedData } from './mocks';
+export * from './mocks';
 export { validationErrorMessages } from './validationErrorMessages';
 export * from './magicNumbers';
 export * from './requestResultMessages';

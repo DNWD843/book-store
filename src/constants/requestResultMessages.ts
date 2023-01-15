@@ -29,6 +29,8 @@ export const booksRequestMessages = {
   error: 'Ошибка запроса каталога.',
   requestByIdError: 'Ошибка запроса данных книги',
   updateBookInfoError: 'Ошибка обновления данных книги',
+  updateCollectionError: 'Ошибка обновления каталога',
+  updateCollectionSuccess: 'Каталог обновлен.',
 };
 
 export const defaultMessages = {

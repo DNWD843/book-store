@@ -9,6 +9,9 @@ import {
 import { appAuth } from '../firebase';
 import { TAuthFormValues, TUser } from '../types';
 
+const admins = ['dima@mail.ru'];
+const adminsSet = new Set<string>(admins);
+
 export const createUser = async ({ email, password }: TAuthFormValues): Promise<TUser> => {
   try {
     const credentials = await createUserWithEmailAndPassword(appAuth, email, password);
@@ -21,7 +24,7 @@ export const createUser = async ({ email, password }: TAuthFormValues): Promise<
       photoURL,
       displayName,
       isAnonymous,
-      isAdmin: false,
+      isAdmin: adminsSet.has(userEmail ?? ''),
       lastLoginAt: new Date().getTime(),
     };
   } catch (err) {
@@ -44,7 +47,7 @@ export const loginUserByEmail = async ({ email, password }: TAuthFormValues): Pr
       photoURL,
       displayName,
       isAnonymous,
-      isAdmin: false,
+      isAdmin: adminsSet.has(userEmail ?? ''),
       lastLoginAt: new Date().getTime(),
     };
   } catch (err) {
