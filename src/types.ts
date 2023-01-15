@@ -45,7 +45,7 @@ export type TUser = {
   phoneNumber?: string | null,
   photoURL?: string | null,
   isAnonymous: boolean,
-  isAdmin?: false,
+  isAdmin: boolean,
   lastLoginAt?: number,
 };
 

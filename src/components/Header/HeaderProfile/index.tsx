@@ -1,13 +1,19 @@
 import uniqueId from 'lodash/uniqueId';
 import React, { useCallback, useRef, useState } from 'react';
 
-import { defaultMessages, deleteUserRequestMessages, POPUP_ID_PREFIX } from '../../../constants';
+import {
+  booksRequestMessages,
+  defaultMessages,
+  deleteUserRequestMessages,
+  mockedBooksCatalogue, mockedBooksCatalogue2,
+  POPUP_ID_PREFIX,
+} from '../../../constants';
 import { EFetchStatuses, EPopupTypes } from '../../../enums';
 import { useClickOutside } from '../../../hooks';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { popupsActions, userSavingsActions } from '../../../redux/slices';
 import { selectUserData, storageActions } from '../../../redux/store';
-import { auth, deleteUserSavings } from '../../../redux/thunks';
+import { auth, deleteUserSavings, updateBooksCatalogue } from '../../../redux/thunks';
 import { storageKeys, storage } from '../../../utils';
 import ava from '../../../vendor/images/login_ava.png';
 import { ConfirmModal } from '../../Modals';
@@ -108,11 +114,39 @@ const HeaderProfileComponent: React.FC = () => {
   const menuButtonRef = useRef<HTMLButtonElement | null>(null);
   const closeProfileMenu = useCallback(() => { setMenuOpened(false); }, []);
 
+  const onUpdateBooksCatalogue = useCallback(async () => {
+    await dispatch(updateBooksCatalogue())
+      .then((res) => {
+        if (res.meta.requestStatus === EFetchStatuses.rejected) {
+          // eslint-disable-next-line @typescript-eslint/no-throw-literal
+          throw res;
+        }
+
+        dispatch(addPopup({
+          id: res.meta.requestId || uniqueId(POPUP_ID_PREFIX),
+          message: booksRequestMessages.updateCollectionSuccess,
+          type: EPopupTypes.success,
+        }));
+        console.log('onUpdateBooksCatalogue response', res);
+      })
+      .catch((err) => {
+        // eslint-disable-next-line no-console
+        console.log(err);
+
+        dispatch(addPopup({
+          id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
+          message: err?.error?.message ?? defaultMessages.unexpectedError,
+          type: EPopupTypes.danger,
+        }));
+      });
+  }, [addPopup, dispatch]);
+
   useClickOutside(closeProfileMenu, [profileMenuRef, menuButtonRef]);
 
   return (
     <>
       <HeaderProfile
+        isAdmin={userData?.isAdmin}
         isAnonymous={userData?.isAnonymous}
         isMenuOpened={isMenuOpened}
         menuButtonRef={menuButtonRef}
@@ -122,6 +156,7 @@ const HeaderProfileComponent: React.FC = () => {
         onDelete={onDelete}
         onLogout={handleLogout}
         onProfileClick={handleClickOnMenuButton}
+        onUpdateBooksCatalogue={onUpdateBooksCatalogue}
       />
       <ConfirmModal
         clearButtonTitle="Отменить"

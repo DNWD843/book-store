@@ -3,13 +3,14 @@ import React, { forwardRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import { routes } from '../../../routesMap';
+import { SimpleButton } from '../../../ui-components';
 
 import { THeaderProfileProps } from './HeaderProfile.props';
 
 import styles from './HeaderProfile.module.css';
 
 const HeaderProfile = forwardRef<HTMLDivElement, THeaderProfileProps>(
-  ({ title, onLogout, onDelete, onProfileClick, isMenuOpened, isAnonymous, photoUrl, menuButtonRef }, ref) => (
+  ({ title, onLogout, onDelete, onProfileClick, isMenuOpened, isAnonymous, photoUrl, menuButtonRef, isAdmin, onUpdateBooksCatalogue }, ref) => (
     <div className={styles.profile}>
       {isAnonymous
         ? (
@@ -46,6 +47,7 @@ const HeaderProfile = forwardRef<HTMLDivElement, THeaderProfileProps>(
                 </li>
               </nav>
               <div className={styles.buttons}>
+                { isAdmin ? <SimpleButton onClick={onUpdateBooksCatalogue}>Обновить каталог</SimpleButton> : null }
                 <button className={classNames('btn btn-outline-secondary btn-sm', styles.button)} type="button" onClick={onLogout}>Выйти</button>
                 <button className={classNames('btn btn-outline-danger btn-sm', styles.button)} type="button" onClick={onDelete}>Удалить аккаунт</button>
               </div>
