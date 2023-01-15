@@ -5,7 +5,6 @@ import {
   booksRequestMessages,
   defaultMessages,
   deleteUserRequestMessages,
-  mockedBooksCatalogue, mockedBooksCatalogue2,
   POPUP_ID_PREFIX,
 } from '../../../constants';
 import { EFetchStatuses, EPopupTypes } from '../../../enums';
@@ -14,6 +13,7 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { popupsActions, userSavingsActions } from '../../../redux/slices';
 import { selectUserData, storageActions } from '../../../redux/store';
 import { auth, deleteUserSavings, updateBooksCatalogue } from '../../../redux/thunks';
+import { TUpdateCatalogueRequestResponse } from '../../../types';
 import { storageKeys, storage } from '../../../utils';
 import ava from '../../../vendor/images/login_ava.png';
 import { ConfirmModal } from '../../Modals';
@@ -30,6 +30,7 @@ const HeaderProfileComponent: React.FC = () => {
   const [isMenuOpened, setMenuOpened] = useState<boolean>(false);
 
   const closeModal = useCallback(() => { setModalOpened(false); }, []);
+  const closeProfileMenu = useCallback(() => { setMenuOpened(false); }, []);
 
   const handleClickOnMenuButton = useCallback(() => { setMenuOpened((prev) => !prev); }, []);
 
@@ -112,7 +113,6 @@ const HeaderProfileComponent: React.FC = () => {
 
   const profileMenuRef = useRef<HTMLDivElement | null>(null);
   const menuButtonRef = useRef<HTMLButtonElement | null>(null);
-  const closeProfileMenu = useCallback(() => { setMenuOpened(false); }, []);
 
   const onUpdateBooksCatalogue = useCallback(async () => {
     await dispatch(updateBooksCatalogue())
@@ -122,13 +122,18 @@ const HeaderProfileComponent: React.FC = () => {
           throw res;
         }
 
+        const { books = [], updatedAt = '' } = res.payload as TUpdateCatalogueRequestResponse;
+
+        dispatch(storageActions.setBooks);
+        storage.setData(storageKeys.BOOKS, { books, updatedAt });
+
         dispatch(addPopup({
           id: res.meta.requestId || uniqueId(POPUP_ID_PREFIX),
           message: booksRequestMessages.updateCollectionSuccess,
           type: EPopupTypes.success,
         }));
-        console.log('onUpdateBooksCatalogue response', res);
       })
+      .then(() => { closeProfileMenu(); })
       .catch((err) => {
         // eslint-disable-next-line no-console
         console.log(err);
@@ -139,7 +144,7 @@ const HeaderProfileComponent: React.FC = () => {
           type: EPopupTypes.danger,
         }));
       });
-  }, [addPopup, dispatch]);
+  }, [addPopup, closeProfileMenu, dispatch]);
 
   useClickOutside(closeProfileMenu, [profileMenuRef, menuButtonRef]);
 

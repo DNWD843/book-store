@@ -34,6 +34,8 @@ export interface IBooksCollection {
   updatedAt?: number,
 }
 
+export type TUpdateCatalogueRequestResponse = { message: string, books: TBookInfo[], updatedAt: IBooksCollection['updatedAt'] };
+
 export type TUrlParams = {
   bookId: string,
 };
