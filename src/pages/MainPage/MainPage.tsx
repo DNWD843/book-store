@@ -29,10 +29,10 @@ const MainPage: React.FC = () => (
       <Route element={<ProfilePage />} path={routes.profile} />
       <Route element={<RegisterPage />} path={routes.register} />
       <Route element={<LoginPage />} path={routes.login} />
-      <Route element={<NotFoundPage />} path={routes.notFound} />
       <Route element={<OrderPage />} path={routes.order} />
       <Route element={<PurchasesListPage />} path={routes.purchasesHistory} />
-      <Route element={<Navigate to={routes.books} />} path={routes.anyRoute} />
+      <Route element={<Navigate to={routes.books} />} path={routes.ghPagesRoute} />
+      <Route element={<NotFoundPage />} path={routes.notFound} />
     </Routes>
   </main>
 );
