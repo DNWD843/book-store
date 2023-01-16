@@ -10,5 +10,5 @@ export const routes: Record<string, string> = {
   register: '/register',
   order: '/order',
   notFound: '*',
-  anyRoute: '*',
+  ghPagesRoute: '/book-store/',
 };
