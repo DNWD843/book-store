@@ -32,6 +32,7 @@ const MainPage: React.FC = () => (
       <Route element={<NotFoundPage />} path={routes.notFound} />
       <Route element={<OrderPage />} path={routes.order} />
       <Route element={<PurchasesListPage />} path={routes.purchasesHistory} />
+      <Route element={<Navigate to={routes.books} />} path={routes.anyRoute} />
     </Routes>
   </main>
 );
