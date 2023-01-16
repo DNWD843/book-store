@@ -24,6 +24,8 @@
   border-radius: 50%;
   margin-right: 10px;
   z-index: 12;
+  word-break: break-all;
+  font-size: 12px;
 }
 
 .loginLink {
