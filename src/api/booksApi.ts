@@ -11,17 +11,10 @@ import { TBookInfo, TSendingOrderData, TUpdateCatalogueRequestResponse } from '.
  */
 export const updateBooksCollection = async (): Promise<TUpdateCatalogueRequestResponse> => {
   try {
-    await mockedBooksCatalogue.forEach((book) => {
+    await Promise.all(mockedBooksCatalogue.map((book) => {
       const pathSegment = uuidv4();
-      try {
-        setDoc(doc(db, ESlicesNames.booksCollection, pathSegment), { ...book, id: pathSegment });
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error(err);
-
-        throw new Error(booksRequestMessages.updateCollectionError);
-      }
-    });
+      return setDoc(doc(db, ESlicesNames.booksCollection, pathSegment), { ...book, id: pathSegment });
+    }));
 
     const querySnapshot = await getDocs(collection(db, ESlicesNames.booksCollection));
 
