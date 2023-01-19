@@ -36,7 +36,7 @@ const HeaderProfileComponent: React.FC = () => {
 
   const title = userData?.isAnonymous
     ? 'Гость'
-    : `Привет, ${userData?.displayName || userData?.email || 'Гость'}`;
+    : `${userData?.displayName || userData?.email || 'Гость'}`;
 
   const handleLogout = useCallback(() => {
     dispatch(auth.logoutUser())

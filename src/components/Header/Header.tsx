@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
+import React, { memo } from 'react';
+import { Link } from 'react-router-dom';
 
 import { routes } from '../../routesMap';
 import { BookSearch } from '../BookSearch';
@@ -10,31 +10,29 @@ import { HeaderProfileComponent } from './HeaderProfile';
 
 import styles from './Header.module.css';
 
-const Header: React.FC = () => (
+const Header: React.FC<{ isBookSearchVisible: boolean }> = ({ isBookSearchVisible = false }) => (
   <header className={styles.header}>
-    <Link className={styles.logoLink} title="На главную" to={routes.books}>
-      <h2 className={styles.logo}>BookStore</h2>
-    </Link>
+    <div className={styles.headerContainer}>
+      <Link className={styles.logoLink} title="На главную" to={routes.books}>
+        <h2 className={styles.logo}>BookStore</h2>
+      </Link>
 
-    <div className={styles.search}>
-      <Routes>
-        <Route element={<BookSearch />} path={routes.books}>
-          <Route element={<BookSearch />} path={routes.bookId} />
-        </Route>
-        <Route element={<></>} path={routes.shoppingCart} />
-        <Route element={<></>} path={routes.favorites} />
-      </Routes>
+      <div className={styles.search}>
+        { isBookSearchVisible ? (<BookSearch />) : null}
+      </div>
+      <div className={styles.profile}>
+        <HeaderProfileComponent />
+      </div>
+      <nav className={styles.navLinks}>
+        <NavLinks />
+      </nav>
+      <DateWidget className={styles.dateWidget} />
     </div>
-    <div className={styles.profile}>
-      <HeaderProfileComponent />
-    </div>
-    <nav className={styles.navLinks}>
-      <NavLinks />
-    </nav>
-    <DateWidget className={styles.dateWidget} />
   </header>
 );
 
 Header.displayName = 'Header';
 
-export { Header };
+const MemoHeader = memo(Header);
+
+export { MemoHeader as Header };

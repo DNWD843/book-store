@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { memo } from 'react';
 
 import { IDateWidgetProps } from './DateWidget.props';
 
@@ -13,4 +13,6 @@ const DateWidget: React.FC<IDateWidgetProps> = ({ className, date }) => (
 
 DateWidget.displayName = 'DateWidget';
 
-export { DateWidget };
+const MemoDateWidget = memo(DateWidget);
+
+export { MemoDateWidget as DateWidget };

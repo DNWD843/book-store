@@ -9,3 +9,9 @@ box-sizing: border-box;
   font-weight: 600;
   text-align: center;
 }
+
+@media all and (max-width: 1080px) {
+  .date {
+    font-size: 14px;
+  }
+}

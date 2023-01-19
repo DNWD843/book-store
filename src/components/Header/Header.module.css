@@ -5,6 +5,10 @@
   background-color: var(--light-grey);
   padding: 0 calc((100% - 1280px) / 2);
   box-sizing: border-box;
+
+}
+
+.headerContainer {
   display: grid;
   grid-template-columns: [logo] auto [search] 1fr [profile] minmax(150px, auto) [navLinks] auto [end];
   grid-template-rows: 1fr auto;
@@ -50,5 +54,18 @@
   grid-column: profile/end;
   grid-row: 2;
   z-index: 20;
+}
+
+@media screen and (max-width: 1320px) {
+  .headerContainer {
+    padding: 0 20px;
+    column-gap: 15px;
+  }
+}
+
+@media all and (max-width: 1080px) {
+  .logo {
+    font-size: 24px;
+  }
 }
 
