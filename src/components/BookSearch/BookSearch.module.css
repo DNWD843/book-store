@@ -8,12 +8,12 @@
 
 @media all and (max-width: 1080px) {
   .searchInput {
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .clearButton {
     font-size: 12px;
-    padding: 6px 0;
+    padding: 4px 0;
   }
 }
 
