@@ -7,10 +7,16 @@
   box-sizing: border-box;
 }
 
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
 .socialLinks {
   list-style: none;
   margin: 0;
-  padding: 0 20px;
 
   display: flex;
   gap: 30px;
@@ -31,4 +37,20 @@
 
 .link:hover svg {
   fill: var(--grey);
+}
+
+@media all and (max-width: 1320px) {
+  .content {
+    padding: 0 20px;
+  }
+}
+
+@media all and (max-width: 530px) {
+  .socialLinks {
+    gap: 15px;
+  }
+
+  .copyright {
+    font-size: 14px;
+  }
 }
