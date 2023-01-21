@@ -1,16 +1,15 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { routes } from '../../routesMap';
-import { BookSearch } from '../BookSearch';
-
-import { DateWidget } from './HeaderDateWidget';
-import { NavLinks } from './HeaderNavLinks';
-import { HeaderProfileComponent } from './HeaderProfile';
+import { routes } from '../../../routesMap';
+import { BookSearch } from '../../BookSearch';
+import { DateWidget } from '../HeaderDateWidget';
+import { NavLinks } from '../HeaderNavLinks';
+import { HeaderProfileComponent } from '../HeaderProfile';
 
 import styles from './Header.module.css';
 
-const Header: React.FC<{ isBookSearchVisible: boolean }> = ({ isBookSearchVisible = false }) => (
+const DesktopHeader: React.FC<{ isBookSearchVisible: boolean }> = ({ isBookSearchVisible = false }) => (
   <header className={styles.header}>
     <div className={styles.headerContainer}>
       <Link className={styles.logoLink} title="На главную" to={routes.books}>
@@ -31,8 +30,8 @@ const Header: React.FC<{ isBookSearchVisible: boolean }> = ({ isBookSearchVisibl
   </header>
 );
 
-Header.displayName = 'Header';
+DesktopHeader.displayName = 'Header';
 
-const MemoHeader = memo(Header);
+const MemoDesktopHeader = memo(DesktopHeader);
 
-export { MemoHeader as Header };
+export { MemoDesktopHeader as DesktopHeader };

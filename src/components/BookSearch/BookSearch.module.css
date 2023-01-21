@@ -4,16 +4,3 @@
   align-items: center;
   column-gap: 10px;
 }
-
-
-@media all and (max-width: 1080px) {
-  .searchInput {
-    font-size: 13px;
-  }
-
-  .clearButton {
-    font-size: 12px;
-    padding: 4px 0;
-  }
-}
-

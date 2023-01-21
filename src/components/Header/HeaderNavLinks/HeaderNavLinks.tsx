@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { EIconTypes } from '../../../enums';
 import { HeaderNavLink } from '../../../ui-components';
 
 import { THeaderNavLinksProps } from './HeaderNavLinks.props';
-import { navLinksConfig } from './navLinksConfig';
 
 import styles from './HeaderNavLinks.module.css';
 
-const HeaderNavLinks: React.FC<THeaderNavLinksProps> = ({ isAnonymous }) => (
+const HeaderNavLinks: React.FC<THeaderNavLinksProps> = ({ isAnonymous, navLinks }) => (
   <ul className={styles.navLinksList}>
-    {navLinksConfig.map(({ id, ...props }) => (
+    {navLinks.map(({ id, ...props }) => (
       <HeaderNavLink key={id} {...props} isVisible={id === EIconTypes.favorites ? !isAnonymous : true} />
     ))}
   </ul>
@@ -18,4 +17,6 @@ const HeaderNavLinks: React.FC<THeaderNavLinksProps> = ({ isAnonymous }) => (
 
 HeaderNavLinks.displayName = 'NavLinks';
 
-export { HeaderNavLinks };
+const MemoHeaderNavLinks = memo(HeaderNavLinks);
+
+export { MemoHeaderNavLinks as HeaderNavLinks };

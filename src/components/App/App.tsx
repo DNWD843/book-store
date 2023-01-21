@@ -5,12 +5,12 @@ import { ContentErrorPage } from '../../pages/ContentErrorPage';
 import { MainPage } from '../../pages/MainPage';
 import { ErrorBoundary } from '../ErrorBoundry';
 import { Footer } from '../Footer';
-import { Header } from '../Header';
+import { DesktopHeader } from '../Header/DesktopHeader';
 import { PopupsContainer } from '../PopupsContainer';
 
 const App: React.FC = () => (
   <div className="root_container app">
-    <Header />
+    <DesktopHeader />
     <ErrorBoundary component={ContentErrorPage}>
       <MainPage />
     </ErrorBoundary>

@@ -4,15 +4,16 @@ import { useAppSelector } from '../../../redux/hooks';
 import { selectUserData } from '../../../redux/store';
 
 import { HeaderNavLinks } from './HeaderNavLinks';
-
-const HeaderNavLinksMemo = memo(HeaderNavLinks);
+import { navLinksConfig } from './navLinksConfig';
 
 const HeaderNavLinksComponent: React.FC = () => {
   const { isAnonymous } = useAppSelector(selectUserData);
 
-  return (<HeaderNavLinksMemo isAnonymous={isAnonymous} />);
+  return (<HeaderNavLinks isAnonymous={isAnonymous} navLinks={navLinksConfig} />);
 };
 
 HeaderNavLinksComponent.displayName = 'HeaderNavLinksComponent';
 
-export { HeaderNavLinksComponent as NavLinks };
+const MemoHeaderNavLinksComponent = memo(HeaderNavLinksComponent);
+
+export { MemoHeaderNavLinksComponent as NavLinks };

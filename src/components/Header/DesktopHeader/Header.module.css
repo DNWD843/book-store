@@ -5,7 +5,6 @@
   background-color: var(--light-grey);
   padding: 0 calc((100% - 1280px) / 2);
   box-sizing: border-box;
-
 }
 
 .headerContainer {
@@ -56,16 +55,29 @@
   z-index: 20;
 }
 
+.burgerMenu, .mobileSearch {
+  display: grid;
+  align-self: center;
+  justify-self: center;
+}
+
+.burgerMenuIcon {
+  width: 24px;
+  height: 24px;
+  transform: scale(1.7);
+  padding: 2px 0 0 10px;
+}
+
+.searchIcon {
+  width: 24px;
+  height: 24px;
+  transform: scale(1.5);
+  padding: 2px 15px 0 0;
+}
+
 @media screen and (max-width: 1320px) {
   .headerContainer {
     padding: 0 20px;
     column-gap: 15px;
   }
 }
-
-@media all and (max-width: 1080px) {
-  .logo {
-    font-size: 24px;
-  }
-}
-

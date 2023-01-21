@@ -10,7 +10,7 @@ box-sizing: border-box;
   text-align: center;
 }
 
-@media all and (max-width: 1080px) {
+@media all and (max-width: 1079px) {
   .date {
     font-size: 14px;
   }
