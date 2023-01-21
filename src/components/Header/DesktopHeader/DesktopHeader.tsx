@@ -7,7 +7,7 @@ import { DateWidget } from '../HeaderDateWidget';
 import { NavLinks } from '../HeaderNavLinks';
 import { HeaderProfileComponent } from '../HeaderProfile';
 
-import styles from './Header.module.css';
+import styles from './DesktopHeader.module.css';
 
 const DesktopHeader: React.FC<{ isBookSearchVisible: boolean }> = ({ isBookSearchVisible = false }) => (
   <header className={styles.header}>

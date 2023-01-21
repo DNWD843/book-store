@@ -1,0 +1,59 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--light-grey);
+  padding: 0 calc((100% - 1280px) / 2);
+  box-sizing: border-box;
+}
+
+.headerContainer {
+  padding: 10px 20px 0;
+  display: grid;
+  grid-template-columns: [start] auto [divider] 1fr [actions] auto [end];
+  align-items: center;
+}
+ .logoLink {
+   grid-column: start;
+   grid-row: 1;
+   text-decoration: none;
+ }
+
+ .logo {
+   font-size: 32px;
+   font-weight: 700;
+   font-family: "Helvetica Neue", "Arial", sans-serif;
+
+   color: var(--dark-grey);
+ }
+
+ .actions {
+   display: grid;
+   grid-template-columns: repeat(2, auto);
+   gap: 20px;
+
+   grid-column: actions;
+   grid-row: 1;
+ }
+
+ .actionButton {
+   border: none;
+ }
+
+ .actionButton svg {
+   fill: var(--dark-grey);
+ }
+
+ .dateWidget {
+   grid-column: start/end;
+   grid-row: 2;
+ }
+
+ @media all and (max-width: 766px) {
+   .headerContainer {
+     padding: 5px 10px 0;
+   }
+   .logo {
+     font-size: 26px;
+   }
+ }

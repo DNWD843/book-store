@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import './App.css';
 import { ONE_DAY_TIMESTAMP } from '../../constants';
 import { EFetchStatuses } from '../../enums';
+import { useMatchMedia } from '../../hooks';
 import { withReduxStore } from '../../provider/withReduxStore';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { authActions, booksActions } from '../../redux/slices';
@@ -20,6 +21,8 @@ const AppComponent: React.FC = () => {
   const { setBooksToStore } = booksActions;
   const authStatus = useAppSelector(selectAuthStatus);
   const booksStatus = useAppSelector(selectBooksFetchingStatus);
+
+  const { isDesktop } = useMatchMedia();
 
   useEffect(() => {
     dispatch(storageActions.getUserInfo);
@@ -50,7 +53,7 @@ const AppComponent: React.FC = () => {
 
   return (
     <>
-      <App />
+      <App isDesktop={isDesktop} />
       {isLoading
         ? (<ScreenLoader />)
         : null}

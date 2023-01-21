@@ -5,12 +5,12 @@ import { ContentErrorPage } from '../../pages/ContentErrorPage';
 import { MainPage } from '../../pages/MainPage';
 import { ErrorBoundary } from '../ErrorBoundry';
 import { Footer } from '../Footer';
-import { DesktopHeader } from '../Header/DesktopHeader';
+import { DesktopHeader, MobileHeader } from '../Header';
 import { PopupsContainer } from '../PopupsContainer';
 
-const App: React.FC = () => (
+const App: React.FC<{ isDesktop: boolean }> = ({ isDesktop }) => (
   <div className="root_container app">
-    <DesktopHeader />
+    {isDesktop ? (<DesktopHeader />) : (<MobileHeader />)}
     <ErrorBoundary component={ContentErrorPage}>
       <MainPage />
     </ErrorBoundary>
