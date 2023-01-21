@@ -13,3 +13,9 @@ export const enum EPluralizeConfigKey {
   genitiveCaseForm = 'genitiveCaseForm',
   pluralForm = 'pluralForm',
 }
+
+export const enum EScreenTypes {
+  isMobile = 'isMobile',
+  isTablet = 'isTablet',
+  isDesktop = 'isDesktop',
+}

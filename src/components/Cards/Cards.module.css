@@ -29,7 +29,7 @@
   }
 }
 
-@media all and (max-width: 785px) {
+@media all and (max-width: 766px) {
   .list {
     grid-template-columns: repeat(2, 1fr);
   }
