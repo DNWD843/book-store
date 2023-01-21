@@ -4,3 +4,7 @@
   align-items: center;
   column-gap: 10px;
 }
+
+.searchInput {
+  padding: 7px 12px;
+}

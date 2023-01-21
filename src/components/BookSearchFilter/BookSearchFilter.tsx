@@ -3,11 +3,11 @@ import React from 'react';
 
 import { SimpleButton } from '../../ui-components/Buttons';
 
-import { TBookSearchProps } from './BookSearch.props';
+import { TBookSearchFilterProps } from './BookSearchFilter.props';
 
-import styles from './BookSearch.module.css';
+import styles from './BookSearchFilter.module.css';
 
-const BookSearch: React.FC<TBookSearchProps> = ({ value, onChange, onClear }) => (
+const BookSearchFilter: React.FC<TBookSearchFilterProps> = ({ value, onChange, onClear }) => (
   <form className={styles.searchForm} role="search">
     <input
       aria-label="Search"
@@ -22,6 +22,6 @@ const BookSearch: React.FC<TBookSearchProps> = ({ value, onChange, onClear }) =>
   </form>
 );
 
-BookSearch.displayName = 'BookSearch';
+BookSearchFilter.displayName = 'BookSearchFilter';
 
-export { BookSearch };
+export { BookSearchFilter };

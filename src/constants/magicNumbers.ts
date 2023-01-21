@@ -12,3 +12,4 @@ export const COL_SIZE_3 = 3;
 export const COL_SIZE_DEFAULT = COL_SIZE_1;
 export const REQUEST_DELAY = 1500;
 export const FILTER_DELAY = 1000;
+export const CLEAR_SEARCH_VALUE_DELAY = 200;

@@ -2,14 +2,14 @@ import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { routes } from '../../../routesMap';
-import { BookSearch } from '../../BookSearch';
+import { BookSearchFilter } from '../../BookSearchFilter';
 import { DateWidget } from '../HeaderDateWidget';
 import { NavLinks } from '../HeaderNavLinks';
 import { HeaderProfileComponent } from '../HeaderProfile';
 
 import styles from './DesktopHeader.module.css';
 
-const DesktopHeader: React.FC<{ isBookSearchVisible: boolean }> = ({ isBookSearchVisible = false }) => (
+const DesktopHeader: React.FC<{ isSearchAvailable: boolean }> = ({ isSearchAvailable = false }) => (
   <header className={styles.header}>
     <div className={styles.headerContainer}>
       <Link className={styles.logoLink} title="На главную" to={routes.books}>
@@ -17,7 +17,7 @@ const DesktopHeader: React.FC<{ isBookSearchVisible: boolean }> = ({ isBookSearc
       </Link>
 
       <div className={styles.search}>
-        { isBookSearchVisible ? (<BookSearch />) : null}
+        { isSearchAvailable ? (<BookSearchFilter />) : null}
       </div>
       <div className={styles.profile}>
         <HeaderProfileComponent />

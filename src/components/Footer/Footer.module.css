@@ -5,6 +5,10 @@
   background-color: var(--light-grey);
   padding: 0 calc((100% - 1280px) / 2);
   box-sizing: border-box;
+  box-shadow: 0 -5px 7px var(--grey);
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
 }
 
 .content {

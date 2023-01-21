@@ -53,6 +53,7 @@ Action<string>
 
 export const selectBooksCollection = (state: RootState): IBooksState['books'] => state.books.books;
 export const selectFilteredCollection = (state: RootState): IBooksState['filteredCollection'] => state.books.filteredCollection;
+export const selectSearchValue = (state: RootState): IBooksState['searchValue'] => state.books.searchValue;
 export const selectBooksFetchingStatus = (state: RootState): IBooksState['status'] => state.books.status;
 export const selectBookDetails = (state: RootState): TBookDetailsState => state.bookDetails;
 // export const selectAuthError = (state: RootState): IAuthState['authError'] => state.auth.authError;

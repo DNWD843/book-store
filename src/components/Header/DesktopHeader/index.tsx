@@ -8,9 +8,9 @@ import { DesktopHeader } from './DesktopHeader';
 const DesktopHeaderComponent: React.FC = () => {
   const { pathname } = useLocation();
 
-  const isBookSearchVisible = useMemo(() => pathname === routes.books, [pathname]);
+  const isSearchAvailable = useMemo(() => pathname === routes.books, [pathname]);
 
-  return (<DesktopHeader isBookSearchVisible={isBookSearchVisible} />);
+  return (<DesktopHeader isSearchAvailable={isSearchAvailable} />);
 };
 
 const MemoDesktopHeaderComponent = memo(DesktopHeaderComponent);

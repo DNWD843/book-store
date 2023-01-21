@@ -1,6 +1,6 @@
 import { ChangeEventHandler } from 'react';
 
-export type TBookSearchProps = {
+export type TBookSearchFilterProps = {
   value: string,
   onChange: ChangeEventHandler<HTMLInputElement>,
   onClear: () => void,
