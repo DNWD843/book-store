@@ -7,6 +7,7 @@ import { constants as rfConstants } from 'redux-firestore';
 
 import { TPopupsState, TUserSavings } from '../types';
 
+import { headerActionsReducer, THeaderActionsState } from './slices';
 import authReducer, { IAuthState } from './slices/authSlice';
 import bookDetailsReducer, { TBookDetailsState } from './slices/bookDetailsSlice';
 import booksReducer, { IBooksState } from './slices/booksSlice';
@@ -20,6 +21,7 @@ export const store = configureStore({
     auth: authReducer,
     userSavings: userSavingsReducer,
     popups: popupsReducer,
+    headerActions: headerActionsReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: {
@@ -62,6 +64,7 @@ export const selectUserData = (state: RootState): IAuthState['userData'] => stat
 export const selectUserSavings = (state: RootState): TUserSavings => state.userSavings;
 export const selectUserPurchases = (state: RootState): TUserSavings['purchases'] => state.userSavings.purchases;
 export const selectPopups = (state: RootState): TPopupsState => state.popups;
+export const selectHeaderActionsState = (state: RootState): THeaderActionsState => state.headerActions;
 
 // service actions
 const STORAGE_ACTION_PREFIX = 'STORAGE';

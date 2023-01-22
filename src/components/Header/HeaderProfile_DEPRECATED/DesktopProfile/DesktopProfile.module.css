@@ -7,30 +7,30 @@
   align-items: center;
 }
 
-.overlay {
-  position: absolute;
-  top: -25px;
-  left: -5px;
-  right: -5px;
-  bottom: -40px;
-  background-color: var(--light-grey);
-  z-index: 10;
-}
+/*.overlay {*/
+/*  position: absolute;*/
+/*  top: -25px;*/
+/*  left: -5px;*/
+/*  right: -5px;*/
+/*  bottom: -40px;*/
+/*  background-color: var(--light-grey);*/
+/*  z-index: 10;*/
+/*}*/
 
-.avatar {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-right: 10px;
-  z-index: 12;
-  word-break: break-all;
-  font-size: 12px;
-}
+/*.avatar {*/
+/*  width: 50px;*/
+/*  height: 50px;*/
+/*  object-fit: cover;*/
+/*  border-radius: 50%;*/
+/*  margin-right: 10px;*/
+/*  z-index: 12;*/
+/*  word-break: break-all;*/
+/*  font-size: 12px;*/
+/*}*/
 
-.loginLink {
-  z-index: 12;
-}
+/*.loginLink {*/
+/*  z-index: 12;*/
+/*}*/
 
 .menu {
   position: absolute;
@@ -47,26 +47,27 @@
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   background-color: var(--light-grey);
-  box-shadow: 0 0 3px;
   transition: all .2s ease-in-out;
+
+  box-shadow: 0 -5px 7px var(--grey);
 }
 
 .isMenuOpened {
   top: 75px;
 }
 
-.loginLink {
-  text-decoration: none;
-  color: var(--dark-grey);
-  font-size: 20px;
-  font-weight: bold;
-  margin: 0;
-  padding: 0;
-}
+/*.loginLink {*/
+/*  text-decoration: none;*/
+/*  color: var(--dark-grey);*/
+/*  font-size: 20px;*/
+/*  font-weight: bold;*/
+/*  margin: 0;*/
+/*  padding: 0;*/
+/*}*/
 
-.loginLink:hover {
-  color: var(--grey);
-}
+/*.loginLink:hover {*/
+/*  color: var(--grey);*/
+/*}*/
 
 .menuButton {
   outline: none;
@@ -81,25 +82,25 @@
   z-index: 12;
 }
 
-.navLinks {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  row-gap: 25px;
-}
+/*.navLinks {*/
+/*  list-style: none;*/
+/*  padding: 0;*/
+/*  margin: 0;*/
+/*  display: grid;*/
+/*  row-gap: 25px;*/
+/*}*/
 
-.link {
-  text-decoration: none;
-  color: var(--dark-grey);
-  transition: all .1s ease-in-out;
-  font-size: 18px;
-  line-height: 1.5;
-}
+/*.link {*/
+/*  text-decoration: none;*/
+/*  color: var(--dark-grey);*/
+/*  transition: all .1s ease-in-out;*/
+/*  font-size: 18px;*/
+/*  line-height: 1.5;*/
+/*}*/
 
-.link:hover {
-  color: black;
-}
+/*.link:hover {*/
+/*  color: black;*/
+/*}*/
 
 .buttons {
   width: 100%;
@@ -126,10 +127,10 @@
     row-gap: 15px;
   }
 
-  .avatar {
-    width: 40px;
-    height: 40px;
-  }
+  /*.avatar {*/
+  /*  width: 40px;*/
+  /*  height: 40px;*/
+  /*}*/
 
   .loginLink, .menuButton {
     font-size: 16px;

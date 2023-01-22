@@ -1,7 +1,7 @@
-import { EIconTypes } from '../../../enums';
-import { routes } from '../../../routesMap';
-import { THeaderNavLinksConfig } from '../../../ui-components/NavLinkIcon/NavLinkIcon.props';
-import { bookmarkIcon, bookmarkActiveIcon, shoppingCartEmptyIcon, shoppingCartFilledIcon } from '../../../vendor/icons';
+import { EIconTypes } from '../../../../enums';
+import { routes } from '../../../../routesMap';
+import { THeaderNavLinksConfig } from '../../../../ui-components/NavLinkIcon/NavLinkIcon.props';
+import { bookmarkIcon, bookmarkActiveIcon, shoppingCartEmptyIcon, shoppingCartFilledIcon } from '../../../../vendor/icons';
 
 export const navLinksConfig: THeaderNavLinksConfig = [
   {

@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 
-import { EIconTypes } from '../../../enums';
-import { HeaderNavLink } from '../../../ui-components';
+import { EIconTypes } from '../../../../enums';
+import { HeaderNavLink } from '../../../../ui-components';
 
 import { THeaderNavLinksProps } from './HeaderNavLinks.props';
 

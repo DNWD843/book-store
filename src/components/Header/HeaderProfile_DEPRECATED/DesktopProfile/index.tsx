@@ -34,9 +34,7 @@ const DesktopProfileComponent: React.FC = () => {
 
   const handleClickOnMenuButton = useCallback(() => { setMenuOpened((prev) => !prev); }, []);
 
-  const title = userData?.isAnonymous
-    ? 'Гость'
-    : `${userData?.displayName || userData?.email || 'Гость'}`;
+
 
   const handleLogout = useCallback(() => {
     dispatch(auth.logoutUser())

@@ -37,13 +37,13 @@
    grid-row: 1;
  }
 
- .actionButton {
-   border: none;
- }
+ /*.actionButton {*/
+ /*  border: none;*/
+ /*}*/
 
- .actionButton svg {
-   fill: var(--dark-grey);
- }
+ /*.actionButton svg {*/
+ /*  fill: var(--dark-grey);*/
+ /*}*/
 
  .dateWidget {
    grid-column: start/end;

@@ -1,64 +1,47 @@
-import React, { memo, useCallback, useMemo, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { memo, useCallback, useRef } from 'react';
 
 import { CLEAR_SEARCH_VALUE_DELAY } from '../../../constants';
-import { useClickOutside, useMatchMedia } from '../../../hooks';
-import { useAppDispatch } from '../../../redux/hooks';
-import { booksActions } from '../../../redux/slices';
-import { routes } from '../../../routesMap';
+import { useClickOutside } from '../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { booksActions, headerActions } from '../../../redux/slices';
+import { selectHeaderActionsState } from '../../../redux/store';
 
 import { MobileHeader } from './MobileHeader';
 
 const MobileHeaderComponent: React.FC = () => {
-  const { pathname } = useLocation();
   const dispatch = useAppDispatch();
+  const { closeMenu, closeSearchFilter } = headerActions;
   const { clearSearchValue } = booksActions;
-  const { isTablet } = useMatchMedia();
+  const { isMenuOpened, isSearchFilterOpened } = useAppSelector(selectHeaderActionsState);
+
   const searchFilterRef = useRef(null);
   const menuRef = useRef(null);
 
-  const [isSearchFilterVisible, setSearchFilterVisible] = useState<boolean>(false);
-  const [isMenuVisible, setMenuVisible] = useState<boolean>(false);
-
-  const isSearchAvailable = useMemo(() => pathname === routes.books, [pathname]);
-
-  const showSearchFilter = useCallback(() => { setSearchFilterVisible(true); }, []);
-  const hideSearchFilter = useCallback(() => {
-    setSearchFilterVisible(false);
-    dispatch(clearSearchValue());
-  }, [clearSearchValue, dispatch]);
-
-  const showMenu = useCallback(() => { setMenuVisible(true); }, []);
-  const hideMenu = useCallback(() => { setMenuVisible(false); }, []);
-
-  const hideBookSearchEffect = useCallback(() => {
-    if (isSearchFilterVisible) {
+  const useClickOutsideEffect = useCallback(() => {
+    if (isSearchFilterOpened) {
       const timeout = setTimeout(() => {
-        hideSearchFilter();
+        dispatch(closeSearchFilter());
+        dispatch(clearSearchValue());
         clearTimeout(timeout);
       }, CLEAR_SEARCH_VALUE_DELAY);
     }
 
-    if (isMenuVisible) {
+    if (isMenuOpened) {
       const timeout = setTimeout(() => {
-        hideMenu();
+        dispatch(closeMenu());
         clearTimeout(timeout);
       }, CLEAR_SEARCH_VALUE_DELAY);
     }
-  }, [hideMenu, hideSearchFilter, isMenuVisible, isSearchFilterVisible]);
+  }, [clearSearchValue, closeMenu, closeSearchFilter, dispatch, isMenuOpened, isSearchFilterOpened]);
 
-  useClickOutside(hideBookSearchEffect, [searchFilterRef, menuRef]);
+  useClickOutside(useClickOutsideEffect, [searchFilterRef, menuRef]);
 
   return (
     <MobileHeader
-      isMenuVisible={isMenuVisible}
-      isSearchAvailable={isSearchAvailable}
-      isSearchFilterVisible={isSearchFilterVisible}
-      isTablet={isTablet}
+      isMenuVisible={isMenuOpened}
+      isSearchFilterVisible={isSearchFilterOpened}
       menuRef={menuRef}
       searchFilterRef={searchFilterRef}
-      showMenu={showMenu}
-      showSearchFilter={showSearchFilter}
     />
   );
 };

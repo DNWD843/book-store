@@ -1,4 +1,4 @@
-import { THeaderNavLinksConfig } from '../../../ui-components/NavLinkIcon/NavLinkIcon.props';
+import { THeaderNavLinksConfig } from '../../../../ui-components/NavLinkIcon/NavLinkIcon.props';
 
 export type THeaderNavLinksProps = {
   isAnonymous: boolean,

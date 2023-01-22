@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 import { routes } from '../../../routesMap';
 import { BookSearchFilter } from '../../BookSearchFilter';
-import { DateWidget } from '../HeaderDateWidget';
-import { NavLinks } from '../HeaderNavLinks';
-import { DesktopProfile } from '../HeaderProfile/DesktopProfile';
+import { DesktopMenuButton } from '../partials/DesktopMenuButton';
+import { DateWidget } from '../partials/HeaderDateWidget';
+import { NavLinks } from '../partials/HeaderNavLinks';
 
 import styles from './DesktopHeader.module.css';
 
@@ -16,11 +16,11 @@ const DesktopHeader: React.FC<{ isSearchAvailable: boolean }> = ({ isSearchAvail
         <h2 className={styles.logo}>BookStore</h2>
       </Link>
 
-      <div className={styles.search}>
+      <div className={styles.searchFilter}>
         { isSearchAvailable ? (<BookSearchFilter />) : null}
       </div>
-      <div className={styles.profile}>
-        <DesktopProfile />
+      <div className={styles.headerMenuButton}>
+        <DesktopMenuButton />
       </div>
       <nav className={styles.navLinks}>
         <NavLinks />

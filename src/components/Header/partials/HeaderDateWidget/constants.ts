@@ -1,5 +1,5 @@
-import { EMonths } from '../../../enums';
-import { EDaysOfWeek } from '../../../enums/dateWidgetEnums';
+import { EMonths } from '../../../../enums';
+import { EDaysOfWeek } from '../../../../enums/dateWidgetEnums';
 
 export const months: EMonths[] = [
   EMonths.january,

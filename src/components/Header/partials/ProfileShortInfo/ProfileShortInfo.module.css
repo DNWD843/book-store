@@ -1,0 +1,25 @@
+.avatar {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  word-break: break-all;
+  font-size: 12px;
+}
+
+.title {
+  color: var(--dark-grey);
+  font-size: 20px;
+  font-weight: bold;
+  max-width: 400px;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@media all and (max-width: 1079px) {
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+}
