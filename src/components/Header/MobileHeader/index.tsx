@@ -13,18 +13,23 @@ const MobileHeaderComponent: React.FC = () => {
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
   const { clearSearchValue } = booksActions;
-  const [isSearchFilterVisible, setSearchFilterVisible] = useState<boolean>(false);
   const { isTablet } = useMatchMedia();
   const searchFilterRef = useRef(null);
+  const menuRef = useRef(null);
+
+  const [isSearchFilterVisible, setSearchFilterVisible] = useState<boolean>(false);
+  const [isMenuVisible, setMenuVisible] = useState<boolean>(false);
+
+  const isSearchAvailable = useMemo(() => pathname === routes.books, [pathname]);
 
   const showSearchFilter = useCallback(() => { setSearchFilterVisible(true); }, []);
-
   const hideSearchFilter = useCallback(() => {
     setSearchFilterVisible(false);
     dispatch(clearSearchValue());
   }, [clearSearchValue, dispatch]);
 
-  const isSearchAvailable = useMemo(() => pathname === routes.books, [pathname]);
+  const showMenu = useCallback(() => { setMenuVisible(true); }, []);
+  const hideMenu = useCallback(() => { setMenuVisible(false); }, []);
 
   const hideBookSearchEffect = useCallback(() => {
     if (isSearchFilterVisible) {
@@ -33,17 +38,26 @@ const MobileHeaderComponent: React.FC = () => {
         clearTimeout(timeout);
       }, CLEAR_SEARCH_VALUE_DELAY);
     }
-  }, [hideSearchFilter, isSearchFilterVisible]);
 
-  useClickOutside(hideBookSearchEffect, [searchFilterRef]);
+    if (isMenuVisible) {
+      const timeout = setTimeout(() => {
+        hideMenu();
+        clearTimeout(timeout);
+      }, CLEAR_SEARCH_VALUE_DELAY);
+    }
+  }, [hideMenu, hideSearchFilter, isMenuVisible, isSearchFilterVisible]);
+
+  useClickOutside(hideBookSearchEffect, [searchFilterRef, menuRef]);
 
   return (
     <MobileHeader
-      isMenuVisible={false}
+      isMenuVisible={isMenuVisible}
       isSearchAvailable={isSearchAvailable}
       isSearchFilterVisible={isSearchFilterVisible}
       isTablet={isTablet}
+      menuRef={menuRef}
       searchFilterRef={searchFilterRef}
+      showMenu={showMenu}
       showSearchFilter={showSearchFilter}
     />
   );

@@ -5,7 +5,8 @@ export type TMobileHeaderProps = {
   isSearchAvailable: boolean,
   isMenuVisible: boolean,
   showSearchFilter: () => void,
-  // hideSearchFilter: () => void,
+  showMenu: () => void,
   isTablet: boolean,
   searchFilterRef: React.MutableRefObject<HTMLDivElement | null>
+  menuRef: React.MutableRefObject<HTMLDivElement | null>
 };

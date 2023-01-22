@@ -5,7 +5,7 @@ import { routes } from '../../../routesMap';
 import { BookSearchFilter } from '../../BookSearchFilter';
 import { DateWidget } from '../HeaderDateWidget';
 import { NavLinks } from '../HeaderNavLinks';
-import { HeaderProfileComponent } from '../HeaderProfile';
+import { DesktopProfile } from '../HeaderProfile/DesktopProfile';
 
 import styles from './DesktopHeader.module.css';
 
@@ -20,7 +20,7 @@ const DesktopHeader: React.FC<{ isSearchAvailable: boolean }> = ({ isSearchAvail
         { isSearchAvailable ? (<BookSearchFilter />) : null}
       </div>
       <div className={styles.profile}>
-        <HeaderProfileComponent />
+        <DesktopProfile />
       </div>
       <nav className={styles.navLinks}>
         <NavLinks />

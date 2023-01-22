@@ -50,7 +50,7 @@
    grid-row: 2;
  }
 
- .searchFilter {
+ .searchFilter, .menu {
    position: fixed;
    top: 0;
    left: 0;
@@ -67,12 +67,8 @@
    box-shadow: 0 1px 7px var(--grey);
  }
 
- .isSearchFilterVisible {
+ .isSearchFilterVisible, .isMenuVisible {
    top: 95px;
- }
-
- .menu {
-
  }
 
  @media all and (max-width: 766px) {

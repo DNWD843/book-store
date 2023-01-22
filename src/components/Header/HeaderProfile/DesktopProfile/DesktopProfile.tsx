@@ -1,15 +1,15 @@
 import classNames from 'classnames';
-import React, { forwardRef } from 'react';
+import React, { forwardRef, memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { routes } from '../../../routesMap';
-import { SimpleButton } from '../../../ui-components';
+import { routes } from '../../../../routesMap';
+import { SimpleButton } from '../../../../ui-components';
 
-import { THeaderProfileProps } from './HeaderProfile.props';
+import { TDesktopProfileProps } from './DesktopProfile.props';
 
-import styles from './HeaderProfile.module.css';
+import styles from './DesktopProfile.module.css';
 
-const HeaderProfile = forwardRef<HTMLDivElement, THeaderProfileProps>(
+const DesktopProfile = forwardRef<HTMLDivElement, TDesktopProfileProps>(
   ({ title, onLogout, onDelete, onProfileClick, isMenuOpened, isAnonymous, photoUrl, menuButtonRef, isAdmin, onUpdateBooksCatalogue }, ref) => (
     <div className={styles.profile}>
       {isAnonymous
@@ -54,6 +54,8 @@ const HeaderProfile = forwardRef<HTMLDivElement, THeaderProfileProps>(
   ),
 );
 
-HeaderProfile.displayName = 'Profile';
+DesktopProfile.displayName = 'DesktopProfile';
 
-export { HeaderProfile };
+const MemoDesktopProfile = memo(DesktopProfile);
+
+export { MemoDesktopProfile as DesktopProfile };

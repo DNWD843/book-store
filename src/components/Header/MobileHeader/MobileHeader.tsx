@@ -14,14 +14,14 @@ import {
 } from '../../../vendor/icons';
 import { BookSearchFilter } from '../../BookSearchFilter';
 import { DateWidget } from '../HeaderDateWidget';
-import { HeaderProfileComponent } from '../HeaderProfile';
+import { HeaderProfileComponent } from '../HeaderProfile/DesktopProfile';
 
 import { TMobileHeaderProps } from './MobileHeader.props';
 
 import styles from './MobileHeader.module.css';
 
 const MobileHeader: React.FC<TMobileHeaderProps> = (
-  { searchFilterRef, isSearchAvailable, isSearchFilterVisible, isMenuVisible, isTablet, showSearchFilter },
+  { searchFilterRef, menuRef, isSearchAvailable, isSearchFilterVisible, isMenuVisible, isTablet, showSearchFilter, showMenu },
 ) => (
   <>
     <header className={styles.header}>
@@ -40,20 +40,25 @@ const MobileHeader: React.FC<TMobileHeaderProps> = (
 
               </div>
             ) : null}
-          <SimpleButton className={classNames(styles.actionButton, 'btn-outline-secondary')}>{isTablet ? menuIconTablet : menuIconMobile}</SimpleButton>
+          {isMenuVisible
+            ? (<SimpleButton className={classNames(styles.actionButton, 'btn-outline-secondary')}>{isTablet ? closeIconTablet : closeIconMobile}</SimpleButton>)
+            : (<SimpleButton className={classNames(styles.actionButton, 'btn-outline-secondary')} onClick={showMenu}>{isTablet ? menuIconTablet : menuIconMobile}</SimpleButton>)}
         </div>
 
         <DateWidget className={styles.dateWidget} />
-
-        <div className={classNames(styles.menu, { [styles.isMenuVisible]: isMenuVisible })}>
-          <div className={styles.profile}>
-            {isMenuVisible ? (<HeaderProfileComponent />) : null}
-          </div>
-        </div>
       </div>
     </header>
     <div className={classNames(styles.searchFilter, { [styles.isSearchFilterVisible]: isSearchFilterVisible })} ref={searchFilterRef}>
       <BookSearchFilter />
+    </div>
+    <div className={classNames(styles.menu, { [styles.isMenuVisible]: isMenuVisible })} ref={menuRef}>
+      <div className={styles.menuContent}>
+        <div className={styles.profile}>
+          {isMenuVisible ? (<HeaderProfileComponent />) : null}
+        </div>
+        <div className={styles.menuActions}></div>
+      </div>
+
     </div>
   </>
 );
