@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { routes } from '../../../routesMap';
 import { BookSearchFilter } from '../../BookSearchFilter';
-import { DesktopMenuButton } from '../partials/DesktopMenuButton';
-import { DateWidget } from '../partials/HeaderDateWidget';
-import { NavLinks } from '../partials/HeaderNavLinks';
+import { DesktopMenuButton, DateWidget, NavLinks } from '../partials';
 
 import styles from './DesktopHeader.module.css';
 

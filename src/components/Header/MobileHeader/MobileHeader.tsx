@@ -2,8 +2,7 @@ import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 import { routes } from '../../../routesMap';
-import { DateWidget } from '../partials/HeaderDateWidget';
-import { MobileHeaderActions } from '../partials/MobileHeaderActions';
+import { DateWidget, MobileHeaderActions } from '../partials';
 
 import styles from './MobileHeader.module.css';
 

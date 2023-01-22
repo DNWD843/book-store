@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { booksActions, headerActions } from '../../../redux/slices';
 import { selectHeaderActionsState } from '../../../redux/store';
 import { BookSearchFilter } from '../../BookSearchFilter';
-import { HeaderMenu } from '../partials/HeaderMenu';
+import { HeaderMenu } from '../partials';
 
 import { MobileHeader } from './MobileHeader';
 

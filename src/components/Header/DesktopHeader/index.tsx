@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { headerActions } from '../../../redux/slices';
 import { selectHeaderActionsState } from '../../../redux/store';
 import { routes } from '../../../routesMap';
-import { HeaderMenu } from '../partials/HeaderMenu';
+import { HeaderMenu } from '../partials';
 
 import { DesktopHeader } from './DesktopHeader';
 
