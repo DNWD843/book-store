@@ -1,1 +1,1 @@
-export * from './ProfileShortInfo/ProfileShortInfo';
+export * from './ProfileShortInfo';

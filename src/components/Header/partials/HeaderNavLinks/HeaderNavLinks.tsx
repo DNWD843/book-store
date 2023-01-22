@@ -8,11 +8,11 @@ import { THeaderNavLinksProps } from './HeaderNavLinks.props';
 import styles from './HeaderNavLinks.module.css';
 
 const HeaderNavLinks: React.FC<THeaderNavLinksProps> = ({ isAnonymous, navLinks }) => (
-  <ul className={styles.navLinksList}>
+  <nav className={styles.navLinksList}>
     {navLinks.map(({ id, ...props }) => (
       <HeaderNavLink key={id} {...props} isVisible={id === EIconTypes.favorites ? !isAnonymous : true} />
     ))}
-  </ul>
+  </nav>
 );
 
 HeaderNavLinks.displayName = 'NavLinks';

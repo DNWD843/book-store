@@ -5,6 +5,8 @@ import { useClickOutside } from '../../../hooks';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { booksActions, headerActions } from '../../../redux/slices';
 import { selectHeaderActionsState } from '../../../redux/store';
+import { BookSearchFilter } from '../../BookSearchFilter';
+import { HeaderMenu } from '../partials/HeaderMenu';
 
 import { MobileHeader } from './MobileHeader';
 
@@ -14,8 +16,8 @@ const MobileHeaderComponent: React.FC = () => {
   const { clearSearchValue } = booksActions;
   const { isMenuOpened, isSearchFilterOpened } = useAppSelector(selectHeaderActionsState);
 
-  const searchFilterRef = useRef(null);
-  const menuRef = useRef(null);
+  const searchFilterRef = useRef<HTMLDivElement | null>(null);
+  const menuRef = useRef<HTMLDivElement | null>(null);
 
   const useClickOutsideEffect = useCallback(() => {
     if (isSearchFilterOpened) {
@@ -37,12 +39,11 @@ const MobileHeaderComponent: React.FC = () => {
   useClickOutside(useClickOutsideEffect, [searchFilterRef, menuRef]);
 
   return (
-    <MobileHeader
-      isMenuVisible={isMenuOpened}
-      isSearchFilterVisible={isSearchFilterOpened}
-      menuRef={menuRef}
-      searchFilterRef={searchFilterRef}
-    />
+    <>
+      <MobileHeader />
+      <BookSearchFilter searchFilterRef={searchFilterRef} />
+      <HeaderMenu menuRef={menuRef} />
+    </>
   );
 };
 

@@ -2,6 +2,10 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto;
   column-gap: 25px;
+  align-self: center;
+  grid-column: navLinks;
+  grid-row: 1;
 }

@@ -29,51 +29,31 @@
 
   color: var(--dark-grey);
 }
-.searchFilter {
-  align-self: center;
-  justify-self: center;
-  width: 95%;
-  grid-column: searchFilter;
-  grid-row: 1/-1;
-}
+/*.searchFilter {*/
+/*  align-self: center;*/
+/*  justify-self: center;*/
+/*  width: 95%;*/
+/*  grid-column: searchFilter;*/
+/*  grid-row: 1/-1;*/
+/*}*/
 
-.headerMenuButton {
-  align-self: center;
-  justify-self: center;
-  grid-column: headerMenuButton;
-  grid-row: 1;
-}
+/*.headerMenuButton {*/
+/*  align-self: center;*/
+/*  justify-self: center;*/
+/*  grid-column: headerMenuButton;*/
+/*  grid-row: 1;*/
+/*}*/
 
-.navLinks {
-  align-self: center;
-  grid-column: navLinks;
-  grid-row: 1;
-}
+/*.navLinks {*/
+/*  align-self: center;*/
+/*  grid-column: navLinks;*/
+/*  grid-row: 1;*/
+/*}*/
 
 .dateWidget {
   grid-column: headerMenuButton/end;
   grid-row: 2;
   z-index: 20;
-}
-
-.burgerMenu, .mobileSearch {
-  display: grid;
-  align-self: center;
-  justify-self: center;
-}
-
-.burgerMenuIcon {
-  width: 24px;
-  height: 24px;
-  transform: scale(1.7);
-  padding: 2px 0 0 10px;
-}
-
-.searchIcon {
-  width: 24px;
-  height: 24px;
-  transform: scale(1.5);
-  padding: 2px 15px 0 0;
 }
 
 @media screen and (max-width: 1320px) {

@@ -5,11 +5,13 @@ import { ESlicesNames } from '../slicesNames';
 export type THeaderActionsState = {
   isMenuOpened: boolean,
   isSearchFilterOpened: boolean,
+  isConfirmModalOpened: boolean,
 };
 
 const initialState: THeaderActionsState = {
   isMenuOpened: false,
   isSearchFilterOpened: false,
+  isConfirmModalOpened: false,
 };
 
 const headerActionsSlice = createSlice({
@@ -20,6 +22,8 @@ const headerActionsSlice = createSlice({
     closeMenu: (state) => { state.isMenuOpened = false; },
     openSearchFilter: (state) => { state.isSearchFilterOpened = true; },
     closeSearchFilter: (state) => { state.isSearchFilterOpened = false; },
+    openConfirmModal: (state) => { state.isConfirmModalOpened = true; },
+    closeConfirmModal: (state) => { state.isConfirmModalOpened = false; },
   },
 });
 

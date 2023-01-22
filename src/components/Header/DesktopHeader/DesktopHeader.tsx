@@ -15,16 +15,9 @@ const DesktopHeader: React.FC<{ isSearchAvailable: boolean }> = ({ isSearchAvail
       <Link className={styles.logoLink} title="На главную" to={routes.books}>
         <h2 className={styles.logo}>BookStore</h2>
       </Link>
-
-      <div className={styles.searchFilter}>
-        { isSearchAvailable ? (<BookSearchFilter />) : null}
-      </div>
-      <div className={styles.headerMenuButton}>
-        <DesktopMenuButton />
-      </div>
-      <nav className={styles.navLinks}>
-        <NavLinks />
-      </nav>
+      { isSearchAvailable ? (<BookSearchFilter searchFilterRef={{ current: null }} />) : null}
+      <DesktopMenuButton />
+      <NavLinks />
       <DateWidget className={styles.dateWidget} />
     </div>
   </header>
