@@ -1,5 +1,6 @@
 import React, { memo, useCallback } from 'react';
 
+import { useMatchMedia } from '../../../../hooks';
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
 import { headerActions } from '../../../../redux/slices';
 import { selectHeaderActionsState, selectUserData } from '../../../../redux/store';
@@ -11,11 +12,12 @@ const DesktopMenuButtonComponent: React.FC = () => {
   const { openMenu } = headerActions;
   const { isAnonymous } = useAppSelector(selectUserData);
   const { isMenuOpened } = useAppSelector(selectHeaderActionsState);
+  const { isDesktop } = useMatchMedia();
 
   const openHeaderMenu = useCallback(() => { dispatch(openMenu()); }, [dispatch, openMenu]);
 
   return (
-    <DesktopMenuButton disabled={isMenuOpened} isAnonymous={isAnonymous} onMenuButtonClick={openHeaderMenu} />
+    <DesktopMenuButton disabled={isDesktop ? isMenuOpened : !isAnonymous} isAnonymous={isAnonymous} onMenuButtonClick={openHeaderMenu} />
   );
 };
 
