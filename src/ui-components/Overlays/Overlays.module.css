@@ -90,3 +90,15 @@
   background-color: var(--info-background);
   border: 1px solid var(--info-border);
 }
+
+@media all and (max-width: 1079px) {
+  .content {
+    width: 280px;
+  }
+}
+
+@media all and (max-width: 766px) {
+  .modalContent {
+    min-width: 280px;
+  }
+}

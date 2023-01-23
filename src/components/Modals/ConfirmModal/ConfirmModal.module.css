@@ -9,3 +9,10 @@
   color: var(--dark-grey);
   font-size: 28px;
 }
+
+@media all and (max-width: 766px) {
+  .title {
+    font-size: 22px;
+    text-align: center;
+  }
+}

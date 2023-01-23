@@ -1,14 +1,20 @@
 import uniqueId from 'lodash/uniqueId';
 import React, { memo, useCallback } from 'react';
 
-import { booksRequestMessages, defaultMessages, POPUP_ID_PREFIX } from '../../../../../constants';
+import {
+  booksRequestMessages,
+  defaultMessages,
+  deleteUserRequestMessages,
+  POPUP_ID_PREFIX,
+} from '../../../../../constants';
 import { EFetchStatuses, EPopupTypes } from '../../../../../enums';
 import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks';
 import { headerActions, popupsActions, userSavingsActions } from '../../../../../redux/slices';
-import { selectUserData, storageActions } from '../../../../../redux/store';
-import { auth, updateBooksCatalogue } from '../../../../../redux/thunks';
+import { selectHeaderActionsState, selectUserData, storageActions } from '../../../../../redux/store';
+import { auth, updateBooksCatalogue, deleteUserSavings } from '../../../../../redux/thunks';
 import { TUpdateCatalogueRequestResponse } from '../../../../../types';
 import { storage, storageKeys } from '../../../../../utils';
+import { ConfirmModal } from '../../../../Modals';
 
 import { HeaderMenuActionButtons } from './HeaderMenuActionButtons';
 
@@ -16,8 +22,9 @@ const HeaderMenuActionButtonsComponent: React.FC = () => {
   const dispatch = useAppDispatch();
   const { removeUserSavingsFromStore } = userSavingsActions;
   const { addPopup } = popupsActions;
-  const { closeMenu, openConfirmModal } = headerActions;
+  const { closeMenu, openConfirmModal, closeConfirmModal } = headerActions;
   const { isAdmin } = useAppSelector(selectUserData);
+  const { isConfirmModalOpened } = useAppSelector(selectHeaderActionsState);
 
   const handleLogout = useCallback(() => {
     dispatch(auth.logoutUser())
@@ -46,6 +53,7 @@ const HeaderMenuActionButtonsComponent: React.FC = () => {
   }, [addPopup, closeMenu, dispatch, removeUserSavingsFromStore]);
 
   const onDelete = useCallback(() => { dispatch(openConfirmModal()); }, [dispatch, openConfirmModal]);
+  const closeModal = useCallback(() => { dispatch(closeConfirmModal()); }, [closeConfirmModal, dispatch]);
 
   const onUpdateBooksCatalogue = useCallback(async () => {
     await dispatch(updateBooksCatalogue())
@@ -79,13 +87,68 @@ const HeaderMenuActionButtonsComponent: React.FC = () => {
       });
   }, [addPopup, closeMenu, dispatch]);
 
+  const handleDeleteUser = useCallback(async () => {
+    await dispatch(deleteUserSavings())
+      .then((res) => {
+        if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
+          storage.deleteData(storageKeys.USER_SAVINGS);
+          dispatch(storageActions.removeUserSavings);
+        } else {
+          // eslint-disable-next-line @typescript-eslint/no-throw-literal
+          throw res;
+        }
+      })
+      .catch((err) => {
+        dispatch(addPopup({
+          id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
+          message: err?.error?.message ?? defaultMessages.unexpectedError,
+          type: EPopupTypes.danger,
+        }));
+      });
+
+    await dispatch(auth.deleteUser())
+      .then((res) => {
+        if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
+          dispatch(addPopup({
+            id: res.meta.requestId || uniqueId(POPUP_ID_PREFIX),
+            message: deleteUserRequestMessages.success,
+            type: EPopupTypes.success,
+          }));
+
+          storage.deleteData(storageKeys.USER);
+          dispatch(storageActions.removeUserInfo);
+        } else {
+          // eslint-disable-next-line @typescript-eslint/no-throw-literal
+          throw res;
+        }
+      })
+      .then(() => { closeModal(); })
+      .catch((err) => {
+        dispatch(addPopup({
+          id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
+          message: err?.error?.message ?? defaultMessages.unexpectedError,
+          type: EPopupTypes.danger,
+        }));
+      });
+  }, [addPopup, closeModal, dispatch]);
+
   return (
-    <HeaderMenuActionButtons
-      isAdmin={isAdmin}
-      onDelete={onDelete}
-      onLogout={handleLogout}
-      onUpdateBooksCatalogue={onUpdateBooksCatalogue}
-    />
+    <>
+      <HeaderMenuActionButtons
+        isAdmin={isAdmin}
+        onDelete={onDelete}
+        onLogout={handleLogout}
+        onUpdateBooksCatalogue={onUpdateBooksCatalogue}
+      />
+      <ConfirmModal
+        clearButtonTitle="Отменить"
+        isOpened={isConfirmModalOpened}
+        submitButtonTitle="Удалить"
+        onCancel={closeModal}
+        onClose={closeModal}
+        onSubmit={handleDeleteUser}
+      />
+    </>
   );
 };
 

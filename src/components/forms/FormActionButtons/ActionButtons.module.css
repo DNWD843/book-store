@@ -8,3 +8,13 @@
   font-size: 20px;
 }
 
+@media all and (max-width: 766px) {
+  .formButtons {
+    flex-direction: column;
+  }
+
+  .formButtons button {
+    font-size: 16px;
+  }
+}
+
