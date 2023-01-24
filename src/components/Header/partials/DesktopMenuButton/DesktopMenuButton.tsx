@@ -10,11 +10,11 @@ import { TDesktopMenuButtonProps } from './DesktopMenuButton.props';
 
 import styles from './DesktopMenuButton.module.css';
 
-const DesktopMenuButton: React.FC<TDesktopMenuButtonProps> = ({ isAnonymous, disabled, onMenuButtonClick }) => (
+const DesktopMenuButton: React.FC<TDesktopMenuButtonProps> = ({ isAnonymous, disabled, onMenuButtonClick, closeMenu }) => (
   <div className={styles.menuButtonContainer}>
     {isAnonymous
       ? (
-        <Link className={styles.loginLink} to={routes.login}>
+        <Link className={styles.loginLink} to={routes.login} onClick={closeMenu}>
           <ProfileShortInfo />
         </Link>
       )

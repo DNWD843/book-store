@@ -9,15 +9,23 @@ import { DesktopMenuButton } from './DesktopMenuButton';
 
 const DesktopMenuButtonComponent: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { openMenu } = headerActions;
+  const { openMenu, closeMenu } = headerActions;
   const { isAnonymous } = useAppSelector(selectUserData);
   const { isMenuOpened } = useAppSelector(selectHeaderActionsState);
   const { isDesktop } = useMatchMedia();
 
   const openHeaderMenu = useCallback(() => { dispatch(openMenu()); }, [dispatch, openMenu]);
+  const closeHeaderMenu = useCallback(() => {
+    dispatch(closeMenu());
+  }, [closeMenu, dispatch]);
 
   return (
-    <DesktopMenuButton disabled={isDesktop ? isMenuOpened : !isAnonymous} isAnonymous={isAnonymous} onMenuButtonClick={openHeaderMenu} />
+    <DesktopMenuButton
+      closeMenu={!isDesktop ? closeHeaderMenu : undefined}
+      disabled={isDesktop ? isMenuOpened : !isAnonymous}
+      isAnonymous={isAnonymous}
+      onMenuButtonClick={openHeaderMenu}
+    />
   );
 };
 

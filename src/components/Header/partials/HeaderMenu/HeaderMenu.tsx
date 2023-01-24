@@ -9,13 +9,13 @@ import { HeaderMenuActionButtons } from './HeaderMenuActionButtons';
 
 import styles from './HeaderMenu.module.css';
 
-const HeaderMenu: React.FC<THeaderMenuProps> = ({ isMenuOpened, isShortInfoVisible, menuRef }) => (
+const HeaderMenu: React.FC<THeaderMenuProps> = ({ isMenuOpened, isDesktop, isAnonymous, menuRef }) => (
   <div className={classNames(styles.menu, { [styles.isMenuVisible]: isMenuOpened })} ref={menuRef}>
     <div className={styles.menuHeader}>
-      {isShortInfoVisible ? (<DesktopMenuButton />) : null}
+      {!isDesktop ? (<DesktopMenuButton />) : null}
     </div>
     <HeaderMenuNavLinks />
-    <HeaderMenuActionButtons />
+    {isAnonymous ? null : (<HeaderMenuActionButtons />)}
   </div>
 );
 

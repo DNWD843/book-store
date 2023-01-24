@@ -6,7 +6,7 @@ import { MobileHeaderActionButton } from '../MobileHeaderActionButton';
 import { TMobileHeaderActionsProps } from './MobileHeaderActions.props';
 
 const MobileHeaderActions: React.FC<TMobileHeaderActionsProps> = (
-  { isSearchAvailable, isMenuVisible, isSearchFilterVisible, showSearchFilter, showMenu, anonymousAction, isAnonymous },
+  { isSearchAvailable, isMenuVisible, isSearchFilterVisible, showSearchFilter, showMenu },
 ) => (
   <>
     {isSearchAvailable
@@ -19,7 +19,7 @@ const MobileHeaderActions: React.FC<TMobileHeaderActionsProps> = (
         />
       ) : null}
     <MobileHeaderActionButton
-      action={isAnonymous ? anonymousAction : showMenu}
+      action={showMenu}
       isPressed={isMenuVisible}
       mobileIcon={menuIconMobile}
       tabletIcon={menuIconTablet}

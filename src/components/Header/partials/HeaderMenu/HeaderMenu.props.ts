@@ -2,6 +2,7 @@ import React from 'react';
 
 export type THeaderMenuProps = {
   isMenuOpened: boolean,
-  isShortInfoVisible: boolean,
+  isDesktop: boolean,
+  isAnonymous: boolean,
   menuRef: React.MutableRefObject<HTMLDivElement | null>,
 };

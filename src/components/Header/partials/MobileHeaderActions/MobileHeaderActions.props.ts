@@ -4,6 +4,4 @@ export type TMobileHeaderActionsProps = {
   isSearchFilterVisible: boolean,
   showSearchFilter: () => void,
   showMenu: () => void,
-  anonymousAction: () => void,
-  isAnonymous: boolean,
 };

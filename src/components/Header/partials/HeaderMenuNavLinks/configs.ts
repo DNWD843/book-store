@@ -16,3 +16,7 @@ export const mobileHeaderMenuLinksConfig: THeaderMenuLinksConfig = [
   { route: routes.profile, title: 'Данные профиля' },
   { route: routes.purchasesHistory, title: 'История покупок' },
 ];
+
+export const anonymousMobileHeaderMenuLinksConfig: THeaderMenuLinksConfig = [
+  { route: routes.shoppingCart, title: 'Корзина' },
+];
