@@ -71,6 +71,10 @@
 }
 
 @media all and (max-width: 530px) {
+  .pageContainer {
+    padding: 0 10px;
+  }
+
   .pageTitle {
     font-size: 22px;
   }

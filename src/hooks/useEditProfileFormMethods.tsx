@@ -7,7 +7,7 @@ import { useAppDispatch } from '../redux/hooks';
 import { authActions, popupsActions } from '../redux/slices';
 import { storageActions } from '../redux/store';
 import { updateUserData, updateUserLogin } from '../redux/thunks/authThunks';
-import { TEditedData, TProfileFormValues } from '../types';
+import { TEditedData, TEditProfileFormValues } from '../types';
 import { storage, storageKeys } from '../utils/localStorage';
 
 export const useEditProfileFormMethods = () => {
@@ -15,7 +15,7 @@ export const useEditProfileFormMethods = () => {
   const { addPopup } = popupsActions;
   const { setUserToStore } = authActions;
 
-  const updateProfileData = useCallback((data: TProfileFormValues) => dispatch(updateUserData(data))
+  const updateProfileData = useCallback((data: TEditProfileFormValues) => dispatch(updateUserData(data))
     .then((res) => {
       if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
         dispatch(addPopup({

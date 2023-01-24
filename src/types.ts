@@ -93,7 +93,7 @@ export type TOrderFormValues = {
   [EPersonalInfoFieldsNames.patronymic]?: string,
 };
 
-export type TProfileFormValues = Record<EProfileFormFieldsNames, string | null | undefined>;
+export type TEditProfileFormValues = Record<EProfileFormFieldsNames, string | null | undefined>;
 
 export type TSendingTypeRadioButton = {
   name: string,

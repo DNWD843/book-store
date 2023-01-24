@@ -5,11 +5,12 @@ import { useEditProfileFormMethods } from '../../../hooks';
 import { TEditedData, TEditProfileModalConfig, TOnEditArgs } from '../../../types';
 import { Modal } from '../../../ui-components';
 import { EditProfileModalForm } from '../EditProfileModalForm';
+import { profileFormFieldsConfig } from '../formConfigs';
 
-import { ProfileForm } from './ProfileForm';
-import { IProfileFormComponentProps } from './ProfileForm.props';
+import { EditProfileForm } from './EditProfileForm';
+import { IEditProfileFormComponentProps } from './EditProfileForm.props';
 
-const ProfileFormComponent: React.FC<IProfileFormComponentProps> = (props) => {
+const ProfileFormComponent: React.FC<IEditProfileFormComponentProps> = (props) => {
   const [isModalOpened, setModalOpened] = useState<boolean>(false);
   const [modalConfig, setModalConfig] = useState<TEditProfileModalConfig>(null);
 
@@ -46,9 +47,8 @@ const ProfileFormComponent: React.FC<IProfileFormComponentProps> = (props) => {
 
   return (
     <>
-      <form noValidate>
-        <ProfileForm {...props} disabled onEdit={onEdit} />
-      </form>
+      <EditProfileForm {...props} disabled formFieldsConfig={Object.values(profileFormFieldsConfig)} onEdit={onEdit} />
+
       {modalConfig && (
         <Modal isOpened={isModalOpened} onClose={closeModal}>
           <EditProfileModalForm {...modalConfig} onCancel={closeModal} onSubmit={onSubmit} />
