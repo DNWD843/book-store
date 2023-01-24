@@ -10,14 +10,14 @@ import { TPurchaseInfoProps } from './PurchaseInfoBlock.props';
 const PurchaseInfoBlock: React.FC<TPurchaseInfoProps> = ({ purchaseDateAndTime, purchasePrice, books }) => (
   <Region className={styles.pageRegion}>
     <div className={styles.regionHeader}>
-      <p className={styles.purchaseDateAndTime}>
+      <div className={styles.purchaseDateAndTime}>
         <span className={styles.accentBold}>Дата покупки:</span>
         <span className={styles.purchaseInfoValue}>{purchaseDateAndTime}</span>
-      </p>
-      <p className={styles.purchasePrice}>
+      </div>
+      <div className={styles.purchasePrice}>
         <span className={styles.accentBold}>Стоимость покупки:</span>
         <span className={styles.purchaseInfoValue}>{`${purchasePrice} ${RUBLE_SIGN}`}</span>
-      </p>
+      </div>
     </div>
     <Cards books={books} />
   </Region>
