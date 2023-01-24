@@ -103,6 +103,12 @@
   }
 }
 
+@media all and (max-width: 1079px) {
+  .content {
+    display: none;
+  }
+}
+
 @media all and (max-width: 530px) {
   .title {
     font-size: 22px;
