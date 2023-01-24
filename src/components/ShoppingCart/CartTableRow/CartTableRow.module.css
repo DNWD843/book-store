@@ -1,6 +1,6 @@
 .container {
   display: grid;
-  grid-template-columns: 3% 8% 35% 14% 18% 14% 3%;
+  grid-template-columns: 3% 8% 40% repeat(4, auto);
   grid-template-rows: auto 1fr;
   gap: 10px;
   position: relative;
@@ -175,4 +175,126 @@
 
 .deleteButton:hover .deleteIcon svg {
   stroke: rgba(253, 1, 1, 0.5);
+}
+
+@media all and (max-width: 1079px) {
+  .title {
+    font-size: 24px;
+  }
+
+  .author, .priceTitle, .quantityTitle, .totalPriceTitle {
+    font-size: 16px;
+  }
+
+  .price, .quantity, .totalPrice {
+    font-size: 20px;
+  }
+}
+
+@media all and (max-width: 766px) {
+  .container {
+   grid-template-columns: repeat(3, 1fr) auto;
+    grid-template-rows: repeat(4, auto);
+  }
+
+  .title {
+    grid-column: 1/-1;
+    grid-row: 1;
+  }
+
+  .author {
+    grid-column: 1/-1;
+    grid-row: 2;
+  }
+
+  .rowNumber, .cover {
+    display: none;
+  }
+
+  .priceTitle {
+    grid-column: 1/2;
+    grid-row: 3;
+  }
+  .price {
+    grid-column: 1/2;
+    grid-row: 4;
+  }
+
+  .quantityTitle {
+    grid-column: 2/3;
+    grid-row: 3;
+  }
+
+  .quantity, .quantityButtons {
+    grid-column: 2/3;
+    grid-row: 4;
+  }
+
+  .totalPriceTitle {
+    grid-column: 3/4;
+    grid-row: 3;
+  }
+
+  .totalPrice {
+    grid-column: 3/4;
+    grid-row: 4;
+  }
+
+  .deleteButton {
+    grid-column: 4/5;
+    grid-row: 3/-1;
+  }
+}
+
+@media all and (max-width: 424px) {
+  .container {
+    grid-template-columns: 1fr auto;
+    grid-template-rows: repeat(8, auto);
+  }
+
+  .title {
+    grid-column: 1/-1;
+    grid-row: 1;
+    text-align: center;
+  }
+
+  .author {
+    grid-column: 1/-1;
+    grid-row: 2;
+    text-align: center;
+  }
+
+  .priceTitle {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .price {
+    grid-column: 1;
+    grid-row: 4;
+  }
+
+  .quantityTitle {
+    grid-column: 1;
+    grid-row: 5;
+  }
+
+  .quantity, .quantityButtons {
+    grid-column: 1;
+    grid-row: 6;
+  }
+
+  .totalPriceTitle {
+    grid-column: 1;
+    grid-row: 7;
+  }
+
+  .totalPrice {
+    grid-column: 1;
+    grid-row: 8;
+  }
+
+  .deleteButton {
+    grid-column: 2;
+    grid-row: 3/7;
+  }
 }
