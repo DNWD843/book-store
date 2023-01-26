@@ -17,3 +17,5 @@ export interface IHeaderNavLinkProps extends INavLinkIconProps {
   type: EIconTypes,
   title: string,
 }
+
+export type THeaderNavLinksConfig = Array<Omit<IHeaderNavLinkProps, 'isVisible'>>;

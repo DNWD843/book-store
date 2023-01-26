@@ -1,0 +1,7 @@
+.actionButton {
+  border: none;
+}
+
+.actionButton svg {
+  fill: var(--dark-grey);
+}

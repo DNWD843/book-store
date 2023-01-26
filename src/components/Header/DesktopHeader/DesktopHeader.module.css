@@ -1,0 +1,64 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--light-grey);
+  padding: 10px calc((100% - 1280px) / 2) 0;
+  box-sizing: border-box;
+  box-shadow: 0 5px 7px var(--grey);
+}
+
+.headerContainer {
+  display: grid;
+  grid-template-columns: [logo] auto [searchFilter] 1fr [headerMenuButton] minmax(150px, auto) [navLinks] auto [end];
+  grid-template-rows: 1fr auto;
+  column-gap: 30px;
+  min-height: 100px;
+}
+
+.logoLink {
+  grid-column: logo;
+  grid-row: 1/-1;
+  align-self: center;
+  text-decoration: none;
+}
+
+.logo {
+  font-weight: 900;
+  font-family: "Helvetica Neue", "Arial", sans-serif;
+
+  color: var(--dark-grey);
+}
+/*.searchFilter {*/
+/*  align-self: center;*/
+/*  justify-self: center;*/
+/*  width: 95%;*/
+/*  grid-column: searchFilter;*/
+/*  grid-row: 1/-1;*/
+/*}*/
+
+/*.headerMenuButton {*/
+/*  align-self: center;*/
+/*  justify-self: center;*/
+/*  grid-column: headerMenuButton;*/
+/*  grid-row: 1;*/
+/*}*/
+
+/*.navLinks {*/
+/*  align-self: center;*/
+/*  grid-column: navLinks;*/
+/*  grid-row: 1;*/
+/*}*/
+
+.dateWidget {
+  grid-column: headerMenuButton/end;
+  grid-row: 2;
+  z-index: 20;
+}
+
+@media screen and (max-width: 1320px) {
+  .headerContainer {
+    padding: 0 20px;
+    column-gap: 15px;
+  }
+}

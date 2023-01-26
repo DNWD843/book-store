@@ -2,10 +2,18 @@
   background-color: white;
   padding: 20px;
   border-radius: 10px;
+  box-shadow: 0 0 15px white;
 }
 
 .title {
   padding: 0 0 30px;
   color: var(--dark-grey);
   font-size: 28px;
+}
+
+@media all and (max-width: 766px) {
+  .title {
+    font-size: 22px;
+    text-align: center;
+  }
 }

@@ -5,4 +5,5 @@ export const enum ESlicesNames {
   profile = 'profile',
   userSavings = 'userSavings',
   popups = 'popups',
+  headerActions = 'headerActions',
 }

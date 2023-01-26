@@ -12,7 +12,7 @@ import {
   orderFormFieldsNames,
   ESendingTypeFieldsNames,
   EContactInfoFieldsNames,
-  EAddressInfoFieldsNames,
+  EAddressInfoFieldsNames, EScreenTypes,
 } from './enums';
 import { TColProps } from './ui-components/Col/Col.props';
 
@@ -93,7 +93,7 @@ export type TOrderFormValues = {
   [EPersonalInfoFieldsNames.patronymic]?: string,
 };
 
-export type TProfileFormValues = Record<EProfileFormFieldsNames, string | null | undefined>;
+export type TEditProfileFormValues = Record<EProfileFormFieldsNames, string | null | undefined>;
 
 export type TSendingTypeRadioButton = {
   name: string,
@@ -151,3 +151,6 @@ export type TOnEditArgs = {
 export type TEditProfileModalConfig = TOnEditArgs | null;
 // export type TEditedData = { [key: string]: TOnEditArgs['currentValue'] };
 export type TEditedData = Record<EProfileFormFieldsNames, TOnEditArgs['currentValue']>;
+
+export type TMatchMediaValues = Record<EScreenTypes, boolean>;
+export type TScreenTypes = EScreenTypes[];

@@ -24,7 +24,7 @@ const CardToolBar: React.FC<ICardToolBarProps> = (
       <span className={styles.author}>{author}</span>
       <span className={styles.price}>{`${price} ${RUBLE_SIGN}`}</span>
       {!isAnonymous && (
-        <div className={styles.bookmarkIcon} title={isAddedToFavorites ? 'Удалить из избранного' : 'Добавить в избранное'} onClick={onBookmarkButtonClick}>
+        <div className={classNames(styles.icon, styles.bookmarkIcon)} title={isAddedToFavorites ? 'Удалить из избранного' : 'Добавить в избранное'} onClick={onBookmarkButtonClick}>
           {
             isAddedToFavorites
               ? bookmarkActiveIcon
@@ -32,7 +32,7 @@ const CardToolBar: React.FC<ICardToolBarProps> = (
           }
         </div>
       )}
-      <div className={styles.cartIcon} title={isAddedToCart ? 'Удалить из корзины' : 'Положить в корзину'} onClick={onCartButtonClick}>
+      <div className={classNames(styles.icon, styles.cartIcon)} title={isAddedToCart ? 'Удалить из корзины' : 'Положить в корзину'} onClick={onCartButtonClick}>
         {isAddedToCart
           ? shoppingCartFilledIcon
           : shoppingCartEmptyIcon}

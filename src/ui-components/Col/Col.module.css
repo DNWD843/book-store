@@ -11,3 +11,16 @@
 .size-3 {
   max-width: calc(100% / 3);
 }
+
+@media all and (max-width: 766px) {
+  .size-2, .size-3 {
+    max-width: 100%;
+  }
+}
+
+@media all and (max-width: 530px) {
+  .size-1, .size-2, .size-3 {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}

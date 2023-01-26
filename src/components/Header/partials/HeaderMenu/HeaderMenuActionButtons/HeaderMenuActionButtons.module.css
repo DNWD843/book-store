@@ -1,0 +1,13 @@
+.buttons {
+  display: grid;
+  gap: 20px;
+  padding: 0 0 10px;
+  justify-content: center;
+  width: 100%;
+}
+
+.button {
+width: 250px!important;
+}
+
+

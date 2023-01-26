@@ -9,6 +9,7 @@ export interface IBooksState extends IBooksCollection{
   status: EFetchStatuses;
   favoriteStatus: EFetchStatuses;
   filteredCollection: IBooksCollection['books']
+  searchValue: string,
 }
 
 const initialState: IBooksState = {
@@ -16,6 +17,7 @@ const initialState: IBooksState = {
   favoriteStatus: EFetchStatuses.fulfilled,
   books: null,
   filteredCollection: null,
+  searchValue: '',
 };
 
 const booksSlice = createSlice({
@@ -35,7 +37,13 @@ const booksSlice = createSlice({
         state.filteredCollection = null;
       }
     },
-    resetFilterCollection: (state) => { state.filteredCollection = null; },
+    setSearchValue: (state, { payload }: PayloadAction<string>) => {
+      state.searchValue = payload;
+    },
+    clearSearchValue: (state) => {
+      state.filteredCollection = null;
+      state.searchValue = '';
+    },
   },
   extraReducers: (builder) => {
     builder

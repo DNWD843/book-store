@@ -2,14 +2,24 @@
   background-color: white;
   padding: 20px;
   border-radius: 10px;
-}
-
-.formRegion {
-
+  box-shadow: 0 0 15px white;
 }
 
 .title {
   padding: 0 0 30px;
   color: var(--dark-grey);
   font-size: 28px;
+  text-align: center;
+}
+
+@media all and (max-width: 766px) {
+  .title {
+    font-size: 22px;
+  }
+}
+
+@media all and (max-width: 530px) {
+  .title {
+    font-size: 18px;
+  }
 }

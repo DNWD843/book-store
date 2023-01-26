@@ -1,0 +1,22 @@
+.inputWrapper {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 15px;
+}
+
+.editButton {
+  align-self: center;
+  padding: 11px;
+}
+
+.editIcon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+
+@media all and (max-width: 530px) {
+  .inputWrapper {
+    gap: 5px;
+  }
+}

@@ -16,3 +16,13 @@
   width: 100%;
   object-fit: contain;
 }
+
+@media all and (max-width: 1320px) {
+  .card {
+    padding-top: 5px;
+  }
+
+  .genre {
+    font-size: 14px;
+  }
+}

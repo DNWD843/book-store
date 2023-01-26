@@ -10,7 +10,7 @@ import { EFetchStatuses, EProfileFormFieldsNames } from '../../enums';
 import { useAppSelector } from '../../redux/hooks';
 import { selectAuthStatus, selectUserData } from '../../redux/store';
 import { routes } from '../../routesMap';
-import { TProfileFormValues } from '../../types';
+import { TEditProfileFormValues } from '../../types';
 
 export const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ export const ProfilePage: React.FC = () => {
 
   const { email: currentEmail, displayName: currentName, photoURL: currentURL } = userData;
 
-  const currentValues: TProfileFormValues = useMemo(() => ({
+  const currentValues: TEditProfileFormValues = useMemo(() => ({
     [EProfileFormFieldsNames.email]: currentEmail,
     [EProfileFormFieldsNames.displayName]: currentName,
     [EProfileFormFieldsNames.photoURL]: currentURL,
@@ -35,7 +35,7 @@ export const ProfilePage: React.FC = () => {
 
   return (
     <Page title="Данные профиля">
-      <Form<TProfileFormValues> id={PROFILE_FORM_ID} initialValues={currentValues} onSubmit={() => {}}>
+      <Form<TEditProfileFormValues> id={PROFILE_FORM_ID} initialValues={currentValues} onSubmit={() => {}}>
         {(formRenderProps) => (<ProfileForm {...formRenderProps} />)}
       </Form>
       { isLoading

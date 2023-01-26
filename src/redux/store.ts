@@ -7,6 +7,7 @@ import { constants as rfConstants } from 'redux-firestore';
 
 import { TPopupsState, TUserSavings } from '../types';
 
+import { headerActionsReducer, THeaderActionsState } from './slices';
 import authReducer, { IAuthState } from './slices/authSlice';
 import bookDetailsReducer, { TBookDetailsState } from './slices/bookDetailsSlice';
 import booksReducer, { IBooksState } from './slices/booksSlice';
@@ -20,6 +21,7 @@ export const store = configureStore({
     auth: authReducer,
     userSavings: userSavingsReducer,
     popups: popupsReducer,
+    headerActions: headerActionsReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: {
@@ -53,6 +55,7 @@ Action<string>
 
 export const selectBooksCollection = (state: RootState): IBooksState['books'] => state.books.books;
 export const selectFilteredCollection = (state: RootState): IBooksState['filteredCollection'] => state.books.filteredCollection;
+export const selectSearchValue = (state: RootState): IBooksState['searchValue'] => state.books.searchValue;
 export const selectBooksFetchingStatus = (state: RootState): IBooksState['status'] => state.books.status;
 export const selectBookDetails = (state: RootState): TBookDetailsState => state.bookDetails;
 // export const selectAuthError = (state: RootState): IAuthState['authError'] => state.auth.authError;
@@ -61,6 +64,7 @@ export const selectUserData = (state: RootState): IAuthState['userData'] => stat
 export const selectUserSavings = (state: RootState): TUserSavings => state.userSavings;
 export const selectUserPurchases = (state: RootState): TUserSavings['purchases'] => state.userSavings.purchases;
 export const selectPopups = (state: RootState): TPopupsState => state.popups;
+export const selectHeaderActionsState = (state: RootState): THeaderActionsState => state.headerActions;
 
 // service actions
 const STORAGE_ACTION_PREFIX = 'STORAGE';

@@ -3,7 +3,8 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(5, minmax(100px, 240px));
+  /*grid-template-columns: repeat(5, minmax(100px, 240px));*/
+  grid-template-columns: repeat(5, 1fr);
   gap: 20px;
 
 }
@@ -13,4 +14,29 @@
   position: relative;
   overflow: hidden;
   border-radius: 5px;
+}
+
+@media all and (max-width: 1320px) {
+  .list {
+    gap: 15px;
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media all and (max-width: 1040px) {
+  .list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media all and (max-width: 766px) {
+  .list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media all and (max-width: 530px) {
+  .list {
+    grid-template-columns: 1fr;
+  }
 }

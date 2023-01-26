@@ -28,3 +28,18 @@
   font-size: 20px;
   letter-spacing: 1px;
 }
+
+@media all and (max-width: 766px) {
+  .pageRegion {
+    padding: 5px;
+  }
+
+  .regionHeader {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .purchaseDateAndTime, .purchasePrice {
+    display: grid;
+  }
+}
