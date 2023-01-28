@@ -1,14 +1,14 @@
 .root_container {
   margin: 0 auto;
   min-height: 100vh;
-}
-
-.app {
-  width: 100%;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
   row-gap: 20px;
+}
+
+.app {
+  width: 100%;
 }
 
 

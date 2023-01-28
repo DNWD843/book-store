@@ -1,6 +1,7 @@
 .menu {
   position: fixed;
   top: 0;
+  left: 15%;
   z-index: 10;
 
   padding: 25px 20px;
@@ -11,9 +12,7 @@
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   box-shadow: 0 0 15px var(--dark-grey);
-  max-width: 1080px;
-  width: 90%;
-  justify-self: center;
+  width: 70%;
 }
 
 .menu {
@@ -38,5 +37,22 @@
 @media all and (max-width: 766px) {
   .isMenuVisible {
     top: 90px;
+  }
+}
+
+@media all and (max-width: 530px) {
+  .menu {
+    width: 90%;
+    left: 5%;
+  }
+  .isMenuVisible {
+    top: 80px;
+  }
+}
+
+@media all and (max-width: 425px) {
+  .menu {
+    width: 96%;
+    left: 2%;
   }
 }
