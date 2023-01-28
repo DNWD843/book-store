@@ -90,3 +90,9 @@
     padding-left: 5px;
   }
 }
+
+@media all and (max-width: 425px) {
+  .pageTitle {
+    font-size: 18px;
+  }
+}

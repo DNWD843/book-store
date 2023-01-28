@@ -99,6 +99,13 @@
   .descriptionTitle { font-size: 20px; }
   .descriptionText { font-size: 16px; }
   .buyButton { font-size: 16px; }
+  .addToFavoritesButton { font-size: 16px; }
+}
+
+@media all and (max-width: 470px) {
+  .addToFavoritesButton {
+    text-align: start;
+  }
 }
 
 @media all and (max-width: 425px) {
@@ -108,19 +115,24 @@
     gap: 20px
   }
   .genre {
+    font-size: 14px;
     grid-column: 1;
     grid-row: 1;
   }
   .title {
+    font-size: 20px;
     grid-column: 1;
     grid-row: 2;
   }
   .author {
+    font-size: 16px;
     grid-column: 1;
     grid-row: 3;
   }
 
   .coverImage {
+    max-width: 75%;
+    justify-self: center;
     grid-column: 1;
     grid-row: 4;
   }
@@ -129,6 +141,7 @@
     grid-row: 5;
   }
   .descriptionText {
+    font-size: 14px;
     grid-column: 1;
     grid-row: 6;
   }
@@ -136,6 +149,9 @@
     grid-column: 1;
     grid-row: 7;
   }
-
-
+  .addToFavoritesButton {
+    grid-column: 1;
+    grid-row: 8;
+    text-align: end;
+  }
 }
