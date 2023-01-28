@@ -58,3 +58,9 @@
     top: 95px;
   }
 }
+
+@media all and (max-width: 530px) {
+  .isSearchFilterVisible {
+    top: 80px;
+  }
+}
