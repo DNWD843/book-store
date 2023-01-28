@@ -27,15 +27,16 @@
 @media all and (max-width: 424px) {
   .totalPriceRow {
     padding: 15px 0;
-    grid-template-columns: 1fr;
+    grid-template-columns: auto 1fr;
   }
 
   .totalPriceTitle {
+    grid-column: 1;
     justify-self: flex-start;
   }
 
   .totalPriceValue {
-    grid-column: 1;
+    grid-column: 2;
     justify-self: flex-end;
   }
 }
