@@ -91,11 +91,11 @@ const AuthForm: React.FC<TAuthFormProps> = (
           </div>
 
         </form>
-        <p className={styles.redirect}>
-          {redirectText}
+        <div className={styles.redirect}>
+          <span className={styles.redirectText}>{redirectText}</span>
           {' '}
           <Link className={styles.redirectLink} to={redirectPath}>{redirectLinkTitle}</Link>
-        </p>
+        </div>
       </div>
     )}
   </Form>

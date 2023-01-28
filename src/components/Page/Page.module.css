@@ -64,6 +64,9 @@
 }
 
 @media all and (max-width: 810px) {
+  .pageHeader {
+    padding-bottom: 20px;
+  }
   .pageSubtitle {
     grid-column: start/end;
     font-size: 18px;
