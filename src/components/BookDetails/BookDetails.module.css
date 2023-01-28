@@ -1,6 +1,6 @@
 .card {
   display: grid;
-  grid-template-columns: [startCol] minmax(300px, 40%) [firstCol] auto [secondCol] auto [lastCol];
+  grid-template-columns: [startCol] minmax(200px, 40%) [firstCol] auto [secondCol] auto [lastCol];
   grid-template-rows: [startRow] repeat(5, auto) 1fr auto auto [descriptionTitle] auto [descriptionText] auto [lastRow];
   gap: 20px
 }
@@ -90,4 +90,52 @@
   resize: none;
   font-size: 20px;
   outline: none;
+}
+
+@media all and (max-width: 766px) {
+  .genre { font-size: 16px; }
+  .title { font-size: 24px; }
+  .author { font-size: 18px; }
+  .descriptionTitle { font-size: 20px; }
+  .descriptionText { font-size: 16px; }
+  .buyButton { font-size: 16px; }
+}
+
+@media all and (max-width: 425px) {
+  .card {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 20px
+  }
+  .genre {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .title {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .author {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .coverImage {
+    grid-column: 1;
+    grid-row: 4;
+  }
+  .descriptionTitle {
+    grid-column: 1;
+    grid-row: 5;
+  }
+  .descriptionText {
+    grid-column: 1;
+    grid-row: 6;
+  }
+  .buyButton {
+    grid-column: 1;
+    grid-row: 7;
+  }
+
+
 }
