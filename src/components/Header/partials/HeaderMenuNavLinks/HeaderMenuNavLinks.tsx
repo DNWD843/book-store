@@ -8,7 +8,7 @@ import styles from './HeaderMenuNavLinks.module.css';
 const HeaderMenuNavLinks: React.FC<{ navLinksConfig: THeaderMenuLinksConfig, closeMenu: () => void }> = ({ navLinksConfig, closeMenu }) => (
   <nav className={styles.navLinks}>
     {navLinksConfig.map(({ route, title }) => (
-      <li>
+      <li key={route}>
         <Link className={styles.link} to={route} onClick={closeMenu}>{title}</Link>
       </li>
     ))}

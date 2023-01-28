@@ -53,10 +53,30 @@
 }
 
 .redirect {
+  display: flex;
+}
+
+.redirectText {
   letter-spacing: 0.1em;
   color: var(--grey)
 }
 
 .redirectLink {
   padding-left: 10px;
+}
+
+@media all and (max-width: 766px) {
+  .page {
+    padding-top: 0;
+  }
+}
+
+@media all and (max-width: 425px) {
+  .buttons {
+    flex-direction: column;
+  }
+  .redirect {
+    flex-direction: column;
+    justify-content: center;
+  }
 }
