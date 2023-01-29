@@ -1,12 +1,12 @@
 import classNames from 'classnames';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useUserSavingsHandlers } from '../../../hooks/useUserSavingsHandlers';
+import { useMatchMedia, useUserSavingsHandlers } from '../../../hooks';
 import { useAppDispatch } from '../../../redux/hooks';
-import { bookDetailsActions } from '../../../redux/slices/bookDetailsSlice';
+import { bookDetailsActions } from '../../../redux/slices';
 import { TBookInfo } from '../../../types';
-import { storage, storageKeys } from '../../../utils/localStorage';
+import { storage, storageKeys } from '../../../utils';
 
 import { CardToolBar } from './CardToolBar';
 
@@ -19,10 +19,12 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
   const [visible, setVisible] = useState(false);
   const dispatch = useAppDispatch();
   const { setBookDetails } = bookDetailsActions;
+  const { isDesktop } = useMatchMedia();
 
   const { isAnonymous, isAddedToFavorites, isAddedToCart, handleBookmarkClick, handleCartButtonClick } = useUserSavingsHandlers(id);
-
   const showTooltip = () => {
+    if (!isDesktop) return;
+
     mouseOverRef.current = true;
     const timerId = setTimeout(() => {
       if (mouseOverRef.current) {
@@ -33,6 +35,8 @@ const CardToolBarComponent: React.FC<TBookInfo> = (props) => {
   };
 
   const hideTooltip = () => {
+    if (!isDesktop) return;
+
     if (mouseOverRef.current) {
       mouseOverRef.current = false;
       setVisible(false);

@@ -9,7 +9,6 @@
   bottom: -300px;
 }
 
-
 .toolbar:hover:before {
   position: absolute;
   content: '';
@@ -17,7 +16,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(225, 225, 225, .6);
+  background-color: rgba(225, 225, 225, .4);
 }
 
 .isVisible {
@@ -26,42 +25,49 @@
 
 .content {
   cursor: default;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 1;
+
   display: grid;
-  grid-template-columns: [start] 1fr [first] auto [second] auto [end];
-  grid-template-rows: [start] auto [first] auto [second] auto [end];
+  grid-template-columns: [start] 1fr [middle] 1fr [end];
+  grid-template-rows: [title] auto [author] auto [price] auto [actions] auto [bottom];
   column-gap: 20px;
   row-gap: 5px;
   align-self: end;
-  box-sizing: border-box;
-  padding: 20px;
-  background-color: rgba(0, 0, 0, 0.85);
-  z-index: 1;
 }
 
 .title {
-  font-size: 22px;
+  font-size: 18px;
+  line-height: 22px;
   font-weight: bold;
+  color: white;
+  white-space: break-spaces;
+
   grid-column: start/end;
-  grid-row: start/first;
-  color: var(--light-grey);
+  grid-row: title;
 }
 
 .author {
-  font-size: 18px;
+  font-size: 16px;
+  line-height: 18px;
+  color: white;
+  white-space: break-spaces;
+
   grid-column: start/end;
-  grid-row: first/second;
-  color:var(--light-grey);
+  grid-row: author;
 }
 
 .price {
-  color: var(--light-grey);
-  padding: 24px 0 0;
   font-weight: bold;
-  grid-column: start/first;
-  grid-row: second/end;
-  align-self: end;
-  line-height: 1;
-  font-size: 24px;
+  font-size: 20px;
+  line-height: 1.2;
+  color: white;
+
+  padding: 12px 0;
+  grid-column: start/end;
+  grid-row: price;
 }
 
 .icon {
@@ -71,7 +77,7 @@
 }
 
 .icon svg {
-  fill: var(--grey);
+  fill: white;
   width: 30px;
   height: 30px;
   transition: all 0.15s ease-in-out;
@@ -79,47 +85,44 @@
 }
 
 .bookmarkIcon {
-  grid-column: first/second;
-  grid-row: second/end;
+  grid-column: start/middle;
+  grid-row: actions;
 }
 
 .cartIcon {
-  grid-column: second/end;
-  grid-row: second/end;
-  padding-right: 5px;
+  grid-column: middle/end;
+  grid-row: actions;
 }
 
 .bookmarkIcon:hover svg, .cartIcon:hover svg {
-  fill: var(--light-grey);
+  fill: var(--grey);
 }
 
-@media all and (max-width: 1320px) {
+@media all and (max-width: 1040px) {
   .title {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .author {
-    font-size: 18px;
-  }
-}
-
-@media all and (max-width: 1079px) {
-  .content {
-    display: none;
-  }
-}
-
-@media all and (max-width: 530px) {
-  .title {
-    font-size: 22px;
-  }
-
-  .author {
-    font-size: 18px;
+    font-size: 14px;
   }
 
   .price {
-    font-size: 26px;
+    font-size: 18px;
+  }
+}
+
+@media all and (max-width: 810px) {
+  .title {
+    font-size: 14px;
+  }
+
+  .author {
+    font-size: 12px;
+  }
+
+  .price {
+    font-size: 16px;
   }
 
   .icon svg {
