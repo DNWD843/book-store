@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { BooksCatalogue } from '../../components/BooksCatalogue';
 import { Page } from '../../components/Page';
@@ -10,9 +10,18 @@ import styles from './BooksCataloguePage.module.css';
 export const BooksCataloguePage: React.FC = () => {
   const booksCollection = useAppSelector(selectBooksCollection) || [];
   const filteredCollection = useAppSelector(selectFilteredCollection);
+  const pageSubtitle = useMemo(() => {
+    if (!filteredCollection) return '';
+
+    if (filteredCollection.length) {
+      return 'Результат поиска по Вашему запросу:';
+    }
+
+    return 'По вашему запросу ничего не найдено';
+  }, [filteredCollection]);
 
   return (
-    <Page subtitle={filteredCollection && !filteredCollection.length ? 'По вашему запросу ничего не найдено' : ''} title="Каталог" withNavLinks={false}>
+    <Page subtitle={pageSubtitle} title="Каталог" withNavLinks={false}>
       {booksCollection.length
         ? (<BooksCatalogue books={filteredCollection || booksCollection} />)
         : (

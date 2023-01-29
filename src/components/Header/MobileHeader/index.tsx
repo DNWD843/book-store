@@ -3,7 +3,7 @@ import React, { memo, useCallback, useRef } from 'react';
 import { CLEAR_SEARCH_VALUE_DELAY } from '../../../constants';
 import { useClickOutside } from '../../../hooks';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { booksActions, headerActions } from '../../../redux/slices';
+import { headerActions } from '../../../redux/slices';
 import { selectHeaderActionsState } from '../../../redux/store';
 import { BookSearchFilter } from '../../BookSearchFilter';
 import { HeaderMenu } from '../partials';
@@ -13,7 +13,6 @@ import { MobileHeader } from './MobileHeader';
 const MobileHeaderComponent: React.FC = () => {
   const dispatch = useAppDispatch();
   const { closeMenu, closeSearchFilter } = headerActions;
-  const { clearSearchValue } = booksActions;
   const { isMenuOpened, isSearchFilterOpened } = useAppSelector(selectHeaderActionsState);
 
   const searchFilterRef = useRef<HTMLDivElement | null>(null);
@@ -23,7 +22,6 @@ const MobileHeaderComponent: React.FC = () => {
     if (isSearchFilterOpened) {
       const timeout = setTimeout(() => {
         dispatch(closeSearchFilter());
-        dispatch(clearSearchValue());
         clearTimeout(timeout);
       }, CLEAR_SEARCH_VALUE_DELAY);
     }
@@ -34,7 +32,7 @@ const MobileHeaderComponent: React.FC = () => {
         clearTimeout(timeout);
       }, CLEAR_SEARCH_VALUE_DELAY);
     }
-  }, [clearSearchValue, closeMenu, closeSearchFilter, dispatch, isMenuOpened, isSearchFilterOpened]);
+  }, [closeMenu, closeSearchFilter, dispatch, isMenuOpened, isSearchFilterOpened]);
 
   useClickOutside(useClickOutsideEffect, [searchFilterRef, menuRef]);
 

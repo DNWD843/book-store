@@ -1,12 +1,17 @@
 import React, { memo } from 'react';
 
-import { menuIconMobile, menuIconTablet, searchIconMobile, searchIconTablet } from '../../../../vendor/icons';
+import {
+  menuIconMobile,
+  menuIconTablet,
+  savedSearchIconMobile, savedSearchIconTablet,
+  searchIconMobile, searchIconTablet,
+} from '../../../../vendor/icons';
 import { MobileHeaderActionButton } from '../MobileHeaderActionButton';
 
 import { TMobileHeaderActionsProps } from './MobileHeaderActions.props';
 
 const MobileHeaderActions: React.FC<TMobileHeaderActionsProps> = (
-  { isSearchAvailable, isMenuVisible, isSearchFilterVisible, showSearchFilter, showMenu },
+  { isSearchAvailable, isMenuVisible, isSearchFilterEmpty, isSearchFilterVisible, showSearchFilter, showMenu },
 ) => (
   <>
     {isSearchAvailable
@@ -14,8 +19,8 @@ const MobileHeaderActions: React.FC<TMobileHeaderActionsProps> = (
         <MobileHeaderActionButton
           action={showSearchFilter}
           isPressed={isSearchFilterVisible}
-          mobileIcon={searchIconMobile}
-          tabletIcon={searchIconTablet}
+          mobileIcon={isSearchFilterEmpty ? searchIconMobile : savedSearchIconMobile}
+          tabletIcon={isSearchFilterEmpty ? searchIconTablet : savedSearchIconTablet}
         />
       ) : null}
     <MobileHeaderActionButton
