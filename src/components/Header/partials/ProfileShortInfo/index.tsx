@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 
+import { ANONYMOUS_USER_DEFAULT_AVATAR } from '../../../../constants';
 import { useAppSelector } from '../../../../redux/hooks';
 import { selectUserData } from '../../../../redux/store';
 import avatar from '../../../../vendor/images/login_ava.png';
@@ -13,7 +14,7 @@ const ProfileShortInfoComponent: React.FC = () => {
     ? 'Гость'
     : `${displayName || email || 'Гость'}`;
 
-  return (<ProfileShortInfo photoUrl={photoURL || avatar} title={title} />);
+  return (<ProfileShortInfo photoUrl={photoURL || ANONYMOUS_USER_DEFAULT_AVATAR || avatar} title={title} />);
 };
 
 ProfileShortInfoComponent.displayName = 'ProfileShortInfoComponent';
