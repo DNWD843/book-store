@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import { Cards } from '../../components/Cards';
 import { Page } from '../../components/Page';
@@ -7,7 +7,10 @@ import { useAppSelector } from '../../redux/hooks';
 import { selectUserData, selectUserSavings } from '../../redux/store';
 import { routes } from '../../routesMap';
 
-export const FavoritesPage: React.FC = () => {
+const FavoritesPage: React.FC = () => (<Outlet />);
+
+FavoritesPage.displayName = 'FavoritesPage';
+const FavoritesCataloguePage: React.FC = () => {
   const { favorites } = useAppSelector(selectUserSavings);
   const { isAnonymous } = useAppSelector(selectUserData);
   const navigate = useNavigate();
@@ -25,4 +28,6 @@ export const FavoritesPage: React.FC = () => {
   );
 };
 
-FavoritesPage.displayName = 'FavoritesPage';
+FavoritesCataloguePage.displayName = 'FavoritesCataloguePage';
+
+export { FavoritesPage, FavoritesCataloguePage };
