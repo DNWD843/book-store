@@ -6,12 +6,4 @@ export interface ICardToolBarProps extends DetailedHTMLProps<HTMLAttributes<HTML
   title: TBookInfo['title']
   author: TBookInfo['author']
   price: TBookInfo['price']
-  isAnonymous: boolean
-  isAddedToFavorites: boolean,
-  isAddedToCart: boolean,
-  onMouseEnter: () => void
-  onMouseLeave: () => void
-  onCartButtonClick: (evt: any) => void
-  onBookmarkButtonClick: (evt: any) => void
-  onBookCardClick: () => void
 }
