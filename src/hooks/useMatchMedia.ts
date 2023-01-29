@@ -5,7 +5,7 @@ import { TMatchMediaValues, TScreenTypes } from '../types';
 
 const queries = [
   '(max-width: 424px)', // small screen
-  '(max-width: 766px)', // mobile
+  '(min-width: 425px) and (max-width: 766px)', // mobile
   '(min-width: 767px) and (max-width: 1079px)', // tablet
   '(min-width: 1080px)', // desktop
 ];

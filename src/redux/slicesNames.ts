@@ -6,4 +6,5 @@ export const enum ESlicesNames {
   userSavings = 'userSavings',
   popups = 'popups',
   headerActions = 'headerActions',
+  matchMedia = 'matchMedia',
 }

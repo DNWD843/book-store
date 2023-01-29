@@ -1,9 +1,8 @@
 import React, { memo, useCallback, useMemo } from 'react';
 
-import { useMatchMedia } from '../../../../hooks';
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
 import { headerActions } from '../../../../redux/slices';
-import { selectUserData } from '../../../../redux/store';
+import { selectMatchMediaState, selectUserData } from '../../../../redux/store';
 
 import { HeaderMenuNavLinks } from './HeaderMenuNavLinks';
 import {
@@ -13,8 +12,8 @@ import {
 } from './configs';
 
 const HeaderMenuNavLinksComponent = () => {
-  const { isDesktop } = useMatchMedia();
   const dispatch = useAppDispatch();
+  const { isDesktop } = useAppSelector(selectMatchMediaState);
   const { closeMenu } = headerActions;
   const { isAnonymous } = useAppSelector(selectUserData);
 

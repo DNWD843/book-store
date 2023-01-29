@@ -16,6 +16,4 @@ const popupsSlice = createSlice({
   },
 });
 
-export default popupsSlice.reducer;
-
-export const { actions: popupsActions } = popupsSlice;
+export const { actions: popupsActions, reducer: popupsReducer } = popupsSlice;

@@ -42,6 +42,4 @@ const bookDetailsSlice = createSlice({
   },
 });
 
-export const { actions: bookDetailsActions } = bookDetailsSlice;
-
-export default bookDetailsSlice.reducer;
+export const { actions: bookDetailsActions, reducer: bookDetailsReducer } = bookDetailsSlice;

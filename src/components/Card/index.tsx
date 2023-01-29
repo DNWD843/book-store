@@ -2,8 +2,10 @@ import classNames from 'classnames';
 import React, { memo, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useMatchMedia, useUserSavingsHandlers } from '../../hooks';
+import { useUserSavingsHandlers } from '../../hooks';
+import { useAppSelector } from '../../redux/hooks';
 import { bookDetailsActions } from '../../redux/slices';
+import { selectMatchMediaState } from '../../redux/store';
 import { TBookInfo } from '../../types';
 import { storage, storageKeys } from '../../utils';
 import {
@@ -21,10 +23,10 @@ import styles from './Card.module.css';
 
 const CardComponent: React.FC<TBookInfo> = (props) => {
   const { setBookDetails } = bookDetailsActions;
+  const { isSmallScreen } = useAppSelector(selectMatchMediaState);
   const navigate = useNavigate();
   const { isAnonymous, isAddedToFavorites, isAddedToCart, handleBookmarkClick, handleCartButtonClick, dispatch } = useUserSavingsHandlers(props.id);
   const [isInfoVisible, setInfoVisible] = useState<boolean>(false);
-  const { isSmallScreen } = useMatchMedia();
 
   const { id, author, title, price } = props;
 
