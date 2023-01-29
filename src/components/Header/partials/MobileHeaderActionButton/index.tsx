@@ -1,12 +1,13 @@
 import React, { memo } from 'react';
 
-import { useMatchMedia } from '../../../../hooks';
+import { useAppSelector } from '../../../../redux/hooks';
+import { selectMatchMediaState } from '../../../../redux/store';
 
 import { MobileHeaderActionButton } from './MobileHeaderActionButton';
 import { TMobileHeaderActionButtonProps } from './MobileHeaderActionButton.props';
 
 const MobileHeaderActionButtonComponent: React.FC<Omit<TMobileHeaderActionButtonProps, 'isTablet'>> = (props) => {
-  const { isTablet } = useMatchMedia();
+  const { isTablet } = useAppSelector(selectMatchMediaState);
   return (<MobileHeaderActionButton isTablet={isTablet} {...props} />);
 };
 

@@ -1,13 +1,12 @@
 import React, { memo } from 'react';
 
-import { useMatchMedia } from '../../../../hooks';
 import { useAppSelector } from '../../../../redux/hooks';
-import { selectHeaderActionsState, selectUserData } from '../../../../redux/store';
+import { selectHeaderActionsState, selectMatchMediaState, selectUserData } from '../../../../redux/store';
 
 import { HeaderMenu } from './HeaderMenu';
 
 const HeaderMenuComponent: React.FC<{ menuRef: React.MutableRefObject<HTMLDivElement | null> }> = ({ menuRef }) => {
-  const { isDesktop } = useMatchMedia();
+  const { isDesktop } = useAppSelector(selectMatchMediaState);
   const { isMenuOpened } = useAppSelector(selectHeaderActionsState);
   const { isAnonymous } = useAppSelector(selectUserData);
 

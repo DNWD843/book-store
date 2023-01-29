@@ -55,7 +55,11 @@ export const fetchBookByBookId = async (bookId: TBookInfo['id']) => {
     const docSnap = await getDoc(doc(db, ESlicesNames.booksCollection, bookId));
 
     if (docSnap.exists()) {
-      return docSnap.data() as unknown as TBookInfo;
+      const response = docSnap.data() as unknown as TBookInfo;
+
+      if (response.id === bookId) {
+        return response;
+      }
     }
 
     return null;

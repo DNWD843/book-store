@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 
 import './App.css';
 import { ONE_DAY_TIMESTAMP } from '../../constants';
@@ -6,7 +6,7 @@ import { EFetchStatuses } from '../../enums';
 import { useMatchMedia } from '../../hooks';
 import { withReduxStore } from '../../provider/withReduxStore';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
-import { authActions, booksActions } from '../../redux/slices';
+import { authActions, booksActions, matchMediaActions } from '../../redux/slices';
 import { selectAuthStatus, selectBooksFetchingStatus, storageActions } from '../../redux/store';
 import { getBooks, getUserSavings } from '../../redux/thunks';
 import { IBooksCollection, TUserData } from '../../types';
@@ -19,10 +19,15 @@ const AppComponent: React.FC = () => {
   const dispatch = useAppDispatch();
   const { setUserToStore } = authActions;
   const { setBooksToStore } = booksActions;
+  const { setMedia } = matchMediaActions;
   const authStatus = useAppSelector(selectAuthStatus);
   const booksStatus = useAppSelector(selectBooksFetchingStatus);
 
-  const { isDesktop } = useMatchMedia();
+  const { isSmallScreen, isMobile, isTablet, isDesktop } = useMatchMedia();
+
+  useLayoutEffect(() => {
+    dispatch(setMedia({ isSmallScreen, isMobile, isTablet, isDesktop }));
+  }, [dispatch, isDesktop, isMobile, isSmallScreen, isTablet, setMedia]);
 
   useEffect(() => {
     dispatch(storageActions.getUserInfo);

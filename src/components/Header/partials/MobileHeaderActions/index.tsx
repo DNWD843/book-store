@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
 import { headerActions } from '../../../../redux/slices';
-import { selectHeaderActionsState } from '../../../../redux/store';
+import { selectFilteredCollection, selectHeaderActionsState } from '../../../../redux/store';
 import { routes } from '../../../../routesMap';
 
 import { MobileHeaderActions } from './MobileHeaderActions';
@@ -13,6 +13,7 @@ const MobileHeaderActionsComponent: React.FC = () => {
   const { pathname } = useLocation();
   const { openMenu, openSearchFilter } = headerActions;
   const { isMenuOpened, isSearchFilterOpened } = useAppSelector(selectHeaderActionsState);
+  const filteredCollection = useAppSelector(selectFilteredCollection);
 
   const isSearchAvailable = useMemo(() => pathname === routes.books, [pathname]);
 
@@ -23,6 +24,7 @@ const MobileHeaderActionsComponent: React.FC = () => {
     <MobileHeaderActions
       isMenuVisible={isMenuOpened}
       isSearchAvailable={isSearchAvailable}
+      isSearchFilterEmpty={!filteredCollection}
       isSearchFilterVisible={isSearchFilterOpened}
       showMenu={showMenu}
       showSearchFilter={showSearchFilter}

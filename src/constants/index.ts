@@ -25,3 +25,5 @@ export const purchaseDateTemplate = 'DD.MM.YYYY HH:mm';
 export const LINK_TO_GITHUB = 'https://github.com/DNWD843';
 export const LINK_TO_TELEGRAM = 'https://t.me/mad_damon';
 export const LINK_TO_LINKED_IN = 'https://linkedin.com/in/maddamon';
+
+export const ANONYMOUS_USER_DEFAULT_AVATAR = 'https://sun9-80.userapi.com/impg/autZFMKK_G7opctBhc0t5SjESiS2f0D6ifurrQ/vBhVZJPP6K0.jpg?size=130x130&quality=96&sign=57c65d63d56e7666d99baf61086c3e39&c_uniq_tag=MxH0S8cAdzqoekKJndb599TbBwMBLxBXpmj-t8mtcR4&type=album';

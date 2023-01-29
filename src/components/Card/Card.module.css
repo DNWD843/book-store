@@ -1,10 +1,20 @@
+.cardWrapper {
+  position: relative;
+}
+
 .card {
   box-sizing: border-box;
   padding: 10px;
   background-color: var(--card-background);
   width: 100%;
   height: 100%;
-  position: relative;
+
+  cursor: pointer;
+  transition: all ease-in-out .125s;
+}
+
+.card:hover {
+  background-color: var(--light-grey);
 }
 
 .genre {
@@ -17,6 +27,58 @@
   object-fit: contain;
 }
 
+.cardIconsContainer {
+  position: absolute;
+  top: 10%;
+  right: 15px;
+
+  border-radius: 4px;
+  background-color: rgba(30, 30, 30, 0.6);
+  box-shadow: 0 0 10px var(--grey);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
+  padding: 3px;
+}
+
+.icon {
+  cursor: pointer;
+}
+
+.icon svg {
+  fill: var(--ultra-light-grey);
+  width: 30px;
+  height: 30px;
+  transition: all 0.15s ease-in-out;
+  margin: 0;
+}
+
+.infoIcon {
+}
+
+.bookmarkIcon {
+}
+
+.cartIcon {
+}
+
+.icon:hover svg {
+  fill: var(--grey);
+}
+
+.infoContainer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -100%;
+}
+
+.infoContainerVisible {
+  bottom: 0;
+}
+
+
 @media all and (max-width: 1320px) {
   .card {
     padding-top: 5px;
@@ -24,5 +86,23 @@
 
   .genre {
     font-size: 14px;
+  }
+}
+
+@media all and (max-width: 1100px) {
+  .genre {
+    font-size: 12px;
+  }
+}
+
+@media all and (max-width: 810px) {
+  .genre {
+    font-size: 10px;
+  }
+}
+
+@media all and (max-width: 425px) {
+  .genre {
+    font-size: 8px;
   }
 }

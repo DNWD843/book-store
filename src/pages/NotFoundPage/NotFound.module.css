@@ -1,8 +1,8 @@
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  flex-direction: column;
   box-sizing: border-box;
   padding-top: 200px;
 }
@@ -10,6 +10,8 @@
 .title {
   margin: 0 auto 100px;
   color: var(--grey);
+  white-space: break-spaces;
+  text-align: center;
   }
 
 .links {
@@ -26,6 +28,46 @@
 
 .goBackButton:hover, .goHomeButton:hover {
   color: var(--dark-grey);
+}
+
+@media all and (max-width: 1080px) {
+  .links {
+    width: 70%;
+  }
+}
+
+@media all and (max-width: 810px) {
+  .container {
+    padding-top: 100px;
+  }
+
+  .title {
+    font-size: 24px;
+    margin-bottom: 80px;
+  }
+
+  .goBackButton, .goHomeButton {
+    font-size: 16px;
+  }
+}
+
+@media all and (max-width: 530px) {
+  .container {
+    padding-top: 30px;
+  }
+
+  .title {
+    font-size: 18px;
+    margin-bottom: 50px;
+  }
+
+  .links {
+    width: 90%;
+  }
+
+  .goBackButton, .goHomeButton {
+    font-size: 12px;
+  }
 }
 
 

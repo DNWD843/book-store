@@ -1,9 +1,8 @@
 import React, { memo, useCallback } from 'react';
 
-import { useMatchMedia } from '../../../../hooks';
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
 import { headerActions } from '../../../../redux/slices';
-import { selectHeaderActionsState, selectUserData } from '../../../../redux/store';
+import { selectHeaderActionsState, selectMatchMediaState, selectUserData } from '../../../../redux/store';
 
 import { DesktopMenuButton } from './DesktopMenuButton';
 
@@ -12,7 +11,7 @@ const DesktopMenuButtonComponent: React.FC = () => {
   const { openMenu, closeMenu } = headerActions;
   const { isAnonymous } = useAppSelector(selectUserData);
   const { isMenuOpened } = useAppSelector(selectHeaderActionsState);
-  const { isDesktop } = useMatchMedia();
+  const { isDesktop } = useAppSelector(selectMatchMediaState);
 
   const openHeaderMenu = useCallback(() => { dispatch(openMenu()); }, [dispatch, openMenu]);
   const closeHeaderMenu = useCallback(() => {

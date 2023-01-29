@@ -15,6 +15,7 @@ export const enum EPluralizeConfigKey {
 }
 
 export const enum EScreenTypes {
+  isSmallScreen = 'isSmallScreen',
   isMobile = 'isMobile',
   isTablet = 'isTablet',
   isDesktop = 'isDesktop',

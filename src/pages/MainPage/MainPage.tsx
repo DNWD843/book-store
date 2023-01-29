@@ -3,9 +3,8 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { routes } from '../../routesMap';
 import { BookDetailsPage } from '../BookDetailsPage';
-import { BooksCataloguePage } from '../BooksCataloguePage';
-import { BooksPage } from '../BooksPage';
-import { FavoritesPage } from '../FavoritesPage';
+import { BooksPage, BooksCataloguePage } from '../BooksPage';
+import { FavoritesCataloguePage, FavoritesPage } from '../FavoritesPage';
 import { LoginPage } from '../LoginPage';
 import { NotFoundPage } from '../NotFoundPage';
 import { OrderPage } from '../OrderPage';
@@ -25,7 +24,10 @@ const MainPage: React.FC = () => (
         <Route element={<BookDetailsPage />} path={routes.bookId} />
       </Route>
       <Route element={<ShoppingCartPage />} path={routes.shoppingCart} />
-      <Route element={<FavoritesPage />} path={routes.favorites} />
+      <Route element={<FavoritesPage />} path={routes.favorites}>
+        <Route index element={<FavoritesCataloguePage />} />
+        <Route element={<BookDetailsPage />} path={routes.bookId} />
+      </Route>
       <Route element={<ProfilePage />} path={routes.profile} />
       <Route element={<RegisterPage />} path={routes.register} />
       <Route element={<LoginPage />} path={routes.login} />

@@ -1,129 +1,64 @@
-.toolbar {
-  cursor: pointer;
-  display: grid;
-  transition: bottom 0.15s ease-in-out;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: -300px;
-}
-
-
-.toolbar:hover:before {
-  position: absolute;
-  content: '';
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(225, 225, 225, .6);
-}
-
-.isVisible {
-  bottom: 0;
-}
-
 .content {
   cursor: default;
-  display: grid;
-  grid-template-columns: [start] 1fr [first] auto [second] auto [end];
-  grid-template-rows: [start] auto [first] auto [second] auto [end];
-  column-gap: 20px;
-  row-gap: 5px;
-  align-self: end;
   box-sizing: border-box;
-  padding: 20px;
-  background-color: rgba(0, 0, 0, 0.85);
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.75);
   z-index: 1;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 5px;
 }
 
 .title {
-  font-size: 22px;
+  font-size: 18px;
+  line-height: 22px;
   font-weight: bold;
-  grid-column: start/end;
-  grid-row: start/first;
-  color: var(--light-grey);
+  color: white;
+  white-space: break-spaces;
 }
 
 .author {
-  font-size: 18px;
-  grid-column: start/end;
-  grid-row: first/second;
-  color:var(--light-grey);
+  font-size: 16px;
+  line-height: 18px;
+  color: white;
+  white-space: break-spaces;
 }
 
 .price {
-  color: var(--light-grey);
-  padding: 24px 0 0;
   font-weight: bold;
-  grid-column: start/first;
-  grid-row: second/end;
-  align-self: end;
-  line-height: 1;
-  font-size: 24px;
+  font-size: 20px;
+  line-height: 1.2;
+  color: white;
+
+  padding: 10px 0 0;
 }
 
-.icon {
-  justify-self: center;
-  align-self: end;
-  cursor: pointer;
-}
 
-.icon svg {
-  fill: var(--grey);
-  width: 30px;
-  height: 30px;
-  transition: all 0.15s ease-in-out;
-  margin: 0;
-}
-
-.bookmarkIcon {
-  grid-column: first/second;
-  grid-row: second/end;
-}
-
-.cartIcon {
-  grid-column: second/end;
-  grid-row: second/end;
-  padding-right: 5px;
-}
-
-.bookmarkIcon:hover svg, .cartIcon:hover svg {
-  fill: var(--light-grey);
-}
-
-@media all and (max-width: 1320px) {
+@media all and (max-width: 1040px) {
   .title {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .author {
-    font-size: 18px;
-  }
-}
-
-@media all and (max-width: 1079px) {
-  .content {
-    display: none;
-  }
-}
-
-@media all and (max-width: 530px) {
-  .title {
-    font-size: 22px;
-  }
-
-  .author {
-    font-size: 18px;
+    font-size: 14px;
   }
 
   .price {
-    font-size: 26px;
+    font-size: 18px;
+  }
+}
+
+@media all and (max-width: 810px) {
+  .title {
+    font-size: 14px;
   }
 
-  .icon svg {
-    width: 30px;
-    height: 30px;
+  .author {
+    font-size: 12px;
+  }
+
+  .price {
+    font-size: 16px;
   }
 }

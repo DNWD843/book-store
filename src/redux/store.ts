@@ -7,12 +7,15 @@ import { constants as rfConstants } from 'redux-firestore';
 
 import { TPopupsState, TUserSavings } from '../types';
 
-import { headerActionsReducer, THeaderActionsState } from './slices';
-import authReducer, { IAuthState } from './slices/authSlice';
-import bookDetailsReducer, { TBookDetailsState } from './slices/bookDetailsSlice';
-import booksReducer, { IBooksState } from './slices/booksSlice';
-import popupsReducer from './slices/popupsSlice';
-import userSavingsReducer from './slices/userSavingsSlice';
+import {
+  popupsReducer,
+  headerActionsReducer, THeaderActionsState,
+  userSavingsReducer,
+  authReducer, IAuthState,
+  bookDetailsReducer, TBookDetailsState,
+  booksReducer, IBooksState,
+  matchMediaReducer, TMatchMediaState,
+} from './slices';
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +25,7 @@ export const store = configureStore({
     userSavings: userSavingsReducer,
     popups: popupsReducer,
     headerActions: headerActionsReducer,
+    matchMedia: matchMediaReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: {
@@ -65,6 +69,7 @@ export const selectUserSavings = (state: RootState): TUserSavings => state.userS
 export const selectUserPurchases = (state: RootState): TUserSavings['purchases'] => state.userSavings.purchases;
 export const selectPopups = (state: RootState): TPopupsState => state.popups;
 export const selectHeaderActionsState = (state: RootState): THeaderActionsState => state.headerActions;
+export const selectMatchMediaState = (state: RootState): TMatchMediaState => state.matchMedia;
 
 // service actions
 const STORAGE_ACTION_PREFIX = 'STORAGE';

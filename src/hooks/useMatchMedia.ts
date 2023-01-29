@@ -1,15 +1,16 @@
-import { useState, useLayoutEffect } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 import { EScreenTypes } from '../enums';
 import { TMatchMediaValues, TScreenTypes } from '../types';
 
 const queries = [
-  '(max-width: 766px)', // mobile
+  '(max-width: 424px)', // small screen
+  '(min-width: 425px) and (max-width: 766px)', // mobile
   '(min-width: 767px) and (max-width: 1079px)', // tablet
   '(min-width: 1080px)', // desktop
 ];
 
-const screenTypes: TScreenTypes = [EScreenTypes.isMobile, EScreenTypes.isTablet, EScreenTypes.isDesktop];
+const screenTypes: TScreenTypes = [EScreenTypes.isSmallScreen, EScreenTypes.isMobile, EScreenTypes.isTablet, EScreenTypes.isDesktop];
 const getValues = (queryLists: MediaQueryList[]) => () => queryLists.reduce<TMatchMediaValues>((acc, mql, index) => {
   acc[screenTypes[index]] = mql.matches;
 

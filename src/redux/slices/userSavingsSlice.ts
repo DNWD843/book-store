@@ -66,6 +66,4 @@ const userSavingsSlice = createSlice({
   },
 });
 
-export default userSavingsSlice.reducer;
-
-export const { actions: userSavingsActions } = userSavingsSlice;
+export const { actions: userSavingsActions, reducer: userSavingsReducer } = userSavingsSlice;
