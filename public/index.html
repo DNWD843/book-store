@@ -13,9 +13,35 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" crossorigin="anonymous" />
     <title>BookStore</title>
+    <style type="text/css">
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+      .App {
+        text-align: center;
+        background-color: rgb(35, 35, 35);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100vh;
+      }
+      .App-intro {
+        font-size: large;
+        color: white;
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root" class="root"></div>
+    <div id="root" class="root">
+      <div class="App">
+        <p class="App-intro">
+          Loading ...
+        </p>
+      </div>
+    </div>
   </body>
 </html>
