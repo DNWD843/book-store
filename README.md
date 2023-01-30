@@ -13,7 +13,15 @@ This project is created using technologies:
 
 ### Backend    
 - Firebase-Authorization
-- Firebase-FireStore Database
+- Firebase-FireStore Database     
+
+### Main features:    
+
+- authorization
+- personal account
+- the ability to edit profile data
+- purchase history
+- the ability to add books to favorites or to the cart
 
 ### Available Scripts
 
