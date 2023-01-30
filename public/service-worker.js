@@ -1,52 +1,73 @@
-const CACHE_NAME = 'offline';
-const OFFLINE_URL = 'offline.html';
+const CACHE_NAME = 'book-store-cache-v1';
+const OFFLINE_URL = '/offline.html';
+const doCache = true;
+
+self.addEventListener('activate', (event) => {
+  console.log('[ServiceWorker] Activate');
+
+  // Delete old caches that are not our current one!
+  const cacheWhitelist = [CACHE_NAME];
+
+  event.waitUntil(
+    caches.keys()
+      .then(keyList => Promise.all(keyList.map(key => {
+          if (!cacheWhitelist.includes(key)) {
+            console.log('Deleting cache: ' + key)
+            return caches.delete(key);
+          }
+        }))
+      )
+  );
+});
 
 self.addEventListener('install', (event) => {
   console.log('[ServiceWorker] Install');
 
   event.waitUntil((async () => {
-    const cache = await caches.open(CACHE_NAME);
-    // Setting {cache: 'reload'} in the new request will ensure that the response
-    // isn't fulfilled from the HTTP cache; i.e., it will be from the network.
-    await cache.add(new Request(OFFLINE_URL, { cache: 'reload' }));
-  })());
+    if (doCache) {
+      console.log('[ServiceWorker] Start caching');
+      const cache = await caches.open(CACHE_NAME);
+      const fetchedAssets = await fetch('asset-manifest.json');
+      const assets = await fetchedAssets.json().then(assets => assets['files']);
+      const urlsToCache = [
+        '/',
+        assets['main.js'],
+        assets['bundle.js.map'],
+        assets['static/media/login_ava.png'],
+      ]
+      await cache.addAll(urlsToCache)
+      // Setting {cache: 'reload'} in the new request will ensure that the response
+      // isn't fulfilled from the HTTP cache; i.e., it will be from the network.
+      await cache.add(new Request(OFFLINE_URL, { cache: 'reload' }));
+      console.log('[ServiceWorker] Successfully cached!');
+    }
+  })()
+);
 
   self.skipWaiting();
 });
 
-self.addEventListener('activate', (event) => {
-  console.log('[ServiceWorker] Activate');
-  event.waitUntil((async () => {
-    // Enable navigation preload if it's supported.
-    // See https://developers.google.com/web/updates/2017/02/navigation-preload
-    if ('navigationPreload' in self.registration) {
-      await self.registration.navigationPreload.enable();
-    }
-  })());
-
-  // Tell the active service worker to take control of the page immediately.
-  self.clients.claim();
-});
-
 self.addEventListener('fetch', (event) => {
-  // console.log('[Service Worker] Fetch', event.request.url);
-  if (event.request.mode === 'navigate') {
-    event.respondWith((async () => {
-      try {
-        const preloadResponse = await event.preloadResponse;
-        if (preloadResponse) {
-          return preloadResponse;
+  if (doCache) {
+    // console.log('[Service Worker] Fetch', event.request.url);
+
+    if (event.request.mode === 'navigate') {
+      event.respondWith((async () => {
+        try {
+          const responseFromCache = await caches.match(event.request);
+          console.log('responseFromCache', responseFromCache);
+          if (responseFromCache) {
+            return responseFromCache;
+          }
+
+          return await fetch(event.request);
+        } catch (error) {
+          console.log('[Service Worker] Fetch failed; returning offline page instead.', error);
+
+          const cache = await caches.open(CACHE_NAME);
+          return await cache.match(OFFLINE_URL);
         }
-
-        const networkResponse = await fetch(event.request);
-        return networkResponse;
-      } catch (error) {
-        console.log('[Service Worker] Fetch failed; returning offline page instead.', error);
-
-        const cache = await caches.open(CACHE_NAME);
-        const cachedResponse = await cache.match(OFFLINE_URL);
-        return cachedResponse;
-      }
-    })());
+      })());
+    }
   }
 });
