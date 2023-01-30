@@ -54,7 +54,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "gh-deploy": "gh-pages -d build",
+    "firebase-deploy": "yarn run build && firebase deploy",
+    "gh-deploy": "yarn run build && gh-pages -d build",
     "lint": "eslint --fix --max-warnings=0 --no-ignore --color --ext .ts,.tsx src/",
     "eject": "react-scripts eject"
   },
