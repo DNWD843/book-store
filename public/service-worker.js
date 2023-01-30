@@ -29,10 +29,11 @@ self.addEventListener('install', (event) => {
       const cache = await caches.open(CACHE_NAME);
       const fetchedAssets = await fetch('asset-manifest.json');
       const assets = await fetchedAssets.json().then(assets => assets['files']);
+      console.log('assets', assets);
       const urlsToCache = [
         '/',
         assets['main.js'],
-        assets['bundle.js.map'],
+        assets['main.css'],
         assets['static/media/login_ava.png'],
       ]
       await cache.addAll(urlsToCache)
