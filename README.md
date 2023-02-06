@@ -42,4 +42,4 @@ Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
-### Try it out on [github-pages](https://dnwd843.github.io/book-store/) or on [firebase-hosting](https://book-store-rtk-pwa.web.app)
+### Try it out on [firebase-hosting](https://book-store-rtk-pwa.web.app) or on [github-pages](https://dnwd843.github.io/book-store/)
