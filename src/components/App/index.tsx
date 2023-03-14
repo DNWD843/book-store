@@ -1,70 +1,56 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import { flowResult } from 'mobx';
+import { observer } from 'mobx-react-lite';
+import React, { useLayoutEffect } from 'react';
 
-import './App.css';
 import { ONE_DAY_TIMESTAMP } from '../../constants';
-import { EFetchStatuses } from '../../enums';
+import { EPromiseStates } from '../../enums';
 import { useMatchMedia } from '../../hooks';
 import { withReduxStore } from '../../provider/withReduxStore';
-import { useAppSelector, useAppDispatch } from '../../redux/hooks';
-import { authActions, booksActions, matchMediaActions } from '../../redux/slices';
-import { selectAuthStatus, selectBooksFetchingStatus, storageActions } from '../../redux/store';
-import { getBooks, getUserSavings } from '../../redux/thunks';
+import { booksStore, uiStore } from '../../stores';
 import { IBooksCollection, TUserData } from '../../types';
 import { checkNeedToDataUpdate, storage, storageKeys } from '../../utils';
 import { ScreenLoader } from '../Loaders';
+import './App.css';
 
 import { App } from './App';
 
-const AppComponent: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const { setUserToStore } = authActions;
-  const { setBooksToStore } = booksActions;
-  const { setMedia } = matchMediaActions;
-  const authStatus = useAppSelector(selectAuthStatus);
-  const booksStatus = useAppSelector(selectBooksFetchingStatus);
-
+const AppComponent: React.FC = observer(() => {
   const { isSmallScreen, isMobile, isTablet, isDesktop } = useMatchMedia();
 
   useLayoutEffect(() => {
-    dispatch(setMedia({ isSmallScreen, isMobile, isTablet, isDesktop }));
-  }, [dispatch, isDesktop, isMobile, isSmallScreen, isTablet, setMedia]);
-
-  useEffect(() => {
-    dispatch(storageActions.getUserInfo);
     const savedUser = storage.getData<TUserData>(storageKeys.USER);
-
-    dispatch(storageActions.getBooks);
     const savedBooks = storage.getData<IBooksCollection>(storageKeys.BOOKS);
 
-    if (savedUser) {
-      dispatch(getUserSavings(savedUser.userId))
-        .then(() => { dispatch(setUserToStore(savedUser)); });
-    }
+    uiStore.screen = { isSmallScreen, isMobile, isTablet, isDesktop };
+
+    // if (savedUser) {
+    //   dispatch(getUserSavings(savedUser.userId))
+    //     .then(() => { dispatch(setUserToStore(savedUser)); });
+    // }
 
     if (!savedBooks
       || (savedBooks.books && savedBooks.updatedAt && checkNeedToDataUpdate({ date: savedBooks.updatedAt, limit: ONE_DAY_TIMESTAMP }))) {
-      dispatch(getBooks()).then((res) => {
-        dispatch(storageActions.setBooks);
-        storage.setData(storageKeys.BOOKS, res.payload as Object);
+      flowResult(booksStore.getBooks()).then((res) => {
+        storage.setData(storageKeys.BOOKS, res as Object);
       })
         // eslint-disable-next-line no-console
         .catch((err) => { console.error(err); });
     } else {
-      dispatch(setBooksToStore(savedBooks));
+      booksStore.setBooksToStore(savedBooks);
     }
-  }, [dispatch, setBooksToStore, setUserToStore]);
+  }, [isDesktop, isMobile, isSmallScreen, isTablet]);
 
-  const isLoading = authStatus === EFetchStatuses.pending || booksStatus === EFetchStatuses.pending;
+  const isLoading = booksStore.state === EPromiseStates.pending;
 
   return (
     <>
       <App isDesktop={isDesktop} />
       {isLoading
-        ? (<ScreenLoader />)
+        ? (<ScreenLoader isTransparent={false} />)
         : null}
     </>
   );
-};
+});
 
 AppComponent.displayName = 'AppComponent';
 

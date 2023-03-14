@@ -20,3 +20,9 @@ export const enum EScreenTypes {
   isTablet = 'isTablet',
   isDesktop = 'isDesktop',
 }
+
+export const enum EPromiseStates {
+  done = 'done',
+  pending = 'pending',
+  error = 'error',
+}

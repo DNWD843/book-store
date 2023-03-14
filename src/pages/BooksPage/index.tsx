@@ -1,19 +1,19 @@
+import { observer } from 'mobx-react-lite';
 import React, { useMemo } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { BooksCatalogue } from '../../components/BooksCatalogue';
 import { Page } from '../../components/Page';
-import { useAppSelector } from '../../redux/hooks';
-import { selectBooksCollection, selectFilteredCollection } from '../../redux/store';
+import { booksStore } from '../../stores';
 
 import styles from './BooksCataloguePage.module.css';
 
 const BooksPage: React.FC = () => (<Outlet />);
 
 BooksPage.displayName = 'BooksPage';
-const BooksCataloguePage: React.FC = () => {
-  const booksCollection = useAppSelector(selectBooksCollection) || [];
-  const filteredCollection = useAppSelector(selectFilteredCollection);
+const BooksCataloguePage: React.FC = observer(() => {
+  const { books: booksCollection, filteredCollection } = booksStore;
+
   const pageSubtitle = useMemo(() => {
     if (!filteredCollection) return '';
 
@@ -26,7 +26,7 @@ const BooksCataloguePage: React.FC = () => {
 
   return (
     <Page subtitle={pageSubtitle} title="Каталог" withNavLinks={false}>
-      {booksCollection.length
+      {booksCollection?.length
         ? (<BooksCatalogue books={filteredCollection || booksCollection} />)
         : (
           <div className={styles.messageContainer}>
@@ -36,7 +36,7 @@ const BooksCataloguePage: React.FC = () => {
         )}
     </Page>
   );
-};
+});
 
 BooksCataloguePage.displayName = 'BooksCataloguePage';
 

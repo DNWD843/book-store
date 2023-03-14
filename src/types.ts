@@ -12,9 +12,11 @@ import {
   orderFormFieldsNames,
   ESendingTypeFieldsNames,
   EContactInfoFieldsNames,
-  EAddressInfoFieldsNames, EScreenTypes,
+  EAddressInfoFieldsNames, EScreenTypes, EPromiseStates,
 } from './enums';
 import { TColProps } from './ui-components/Col/Col.props';
+
+export type TPromiseState = EPromiseStates;
 
 export type TBookInfo = {
   id: string,

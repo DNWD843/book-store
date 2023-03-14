@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { REQUEST_DELAY, orderSubmitMessages, booksRequestMessages, mockedBooksCatalogue } from '../constants';
 import { db } from '../firebase';
 import { ESlicesNames } from '../redux/slicesNames';
-import { TBookInfo, TSendingOrderData, TUpdateCatalogueRequestResponse } from '../types';
+import { IBooksCollection, TBookInfo, TSendingOrderData, TUpdateCatalogueRequestResponse } from '../types';
 
 /**
  * @description admin only available method. setting a new collection
@@ -33,7 +33,7 @@ export const updateBooksCollection = async (): Promise<TUpdateCatalogueRequestRe
   }
 };
 
-export const fetchBooks = async (): Promise<{ books: TBookInfo[], updatedAt: number }> => {
+export const fetchBooks = async (): Promise<IBooksCollection> => {
   try {
     const querySnapshot = await getDocs(collection(db, ESlicesNames.booksCollection));
 
@@ -41,7 +41,7 @@ export const fetchBooks = async (): Promise<{ books: TBookInfo[], updatedAt: num
 
     return ({
       books,
-      updatedAt: new Date().getTime(),
+      updatedAt: Date.now(),
     });
   } catch (e) {
     // eslint-disable-next-line no-console
