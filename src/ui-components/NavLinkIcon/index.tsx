@@ -1,17 +1,15 @@
+import { observer } from 'mobx-react-lite';
 import React, { useMemo } from 'react';
 
 import { EIconTypes } from '../../enums';
-import { useAppSelector } from '../../redux/hooks';
-import { selectUserSavings } from '../../redux/store';
+import { savingsStore } from '../../stores';
 
 import { NavLinkIcon } from './NavLinkIcon';
 import { IHeaderNavLinkProps } from './NavLinkIcon.props';
 
 const HeaderNavLink = ({ to, icon, iconActive, type, title, isVisible, ...props }: IHeaderNavLinkProps) => {
-  const { favorites, cartValue } = useAppSelector(selectUserSavings);
-
-  const isShoppingCartFilled = useMemo(() => Boolean(cartValue.length), [cartValue.length]);
-  const hasFavorites = useMemo(() => Boolean(favorites.length), [favorites.length]);
+  const isShoppingCartFilled = Boolean(savingsStore.cartValue.length);
+  const hasFavorites = Boolean(savingsStore.favorites.length);
 
   const isActive: boolean = useMemo(() => {
     if (type === EIconTypes.favorites) {
@@ -34,4 +32,6 @@ const HeaderNavLink = ({ to, icon, iconActive, type, title, isVisible, ...props 
 
 HeaderNavLink.displayName = 'HeaderNavLink';
 
-export { HeaderNavLink };
+const ObservableHeaderNavLink = observer(HeaderNavLink);
+
+export { ObservableHeaderNavLink as HeaderNavLink };

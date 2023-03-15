@@ -12,8 +12,6 @@ const HeaderMenuComponent: React.FC<{ menuRef: React.MutableRefObject<HTMLDivEle
   const { isMenuOpened } = useAppSelector(selectHeaderActionsState);
   const { isAnonymous } = userStore.user;
 
-  console.log('HeaderMenuComponent isAnonymous', userStore.user.isAnonymous);
-
   return (
     <HeaderMenu isAnonymous={isAnonymous} isDesktop={isDesktop} isMenuOpened={isMenuOpened} menuRef={menuRef} />
   );

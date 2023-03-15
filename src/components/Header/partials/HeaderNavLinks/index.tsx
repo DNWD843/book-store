@@ -1,19 +1,19 @@
-import React, { memo } from 'react';
+import { observer } from 'mobx-react-lite';
+import React from 'react';
 
-import { useAppSelector } from '../../../../redux/hooks';
-import { selectUserData } from '../../../../redux/store';
+import { userStore } from '../../../../stores';
 
 import { HeaderNavLinks } from './HeaderNavLinks';
 import { navLinksConfig } from './navLinksConfig';
 
 const HeaderNavLinksComponent: React.FC = () => {
-  const { isAnonymous } = useAppSelector(selectUserData);
+  const { isAnonymous } = userStore.user;
 
   return (<HeaderNavLinks isAnonymous={isAnonymous} navLinks={navLinksConfig} />);
 };
 
 HeaderNavLinksComponent.displayName = 'HeaderNavLinksComponent';
 
-const MemoHeaderNavLinksComponent = memo(HeaderNavLinksComponent);
+const ObservableHeaderNavLinksComponent = observer(HeaderNavLinksComponent);
 
-export { MemoHeaderNavLinksComponent as NavLinks };
+export { ObservableHeaderNavLinksComponent as NavLinks };

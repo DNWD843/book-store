@@ -18,12 +18,15 @@ const defaultUserData: TUser = {
 class UserStore {
   _user: TUser;
 
+  _initialData: TUser;
+
   status: EFetchStatuses = EFetchStatuses.fulfilled;
 
   _api: any = {};
 
   constructor({ initialData, api }: { initialData: TUser, api: any }) {
     makeAutoObservable(this);
+    this._initialData = initialData;
     this._user = initialData;
     this._api = api;
   }
@@ -59,6 +62,7 @@ class UserStore {
     try {
       const authorizedUser: TUser = yield this._api.loginUserByEmail(credentials);
       this.setUserToStore(authorizedUser);
+      this.status = EFetchStatuses.fulfilled;
 
       return authorizedUser;
     } catch (err) {
@@ -76,8 +80,8 @@ class UserStore {
         throw new Error(defaultMessages.unexpectedError);
       }
 
-      this.setUserToStore(defaultUserData);
-      // TODO: чистить сохранения юзера?
+      this.setUserToStore(this._initialData);
+      this.status = EFetchStatuses.fulfilled;
     } catch (err) {
       this.status = EFetchStatuses.rejected;
       throw err;
@@ -129,8 +133,7 @@ class UserStore {
         throw new Error(defaultMessages.unexpectedError);
       }
 
-      // TODO: clear user data and savings and cache??
-
+      this.setUserToStore(this._initialData);
       this.status = EFetchStatuses.fulfilled;
     } catch (err) {
       this.status = EFetchStatuses.rejected;

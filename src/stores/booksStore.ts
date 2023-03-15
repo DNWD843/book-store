@@ -80,6 +80,20 @@ class BooksStore {
       throw err;
     }
   }
+
+  *updateBooksInDB() {
+    this.status = EFetchStatuses.pending;
+    try {
+      const updatedCollection: IBooksCollection = yield this._api.updateBooksCollection();
+      this.setBooksToStore({ books: updatedCollection.books, updatedAt: updatedCollection.updatedAt });
+      this.status = EFetchStatuses.fulfilled;
+
+      return updatedCollection;
+    } catch (err) {
+      this.status = EFetchStatuses.rejected;
+      throw err;
+    }
+  }
 }
 
 export const booksStore = new BooksStore(booksApi);

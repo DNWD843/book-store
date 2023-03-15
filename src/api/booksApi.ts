@@ -4,12 +4,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { REQUEST_DELAY, orderSubmitMessages, booksRequestMessages, mockedBooksCatalogue } from '../constants';
 import { db } from '../firebase';
 import { ESlicesNames } from '../redux/slicesNames';
-import { IBooksCollection, TBookInfo, TSendingOrderData, TUpdateCatalogueRequestResponse } from '../types';
+import { IBooksCollection, TBookInfo, TSendingOrderData } from '../types';
 
 /**
  * @description admin only available method. setting a new collection
  */
-export const updateBooksCollection = async (): Promise<TUpdateCatalogueRequestResponse> => {
+export const updateBooksCollection = async (): Promise<IBooksCollection> => {
   try {
     await Promise.all(mockedBooksCatalogue.map((book) => {
       const pathSegment = uuidv4();
@@ -21,9 +21,8 @@ export const updateBooksCollection = async (): Promise<TUpdateCatalogueRequestRe
     const books = querySnapshot.docs.map((document) => document.data() as unknown as TBookInfo);
 
     return ({
-      message: booksRequestMessages.updateCollectionSuccess,
       books,
-      updatedAt: new Date().getTime(),
+      updatedAt: Date.now(),
     });
   } catch (err) {
     // eslint-disable-next-line no-console

@@ -5,18 +5,12 @@ import { userSavingsRequestMessages } from '../constants';
 import { ECollectionPaths } from '../enums';
 import { db } from '../firebase';
 import { ESlicesNames } from '../redux/slicesNames';
-import { TUserSavings, TUserSavingsToUpdate } from '../types';
+import { TUser, TUserSavings, TUserSavingsToUpdate } from '../types';
 
 class UserSavingsApi {
-  fetchSavings = async (): Promise<TUserSavings | undefined> => {
+  fetchSavings = async (id: TUser['userId']): Promise<TUserSavings | undefined> => {
     try {
-      const auth = getAuth();
-
-      if (!auth.currentUser) {
-        throw new Error(userSavingsRequestMessages.fetchSavingsError);
-      }
-
-      const docSnap = await getDoc(doc(db, ESlicesNames.userSavings, auth.currentUser.uid));
+      const docSnap = await getDoc(doc(db, ESlicesNames.userSavings, id));
 
       if (docSnap.exists()) {
         return docSnap.data() as unknown as TUserSavings;

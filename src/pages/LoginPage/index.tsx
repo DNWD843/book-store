@@ -17,7 +17,7 @@ import { savingsStore, userStore } from '../../stores';
 import { TAuthFormValues } from '../../types';
 import { storage, storageKeys } from '../../utils';
 
-const LoginPageComponent: React.FC = observer(() => {
+const LoginPageComponent: React.FC = () => {
   const dispatch = useAppDispatch();
   const { addPopup } = popupsActions;
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const LoginPageComponent: React.FC = observer(() => {
   const handleSubmit = async ({ email, password }: TAuthFormValues) => {
     try {
       const userData = await flowResult(userStore.login({ email, password }));
-      await savingsStore.fetchSavings();
+      await savingsStore.fetchSavings(userData.userId);
 
       if (savingsStore.needsToUpdateDB) {
         await savingsStore.updateSavingsInDB();
@@ -40,12 +40,7 @@ const LoginPageComponent: React.FC = observer(() => {
       navigate(routes.books);
       dispatch(storageActions.setUserInfo);
       storage.setData(storageKeys.USER, userData);
-
-      console.log('handleSubmit', userData);
     } catch (err: any) {
-      console.log('handleSubmit catch error:', err);
-      // console.error(err);
-      //
       dispatch(addPopup({
         id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
         message: err.message ?? defaultMessages.unexpectedError,
@@ -64,8 +59,10 @@ const LoginPageComponent: React.FC = observer(() => {
       />
     </Page>
   );
-});
+};
 
 LoginPageComponent.displayName = 'LoginPageComponent';
 
-export { LoginPageComponent as LoginPage };
+const ObservableLoginPageComponent = observer(LoginPageComponent);
+
+export { ObservableLoginPageComponent as LoginPage };

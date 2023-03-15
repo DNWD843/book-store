@@ -8,138 +8,94 @@ import {
   deleteUserRequestMessages,
   POPUP_ID_PREFIX,
 } from '../../../../../constants';
-import { EFetchStatuses, EPopupTypes } from '../../../../../enums';
+import { EPopupTypes } from '../../../../../enums';
 import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks';
-import { headerActions, popupsActions, userSavingsActions } from '../../../../../redux/slices';
-import { selectHeaderActionsState, storageActions } from '../../../../../redux/store';
-import { auth, updateBooksCatalogue, deleteUserSavings } from '../../../../../redux/thunks';
-import { userStore } from '../../../../../stores';
-import { TUpdateCatalogueRequestResponse } from '../../../../../types';
+import { headerActions, popupsActions } from '../../../../../redux/slices';
+import { selectHeaderActionsState } from '../../../../../redux/store';
+import { booksStore, savingsStore, userStore } from '../../../../../stores';
 import { storage, storageKeys } from '../../../../../utils';
 import { ConfirmModal } from '../../../../Modals';
 
 import { HeaderMenuActionButtons } from './HeaderMenuActionButtons';
 
-const HeaderMenuActionButtonsComponent: React.FC = observer(() => {
+const HeaderMenuActionButtonsComponent: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { removeUserSavingsFromStore } = userSavingsActions;
-  const { addPopup } = popupsActions;
   const { closeMenu, openConfirmModal, closeConfirmModal } = headerActions;
-  const { isAdmin } = userStore.user;
   const { isConfirmModalOpened } = useAppSelector(selectHeaderActionsState);
+  const { addPopup } = popupsActions;
 
-  console.log('HeaderMenuActionButtonsComponent', userStore.user);
+  const handleLogout = useCallback(async () => {
+    try {
+      await savingsStore.deleteSavings();
+      await userStore.logout();
+      storage.deleteData([storageKeys.USER, storageKeys.USER_SAVINGS]);
 
-  const handleLogout = useCallback(() => {
-    dispatch(auth.logoutUser())
-      .then((res) => {
-        if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
-          dispatch(removeUserSavingsFromStore());
-          storage.deleteData([storageKeys.USER, storageKeys.USER_SAVINGS]);
-          dispatch(storageActions.removeUserInfo);
-        } else {
-          // eslint-disable-next-line @typescript-eslint/no-throw-literal
-          throw res;
-        }
-      })
-      .then(() => { dispatch(closeMenu()); })
+      dispatch(closeMenu());
+    } catch (err: any) {
       // eslint-disable-next-line no-console
-      .catch((err) => {
-        // eslint-disable-next-line no-console
-        console.error(err);
+      console.error(err);
 
-        dispatch(addPopup({
-          id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
-          message: err?.error?.message ?? defaultMessages.unexpectedError,
-          type: EPopupTypes.danger,
-        }));
-      });
-  }, [addPopup, closeMenu, dispatch, removeUserSavingsFromStore]);
+      dispatch(addPopup({
+        id: uniqueId(POPUP_ID_PREFIX),
+        message: err?.message ?? defaultMessages.unexpectedError,
+        type: EPopupTypes.danger,
+      }));
+    }
+  }, [addPopup, closeMenu, dispatch]);
 
   const onDelete = useCallback(() => { dispatch(openConfirmModal()); }, [dispatch, openConfirmModal]);
   const closeModal = useCallback(() => { dispatch(closeConfirmModal()); }, [closeConfirmModal, dispatch]);
 
   const onUpdateBooksCatalogue = useCallback(async () => {
-    await dispatch(updateBooksCatalogue())
-      .then((res) => {
-        if (res.meta.requestStatus === EFetchStatuses.rejected) {
-          // eslint-disable-next-line @typescript-eslint/no-throw-literal
-          throw res;
-        }
+    try {
+      const updatedCollection = await booksStore.updateBooksInDB();
+      storage.setData(storageKeys.BOOKS, updatedCollection);
 
-        const { books = [], updatedAt = '' } = res.payload as TUpdateCatalogueRequestResponse;
+      dispatch(closeMenu());
 
-        dispatch(storageActions.setBooks);
-        storage.setData(storageKeys.BOOKS, { books, updatedAt });
+      dispatch(addPopup({
+        id: uniqueId(POPUP_ID_PREFIX),
+        message: booksRequestMessages.updateCollectionSuccess,
+        type: EPopupTypes.success,
+      }));
+    } catch (err: any) {
+      // eslint-disable-next-line no-console
+      console.log(err);
 
-        dispatch(addPopup({
-          id: res.meta.requestId || uniqueId(POPUP_ID_PREFIX),
-          message: booksRequestMessages.updateCollectionSuccess,
-          type: EPopupTypes.success,
-        }));
-      })
-      .then(() => { dispatch(closeMenu()); })
-      .catch((err) => {
-        // eslint-disable-next-line no-console
-        console.log(err);
-
-        dispatch(addPopup({
-          id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
-          message: err?.error?.message ?? defaultMessages.unexpectedError,
-          type: EPopupTypes.danger,
-        }));
-      });
+      dispatch(addPopup({
+        id: uniqueId(POPUP_ID_PREFIX),
+        message: err?.message ?? defaultMessages.unexpectedError,
+        type: EPopupTypes.danger,
+      }));
+    }
   }, [addPopup, closeMenu, dispatch]);
 
   const handleDeleteUser = useCallback(async () => {
-    await dispatch(deleteUserSavings())
-      .then((res) => {
-        if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
-          storage.deleteData(storageKeys.USER_SAVINGS);
-          dispatch(storageActions.removeUserSavings);
-        } else {
-          // eslint-disable-next-line @typescript-eslint/no-throw-literal
-          throw res;
-        }
-      })
-      .catch((err) => {
-        dispatch(addPopup({
-          id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
-          message: err?.error?.message ?? defaultMessages.unexpectedError,
-          type: EPopupTypes.danger,
-        }));
-      });
+    try {
+      await savingsStore.deleteSavings();
+      await userStore.deleteProfile();
+      storage.deleteData([storageKeys.USER, storageKeys.USER_SAVINGS]);
 
-    await dispatch(auth.deleteUser())
-      .then((res) => {
-        if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
-          dispatch(addPopup({
-            id: res.meta.requestId || uniqueId(POPUP_ID_PREFIX),
-            message: deleteUserRequestMessages.success,
-            type: EPopupTypes.success,
-          }));
+      closeModal();
 
-          storage.deleteData(storageKeys.USER);
-          dispatch(storageActions.removeUserInfo);
-        } else {
-          // eslint-disable-next-line @typescript-eslint/no-throw-literal
-          throw res;
-        }
-      })
-      .then(() => { closeModal(); })
-      .catch((err) => {
-        dispatch(addPopup({
-          id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
-          message: err?.error?.message ?? defaultMessages.unexpectedError,
-          type: EPopupTypes.danger,
-        }));
-      });
+      dispatch(addPopup({
+        id: uniqueId(POPUP_ID_PREFIX),
+        message: deleteUserRequestMessages.success,
+        type: EPopupTypes.success,
+      }));
+    } catch (err: any) {
+      dispatch(addPopup({
+        id: uniqueId(POPUP_ID_PREFIX),
+        message: err?.message ?? defaultMessages.unexpectedError,
+        type: EPopupTypes.danger,
+      }));
+    }
   }, [addPopup, closeModal, dispatch]);
 
   return (
     <>
       <HeaderMenuActionButtons
-        isAdmin={isAdmin}
+        isAdmin={userStore.user.isAdmin}
         onDelete={onDelete}
         onLogout={handleLogout}
         onUpdateBooksCatalogue={onUpdateBooksCatalogue}
@@ -154,8 +110,10 @@ const HeaderMenuActionButtonsComponent: React.FC = observer(() => {
       />
     </>
   );
-});
+};
 
 HeaderMenuActionButtonsComponent.displayName = 'HeaderMenuActionButtonsComponent';
 
-export { HeaderMenuActionButtonsComponent as HeaderMenuActionButtons };
+const ObservableHeaderMenuActionButtonsComponent = observer(HeaderMenuActionButtonsComponent);
+
+export { ObservableHeaderMenuActionButtonsComponent as HeaderMenuActionButtons };

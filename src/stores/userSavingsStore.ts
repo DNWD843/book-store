@@ -3,7 +3,7 @@ import { makeAutoObservable } from 'mobx';
 import { savingsApi } from '../api';
 import { defaultMessages } from '../constants';
 import { ECollectionPaths, EFetchStatuses } from '../enums';
-import { TBookInfo, TUserSavings } from '../types';
+import { TBookInfo, TUser, TUserSavings } from '../types';
 
 const defaultSavings: TUserSavings = {
   [ECollectionPaths.favorites]: [],
@@ -94,11 +94,11 @@ class UserSavingsStore {
     this._purchases = this._initialValues[ECollectionPaths.purchases];
   }
 
-  *fetchSavings() {
+  *fetchSavings(id: TUser['userId']) {
     this.status = EFetchStatuses.pending;
 
     try {
-      const savingsFromDB: TUserSavings = yield this._api.fetchSavings();
+      const savingsFromDB: TUserSavings = yield this._api.fetchSavings(id);
       this._setSavings(savingsFromDB);
       this.status = EFetchStatuses.fulfilled;
     } catch (err) {

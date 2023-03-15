@@ -6,7 +6,7 @@ import { ONE_DAY_TIMESTAMP } from '../../constants';
 import { EFetchStatuses } from '../../enums';
 import { useMatchMedia } from '../../hooks';
 import { withReduxStore } from '../../provider/withReduxStore';
-import { booksStore, uiStore, userStore } from '../../stores';
+import { booksStore, savingsStore, uiStore, userStore } from '../../stores';
 import { IBooksCollection, TUserData } from '../../types';
 import { checkNeedToDataUpdate, storage, storageKeys } from '../../utils';
 import { ScreenLoader } from '../Loaders';
@@ -25,8 +25,7 @@ const AppComponent: React.FC = observer(() => {
 
     if (savedUser) {
       userStore.setUserToStore(savedUser);
-      // dispatch(getUserSavings(savedUser.userId))
-      //   .then(() => { dispatch(setUserToStore(savedUser)); });
+      savingsStore.fetchSavings(savedUser.userId);
     }
 
     if (!savedBooks
@@ -41,7 +40,7 @@ const AppComponent: React.FC = observer(() => {
     }
   }, [isDesktop, isMobile, isSmallScreen, isTablet]);
 
-  const isLoading = booksStore.status === EFetchStatuses.pending;
+  const isLoading = booksStore.status === EFetchStatuses.pending || savingsStore.status === EFetchStatuses.pending;
 
   return (
     <>
