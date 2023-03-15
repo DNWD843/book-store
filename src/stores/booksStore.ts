@@ -40,10 +40,10 @@ class BooksStore {
     return this._updatedAt;
   }
 
-  filterCollectionByValue = (searchValue: string) => {
-    if (this._books?.length && searchValue) {
+  filterCollectionByValue = (query: string) => {
+    if (this._books?.length && query) {
       this._filteredCollection = this._books.filter(
-        (book) => book.author.toLowerCase().includes(searchValue.toLowerCase()) || book.title.toLowerCase().includes(searchValue.toLowerCase()),
+        (book) => book.author.toLowerCase().includes(query.toLowerCase()) || book.title.toLowerCase().includes(query.toLowerCase()),
       );
     } else {
       this._filteredCollection = null;
@@ -54,9 +54,9 @@ class BooksStore {
     return this._filteredCollection;
   }
 
-  set searchValue(value: string) {
+  setSearchValue = (value: string) => {
     this._searchValue = value;
-  }
+  };
 
   get searchValue() {
     return this._searchValue;

@@ -1,20 +1,19 @@
 import classNames from 'classnames';
-import React, { ChangeEvent, memo, useCallback, useEffect, useMemo, useRef } from 'react';
+import { observer } from 'mobx-react-lite';
+import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { FILTER_DELAY } from '../../constants';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { booksActions } from '../../redux/slices';
-import { selectHeaderActionsState, selectMatchMediaState, selectSearchValue } from '../../redux/store';
+import { useAppSelector } from '../../redux/hooks';
+import { selectHeaderActionsState } from '../../redux/store';
+import { booksStore, uiStore } from '../../stores';
 
 import { BookSearchFilter } from './BookSearchFilter';
 
 import styles from './BookSearchFilter.module.css';
 
 const BookSearchFilterComponent: React.FC<{ searchFilterRef: React.MutableRefObject<HTMLDivElement | null> }> = ({ searchFilterRef }) => {
-  const dispatch = useAppDispatch();
-  const { filterCollection, clearSearchValue, setSearchValue } = booksActions;
-  const { isDesktop } = useAppSelector(selectMatchMediaState);
-  const searchValue = useAppSelector(selectSearchValue);
+  const { filterCollectionByValue, clearSearchValue, setSearchValue, searchValue } = booksStore;
+  const { isDesktop } = uiStore.screen;
   const { isSearchFilterOpened } = useAppSelector(selectHeaderActionsState);
   const prevTimerIdRef = useRef< NodeJS.Timeout | null>(null);
 
@@ -27,20 +26,20 @@ const BookSearchFilterComponent: React.FC<{ searchFilterRef: React.MutableRefObj
     if (prevTimerIdRef.current) {
       clearTimeout(prevTimerIdRef.current);
     }
-    dispatch(setSearchValue(evt.target.value));
+    setSearchValue(evt.target.value);
 
     const id = setTimeout(() => {
-      dispatch(filterCollection(evt.target.value));
+      filterCollectionByValue(evt.target.value);
       clearTimeout(id);
       prevTimerIdRef.current = null;
     }, FILTER_DELAY);
 
     prevTimerIdRef.current = id;
-  }, [dispatch, filterCollection, setSearchValue]);
+  }, [filterCollectionByValue, setSearchValue]);
 
   const handleClickOnClearButton = useCallback(() => {
-    dispatch(clearSearchValue());
-  }, [dispatch, clearSearchValue]);
+    clearSearchValue();
+  }, [clearSearchValue]);
 
   useEffect(() => () => {
     handleClickOnClearButton();
@@ -59,6 +58,6 @@ const BookSearchFilterComponent: React.FC<{ searchFilterRef: React.MutableRefObj
 
 BookSearchFilterComponent.displayName = 'BookSearchFilterComponent';
 
-const MemoBookSearchFilterComponent = memo(BookSearchFilterComponent);
+const ObservableBookSearchFilterComponent = observer(BookSearchFilterComponent);
 
-export { MemoBookSearchFilterComponent as BookSearchFilter };
+export { ObservableBookSearchFilterComponent as BookSearchFilter };

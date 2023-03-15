@@ -8,7 +8,7 @@ import { uiStore, userStore } from '../../../../stores';
 
 import { DesktopMenuButton } from './DesktopMenuButton';
 
-const DesktopMenuButtonComponent: React.FC = observer(() => {
+const DesktopMenuButtonComponent: React.FC = () => {
   const dispatch = useAppDispatch();
   const { openMenu, closeMenu } = headerActions;
   const { isAnonymous } = userStore.user;
@@ -28,8 +28,10 @@ const DesktopMenuButtonComponent: React.FC = observer(() => {
       onMenuButtonClick={openHeaderMenu}
     />
   );
-});
+};
 
 DesktopMenuButtonComponent.displayName = 'DesktopMenuButtonComponent';
 
-export { DesktopMenuButtonComponent as DesktopMenuButton };
+const ObservableComponent = observer(DesktopMenuButtonComponent);
+
+export { ObservableComponent as DesktopMenuButton };
