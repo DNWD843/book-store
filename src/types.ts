@@ -12,11 +12,9 @@ import {
   orderFormFieldsNames,
   ESendingTypeFieldsNames,
   EContactInfoFieldsNames,
-  EAddressInfoFieldsNames, EScreenTypes, EPromiseStates,
+  EAddressInfoFieldsNames, EScreenTypes,
 } from './enums';
 import { TColProps } from './ui-components/Col/Col.props';
-
-export type TPromiseState = EPromiseStates;
 
 export type TBookInfo = {
   id: string,
@@ -57,12 +55,14 @@ export type TUserData = TUser;
 
 export type TPurchase = { books: TBookInfo[], orderPrice: number };
 export type TPurchases = Record<string, TPurchase>;
+export type TFavorites = TBookInfo[];
+export type TCartValue = TBookInfo[];
 
 export type TUserSavings = {
   status?: EFetchStatuses,
   id?: string,
-  favorites: TBookInfo[],
-  cartValue: TBookInfo[],
+  favorites: TFavorites,
+  cartValue: TCartValue,
   purchases: TPurchases,
 };
 
@@ -74,6 +74,8 @@ export type TUserSavingsToUpdate = {
   },
   userId: TUserData['userId'],
 };
+
+export type TCredentialsToUpdate = { displayName: TUser['displayName'], photoURL: TUser['photoURL'] };
 
 export type TAuthFormValues = { email: string, password: string };
 

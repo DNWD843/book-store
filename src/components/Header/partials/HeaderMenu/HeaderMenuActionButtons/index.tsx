@@ -1,5 +1,6 @@
 import uniqueId from 'lodash/uniqueId';
-import React, { memo, useCallback } from 'react';
+import { observer } from 'mobx-react-lite';
+import React, { useCallback } from 'react';
 
 import {
   booksRequestMessages,
@@ -10,21 +11,24 @@ import {
 import { EFetchStatuses, EPopupTypes } from '../../../../../enums';
 import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks';
 import { headerActions, popupsActions, userSavingsActions } from '../../../../../redux/slices';
-import { selectHeaderActionsState, selectUserData, storageActions } from '../../../../../redux/store';
+import { selectHeaderActionsState, storageActions } from '../../../../../redux/store';
 import { auth, updateBooksCatalogue, deleteUserSavings } from '../../../../../redux/thunks';
+import { userStore } from '../../../../../stores';
 import { TUpdateCatalogueRequestResponse } from '../../../../../types';
 import { storage, storageKeys } from '../../../../../utils';
 import { ConfirmModal } from '../../../../Modals';
 
 import { HeaderMenuActionButtons } from './HeaderMenuActionButtons';
 
-const HeaderMenuActionButtonsComponent: React.FC = () => {
+const HeaderMenuActionButtonsComponent: React.FC = observer(() => {
   const dispatch = useAppDispatch();
   const { removeUserSavingsFromStore } = userSavingsActions;
   const { addPopup } = popupsActions;
   const { closeMenu, openConfirmModal, closeConfirmModal } = headerActions;
-  const { isAdmin } = useAppSelector(selectUserData);
+  const { isAdmin } = userStore.user;
   const { isConfirmModalOpened } = useAppSelector(selectHeaderActionsState);
+
+  console.log('HeaderMenuActionButtonsComponent', userStore.user);
 
   const handleLogout = useCallback(() => {
     dispatch(auth.logoutUser())
@@ -150,10 +154,8 @@ const HeaderMenuActionButtonsComponent: React.FC = () => {
       />
     </>
   );
-};
+});
 
 HeaderMenuActionButtonsComponent.displayName = 'HeaderMenuActionButtonsComponent';
 
-const MemoHeaderMenuActionButtonsComponent = memo(HeaderMenuActionButtonsComponent);
-
-export { MemoHeaderMenuActionButtonsComponent as HeaderMenuActionButtons };
+export { HeaderMenuActionButtonsComponent as HeaderMenuActionButtons };

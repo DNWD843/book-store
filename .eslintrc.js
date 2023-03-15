@@ -44,6 +44,7 @@ module.exports = {
     'no-underscore-dangle': [ERROR, { 'allowAfterThis': true }],
     'func-names': [ERROR, 'as-needed', { 'generators': 'never' }],
     'react/destructuring-assignment': OFF,
+    'generator-star-spacing': ["error", {"before": true, "after": false}],
 
     // экспорт по дефолту, отдаём преимущество именованному экспорту
     'import/prefer-default-export': OFF,

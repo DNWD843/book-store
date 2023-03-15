@@ -1,8 +1,8 @@
-import {makeAutoObservable} from 'mobx';
+import { makeAutoObservable } from 'mobx';
 
 import * as booksApi from '../api/booksApi';
-import { EPromiseStates } from '../enums';
-import { IBooksCollection, TPromiseState } from '../types';
+import { EFetchStatuses } from '../enums';
+import { IBooksCollection } from '../types';
 
 class BooksStore {
   _books: IBooksCollection['books'] = null;
@@ -15,9 +15,9 @@ class BooksStore {
 
   _api: any = {};
 
-  state: TPromiseState = EPromiseStates.done;
+  status: EFetchStatuses = EFetchStatuses.fulfilled;
 
-  constructor(api: unknown) {
+  constructor(api: any) {
     this._api = api;
     makeAutoObservable(this);
   }
@@ -67,16 +67,17 @@ class BooksStore {
     this._searchValue = '';
   };
 
-  * getBooks() {
-    this.state = EPromiseStates.pending;
+  *getBooks() {
+    this.status = EFetchStatuses.pending;
     try {
       const booksCollection: IBooksCollection = yield this._api.fetchBooks();
       this.setBooksToStore(booksCollection);
-      this.state = EPromiseStates.done;
+      this.status = EFetchStatuses.fulfilled;
 
       return booksCollection;
     } catch (err) {
-      this.state = EPromiseStates.error;
+      this.status = EFetchStatuses.rejected;
+      throw err;
     }
   }
 }

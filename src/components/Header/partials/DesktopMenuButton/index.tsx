@@ -1,17 +1,19 @@
-import React, { memo, useCallback } from 'react';
+import { observer } from 'mobx-react-lite';
+import React, { useCallback } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
 import { headerActions } from '../../../../redux/slices';
-import { selectHeaderActionsState, selectMatchMediaState, selectUserData } from '../../../../redux/store';
+import { selectHeaderActionsState } from '../../../../redux/store';
+import { uiStore, userStore } from '../../../../stores';
 
 import { DesktopMenuButton } from './DesktopMenuButton';
 
-const DesktopMenuButtonComponent: React.FC = () => {
+const DesktopMenuButtonComponent: React.FC = observer(() => {
   const dispatch = useAppDispatch();
   const { openMenu, closeMenu } = headerActions;
-  const { isAnonymous } = useAppSelector(selectUserData);
+  const { isAnonymous } = userStore.user;
   const { isMenuOpened } = useAppSelector(selectHeaderActionsState);
-  const { isDesktop } = useAppSelector(selectMatchMediaState);
+  const { isDesktop } = uiStore.screen;
 
   const openHeaderMenu = useCallback(() => { dispatch(openMenu()); }, [dispatch, openMenu]);
   const closeHeaderMenu = useCallback(() => {
@@ -26,10 +28,8 @@ const DesktopMenuButtonComponent: React.FC = () => {
       onMenuButtonClick={openHeaderMenu}
     />
   );
-};
+});
 
 DesktopMenuButtonComponent.displayName = 'DesktopMenuButtonComponent';
 
-const MemoDesktopMenuButtonComponent = memo(DesktopMenuButtonComponent);
-
-export { MemoDesktopMenuButtonComponent as DesktopMenuButton };
+export { DesktopMenuButtonComponent as DesktopMenuButton };

@@ -1,60 +1,50 @@
 import uniqueId from 'lodash/uniqueId';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { ScreenLoader } from '../../components/Loaders';
 import { Page } from '../../components/Page';
 import { AuthForm, authFormConfigs } from '../../components/forms';
 import { defaultMessages, POPUP_ID_PREFIX, registerRequestMessages } from '../../constants';
 import { EAuthTypes, EFetchStatuses, EPopupTypes } from '../../enums';
 import { useAppDispatch } from '../../redux/hooks';
-import { authActions, popupsActions } from '../../redux/slices';
-import { auth, createUserSavings } from '../../redux/thunks';
+import { popupsActions } from '../../redux/slices';
 import { routes } from '../../routesMap';
-import { TAuthFormValues, TUser } from '../../types';
+import { userStore } from '../../stores';
+import { TAuthFormValues } from '../../types';
 
-const RegisterPageComponent: React.FC = () => {
+const RegisterPageComponent: React.FC = observer(() => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { clearAuthError } = authActions;
   const { addPopup } = popupsActions;
 
-  const handleSubmit = ({ email, password }: TAuthFormValues) => {
-    dispatch(clearAuthError());
-    dispatch(auth.registerUser({ email, password }))
-      .then(async (res) => {
-        if (res.meta.requestStatus === EFetchStatuses.rejected) {
-          // eslint-disable-next-line @typescript-eslint/no-throw-literal
-          throw res;
-        }
+  const handleSubmit = async ({ email, password }: TAuthFormValues) => {
+    try {
+      await userStore.register({ email, password });
 
-        const userData = res.payload as TUser;
-        await dispatch(createUserSavings(userData.userId));
+      dispatch(addPopup({
+        id: uniqueId(POPUP_ID_PREFIX),
+        message: registerRequestMessages.success,
+        type: EPopupTypes.success,
+      }));
 
-        return res;
-      })
-      .then((res) => {
-        dispatch(addPopup({
-          id: res.meta.requestId || uniqueId(POPUP_ID_PREFIX),
-          message: registerRequestMessages.success,
-          type: EPopupTypes.success,
-        }));
+      navigate(routes.login);
+    } catch (err: any) {
+      // eslint-disable-next-line no-console
+      console.error(err);
 
-        navigate(routes.login);
-      })
-      .catch((err) => {
-        // eslint-disable-next-line no-console
-        console.error(err);
-
-        dispatch(addPopup({
-          id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
-          message: err?.error?.message ?? defaultMessages.unexpectedError,
-          type: EPopupTypes.danger,
-        }));
-      });
+      dispatch(addPopup({
+        id: uniqueId(POPUP_ID_PREFIX),
+        message: err?.message ?? defaultMessages.unexpectedError,
+        type: EPopupTypes.danger,
+      }));
+    }
   };
 
   return (
     <Page title="">
+      {userStore.status === EFetchStatuses.pending ? <ScreenLoader /> : null}
       <AuthForm
         formConfig={authFormConfigs[EAuthTypes.register]}
         id={EAuthTypes.register}
@@ -62,7 +52,7 @@ const RegisterPageComponent: React.FC = () => {
       />
     </Page>
   );
-};
+});
 
 RegisterPageComponent.displayName = 'RegisterPageComponent';
 
