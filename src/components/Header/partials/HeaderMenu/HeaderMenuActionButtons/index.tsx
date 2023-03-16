@@ -30,7 +30,7 @@ const HeaderMenuActionButtonsComponent: React.FC = () => {
     try {
       clearSavings();
       await logout();
-      storage.deleteData([storageKeys.USER, storageKeys.USER_SAVINGS]);
+      storage.deleteData(storageKeys.USER);
 
       dispatch(closeMenu());
     } catch (err: any) {
@@ -76,7 +76,7 @@ const HeaderMenuActionButtonsComponent: React.FC = () => {
     try {
       await deleteSavingsInDB();
       await deleteProfile();
-      storage.deleteData([storageKeys.USER, storageKeys.USER_SAVINGS]);
+      storage.deleteData(storageKeys.USER);
 
       closeModal();
 

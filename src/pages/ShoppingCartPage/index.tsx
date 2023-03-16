@@ -10,9 +10,7 @@ import { getTotalPrice, pluralize } from '../../utils';
 
 const ShoppingCartPage: React.FC = () => {
   const cartValue = toJS(savingsStore.cartValue);
-  const favorites = toJS(savingsStore.favorites);
-  const purchases = toJS(savingsStore.purchases);
-  const { userId, displayName, email, isAnonymous } = userStore.user;
+  const { displayName, email, isAnonymous } = userStore.user;
 
   const { totalPrice, bookQuantity } = getTotalPrice(cartValue);
 
@@ -34,7 +32,7 @@ const ShoppingCartPage: React.FC = () => {
           <>
             <ShoppingCart orderPrice={totalPrice} selectedBooks={[...cartValue]} />
             <CartTotalPrice totalPrice={totalPrice} />
-            <CartActionButtons savings={{ cartValue, favorites, purchases }} userId={userId} />
+            <CartActionButtons />
           </>
         )
         : null}

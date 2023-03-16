@@ -67,6 +67,10 @@ class UserSavingsStore {
     this._cartValue = this._cartValue.filter(({ id }) => id !== book.id);
   }
 
+  clearCartValue() {
+    this._cartValue = this._initialValues.cartValue;
+  }
+
   get purchases() {
     return this._purchases;
   }
