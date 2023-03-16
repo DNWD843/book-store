@@ -1,7 +1,7 @@
 import { makeAutoObservable, toJS } from 'mobx';
 
 import { savingsApi } from '../api';
-import { defaultMessages } from '../constants';
+import { defaultMessages, MINIMAL_BOOKS_QUANTITY } from '../constants';
 import { ECollectionPaths, EFetchStatuses } from '../enums';
 import { TBookInfo, TUser, TUserSavings } from '../types';
 
@@ -20,6 +20,8 @@ class UserSavingsStore {
 
   _status: EFetchStatuses = EFetchStatuses.fulfilled;
 
+  _fetchSavingsStatus: EFetchStatuses = EFetchStatuses.fulfilled;
+
   _api: any = {};
 
   _initialValues: TUserSavings;
@@ -35,6 +37,10 @@ class UserSavingsStore {
 
   get status() {
     return this._status;
+  }
+
+  get fetchSavingsStatus() {
+    return this._fetchSavingsStatus;
   }
 
   get favorites() {
@@ -54,7 +60,7 @@ class UserSavingsStore {
   }
 
   addToCart(book: TBookInfo) {
-    this._cartValue.push(book);
+    this._cartValue.push({ ...book, quantity: MINIMAL_BOOKS_QUANTITY });
   }
 
   removeFromCart(book: TBookInfo) {
@@ -75,6 +81,26 @@ class UserSavingsStore {
 
   clearSavings() {
     this._setInitialValues();
+  }
+
+  increaseBookQuantity(id: TBookInfo['id']) {
+    this._cartValue = this._cartValue.map((book) => {
+      if (book.id === id && book.quantity) {
+        return ({ ...book, quantity: book.quantity + 1 });
+      }
+
+      return book;
+    });
+  }
+
+  decreaseBookQuantity(id: TBookInfo['id']) {
+    this._cartValue = this._cartValue.map((book) => {
+      if (book.id === id && book.quantity) {
+        return ({ ...book, quantity: book.quantity - 1 });
+      }
+
+      return book;
+    });
   }
 
   _setSavings({ favorites, cartValue, purchases }: TUserSavings) {
@@ -103,19 +129,20 @@ class UserSavingsStore {
   }
 
   *fetchSavings(id: TUser['userId']) {
-    this._status = EFetchStatuses.pending;
+    this._fetchSavingsStatus = EFetchStatuses.pending;
 
     try {
       const savingsFromDB: TUserSavings = yield this._api.fetchSavings(id);
       this._setSavings(savingsFromDB);
-      this._status = EFetchStatuses.fulfilled;
+      this._fetchSavingsStatus = EFetchStatuses.fulfilled;
     } catch (err) {
-      this._status = EFetchStatuses.rejected;
+      this._fetchSavingsStatus = EFetchStatuses.rejected;
       throw err;
     }
   }
 
   *updateSavingsInDB() {
+    this._status = EFetchStatuses.pending;
     try {
       const savings = {
         [ECollectionPaths.favorites]: this._favorites,
@@ -126,9 +153,12 @@ class UserSavingsStore {
       yield this._api.updateSavings(toJS(savings));
 
       this.needsToUpdateDB = false;
+
+      this._status = EFetchStatuses.fulfilled;
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err);
+      this._status = EFetchStatuses.rejected;
     }
   }
 

@@ -1,4 +1,5 @@
 import { toJS } from 'mobx';
+import { observer } from 'mobx-react-lite';
 import React, { useMemo } from 'react';
 
 import { Page } from '../../components/Page';
@@ -7,24 +8,24 @@ import { bookWordForms, RUBLE_SIGN } from '../../constants';
 import { savingsStore, userStore } from '../../stores';
 import { getTotalPrice, pluralize } from '../../utils';
 
-export const ShoppingCartPage: React.FC = () => {
+const ShoppingCartPage: React.FC = () => {
   const cartValue = toJS(savingsStore.cartValue);
   const favorites = toJS(savingsStore.favorites);
   const purchases = toJS(savingsStore.purchases);
   const { userId, displayName, email, isAnonymous } = userStore.user;
 
-  const { totalPrice, booksQuantity } = getTotalPrice(cartValue);
+  const { totalPrice, bookQuantity } = getTotalPrice(cartValue);
 
-  const pluralizedBookWord = useMemo(() => pluralize({ quantity: booksQuantity, textForms: bookWordForms }), [booksQuantity]);
+  const pluralizedBookWord = useMemo(() => pluralize({ quantity: bookQuantity, textForms: bookWordForms }), [bookQuantity]);
 
   const subTitle = useMemo(() => {
     const emptyTitle = isAnonymous ? 'В Вашей корзине ничего нет.' : `${displayName || email}, в Вашей корзине ничего нет.`;
     const title = isAnonymous
-      ? `В Вашей корзине ${booksQuantity} ${pluralizedBookWord} на общую сумму ${totalPrice} ${RUBLE_SIGN}`
-      : `${displayName || email}, в Вашей корзине ${booksQuantity} ${pluralizedBookWord} на общую сумму ${totalPrice} ${RUBLE_SIGN}`;
+      ? `В Вашей корзине ${bookQuantity} ${pluralizedBookWord} на общую сумму ${totalPrice} ${RUBLE_SIGN}`
+      : `${displayName || email}, в Вашей корзине ${bookQuantity} ${pluralizedBookWord} на общую сумму ${totalPrice} ${RUBLE_SIGN}`;
 
     return (!cartValue.length ? emptyTitle : title);
-  }, [isAnonymous, displayName, email, booksQuantity, pluralizedBookWord, totalPrice, cartValue.length]);
+  }, [isAnonymous, displayName, email, bookQuantity, pluralizedBookWord, totalPrice, cartValue.length]);
 
   return (
     <Page subtitle={subTitle} title="Корзина">
@@ -42,3 +43,7 @@ export const ShoppingCartPage: React.FC = () => {
 };
 
 ShoppingCartPage.displayName = 'ShoppingCartPage';
+
+const ObservableShoppingCartPage = observer(ShoppingCartPage);
+
+export { ObservableShoppingCartPage as ShoppingCartPage };

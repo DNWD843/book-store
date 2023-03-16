@@ -1,25 +1,37 @@
-import React, { useMemo } from 'react';
+import { observer } from 'mobx-react-lite';
+import React, { useCallback, useMemo } from 'react';
 
 import { MINIMAL_BOOKS_QUANTITY } from '../../../constants';
-import { useUserSavingsHandlers } from '../../../hooks/useUserSavingsHandlers';
+import { savingsStore } from '../../../stores';
 import { TBookInfo } from '../../../types';
 
 import { CartTableRow } from './CartTableRow';
 
 const CartTableRowComponent: React.FC<{ bookInfo: TBookInfo, index: number }> = ({ bookInfo, index }) => {
-  const { handleCartButtonClick, increaseBooksQuantity, decreaseBooksQuantity } = useUserSavingsHandlers(bookInfo.id);
+  const { increaseBookQuantity, decreaseBookQuantity, updateSavingsInDB, removeFromCart } = savingsStore;
 
-  const onDeleteBook = () => {
-    handleCartButtonClick(bookInfo);
+  const onDeleteBook = async () => {
+    removeFromCart(bookInfo);
+    await updateSavingsInDB();
   };
+
+  const onIncrease = useCallback((id: TBookInfo['id']) => async () => {
+    increaseBookQuantity(id);
+    await updateSavingsInDB();
+  }, [increaseBookQuantity, updateSavingsInDB]);
+
+  const onDecrease = useCallback((id: TBookInfo['id']) => async () => {
+    decreaseBookQuantity(id);
+    await updateSavingsInDB();
+  }, [decreaseBookQuantity, updateSavingsInDB]);
 
   const totalPricePerBook = useMemo(() => bookInfo.price * (bookInfo.quantity ?? MINIMAL_BOOKS_QUANTITY), [bookInfo.price, bookInfo.quantity]);
 
   return (
     <CartTableRow
       bookInfo={bookInfo}
-      decreaseQuantity={decreaseBooksQuantity}
-      increaseQuantity={increaseBooksQuantity}
+      decreaseQuantity={onDecrease(bookInfo.id)}
+      increaseQuantity={onIncrease(bookInfo.id)}
       index={index}
       totalPricePerBook={totalPricePerBook}
       onDeleteBook={onDeleteBook}
@@ -29,4 +41,6 @@ const CartTableRowComponent: React.FC<{ bookInfo: TBookInfo, index: number }> = 
 
 CartTableRowComponent.displayName = 'RowComponent';
 
-export { CartTableRowComponent as CartTableRow };
+const ObservableCartTableRowComponent = observer(CartTableRowComponent);
+
+export { ObservableCartTableRowComponent as CartTableRow };

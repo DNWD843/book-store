@@ -40,7 +40,7 @@ const AppComponent: React.FC = observer(() => {
     }
   }, [isDesktop, isMobile, isSmallScreen, isTablet]);
 
-  const isLoading = booksStore.status === EFetchStatuses.pending || savingsStore.status === EFetchStatuses.pending;
+  const isLoading = booksStore.fetchBooksStatus === EFetchStatuses.pending || savingsStore.fetchSavingsStatus === EFetchStatuses.pending;
 
   return (
     <>

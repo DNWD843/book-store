@@ -17,6 +17,8 @@ class BooksStore {
 
   _status: EFetchStatuses = EFetchStatuses.fulfilled;
 
+  _fetchBooksStatus: EFetchStatuses = EFetchStatuses.fulfilled;
+
   constructor(api: any) {
     this._api = api;
     makeAutoObservable(this);
@@ -24,6 +26,10 @@ class BooksStore {
 
   get status() {
     return this._status;
+  }
+
+  get fetchBooksStatus() {
+    return this._fetchBooksStatus;
   }
 
   clearBooksState = () => {
@@ -72,15 +78,15 @@ class BooksStore {
   };
 
   *getBooks() {
-    this._status = EFetchStatuses.pending;
+    this._fetchBooksStatus = EFetchStatuses.pending;
     try {
       const booksCollection: IBooksCollection = yield this._api.fetchBooks();
       this.setBooksToStore(booksCollection);
-      this._status = EFetchStatuses.fulfilled;
+      this._fetchBooksStatus = EFetchStatuses.fulfilled;
 
       return booksCollection;
     } catch (err) {
-      this._status = EFetchStatuses.rejected;
+      this._fetchBooksStatus = EFetchStatuses.rejected;
       throw err;
     }
   }
