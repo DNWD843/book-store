@@ -1,5 +1,7 @@
 import uniqueId from 'lodash/uniqueId';
-import React, { memo, useCallback, useEffect, useMemo } from 'react';
+import { flowResult, toJS } from 'mobx';
+import { observer } from 'mobx-react-lite';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,60 +11,58 @@ import { OrderForm } from '../../components/forms';
 import {
   bookWordForms,
   defaultMessages,
-  ORDER_FORM_ID,
+  ORDER_FORM_ID, orderSubmitMessages,
   POPUP_ID_PREFIX,
   RUBLE_SIGN,
 } from '../../constants';
 import { EFetchStatuses, EPopupTypes } from '../../enums';
-import { useUserSavingsHandlers } from '../../hooks';
+import { useAppDispatch } from '../../redux/hooks';
 import { popupsActions } from '../../redux/slices';
-import { sendOrderData } from '../../redux/thunks';
 import { routes } from '../../routesMap';
+import { booksStore, savingsStore, userStore } from '../../stores';
 import { TOrderFormValues } from '../../types';
 import { getTotalPrice, pluralize } from '../../utils';
 
 const OrderPage = () => {
   const navigate = useNavigate();
-  const { updateSavings, userId, displayName, email, dispatch, favorites, cartValue, purchases, status } = useUserSavingsHandlers('');
+  const dispatch = useAppDispatch();
   const { addPopup } = popupsActions;
+  const { displayName, email } = userStore.user;
+  const { buyBooks, status } = booksStore;
+  const { updateSavingsInDB, addToPurchases, clearCartValue } = savingsStore;
+  const cartValue = toJS(savingsStore.cartValue);
 
-  const { totalPrice: orderPrice, booksQuantity } = getTotalPrice(cartValue);
-  const pluralizedBookWord = useMemo(() => pluralize({ quantity: booksQuantity, textForms: bookWordForms }), [booksQuantity]);
+  const { totalPrice: orderPrice, bookQuantity } = getTotalPrice(cartValue);
+  const pluralizedBookWord = useMemo(() => pluralize({ quantity: bookQuantity, textForms: bookWordForms }), [bookQuantity]);
   const begin = displayName || email ? `${displayName || email}, В` : 'В';
-  const subtitle = `${begin}аш заказ: ${booksQuantity} ${pluralizedBookWord} на сумму ${orderPrice} ${RUBLE_SIGN}`;
+  const subtitle = `${begin}аш заказ: ${bookQuantity} ${pluralizedBookWord} на сумму ${orderPrice} ${RUBLE_SIGN}`;
 
   const onSubmit = useCallback(async (data: TOrderFormValues) => {
-    const currentPurchase = { [new Date().toISOString()]: { books: cartValue, orderPrice } };
-    const orderData = { data, currentPurchase };
-    const savings = { cartValue: [],
-      favorites,
-      purchases: {
-        ...purchases,
-        ...currentPurchase,
-      } };
+    try {
+      const newPurchase = {
+        key: new Date().toISOString(),
+        value: { books: cartValue, orderPrice },
+      };
+      const orderData = { data, newPurchase };
+      const response = await flowResult(buyBooks(orderData));
 
-    dispatch(sendOrderData(orderData))
-      .then((res) => {
-        if (res.meta.requestStatus === EFetchStatuses.fulfilled) {
-          dispatch(addPopup({
-            id: res.meta.requestId || uniqueId(POPUP_ID_PREFIX),
-            message: res.payload?.message ?? '',
-            type: EPopupTypes.success,
-          }));
-        } else {
-          // eslint-disable-next-line @typescript-eslint/no-throw-literal
-          throw res;
-        }
-      })
-      .then(() => { updateSavings(userId, savings); })
-      .catch((err) => {
-        dispatch(addPopup({
-          id: err.meta.requestId || uniqueId(POPUP_ID_PREFIX),
-          message: err.error.message || defaultMessages.unexpectedError,
-          type: EPopupTypes.danger,
-        }));
-      });
-  }, [addPopup, cartValue, dispatch, favorites, orderPrice, purchases, updateSavings, userId]);
+      addToPurchases(newPurchase);
+      clearCartValue();
+      updateSavingsInDB();
+
+      dispatch(addPopup({
+        id: uniqueId(POPUP_ID_PREFIX),
+        message: response?.message ?? orderSubmitMessages.success,
+        type: EPopupTypes.success,
+      }));
+    } catch (err: any) {
+      dispatch(addPopup({
+        id: uniqueId(POPUP_ID_PREFIX),
+        message: err.message || defaultMessages.unexpectedError,
+        type: EPopupTypes.danger,
+      }));
+    }
+  }, [addPopup, addToPurchases, buyBooks, cartValue, clearCartValue, dispatch, orderPrice, updateSavingsInDB]);
 
   useEffect(() => {
     if (!cartValue.length) {
@@ -82,6 +82,6 @@ const OrderPage = () => {
 
 OrderPage.displayName = 'OrderPage';
 
-const MemoOrderPage = memo(OrderPage);
+const ObservableOrderPage = observer(OrderPage);
 
-export { MemoOrderPage as OrderPage };
+export { ObservableOrderPage as OrderPage };

@@ -21,7 +21,7 @@ class BooksStore {
 
   constructor(api: any) {
     this._api = api;
-    makeAutoObservable(this);
+    makeAutoObservable(this, {}, { autoBind: true });
   }
 
   get status() {
@@ -99,6 +99,20 @@ class BooksStore {
       this._status = EFetchStatuses.fulfilled;
 
       return updatedCollection;
+    } catch (err) {
+      this._status = EFetchStatuses.rejected;
+      throw err;
+    }
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  *buyBooks(data: any) {
+    this._status = EFetchStatuses.pending;
+    try {
+      const res: { message: string } = yield this._api.buyBooks();
+      this._status = EFetchStatuses.fulfilled;
+
+      return res;
     } catch (err) {
       this._status = EFetchStatuses.rejected;
       throw err;

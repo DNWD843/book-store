@@ -3,7 +3,7 @@ import { makeAutoObservable, toJS } from 'mobx';
 import { savingsApi } from '../api';
 import { defaultMessages, MINIMAL_BOOKS_QUANTITY } from '../constants';
 import { ECollectionPaths, EFetchStatuses } from '../enums';
-import { TBookInfo, TUser, TUserSavings } from '../types';
+import { TBookInfo, TPurchase, TUser, TUserSavings } from '../types';
 
 const defaultSavings: TUserSavings = {
   [ECollectionPaths.favorites]: [],
@@ -73,6 +73,10 @@ class UserSavingsStore {
 
   get purchases() {
     return this._purchases;
+  }
+
+  addToPurchases({ key, value }: { key: string, value: TPurchase }) {
+    this._purchases[key] = value;
   }
 
   get savings() {
