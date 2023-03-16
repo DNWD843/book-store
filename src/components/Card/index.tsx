@@ -1,11 +1,11 @@
 import classNames from 'classnames';
-import React, { memo, useCallback, useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useUserSavingsHandlers } from '../../hooks';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch } from '../../redux/hooks';
 import { bookDetailsActions } from '../../redux/slices';
-import { selectMatchMediaState } from '../../redux/store';
+import { savingsStore, uiStore, userStore } from '../../stores';
 import { TBookInfo } from '../../types';
 import { storage, storageKeys } from '../../utils';
 import {
@@ -22,25 +22,46 @@ import { CardToolBar } from './CardToolBar';
 import styles from './Card.module.css';
 
 const CardComponent: React.FC<TBookInfo> = (props) => {
+  const dispatch = useAppDispatch();
   const { setBookDetails } = bookDetailsActions;
-  const { isSmallScreen } = useAppSelector(selectMatchMediaState);
+  const { isSmallScreen } = uiStore.screen;
+  const { isAnonymous } = userStore.user;
+  const { addToFavorites, removeFromFavorites, addToCart, removeFromCart, cartValue, favorites, updateSavingsInDB } = savingsStore;
   const navigate = useNavigate();
-  const { isAnonymous, isAddedToFavorites, isAddedToCart, handleBookmarkClick, handleCartButtonClick, dispatch } = useUserSavingsHandlers(props.id);
   const [isInfoVisible, setInfoVisible] = useState<boolean>(false);
 
   const { id, author, title, price } = props;
+
+  const isAddedToFavorites = favorites.some((book) => book.id === id);
+  const isAddedToCart = cartValue.some((book) => book.id === id);
 
   const toggleInfoVisibility = useCallback(() => {
     setInfoVisible((prev) => !prev);
   }, []);
 
   const onBookmarkClick = useCallback(() => {
-    handleBookmarkClick(props);
-  }, [handleBookmarkClick, props]);
+    if (isAddedToFavorites) {
+      removeFromFavorites(props);
+    } else {
+      addToFavorites(props);
+    }
+
+    if (!isAnonymous) {
+      updateSavingsInDB();
+    }
+  }, [addToFavorites, isAddedToFavorites, isAnonymous, props, removeFromFavorites, updateSavingsInDB]);
 
   const onCartButtonClick = useCallback(() => {
-    handleCartButtonClick(props);
-  }, [handleCartButtonClick, props]);
+    if (isAddedToCart) {
+      removeFromCart(props);
+    } else {
+      addToCart(props);
+    }
+
+    if (!isAnonymous) {
+      updateSavingsInDB();
+    }
+  }, [addToCart, isAddedToCart, isAnonymous, props, removeFromCart, updateSavingsInDB]);
 
   const onCardClick = useCallback((bookId: TBookInfo['id']) => () => {
     dispatch(setBookDetails(props));
@@ -98,6 +119,6 @@ const CardComponent: React.FC<TBookInfo> = (props) => {
 
 CardComponent.displayName = 'CardElement';
 
-const MemoCardComponent = memo(CardComponent);
+const ObservableCardComponent = observer(CardComponent);
 
-export { MemoCardComponent as Card };
+export { ObservableCardComponent as Card };

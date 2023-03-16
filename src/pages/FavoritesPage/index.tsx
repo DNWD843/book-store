@@ -1,4 +1,5 @@
 import { toJS } from 'mobx';
+import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
@@ -10,6 +11,7 @@ import { savingsStore, userStore } from '../../stores';
 const FavoritesPage: React.FC = () => (<Outlet />);
 
 FavoritesPage.displayName = 'FavoritesPage';
+
 const FavoritesCataloguePage: React.FC = () => {
   const { isAnonymous } = userStore.user;
   const navigate = useNavigate();
@@ -29,4 +31,6 @@ const FavoritesCataloguePage: React.FC = () => {
 
 FavoritesCataloguePage.displayName = 'FavoritesCataloguePage';
 
-export { FavoritesPage, FavoritesCataloguePage };
+const ObservableFavoritesCataloguePage = observer(FavoritesCataloguePage);
+
+export { FavoritesPage, ObservableFavoritesCataloguePage as FavoritesCataloguePage };

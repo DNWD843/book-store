@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, toJS } from 'mobx';
 
 import { savingsApi } from '../api';
 import { defaultMessages } from '../constants';
@@ -30,7 +30,7 @@ class UserSavingsStore {
     this._api = api;
     this._initialValues = initialValues;
     this._setInitialValues();
-    makeAutoObservable(this);
+    makeAutoObservable(this, {}, { autoBind: true });
   }
 
   get favorites() {
@@ -108,20 +108,19 @@ class UserSavingsStore {
   }
 
   *updateSavingsInDB() {
-    this.status = EFetchStatuses.pending;
-
     try {
-      const areSavingsUpdated: boolean = yield this._api.updateSavings(this.savings);
+      const savings = {
+        [ECollectionPaths.favorites]: this._favorites,
+        [ECollectionPaths.cartValue]: this._cartValue,
+        [ECollectionPaths.purchases]: this._purchases,
+      };
 
-      if (!areSavingsUpdated) {
-        throw new Error(defaultMessages.unexpectedError);
-      }
+      yield this._api.updateSavings(toJS(savings));
 
       this.needsToUpdateDB = false;
-      this.status = EFetchStatuses.fulfilled;
     } catch (err) {
-      this.status = EFetchStatuses.rejected;
-      throw err;
+      // eslint-disable-next-line no-console
+      console.error(err);
     }
   }
 

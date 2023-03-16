@@ -11,7 +11,6 @@ import { defaultMessages, loginRequestMessages, POPUP_ID_PREFIX } from '../../co
 import { EAuthTypes, EFetchStatuses, EPopupTypes } from '../../enums';
 import { useAppDispatch } from '../../redux/hooks';
 import { popupsActions } from '../../redux/slices';
-import { storageActions } from '../../redux/store';
 import { routes } from '../../routesMap';
 import { savingsStore, userStore } from '../../stores';
 import { TAuthFormValues } from '../../types';
@@ -38,7 +37,6 @@ const LoginPageComponent: React.FC = () => {
       }));
 
       navigate(routes.books);
-      dispatch(storageActions.setUserInfo);
       storage.setData(storageKeys.USER, userData);
     } catch (err: any) {
       dispatch(addPopup({
@@ -49,9 +47,11 @@ const LoginPageComponent: React.FC = () => {
     }
   };
 
+  const isLoading = userStore.status === EFetchStatuses.pending || savingsStore.status === EFetchStatuses.pending;
+
   return (
     <Page title="">
-      {userStore.status === EFetchStatuses.pending ? <ScreenLoader /> : null}
+      {isLoading ? <ScreenLoader /> : null}
       <AuthForm
         formConfig={authFormConfigs[EAuthTypes.login]}
         id={EAuthTypes.login}

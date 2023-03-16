@@ -1,15 +1,17 @@
+import { toJS } from 'mobx';
 import React, { useMemo } from 'react';
 
 import { Page } from '../../components/Page';
 import { ShoppingCart, CartTotalPrice, CartActionButtons } from '../../components/ShoppingCart';
 import { bookWordForms, RUBLE_SIGN } from '../../constants';
-import { useAppSelector } from '../../redux/hooks';
-import { selectUserData, selectUserSavings } from '../../redux/store';
+import { savingsStore, userStore } from '../../stores';
 import { getTotalPrice, pluralize } from '../../utils';
 
 export const ShoppingCartPage: React.FC = () => {
-  const { cartValue, favorites, purchases } = useAppSelector(selectUserSavings);
-  const { userId, displayName, email, isAnonymous } = useAppSelector(selectUserData);
+  const cartValue = toJS(savingsStore.cartValue);
+  const favorites = toJS(savingsStore.favorites);
+  const purchases = toJS(savingsStore.purchases);
+  const { userId, displayName, email, isAnonymous } = userStore.user;
 
   const { totalPrice, booksQuantity } = getTotalPrice(cartValue);
 

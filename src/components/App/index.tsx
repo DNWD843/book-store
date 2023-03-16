@@ -29,11 +29,11 @@ const AppComponent: React.FC = observer(() => {
     }
 
     if (!savedBooks
-      || (savedBooks.books && savedBooks.updatedAt && checkNeedToDataUpdate({ date: savedBooks.updatedAt, limit: ONE_DAY_TIMESTAMP }))) {
+        || (savedBooks.books && savedBooks.updatedAt && checkNeedToDataUpdate({ date: savedBooks.updatedAt, limit: ONE_DAY_TIMESTAMP }))) {
       flowResult(booksStore.getBooks()).then((res) => {
         storage.setData(storageKeys.BOOKS, res as Object);
       })
-        // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console
         .catch((err) => { console.error(err); });
     } else {
       booksStore.setBooksToStore(savedBooks);
@@ -46,7 +46,7 @@ const AppComponent: React.FC = observer(() => {
     <>
       <App isDesktop={isDesktop} />
       {isLoading
-        ? (<ScreenLoader isTransparent={false} />)
+        ? (<ScreenLoader />)
         : null}
     </>
   );
