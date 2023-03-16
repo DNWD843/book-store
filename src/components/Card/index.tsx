@@ -3,9 +3,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppDispatch } from '../../redux/hooks';
-import { bookDetailsActions } from '../../redux/slices';
-import { savingsStore, uiStore, userStore } from '../../stores';
+import { bookDetailsStore, savingsStore, uiStore, userStore } from '../../stores';
 import { TBookInfo } from '../../types';
 import { storage, storageKeys } from '../../utils';
 import {
@@ -22,8 +20,7 @@ import { CardToolBar } from './CardToolBar';
 import styles from './Card.module.css';
 
 const CardComponent: React.FC<TBookInfo> = (props) => {
-  const dispatch = useAppDispatch();
-  const { setBookDetails } = bookDetailsActions;
+  const { setSelected } = bookDetailsStore;
   const { isSmallScreen } = uiStore.screen;
   const { isAnonymous } = userStore.user;
   const { addToFavorites, removeFromFavorites, addToCart, removeFromCart, cartValue, favorites, updateSavingsInDB } = savingsStore;
@@ -64,10 +61,10 @@ const CardComponent: React.FC<TBookInfo> = (props) => {
   }, [addToCart, isAddedToCart, isAnonymous, props, removeFromCart, updateSavingsInDB]);
 
   const onCardClick = useCallback((bookId: TBookInfo['id']) => () => {
-    dispatch(setBookDetails(props));
+    setSelected(props);
     storage.setData(storageKeys.BOOK_DETAILS, props);
     navigate(String(bookId));
-  }, [dispatch, navigate, props, setBookDetails]);
+  }, [navigate, props, setSelected]);
 
   return (
     <div className={styles.cardWrapper}>

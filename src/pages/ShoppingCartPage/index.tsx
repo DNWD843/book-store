@@ -28,10 +28,10 @@ export const ShoppingCartPage: React.FC = () => {
 
   return (
     <Page subtitle={subTitle} title="Корзина">
-      {Boolean(cartValue.length) && (<ShoppingCart orderPrice={totalPrice} selectedBooks={[...cartValue]} />)}
       {cartValue.length
         ? (
           <>
+            <ShoppingCart orderPrice={totalPrice} selectedBooks={[...cartValue]} />
             <CartTotalPrice totalPrice={totalPrice} />
             <CartActionButtons savings={{ cartValue, favorites, purchases }} userId={userId} />
           </>

@@ -11,7 +11,7 @@ import styles from './BookDetails.module.css';
 
 const BookDetails: React.FC<TBookDetailsProps> = (
   { title, author, price, genre, cover, description,
-    isAnonymous, isAddedToCart, isAddedToFavorites, onBookmarkButtonClick, onCartButtonClick },
+    isAnonymous, isAddedToCart, isAddedToFavorites, onClickFavoritesButton, onClickCartButton },
 ) => (
   <article className={styles.card}>
     <img alt="book cover" className={styles.coverImage} src={cover} />
@@ -21,7 +21,7 @@ const BookDetails: React.FC<TBookDetailsProps> = (
     {!isAnonymous && (
       <SimpleButton
         className={classNames(styles.button, styles.addToFavoritesButton, 'btn-secondary')}
-        onClick={onBookmarkButtonClick}
+        onClick={onClickFavoritesButton}
       >
         {isAddedToFavorites ? 'Удалить из избранного' : 'Добавить в избранное'}
         <i className={styles.bookmarkIcon}>{isAddedToFavorites ? bookmarkActiveIcon : bookmarkIcon}</i>
@@ -31,7 +31,7 @@ const BookDetails: React.FC<TBookDetailsProps> = (
     <SimpleButton
       className={classNames(styles.button, styles.buyButton, 'btn-primary')}
       title={isAddedToCart ? 'Книга добавлена в корзину' : 'Книга будет добавлена в корзину'}
-      onClick={onCartButtonClick}
+      onClick={onClickCartButton}
     >
       {isAddedToCart ? 'Убрать из корзины' : `Купить за ${price} ${RUBLE_SIGN}`}
     </SimpleButton>

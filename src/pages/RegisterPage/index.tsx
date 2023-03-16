@@ -14,7 +14,7 @@ import { routes } from '../../routesMap';
 import { userStore } from '../../stores';
 import { TAuthFormValues } from '../../types';
 
-const RegisterPageComponent: React.FC = observer(() => {
+const RegisterPageComponent: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { addPopup } = popupsActions;
@@ -52,8 +52,10 @@ const RegisterPageComponent: React.FC = observer(() => {
       />
     </Page>
   );
-});
+};
 
 RegisterPageComponent.displayName = 'RegisterPageComponent';
 
-export { RegisterPageComponent as RegisterPage };
+const ObservableRegisterPageComponent = observer(RegisterPageComponent);
+
+export { ObservableRegisterPageComponent as RegisterPage };

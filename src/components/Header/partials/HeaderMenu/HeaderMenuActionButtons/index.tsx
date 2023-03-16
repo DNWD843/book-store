@@ -23,11 +23,13 @@ const HeaderMenuActionButtonsComponent: React.FC = () => {
   const { closeMenu, openConfirmModal, closeConfirmModal } = headerActions;
   const { isConfirmModalOpened } = useAppSelector(selectHeaderActionsState);
   const { addPopup } = popupsActions;
+  const { clearSavings, deleteSavingsInDB } = savingsStore;
+  const { logout, deleteProfile, user: { isAdmin } } = userStore;
 
   const handleLogout = useCallback(async () => {
     try {
-      await savingsStore.deleteSavings();
-      await userStore.logout();
+      clearSavings();
+      await logout();
       storage.deleteData([storageKeys.USER, storageKeys.USER_SAVINGS]);
 
       dispatch(closeMenu());
@@ -41,7 +43,7 @@ const HeaderMenuActionButtonsComponent: React.FC = () => {
         type: EPopupTypes.danger,
       }));
     }
-  }, [addPopup, closeMenu, dispatch]);
+  }, [addPopup, clearSavings, closeMenu, dispatch, logout]);
 
   const onDelete = useCallback(() => { dispatch(openConfirmModal()); }, [dispatch, openConfirmModal]);
   const closeModal = useCallback(() => { dispatch(closeConfirmModal()); }, [closeConfirmModal, dispatch]);
@@ -72,8 +74,8 @@ const HeaderMenuActionButtonsComponent: React.FC = () => {
 
   const handleDeleteUser = useCallback(async () => {
     try {
-      await savingsStore.deleteSavings();
-      await userStore.deleteProfile();
+      await deleteSavingsInDB();
+      await deleteProfile();
       storage.deleteData([storageKeys.USER, storageKeys.USER_SAVINGS]);
 
       closeModal();
@@ -90,12 +92,12 @@ const HeaderMenuActionButtonsComponent: React.FC = () => {
         type: EPopupTypes.danger,
       }));
     }
-  }, [addPopup, closeModal, dispatch]);
+  }, [addPopup, closeModal, deleteProfile, deleteSavingsInDB, dispatch]);
 
   return (
     <>
       <HeaderMenuActionButtons
-        isAdmin={userStore.user.isAdmin}
+        isAdmin={isAdmin}
         onDelete={onDelete}
         onLogout={handleLogout}
         onUpdateBooksCatalogue={onUpdateBooksCatalogue}

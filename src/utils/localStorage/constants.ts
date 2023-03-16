@@ -8,5 +8,5 @@ export const storageKeys = {
   USER: 'user',
   BOOKS: 'books',
   USER_SAVINGS: 'user-savings',
-  BOOK_DETAILS: 'book',
+  BOOK_DETAILS: 'selected-book',
 };

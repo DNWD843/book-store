@@ -20,27 +20,31 @@ class UserStore {
 
   _initialData: TUser;
 
-  status: EFetchStatuses = EFetchStatuses.fulfilled;
+  _status: EFetchStatuses = EFetchStatuses.fulfilled;
 
   _api: any = {};
 
   constructor({ initialData, api }: { initialData: TUser, api: any }) {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {}, { autoBind: true });
     this._initialData = initialData;
     this._user = initialData;
     this._api = api;
   }
 
-  setUserToStore = (data: TUserData) => {
+  get status() {
+    return this._status;
+  }
+
+  setUserToStore(data: TUserData) {
     this._user = { ...this._user, ...data };
-  };
+  }
 
   get user() {
     return this._user;
   }
 
   *register(credentials: TAuthFormValues) {
-    this.status = EFetchStatuses.pending;
+    this._status = EFetchStatuses.pending;
     try {
       const registeredUser: TUser = yield this._api.createUser(credentials);
       const areSavingsCreated: boolean = yield this._createSavings();
@@ -48,48 +52,44 @@ class UserStore {
       if (!areSavingsCreated) {
         throw new Error(defaultMessages.unexpectedError);
       }
-      this.status = EFetchStatuses.fulfilled;
+      this._status = EFetchStatuses.fulfilled;
 
       return registeredUser;
     } catch (err) {
-      this.status = EFetchStatuses.rejected;
+      this._status = EFetchStatuses.rejected;
       throw err;
     }
   }
 
   *login(credentials: TAuthFormValues) {
-    this.status = EFetchStatuses.pending;
+    this._status = EFetchStatuses.pending;
     try {
       const authorizedUser: TUser = yield this._api.loginUserByEmail(credentials);
       this.setUserToStore(authorizedUser);
-      this.status = EFetchStatuses.fulfilled;
+      this._status = EFetchStatuses.fulfilled;
 
       return authorizedUser;
     } catch (err) {
-      this.status = EFetchStatuses.rejected;
+      this._status = EFetchStatuses.rejected;
       throw err;
     }
   }
 
   *logout() {
-    this.status = EFetchStatuses.pending;
+    this._status = EFetchStatuses.pending;
     try {
-      const isLoggedOut: boolean = yield this._api.logout();
-
-      if (!isLoggedOut) {
-        throw new Error(defaultMessages.unexpectedError);
-      }
+      yield this._api.logout();
 
       this.setUserToStore(this._initialData);
-      this.status = EFetchStatuses.fulfilled;
+      this._status = EFetchStatuses.fulfilled;
     } catch (err) {
-      this.status = EFetchStatuses.rejected;
+      this._status = EFetchStatuses.rejected;
       throw err;
     }
   }
 
   *updateProfile(credentials: TCredentialsToUpdate) {
-    this.status = EFetchStatuses.pending;
+    this._status = EFetchStatuses.pending;
     try {
       const isProfileUpdated: boolean = yield this._api.updateUserProfile(credentials);
 
@@ -98,15 +98,15 @@ class UserStore {
       }
 
       // TODO:  тут что-то сделать с обновленным профилем
-      this.status = EFetchStatuses.fulfilled;
+      this._status = EFetchStatuses.fulfilled;
     } catch (err) {
-      this.status = EFetchStatuses.rejected;
+      this._status = EFetchStatuses.rejected;
       throw err;
     }
   }
 
   *updateLogin({ email }: { email: TUser['email'] }) {
-    this.status = EFetchStatuses.pending;
+    this._status = EFetchStatuses.pending;
     try {
       const isLoginUpdated: boolean = yield this._api.updateUserEmail({ email });
 
@@ -116,15 +116,15 @@ class UserStore {
 
       // TODO: save new login
 
-      this.status = EFetchStatuses.fulfilled;
+      this._status = EFetchStatuses.fulfilled;
     } catch (err) {
-      this.status = EFetchStatuses.rejected;
+      this._status = EFetchStatuses.rejected;
       throw err;
     }
   }
 
   *deleteProfile() {
-    this.status = EFetchStatuses.pending;
+    this._status = EFetchStatuses.pending;
 
     try {
       const isProfileDeleted: boolean = yield this._api.deleteUserProfile();
@@ -134,9 +134,9 @@ class UserStore {
       }
 
       this.setUserToStore(this._initialData);
-      this.status = EFetchStatuses.fulfilled;
+      this._status = EFetchStatuses.fulfilled;
     } catch (err) {
-      this.status = EFetchStatuses.rejected;
+      this._status = EFetchStatuses.rejected;
       throw err;
     }
   }

@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 
-import * as booksApi from '../api/booksApi';
+import { booksApi } from '../api';
 import { EFetchStatuses } from '../enums';
 import { IBooksCollection } from '../types';
 
@@ -15,11 +15,15 @@ class BooksStore {
 
   _api: any = {};
 
-  status: EFetchStatuses = EFetchStatuses.fulfilled;
+  _status: EFetchStatuses = EFetchStatuses.fulfilled;
 
   constructor(api: any) {
     this._api = api;
     makeAutoObservable(this);
+  }
+
+  get status() {
+    return this._status;
   }
 
   clearBooksState = () => {
@@ -68,29 +72,29 @@ class BooksStore {
   };
 
   *getBooks() {
-    this.status = EFetchStatuses.pending;
+    this._status = EFetchStatuses.pending;
     try {
       const booksCollection: IBooksCollection = yield this._api.fetchBooks();
       this.setBooksToStore(booksCollection);
-      this.status = EFetchStatuses.fulfilled;
+      this._status = EFetchStatuses.fulfilled;
 
       return booksCollection;
     } catch (err) {
-      this.status = EFetchStatuses.rejected;
+      this._status = EFetchStatuses.rejected;
       throw err;
     }
   }
 
   *updateBooksInDB() {
-    this.status = EFetchStatuses.pending;
+    this._status = EFetchStatuses.pending;
     try {
       const updatedCollection: IBooksCollection = yield this._api.updateBooksCollection();
       this.setBooksToStore({ books: updatedCollection.books, updatedAt: updatedCollection.updatedAt });
-      this.status = EFetchStatuses.fulfilled;
+      this._status = EFetchStatuses.fulfilled;
 
       return updatedCollection;
     } catch (err) {
-      this.status = EFetchStatuses.rejected;
+      this._status = EFetchStatuses.rejected;
       throw err;
     }
   }

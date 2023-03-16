@@ -18,7 +18,7 @@ class UserSavingsStore {
 
   _purchases: TUserSavings['purchases'] = {};
 
-  status: EFetchStatuses = EFetchStatuses.fulfilled;
+  _status: EFetchStatuses = EFetchStatuses.fulfilled;
 
   _api: any = {};
 
@@ -31,6 +31,10 @@ class UserSavingsStore {
     this._initialValues = initialValues;
     this._setInitialValues();
     makeAutoObservable(this, {}, { autoBind: true });
+  }
+
+  get status() {
+    return this._status;
   }
 
   get favorites() {
@@ -69,6 +73,10 @@ class UserSavingsStore {
     };
   }
 
+  clearSavings() {
+    this._setInitialValues();
+  }
+
   _setSavings({ favorites, cartValue, purchases }: TUserSavings) {
     this._favorites = favorites;
     this._purchases = purchases;
@@ -95,14 +103,14 @@ class UserSavingsStore {
   }
 
   *fetchSavings(id: TUser['userId']) {
-    this.status = EFetchStatuses.pending;
+    this._status = EFetchStatuses.pending;
 
     try {
       const savingsFromDB: TUserSavings = yield this._api.fetchSavings(id);
       this._setSavings(savingsFromDB);
-      this.status = EFetchStatuses.fulfilled;
+      this._status = EFetchStatuses.fulfilled;
     } catch (err) {
-      this.status = EFetchStatuses.rejected;
+      this._status = EFetchStatuses.rejected;
       throw err;
     }
   }
@@ -124,8 +132,8 @@ class UserSavingsStore {
     }
   }
 
-  *deleteSavings() {
-    this.status = EFetchStatuses.pending;
+  *deleteSavingsInDB() {
+    this._status = EFetchStatuses.pending;
 
     try {
       const areSavingsDeleted: boolean = yield this._api.deleteSavings();
@@ -135,9 +143,9 @@ class UserSavingsStore {
       }
 
       this._setInitialValues();
-      this.status = EFetchStatuses.fulfilled;
+      this._status = EFetchStatuses.fulfilled;
     } catch (err) {
-      this.status = EFetchStatuses.rejected;
+      this._status = EFetchStatuses.rejected;
       throw err;
     }
   }

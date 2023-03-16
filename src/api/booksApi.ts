@@ -1,94 +1,97 @@
-import { collection, getDocs, setDoc, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { collection, getDocs, setDoc, doc, getDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
 import { REQUEST_DELAY, orderSubmitMessages, booksRequestMessages, mockedBooksCatalogue } from '../constants';
 import { db } from '../firebase';
 import { ESlicesNames } from '../redux/slicesNames';
-import { IBooksCollection, TBookInfo, TSendingOrderData } from '../types';
+import { IBooksCollection, TBookInfo } from '../types';
 
-/**
- * @description admin only available method. setting a new collection
- */
-export const updateBooksCollection = async (): Promise<IBooksCollection> => {
-  try {
-    await Promise.all(mockedBooksCatalogue.map((book) => {
-      const pathSegment = uuidv4();
-      return setDoc(doc(db, ESlicesNames.booksCollection, pathSegment), { ...book, id: pathSegment });
-    }));
+class BooksApi {
+  /**
+   * @description admin only available method. setting a new collection
+   */
+  updateBooksCollection = async (): Promise<IBooksCollection> => {
+    try {
+      await Promise.all(mockedBooksCatalogue.map((book) => {
+        const pathSegment = uuidv4();
+        return setDoc(doc(db, ESlicesNames.booksCollection, pathSegment), { ...book, id: pathSegment });
+      }));
 
-    const querySnapshot = await getDocs(collection(db, ESlicesNames.booksCollection));
+      const querySnapshot = await getDocs(collection(db, ESlicesNames.booksCollection));
 
-    const books = querySnapshot.docs.map((document) => document.data() as unknown as TBookInfo);
+      const books = querySnapshot.docs.map((document) => document.data() as unknown as TBookInfo);
 
-    return ({
-      books,
-      updatedAt: Date.now(),
-    });
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error(err);
+      return ({
+        books,
+        updatedAt: Date.now(),
+      });
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(err);
 
-    throw new Error(booksRequestMessages.updateCollectionError);
-  }
-};
-
-export const fetchBooks = async (): Promise<IBooksCollection> => {
-  try {
-    const querySnapshot = await getDocs(collection(db, ESlicesNames.booksCollection));
-
-    const books = querySnapshot.docs.map((document) => document.data() as unknown as TBookInfo);
-
-    return ({
-      books,
-      updatedAt: Date.now(),
-    });
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error(e);
-    throw new Error(booksRequestMessages.error);
-  }
-};
-
-export const fetchBookByBookId = async (bookId: TBookInfo['id']) => {
-  try {
-    const docSnap = await getDoc(doc(db, ESlicesNames.booksCollection, bookId));
-
-    if (docSnap.exists()) {
-      const response = docSnap.data() as unknown as TBookInfo;
-
-      if (response.id === bookId) {
-        return response;
-      }
+      throw new Error(booksRequestMessages.updateCollectionError);
     }
+  };
 
-    return null;
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error(e);
-    throw new Error(booksRequestMessages.requestByIdError);
-  }
-};
+  fetchBooks = async (): Promise<IBooksCollection> => {
+    try {
+      const querySnapshot = await getDocs(collection(db, ESlicesNames.booksCollection));
 
-export const updateBook = async (bookInfo: TBookInfo) => {
-  try {
-    return await updateDoc(doc(db, ESlicesNames.booksCollection, bookInfo.id), { ...bookInfo });
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error(e);
-    throw new Error(booksRequestMessages.updateBookInfoError);
-  }
-};
+      const books = querySnapshot.docs.map((document) => document.data() as unknown as TBookInfo);
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const buyBooks = async (data: TSendingOrderData): Promise<any> => {
-  const randomNumber = Math.round(Math.random() * 10);
+      return ({
+        books,
+        updatedAt: Date.now(),
+      });
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(e);
+      throw new Error(booksRequestMessages.error);
+    }
+  };
 
-  return new Promise<{ message: string }>((resolve, reject) => {
-    setTimeout(() => {
-      if (randomNumber < 7) {
-        return resolve({ message: orderSubmitMessages.success });
+  fetchBookByBookId = async (bookId: TBookInfo['id']) => {
+    try {
+      const docSnap = await getDoc(doc(db, ESlicesNames.booksCollection, bookId));
+
+      if (docSnap.exists()) {
+        const response = docSnap.data() as unknown as TBookInfo;
+
+        if (response.id === bookId) {
+          return response;
+        }
       }
-      return reject(new Error(orderSubmitMessages.error));
-    }, REQUEST_DELAY);
-  });
-};
+
+      return null;
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(e);
+      throw new Error(booksRequestMessages.requestByIdError);
+    }
+  };
+
+  buyBooks = async (): Promise<any> => {
+    const randomNumber = Math.round(Math.random() * 10);
+
+    return new Promise<{ message: string }>((resolve, reject) => {
+      setTimeout(() => {
+        if (randomNumber < 7) {
+          return resolve({ message: orderSubmitMessages.success });
+        }
+        return reject(new Error(orderSubmitMessages.error));
+      }, REQUEST_DELAY);
+    });
+  };
+}
+
+export const booksApi = new BooksApi();
+
+// export const updateBook = async (bookInfo: TBookInfo) => {
+//   try {
+//     return await updateDoc(doc(db, ESlicesNames.booksCollection, bookInfo.id), { ...bookInfo });
+//   } catch (e) {
+//     // eslint-disable-next-line no-console
+//     console.error(e);
+//     throw new Error(booksRequestMessages.updateBookInfoError);
+//   }
+// };
