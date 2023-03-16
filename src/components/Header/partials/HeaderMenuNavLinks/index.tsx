@@ -1,8 +1,9 @@
-import React, { memo, useCallback, useMemo } from 'react';
+import { observer } from 'mobx-react-lite';
+import React, { useCallback, useMemo } from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
+import { useAppDispatch } from '../../../../redux/hooks';
 import { headerActions } from '../../../../redux/slices';
-import { selectMatchMediaState, selectUserData } from '../../../../redux/store';
+import { uiStore, userStore } from '../../../../stores';
 
 import { HeaderMenuNavLinks } from './HeaderMenuNavLinks';
 import {
@@ -13,9 +14,9 @@ import {
 
 const HeaderMenuNavLinksComponent = () => {
   const dispatch = useAppDispatch();
-  const { isDesktop } = useAppSelector(selectMatchMediaState);
   const { closeMenu } = headerActions;
-  const { isAnonymous } = useAppSelector(selectUserData);
+  const { isAnonymous } = userStore.user;
+  const { isDesktop } = uiStore.screen;
 
   const config = useMemo(() => {
     if (isDesktop) {
@@ -37,6 +38,6 @@ const HeaderMenuNavLinksComponent = () => {
 
 HeaderMenuNavLinksComponent.displayName = 'HeaderMenuNavLinksComponent';
 
-const MemoHeaderMenuNavLinksComponent = memo(HeaderMenuNavLinksComponent);
+const ObservableHeaderMenuNavLinksComponent = observer(HeaderMenuNavLinksComponent);
 
-export { MemoHeaderMenuNavLinksComponent as HeaderMenuNavLinks };
+export { ObservableHeaderMenuNavLinksComponent as HeaderMenuNavLinks };
