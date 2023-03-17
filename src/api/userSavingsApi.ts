@@ -27,13 +27,10 @@ class UserSavingsApi {
     try {
       const auth = getAuth();
 
-      console.log('API updateSavings user:', auth.currentUser);
-
       if (!auth.currentUser) {
         return false;
       }
 
-      console.log('API updateSavings update requested!!');
       await updateDoc(doc(db, ECollectionsNames.userSavings, auth.currentUser.uid), { ...savings });
 
       return true;
