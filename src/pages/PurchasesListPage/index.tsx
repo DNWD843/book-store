@@ -1,27 +1,23 @@
 import isEmpty from 'lodash/isEmpty';
+import { toJS } from 'mobx';
+import { observer } from 'mobx-react-lite';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Page } from '../../components/Page';
 import { PurchaseInfoBlockComponent } from '../../components/PurchaseInfoBlock';
-import { useAppSelector } from '../../redux/hooks';
-import { selectUserData, selectUserPurchases } from '../../redux/store';
 import { routes } from '../../routesMap';
+import { savingsStore, userStore } from '../../stores';
 
 import styles from './PurchasesListPage.module.css';
 
 const PurchasesListPage: React.FC = () => {
-  const purchases = useAppSelector(selectUserPurchases);
-  const { isAnonymous } = useAppSelector(selectUserData);
+  const purchases = toJS(savingsStore.purchases);
+  const { isAnonymous } = userStore.user;
   const navigate = useNavigate();
 
-  const sortedPurchasesInfoMap = Object.entries(purchases)
-    .sort((a, b) => {
-      if (b[0] > a[0]) {
-        return 1;
-      }
-      return -1;
-    });
+  const purchasesSortedCollection = Object.entries(purchases)
+    .sort((a, b) => (new Date(b[0]).getTime() - new Date(a[0]).getTime()));
 
   const subtitle = 'Вы пока ничего не купили.';
 
@@ -34,7 +30,7 @@ const PurchasesListPage: React.FC = () => {
   return (
     <Page subtitle={isEmpty(purchases) ? subtitle : ''} title="История покупок">
       <div className={styles.pageContent}>
-        {sortedPurchasesInfoMap.map((purchaseInfo) => (<PurchaseInfoBlockComponent key={purchaseInfo[0]} purchaseInfo={purchaseInfo} />))}
+        {purchasesSortedCollection.map((purchaseInfo) => (<PurchaseInfoBlockComponent key={purchaseInfo[0]} purchaseInfo={purchaseInfo} />))}
       </div>
     </Page>
   );
@@ -42,4 +38,6 @@ const PurchasesListPage: React.FC = () => {
 
 PurchasesListPage.displayName = 'PurchasesListPage';
 
-export { PurchasesListPage };
+const ObservablePurchasesListPage = observer(PurchasesListPage);
+
+export { ObservablePurchasesListPage as PurchasesListPage };
