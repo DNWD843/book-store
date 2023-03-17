@@ -1,9 +1,15 @@
-import React, { memo, useCallback, useState } from 'react';
+import uniqueId from 'lodash/uniqueId';
+import { observer } from 'mobx-react-lite';
+import React, { useCallback, useState } from 'react';
 
-import { EProfileFormFieldsNames } from '../../../enums';
-import { useEditProfileFormMethods } from '../../../hooks';
-import { TEditedData, TEditProfileModalConfig, TOnEditArgs } from '../../../types';
+import { defaultMessages, POPUP_ID_PREFIX, updateProfileRequestMessages } from '../../../constants';
+import { EPopupTypes, EProfileFormFieldsNames } from '../../../enums';
+import { useAppDispatch } from '../../../redux/hooks';
+import { popupsActions } from '../../../redux/slices';
+import { userStore } from '../../../stores';
+import { TEditedData, TEditProfileFormValues, TEditProfileModalConfig, TOnEditArgs, TUserData } from '../../../types';
 import { Modal } from '../../../ui-components';
+import { storage, storageKeys } from '../../../utils';
 import { EditProfileModalForm } from '../EditProfileModalForm';
 import { profileFormFieldsConfig } from '../formConfigs';
 
@@ -14,7 +20,53 @@ const ProfileFormComponent: React.FC<IEditProfileFormComponentProps> = (props) =
   const [isModalOpened, setModalOpened] = useState<boolean>(false);
   const [modalConfig, setModalConfig] = useState<TEditProfileModalConfig>(null);
 
-  const { updateProfileData, updateEmail } = useEditProfileFormMethods();
+  const { updateProfileInDB, updateLogin, setUserToStore } = userStore;
+  const dispatch = useAppDispatch();
+  const { addPopup } = popupsActions;
+
+  const updateProfileData = useCallback(async (data: TEditProfileFormValues) => {
+    try {
+      const res = await updateProfileInDB(data);
+
+      if (res) {
+        setUserToStore(data as TUserData);
+        storage.updateData(storageKeys.USER, data);
+        dispatch(addPopup({
+          id: uniqueId(POPUP_ID_PREFIX),
+          message: updateProfileRequestMessages.success,
+          type: EPopupTypes.success,
+        }));
+      }
+    } catch (err: any) {
+      dispatch(addPopup({
+        id: uniqueId(POPUP_ID_PREFIX),
+        message: err?.message ?? defaultMessages.unexpectedError,
+        type: EPopupTypes.danger,
+      }));
+    }
+  }, [addPopup, dispatch, setUserToStore, updateProfileInDB]);
+
+  const updateEmail = useCallback(async ({ email }: TEditedData) => {
+    try {
+      const res = await updateLogin({ email });
+
+      if (res) {
+        setUserToStore({ email } as TUserData);
+        storage.updateData(storageKeys.USER, { email });
+        dispatch(addPopup({
+          id: uniqueId(POPUP_ID_PREFIX),
+          message: updateProfileRequestMessages.success,
+          type: EPopupTypes.success,
+        }));
+      }
+    } catch (err: any) {
+      dispatch(addPopup({
+        id: uniqueId(POPUP_ID_PREFIX),
+        message: err?.message ?? defaultMessages.unexpectedError,
+        type: EPopupTypes.danger,
+      }));
+    }
+  }, [addPopup, dispatch, setUserToStore, updateLogin]);
 
   const onEdit = useCallback(({ fieldKey, currentValue }: TOnEditArgs) => () => {
     setModalConfig({ fieldKey, currentValue });
@@ -60,6 +112,6 @@ const ProfileFormComponent: React.FC<IEditProfileFormComponentProps> = (props) =
 
 ProfileFormComponent.displayName = 'ProfileFormComponent';
 
-const MemoProfileFormComponent = memo(ProfileFormComponent);
+const ObservableProfileFormComponent = observer(ProfileFormComponent);
 
-export { MemoProfileFormComponent as ProfileForm };
+export { ObservableProfileFormComponent as ProfileForm };

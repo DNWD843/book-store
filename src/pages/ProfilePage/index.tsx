@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React, { useEffect, useMemo } from 'react';
 import { Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
@@ -7,17 +8,14 @@ import { Page } from '../../components/Page';
 import { ProfileForm } from '../../components/forms';
 import { PROFILE_FORM_ID } from '../../constants';
 import { EFetchStatuses, EProfileFormFieldsNames } from '../../enums';
-import { useAppSelector } from '../../redux/hooks';
-import { selectAuthStatus, selectUserData } from '../../redux/store';
 import { routes } from '../../routesMap';
+import { userStore } from '../../stores';
 import { TEditProfileFormValues } from '../../types';
 
-export const ProfilePage: React.FC = () => {
+const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
-  const userData = useAppSelector(selectUserData);
-  const updateProfileStatus = useAppSelector(selectAuthStatus);
 
-  const { email: currentEmail, displayName: currentName, photoURL: currentURL } = userData;
+  const { user: { email: currentEmail, displayName: currentName, photoURL: currentURL }, status } = userStore;
 
   const currentValues: TEditProfileFormValues = useMemo(() => ({
     [EProfileFormFieldsNames.email]: currentEmail,
@@ -25,7 +23,7 @@ export const ProfilePage: React.FC = () => {
     [EProfileFormFieldsNames.photoURL]: currentURL,
   }), [currentEmail, currentName, currentURL]);
 
-  const isLoading = useMemo(() => (updateProfileStatus === EFetchStatuses.pending), [updateProfileStatus]);
+  const isLoading = status === EFetchStatuses.pending;
 
   useEffect(() => {
     if (!currentEmail) {
@@ -44,3 +42,9 @@ export const ProfilePage: React.FC = () => {
     </Page>
   );
 };
+
+ProfilePage.displayName = 'ProfilePage';
+
+const ObservableProfilePage = observer(ProfilePage);
+
+export { ObservableProfilePage as ProfilePage };

@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 
 import { userApi } from '../api';
-import { defaultMessages } from '../constants';
+import { defaultMessages, updateProfileRequestMessages } from '../constants';
 import { EFetchStatuses } from '../enums';
 import { TAuthFormValues, TCredentialsToUpdate, TUser, TUserData } from '../types';
 
@@ -88,17 +88,18 @@ class UserStore {
     }
   }
 
-  *updateProfile(credentials: TCredentialsToUpdate) {
+  *updateProfileInDB(credentials: TCredentialsToUpdate) {
     this._status = EFetchStatuses.pending;
     try {
       const isProfileUpdated: boolean = yield this._api.updateUserProfile(credentials);
 
       if (!isProfileUpdated) {
-        throw new Error(defaultMessages.unexpectedError);
+        // throw new Error(defaultMessages.unexpectedError);
+        return Promise.reject(new Error(updateProfileRequestMessages.error));
       }
 
-      // TODO:  тут что-то сделать с обновленным профилем
       this._status = EFetchStatuses.fulfilled;
+      return isProfileUpdated;
     } catch (err) {
       this._status = EFetchStatuses.rejected;
       throw err;
@@ -111,12 +112,11 @@ class UserStore {
       const isLoginUpdated: boolean = yield this._api.updateUserEmail({ email });
 
       if (!isLoginUpdated) {
-        throw new Error(defaultMessages.unexpectedError);
+        return Promise.reject(new Error(updateProfileRequestMessages.error));
       }
 
-      // TODO: save new login
-
       this._status = EFetchStatuses.fulfilled;
+      return isLoginUpdated;
     } catch (err) {
       this._status = EFetchStatuses.rejected;
       throw err;
