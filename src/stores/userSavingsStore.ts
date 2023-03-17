@@ -3,13 +3,7 @@ import { makeAutoObservable, toJS } from 'mobx';
 import { savingsApi } from '../api';
 import { defaultMessages, MINIMAL_BOOKS_QUANTITY } from '../constants';
 import { ECollectionPaths, EFetchStatuses } from '../enums';
-import { TBookInfo, TPurchase, TUser, TUserSavings } from '../types';
-
-const defaultSavings: TUserSavings = {
-  [ECollectionPaths.favorites]: [],
-  [ECollectionPaths.cartValue]: [],
-  [ECollectionPaths.purchases]: {},
-};
+import { TBookInfo, TPurchases, TUser, TUserSavings } from '../types';
 
 class UserSavingsStore {
   _favorites: TUserSavings['favorites'] = [];
@@ -24,14 +18,10 @@ class UserSavingsStore {
 
   _api: any = {};
 
-  _initialValues: TUserSavings;
-
   needsToUpdateDB: boolean = false;
 
-  constructor({ api, initialValues }: { api: any, initialValues: TUserSavings }) {
+  constructor(api: any) {
     this._api = api;
-    this._initialValues = initialValues;
-    this._setInitialValues();
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
@@ -68,15 +58,15 @@ class UserSavingsStore {
   }
 
   clearCartValue() {
-    this._cartValue = this._initialValues.cartValue;
+    this._cartValue = [];
   }
 
   get purchases() {
     return this._purchases;
   }
 
-  addToPurchases({ key, value }: { key: string, value: TPurchase }) {
-    this._purchases[key] = value;
+  addToPurchases(purchase: TPurchases) {
+    this._purchases = { ...this._purchases, ...purchase };
   }
 
   get savings() {
@@ -131,9 +121,9 @@ class UserSavingsStore {
   }
 
   _setInitialValues() {
-    this._favorites = this._initialValues[ECollectionPaths.favorites];
-    this._cartValue = this._initialValues[ECollectionPaths.cartValue];
-    this._purchases = this._initialValues[ECollectionPaths.purchases];
+    this._favorites = [];
+    this._cartValue = [];
+    this._purchases = {};
   }
 
   *fetchSavings(id: TUser['userId']) {
@@ -189,4 +179,4 @@ class UserSavingsStore {
   }
 }
 
-export const savingsStore = new UserSavingsStore({ api: savingsApi, initialValues: defaultSavings });
+export const savingsStore = new UserSavingsStore(savingsApi);

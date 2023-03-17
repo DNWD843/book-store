@@ -1,7 +1,7 @@
 import uniqueId from 'lodash/uniqueId';
 import { flowResult, toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -37,18 +37,16 @@ const OrderPage = () => {
   const begin = displayName || email ? `${displayName || email}, В` : 'В';
   const subtitle = `${begin}аш заказ: ${bookQuantity} ${pluralizedBookWord} на сумму ${orderPrice} ${RUBLE_SIGN}`;
 
-  const onSubmit = useCallback(async (data: TOrderFormValues) => {
+  const onSubmit = async (data: TOrderFormValues) => {
     try {
-      const newPurchase = {
-        key: new Date().toISOString(),
-        value: { books: cartValue, orderPrice },
-      };
+      const newPurchase = { [new Date().toISOString()]: { books: cartValue, orderPrice } };
       const orderData = { data, newPurchase };
       const response = await flowResult(buyBooks(orderData));
 
       addToPurchases(newPurchase);
       clearCartValue();
       updateSavingsInDB();
+      navigate(routes.books);
 
       dispatch(addPopup({
         id: uniqueId(POPUP_ID_PREFIX),
@@ -62,7 +60,7 @@ const OrderPage = () => {
         type: EPopupTypes.danger,
       }));
     }
-  }, [addPopup, addToPurchases, buyBooks, cartValue, clearCartValue, dispatch, orderPrice, updateSavingsInDB]);
+  };
 
   useEffect(() => {
     if (!cartValue.length) {
