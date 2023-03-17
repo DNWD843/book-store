@@ -1,13 +1,22 @@
 # Book-Store
 
-This project is created using technologies:    
+#### variant 1:  
+state manager: Redux - Toolkit  
+to see code open the RTK branch
+
+#### variant 2:  
+state manager: MobX  
+to see code open the MobX branch
+
+### This project is created using technologies:    
 
 ### Frontend:    
 
 - React v.18.2
 - react-router-dom v.6.3.0
 - Typescript
-- Redux ToolKit
+- Redux ToolKit (version 0.1.0, branch RTK)
+- MobX (version 1.0.0, branch MobX)
 - React Final Form
 - flex, grid
 - bootstrap
