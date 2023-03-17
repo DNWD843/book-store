@@ -16,20 +16,17 @@ import {
   RUBLE_SIGN,
 } from '../../constants';
 import { EFetchStatuses, EPopupTypes } from '../../enums';
-import { useAppDispatch } from '../../redux/hooks';
-import { popupsActions } from '../../redux/slices';
 import { routes } from '../../routesMap';
-import { booksStore, savingsStore, userStore } from '../../stores';
+import { booksStore, overlaysStore, savingsStore, userStore } from '../../stores';
 import { TOrderFormValues } from '../../types';
 import { getTotalPrice, pluralize } from '../../utils';
 
 const OrderPage = () => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const { addPopup } = popupsActions;
   const { displayName, email } = userStore.user;
   const { buyBooks, status } = booksStore;
   const { updateSavingsInDB, addToPurchases, clearCartValue } = savingsStore;
+  const { addPopup } = overlaysStore;
   const cartValue = toJS(savingsStore.cartValue);
 
   const { totalPrice: orderPrice, bookQuantity } = getTotalPrice(cartValue);
@@ -48,17 +45,17 @@ const OrderPage = () => {
       updateSavingsInDB();
       navigate(routes.books);
 
-      dispatch(addPopup({
+      addPopup({
         id: uniqueId(POPUP_ID_PREFIX),
         message: response?.message ?? orderSubmitMessages.success,
         type: EPopupTypes.success,
-      }));
+      });
     } catch (err: any) {
-      dispatch(addPopup({
+      addPopup({
         id: uniqueId(POPUP_ID_PREFIX),
         message: err.message || defaultMessages.unexpectedError,
         type: EPopupTypes.danger,
-      }));
+      });
     }
   };
 

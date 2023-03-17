@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { EFetchStatuses } from '../../enums';
 import { TUser, TUserData } from '../../types';
-import { ESlicesNames } from '../slicesNames';
+import { ECollectionsNames } from '../../enums/slicesNames';
 import { auth } from '../thunks';
 
 export interface IAuthState {
@@ -28,7 +28,7 @@ const initialState: IAuthState = {
 };
 
 const authSlice = createSlice({
-  name: ESlicesNames.auth,
+  name: ECollectionsNames.auth,
   initialState,
   reducers: {
     clearAuthError: (state) => { state.authError = ''; },

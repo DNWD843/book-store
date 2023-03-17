@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ESlicesNames } from '../slicesNames';
+import { ECollectionsNames } from '../../enums/slicesNames';
 
 export type TMatchMediaState = {
   isSmallScreen: boolean,
@@ -16,7 +16,7 @@ const initialState: TMatchMediaState = {
 };
 
 const matchMediaSlice = createSlice({
-  name: ESlicesNames.matchMedia,
+  name: ECollectionsNames.matchMedia,
   initialState,
   reducers: {
     setMedia: (state, { payload }: PayloadAction<TMatchMediaState>) => ({ ...payload }),

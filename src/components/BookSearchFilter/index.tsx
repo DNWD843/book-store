@@ -3,9 +3,7 @@ import { observer } from 'mobx-react-lite';
 import React, { ChangeEvent, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { FILTER_DELAY } from '../../constants';
-import { useAppSelector } from '../../redux/hooks';
-import { selectHeaderActionsState } from '../../redux/store';
-import { booksStore, uiStore } from '../../stores';
+import { booksStore, overlaysStore, uiStore } from '../../stores';
 
 import { BookSearchFilter } from './BookSearchFilter';
 
@@ -14,7 +12,7 @@ import styles from './BookSearchFilter.module.css';
 const BookSearchFilterComponent: React.FC<{ searchFilterRef: React.MutableRefObject<HTMLDivElement | null> }> = ({ searchFilterRef }) => {
   const { filterCollectionByValue, clearSearchValue, setSearchValue, searchValue } = booksStore;
   const { isDesktop } = uiStore.screen;
-  const { isSearchFilterOpened } = useAppSelector(selectHeaderActionsState);
+  const { isSearchFilterOpened } = overlaysStore;
   const prevTimerIdRef = useRef< NodeJS.Timeout | null>(null);
 
   const containerClassName = useMemo(() => (isDesktop

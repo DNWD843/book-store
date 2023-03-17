@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { EFetchStatuses } from '../../enums';
 import { IBooksCollection } from '../../types';
-import { ESlicesNames } from '../slicesNames';
+import { ECollectionsNames } from '../../enums/slicesNames';
 
 export interface IBooksState extends IBooksCollection{
   status: EFetchStatuses;
@@ -20,7 +20,7 @@ const initialState: IBooksState = {
 };
 
 const booksSlice = createSlice({
-  name: ESlicesNames.booksCollection,
+  name: ECollectionsNames.booksCollection,
   initialState,
   reducers: {
     // clearBooksState: (state: Draft<IBooksState>) => {

@@ -2,8 +2,8 @@ import { collection, getDocs, setDoc, doc, getDoc } from 'firebase/firestore';
 import { v4 as uuidv4 } from 'uuid';
 
 import { REQUEST_DELAY, orderSubmitMessages, booksRequestMessages, mockedBooksCatalogue } from '../constants';
+import { ECollectionsNames } from '../enums';
 import { db } from '../firebase';
-import { ESlicesNames } from '../redux/slicesNames';
 import { IBooksCollection, TBookInfo } from '../types';
 
 class BooksApi {
@@ -14,10 +14,10 @@ class BooksApi {
     try {
       await Promise.all(mockedBooksCatalogue.map((book) => {
         const pathSegment = uuidv4();
-        return setDoc(doc(db, ESlicesNames.booksCollection, pathSegment), { ...book, id: pathSegment });
+        return setDoc(doc(db, ECollectionsNames.booksCollection, pathSegment), { ...book, id: pathSegment });
       }));
 
-      const querySnapshot = await getDocs(collection(db, ESlicesNames.booksCollection));
+      const querySnapshot = await getDocs(collection(db, ECollectionsNames.booksCollection));
 
       const books = querySnapshot.docs.map((document) => document.data() as unknown as TBookInfo);
 
@@ -35,7 +35,7 @@ class BooksApi {
 
   fetchBooks = async (): Promise<IBooksCollection> => {
     try {
-      const querySnapshot = await getDocs(collection(db, ESlicesNames.booksCollection));
+      const querySnapshot = await getDocs(collection(db, ECollectionsNames.booksCollection));
 
       const books = querySnapshot.docs.map((document) => document.data() as unknown as TBookInfo);
 
@@ -52,7 +52,7 @@ class BooksApi {
 
   fetchBookByBookId = async (bookId: TBookInfo['id']) => {
     try {
-      const docSnap = await getDoc(doc(db, ESlicesNames.booksCollection, bookId));
+      const docSnap = await getDoc(doc(db, ECollectionsNames.booksCollection, bookId));
 
       if (docSnap.exists()) {
         const response = docSnap.data() as unknown as TBookInfo;

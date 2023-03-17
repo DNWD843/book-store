@@ -1,31 +1,21 @@
 import { observer } from 'mobx-react-lite';
-import React, { useCallback } from 'react';
+import React from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
-import { headerActions } from '../../../../redux/slices';
-import { selectHeaderActionsState } from '../../../../redux/store';
-import { uiStore, userStore } from '../../../../stores';
+import { overlaysStore, uiStore, userStore } from '../../../../stores';
 
 import { DesktopMenuButton } from './DesktopMenuButton';
 
 const DesktopMenuButtonComponent: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const { openMenu, closeMenu } = headerActions;
+  const { isMenuOpened, openMenu, closeMenu } = overlaysStore;
   const { isAnonymous } = userStore.user;
-  const { isMenuOpened } = useAppSelector(selectHeaderActionsState);
   const { isDesktop } = uiStore.screen;
-
-  const openHeaderMenu = useCallback(() => { dispatch(openMenu()); }, [dispatch, openMenu]);
-  const closeHeaderMenu = useCallback(() => {
-    dispatch(closeMenu());
-  }, [closeMenu, dispatch]);
 
   return (
     <DesktopMenuButton
-      closeMenu={!isDesktop ? closeHeaderMenu : undefined}
+      closeMenu={!isDesktop ? closeMenu : undefined}
       disabled={isDesktop ? isMenuOpened : !isAnonymous}
       isAnonymous={isAnonymous}
-      onMenuButtonClick={openHeaderMenu}
+      onMenuButtonClick={openMenu}
     />
   );
 };

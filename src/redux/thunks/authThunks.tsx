@@ -10,39 +10,39 @@ import {
   deleteUserProfile,
 } from '../../api';
 import { TAuthFormValues, TUser } from '../../types';
-import { ESlicesNames } from '../slicesNames';
+import { ECollectionsNames } from '../../enums/slicesNames';
 
 export const registerUser = createAsyncThunk(
-  `${[ESlicesNames.auth]}/registerUser`,
+  `${[ECollectionsNames.auth]}/registerUser`,
   async (data: TAuthFormValues) => createUser(data),
 );
 
 export const loginUser = createAsyncThunk(
-  `${[ESlicesNames.auth]}/loginUser`,
+  `${[ECollectionsNames.auth]}/loginUser`,
   async (data: TAuthFormValues) => loginUserByEmail(data),
 );
 
 export const loginUserAnonymously = createAsyncThunk(
-  `${[ESlicesNames.auth]}/loginUserAnonymously`,
+  `${[ECollectionsNames.auth]}/loginUserAnonymously`,
   async () => loginAnonymously(),
 );
 
 export const logoutUser = createAsyncThunk(
-  `${[ESlicesNames.auth]}/logout`,
+  `${[ECollectionsNames.auth]}/logout`,
   async () => logout(),
 );
 
 export const updateUserData = createAsyncThunk(
-  `${[ESlicesNames.auth]}/updateUserProfile`,
+  `${[ECollectionsNames.auth]}/updateUserProfile`,
   async ({ displayName, photoURL }: { displayName: TUser['displayName'], photoURL: TUser['photoURL'] }) => updateUserProfile({ displayName, photoURL }),
 );
 
 export const updateUserLogin = createAsyncThunk(
-  `${[ESlicesNames.auth]}/updateUserEmail`,
+  `${[ECollectionsNames.auth]}/updateUserEmail`,
   async ({ email }: { email: TUser['email'] }) => updateUserEmail({ email }),
 );
 
 export const deleteUser = createAsyncThunk(
-  `${ESlicesNames.auth}/deleteUser`,
+  `${ECollectionsNames.auth}/deleteUser`,
   async () => deleteUserProfile(),
 );

@@ -2,24 +2,24 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { fetchBookByBookId, fetchBooks, updateBook, updateBooksCollection } from '../../api';
 import { TBookInfo } from '../../types';
-import { ESlicesNames } from '../slicesNames';
+import { ECollectionsNames } from '../../enums/slicesNames';
 
 export const getBooks = createAsyncThunk(
-  `${ESlicesNames.booksCollection}/getBooks`,
+  `${ECollectionsNames.booksCollection}/getBooks`,
   async () => fetchBooks(),
 );
 
 export const getBookById = createAsyncThunk(
-  `${ESlicesNames.bookDetails}/getBookById`,
+  `${ECollectionsNames.bookDetails}/getBookById`,
   async (bookId: TBookInfo['id']) => fetchBookByBookId(bookId),
 );
 
 export const updateBookInCollection = createAsyncThunk(
-  `${ESlicesNames.booksCollection}/updateBook`,
+  `${ECollectionsNames.booksCollection}/updateBook`,
   async (book: TBookInfo) => updateBook(book).then(() => book),
 );
 
 export const updateBooksCatalogue = createAsyncThunk(
-  `${ESlicesNames.booksCollection}/updateBooksCatalogue`,
+  `${ECollectionsNames.booksCollection}/updateBooksCatalogue`,
   async () => updateBooksCollection(),
 );

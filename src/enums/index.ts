@@ -7,6 +7,7 @@ export * from './orderFormEnums';
 export { EValidationErrorMessages } from './errorMessagesTypes';
 export { EPopupTypes } from './popupTypes';
 export * from './profileFormEnums';
+export * from './slicesNames';
 
 export const enum EPluralizeConfigKey {
   nominativeCaseForm = 'nominativeCaseForm',

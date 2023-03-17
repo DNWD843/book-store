@@ -8,37 +8,34 @@ import { Page } from '../../components/Page';
 import { AuthForm, authFormConfigs } from '../../components/forms';
 import { defaultMessages, POPUP_ID_PREFIX, registerRequestMessages } from '../../constants';
 import { EAuthTypes, EFetchStatuses, EPopupTypes } from '../../enums';
-import { useAppDispatch } from '../../redux/hooks';
-import { popupsActions } from '../../redux/slices';
 import { routes } from '../../routesMap';
-import { userStore } from '../../stores';
+import { overlaysStore, userStore } from '../../stores';
 import { TAuthFormValues } from '../../types';
 
 const RegisterPageComponent: React.FC = () => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { addPopup } = popupsActions;
+  const { addPopup } = overlaysStore;
 
   const handleSubmit = async ({ email, password }: TAuthFormValues) => {
     try {
       await userStore.register({ email, password });
 
-      dispatch(addPopup({
+      addPopup({
         id: uniqueId(POPUP_ID_PREFIX),
         message: registerRequestMessages.success,
         type: EPopupTypes.success,
-      }));
+      });
 
       navigate(routes.login);
     } catch (err: any) {
       // eslint-disable-next-line no-console
       console.error(err);
 
-      dispatch(addPopup({
+      addPopup({
         id: uniqueId(POPUP_ID_PREFIX),
         message: err?.message ?? defaultMessages.unexpectedError,
         type: EPopupTypes.danger,
-      }));
+      });
     }
   };
 

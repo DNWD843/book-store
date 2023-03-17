@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { EFetchStatuses } from '../../enums';
 import { TUserSavings } from '../../types';
-import { ESlicesNames } from '../slicesNames';
+import { ECollectionsNames } from '../../enums/slicesNames';
 import { createUserSavings, getUserSavings, updateUserSavings, sendOrderData, deleteUserSavings } from '../thunks';
 
 const initialState: TUserSavings = {
@@ -13,7 +13,7 @@ const initialState: TUserSavings = {
 };
 
 const userSavingsSlice = createSlice({
-  name: ESlicesNames.userSavings,
+  name: ECollectionsNames.userSavings,
   initialState,
   reducers: {
     setUserSavingsToStore: (state, { payload }: PayloadAction<TUserSavings>) => {

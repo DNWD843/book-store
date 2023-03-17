@@ -5,7 +5,6 @@ import React, { useLayoutEffect } from 'react';
 import { ONE_DAY_TIMESTAMP } from '../../constants';
 import { EFetchStatuses } from '../../enums';
 import { useMatchMedia } from '../../hooks';
-import { withReduxStore } from '../../provider/withReduxStore';
 import { booksStore, savingsStore, uiStore, userStore } from '../../stores';
 import { IBooksCollection, TUserData } from '../../types';
 import { checkNeedToDataUpdate, storage, storageKeys } from '../../utils';
@@ -14,7 +13,7 @@ import './App.css';
 
 import { App } from './App';
 
-const AppComponent: React.FC = observer(() => {
+const AppComponent: React.FC = () => {
   const { isSmallScreen, isMobile, isTablet, isDesktop } = useMatchMedia();
 
   useLayoutEffect(() => {
@@ -50,8 +49,8 @@ const AppComponent: React.FC = observer(() => {
         : null}
     </>
   );
-});
+};
 
 AppComponent.displayName = 'AppComponent';
 
-export default withReduxStore(AppComponent);
+export default observer(AppComponent);

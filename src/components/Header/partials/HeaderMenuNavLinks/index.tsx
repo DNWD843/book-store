@@ -1,9 +1,7 @@
 import { observer } from 'mobx-react-lite';
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
-import { useAppDispatch } from '../../../../redux/hooks';
-import { headerActions } from '../../../../redux/slices';
-import { uiStore, userStore } from '../../../../stores';
+import { overlaysStore, uiStore, userStore } from '../../../../stores';
 
 import { HeaderMenuNavLinks } from './HeaderMenuNavLinks';
 import {
@@ -13,8 +11,7 @@ import {
 } from './configs';
 
 const HeaderMenuNavLinksComponent = () => {
-  const dispatch = useAppDispatch();
-  const { closeMenu } = headerActions;
+  const { closeMenu } = overlaysStore;
   const { isAnonymous } = userStore.user;
   const { isDesktop } = uiStore.screen;
 
@@ -29,10 +26,9 @@ const HeaderMenuNavLinksComponent = () => {
 
     return mobileHeaderMenuLinksConfig;
   }, [isAnonymous, isDesktop]);
-  const closeHeaderMenu = useCallback(() => { dispatch(closeMenu()); }, [closeMenu, dispatch]);
 
   return (
-    <HeaderMenuNavLinks closeMenu={closeHeaderMenu} navLinksConfig={config} />
+    <HeaderMenuNavLinks closeMenu={closeMenu} navLinksConfig={config} />
   );
 };
 

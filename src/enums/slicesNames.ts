@@ -1,4 +1,4 @@
-export const enum ESlicesNames {
+export const enum ECollectionsNames {
   booksCollection = 'books',
   bookDetails = 'bookDetails',
   auth = 'auth',

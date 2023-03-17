@@ -9,17 +9,14 @@ import { Page } from '../../components/Page';
 import { AuthForm, authFormConfigs } from '../../components/forms';
 import { defaultMessages, loginRequestMessages, POPUP_ID_PREFIX } from '../../constants';
 import { EAuthTypes, EFetchStatuses, EPopupTypes } from '../../enums';
-import { useAppDispatch } from '../../redux/hooks';
-import { popupsActions } from '../../redux/slices';
 import { routes } from '../../routesMap';
-import { savingsStore, userStore } from '../../stores';
+import { overlaysStore, savingsStore, userStore } from '../../stores';
 import { TAuthFormValues } from '../../types';
 import { storage, storageKeys } from '../../utils';
 
 const LoginPageComponent: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const { addPopup } = popupsActions;
   const navigate = useNavigate();
+  const { addPopup } = overlaysStore;
 
   const handleSubmit = async ({ email, password }: TAuthFormValues) => {
     try {
@@ -30,20 +27,20 @@ const LoginPageComponent: React.FC = () => {
         await savingsStore.updateSavingsInDB();
       }
 
-      dispatch(addPopup({
+      addPopup({
         id: uniqueId(POPUP_ID_PREFIX),
         message: loginRequestMessages.success,
         type: EPopupTypes.success,
-      }));
+      });
 
       navigate(routes.books);
       storage.setData(storageKeys.USER, userData);
     } catch (err: any) {
-      dispatch(addPopup({
+      addPopup({
         id: err?.meta?.requestId || uniqueId(POPUP_ID_PREFIX),
         message: err.message ?? defaultMessages.unexpectedError,
         type: EPopupTypes.danger,
-      }));
+      });
     }
   };
 

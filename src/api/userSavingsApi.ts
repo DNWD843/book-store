@@ -2,15 +2,14 @@ import { getAuth } from 'firebase/auth';
 import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 
 import { userSavingsRequestMessages } from '../constants';
-import { ECollectionPaths } from '../enums';
+import { ECollectionPaths, ECollectionsNames } from '../enums';
 import { db } from '../firebase';
-import { ESlicesNames } from '../redux/slicesNames';
 import { TUser, TUserSavings, TUserSavingsToUpdate } from '../types';
 
 class UserSavingsApi {
   fetchSavings = async (id: TUser['userId']): Promise<TUserSavings | undefined> => {
     try {
-      const docSnap = await getDoc(doc(db, ESlicesNames.userSavings, id));
+      const docSnap = await getDoc(doc(db, ECollectionsNames.userSavings, id));
 
       if (docSnap.exists()) {
         return docSnap.data() as unknown as TUserSavings;
@@ -35,7 +34,7 @@ class UserSavingsApi {
       }
 
       console.log('API updateSavings update requested!!');
-      await updateDoc(doc(db, ESlicesNames.userSavings, auth.currentUser.uid), { ...savings });
+      await updateDoc(doc(db, ECollectionsNames.userSavings, auth.currentUser.uid), { ...savings });
 
       return true;
     } catch (err) {
@@ -54,7 +53,7 @@ class UserSavingsApi {
         return false;
       }
 
-      await deleteDoc(doc(db, ESlicesNames.userSavings, auth.currentUser.uid));
+      await deleteDoc(doc(db, ECollectionsNames.userSavings, auth.currentUser.uid));
 
       return true;
     } catch (err) {

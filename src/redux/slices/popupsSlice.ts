@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { ECollectionsNames } from '../../enums';
 import { TPopupConfig, TPopupsState } from '../../types';
-import { ESlicesNames } from '../slicesNames';
 
 const initialState: TPopupsState = [];
 
 const popupsSlice = createSlice({
-  name: ESlicesNames.popups,
+  name: ECollectionsNames.popups,
   initialState,
   reducers: {
     addPopup: (state, { payload }: PayloadAction<TPopupConfig>) => {

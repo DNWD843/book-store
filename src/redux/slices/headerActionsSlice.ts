@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { ESlicesNames } from '../slicesNames';
+import { ECollectionsNames } from '../../enums/slicesNames';
 
 export type THeaderActionsState = {
   isMenuOpened: boolean,
@@ -15,7 +15,7 @@ const initialState: THeaderActionsState = {
 };
 
 const headerActionsSlice = createSlice({
-  name: ESlicesNames.headerActions,
+  name: ECollectionsNames.headerActions,
   initialState,
   reducers: {
     openMenu: (state) => { state.isMenuOpened = true; },

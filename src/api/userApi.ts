@@ -7,9 +7,8 @@ import {
   registerRequestMessages,
   updateProfileRequestMessages,
 } from '../constants';
-import { ECollectionPaths } from '../enums';
+import { ECollectionPaths, ECollectionsNames } from '../enums';
 import { appAuth, db } from '../firebase';
-import { ESlicesNames } from '../redux/slicesNames';
 import { TAuthFormValues, TCredentialsToUpdate, TUser } from '../types';
 
 const admins = ['dima@mail.ru'];
@@ -147,7 +146,7 @@ class UserApi {
       }
 
       await setDoc(
-        doc(db, ESlicesNames.userSavings, auth.currentUser.uid), {
+        doc(db, ECollectionsNames.userSavings, auth.currentUser.uid), {
           [ECollectionPaths.favorites]: [],
           [ECollectionPaths.cartValue]: [],
           [ECollectionPaths.purchases]: {},

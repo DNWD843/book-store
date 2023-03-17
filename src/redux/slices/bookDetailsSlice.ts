@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { EFetchStatuses } from '../../enums';
+import { EFetchStatuses, ECollectionsNames } from '../../enums';
 import { TBookInfo } from '../../types';
-import { ESlicesNames } from '../slicesNames';
 import { getBookById } from '../thunks';
 
 export type TBookDetailsState = {
@@ -16,7 +15,7 @@ const initialState: TBookDetailsState = {
 };
 
 const bookDetailsSlice = createSlice({
-  name: ESlicesNames.bookDetails,
+  name: ECollectionsNames.bookDetails,
   initialState,
   reducers: {
     setBookDetails: (state, { payload }) => {

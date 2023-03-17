@@ -1,26 +1,33 @@
+import { toJS } from 'mobx';
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { popupsActions } from '../../redux/slices';
-import { selectPopups } from '../../redux/store';
+import { overlaysStore } from '../../stores';
 import { Popup } from '../../ui-components';
 
-export const PopupsContainer: React.FC = () => {
-  const popups = useAppSelector(selectPopups);
-  const dispatch = useAppDispatch();
-  const { removePopup } = popupsActions;
+const PopupsContainer: React.FC = () => {
+  const { removePopup } = overlaysStore;
+  const popups = toJS(overlaysStore.popups);
 
   return (
     <>
       {popups.length
-        ? (popups.map(({ id, type, message }) => (
-          <Popup key={id} type={type} onClose={() => dispatch(removePopup(id))}>
-            {message}
-          </Popup>
-        )))
+        ? (popups.map((popup) => {
+          const { id, type, message } = popup;
+
+          return (
+            <Popup key={id} type={type} onClose={() => removePopup(popup)}>
+              {message}
+            </Popup>
+          );
+        }))
         : null}
     </>
   );
 };
 
 PopupsContainer.displayName = 'PopupsContainer';
+
+const ObservablePopupsContainer = observer(PopupsContainer);
+
+export { ObservablePopupsContainer as PopupsContainer };
