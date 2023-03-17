@@ -85,13 +85,3 @@ class BooksApi {
 }
 
 export const booksApi = new BooksApi();
-
-// export const updateBook = async (bookInfo: TBookInfo) => {
-//   try {
-//     return await updateDoc(doc(db, ESlicesNames.booksCollection, bookInfo.id), { ...bookInfo });
-//   } catch (e) {
-//     // eslint-disable-next-line no-console
-//     console.error(e);
-//     throw new Error(booksRequestMessages.updateBookInfoError);
-//   }
-// };
