@@ -5,7 +5,6 @@ import { Outlet } from 'react-router-dom';
 
 import { BooksCatalogue } from '../../components/BooksCatalogue';
 import { Page } from '../../components/Page';
-import { EFetchStatuses } from '../../enums';
 import { booksStore } from '../../stores';
 
 import styles from './BooksCataloguePage.module.css';
@@ -13,10 +12,9 @@ import styles from './BooksCataloguePage.module.css';
 const BooksPage: React.FC = () => (<Outlet />);
 
 BooksPage.displayName = 'BooksPage';
-const BooksCataloguePage: React.FC = observer(() => {
+const BooksCataloguePage: React.FC = () => {
   const booksCollection = toJS(booksStore.books);
   const filteredCollection = toJS(booksStore.filteredCollection);
-  const isLoading = booksStore.status === EFetchStatuses.pending;
 
   const pageSubtitle = useMemo(() => {
     if (!filteredCollection) return '';
@@ -30,20 +28,19 @@ const BooksCataloguePage: React.FC = observer(() => {
 
   return (
     <Page subtitle={pageSubtitle} title="Каталог" withNavLinks={false}>
-      {booksCollection?.length
-        ? (<BooksCatalogue books={filteredCollection || booksCollection} />)
-        : null}
-      {!booksCollection?.length && isLoading
-        ? null : (
-          <div className={styles.messageContainer}>
-            <span className={styles.message}>А мы как раз обновляем ассортимент!</span>
-            <span className={styles.message}>Пожалуйста, загляните к нам позже.</span>
-          </div>
-        )}
+      {!booksCollection && (
+        <div className={styles.messageContainer}>
+          <span className={styles.message}>А мы как раз обновляем ассортимент!</span>
+          <span className={styles.message}>Пожалуйста, загляните к нам позже.</span>
+        </div>
+      )}
+      {booksCollection && booksCollection.length && (<BooksCatalogue books={filteredCollection || booksCollection} />)}
     </Page>
   );
-});
+};
 
 BooksCataloguePage.displayName = 'BooksCataloguePage';
 
-export { BooksPage, BooksCataloguePage };
+const ObservableBooksCataloguePage = observer(BooksCataloguePage);
+
+export { BooksPage, ObservableBooksCataloguePage as BooksCataloguePage };
