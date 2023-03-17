@@ -1,18 +1,19 @@
-import React, { memo } from 'react';
+import { observer } from 'mobx-react-lite';
+import React from 'react';
 
-import { useAppSelector } from '../../../../redux/hooks';
-import { selectMatchMediaState } from '../../../../redux/store';
+import { uiStore } from '../../../../stores';
 
 import { MobileHeaderActionButton } from './MobileHeaderActionButton';
 import { TMobileHeaderActionButtonProps } from './MobileHeaderActionButton.props';
 
 const MobileHeaderActionButtonComponent: React.FC<Omit<TMobileHeaderActionButtonProps, 'isTablet'>> = (props) => {
-  const { isTablet } = useAppSelector(selectMatchMediaState);
+  const { isTablet } = uiStore.screen;
+
   return (<MobileHeaderActionButton isTablet={isTablet} {...props} />);
 };
 
 MobileHeaderActionButtonComponent.displayName = 'MobileHeaderActionButtonComponent';
 
-const MemoMobileHeaderActionButtonComponent = memo(MobileHeaderActionButtonComponent);
+const ObservableMobileHeaderActionButtonComponent = observer(MobileHeaderActionButtonComponent);
 
-export { MemoMobileHeaderActionButtonComponent as MobileHeaderActionButton };
+export { ObservableMobileHeaderActionButtonComponent as MobileHeaderActionButton };

@@ -1,10 +1,13 @@
-import React, { memo, useCallback, useMemo } from 'react';
+import { toJS } from 'mobx';
+import { observer } from 'mobx-react-lite';
+import React, { useCallback, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
 import { headerActions } from '../../../../redux/slices';
-import { selectFilteredCollection, selectHeaderActionsState } from '../../../../redux/store';
+import { selectHeaderActionsState } from '../../../../redux/store';
 import { routes } from '../../../../routesMap';
+import { booksStore } from '../../../../stores';
 
 import { MobileHeaderActions } from './MobileHeaderActions';
 
@@ -13,7 +16,7 @@ const MobileHeaderActionsComponent: React.FC = () => {
   const { pathname } = useLocation();
   const { openMenu, openSearchFilter } = headerActions;
   const { isMenuOpened, isSearchFilterOpened } = useAppSelector(selectHeaderActionsState);
-  const filteredCollection = useAppSelector(selectFilteredCollection);
+  const filteredCollection = toJS(booksStore.filteredCollection);
 
   const isSearchAvailable = useMemo(() => pathname === routes.books, [pathname]);
 
@@ -34,6 +37,6 @@ const MobileHeaderActionsComponent: React.FC = () => {
 
 MobileHeaderActionsComponent.displayName = 'MobileHeaderActionsComponent';
 
-const MemoMobileHeaderActionsComponent = memo(MobileHeaderActionsComponent);
+const ObserverMobileHeaderActionsComponent = observer(MobileHeaderActionsComponent);
 
-export { MemoMobileHeaderActionsComponent as MobileHeaderActions };
+export { ObserverMobileHeaderActionsComponent as MobileHeaderActions };

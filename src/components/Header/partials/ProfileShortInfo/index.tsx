@@ -7,7 +7,7 @@ import avatar from '../../../../vendor/images/login_ava.png';
 
 import { ProfileShortInfo } from './ProfileShortInfo';
 
-const ProfileShortInfoComponent: React.FC = observer(() => {
+const ProfileShortInfoComponent: React.FC = () => {
   const { isAnonymous, photoURL, email, displayName } = userStore.user;
 
   const title = isAnonymous
@@ -15,8 +15,10 @@ const ProfileShortInfoComponent: React.FC = observer(() => {
     : `${displayName || email || 'Гость'}`;
 
   return (<ProfileShortInfo photoUrl={photoURL || ANONYMOUS_USER_DEFAULT_AVATAR || avatar} title={title} />);
-});
+};
 
 ProfileShortInfoComponent.displayName = 'ProfileShortInfoComponent';
 
-export { ProfileShortInfoComponent as ProfileShortInfo };
+const ObservableProfileShortInfoComponent = observer(ProfileShortInfoComponent);
+
+export { ObservableProfileShortInfoComponent as ProfileShortInfo };
