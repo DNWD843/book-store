@@ -18,8 +18,6 @@ class UserSavingsStore {
 
   _api: any = {};
 
-  needsToUpdateDB: boolean = false;
-
   constructor(api: any) {
     this._api = api;
     makeAutoObservable(this, {}, { autoBind: true });
@@ -106,7 +104,6 @@ class UserSavingsStore {
     this._purchases = purchases;
 
     if (this._cartValue.length) {
-      this.needsToUpdateDB = true;
       this._cartValue = this._cartValue.reduce<TBookInfo[]>((acc, book) => {
         if (acc.some((bookFromDB) => bookFromDB.id === book.id)) {
           return acc;
@@ -149,8 +146,6 @@ class UserSavingsStore {
       };
 
       yield this._api.updateSavings(toJS(savings));
-
-      this.needsToUpdateDB = false;
 
       this._status = EFetchStatuses.fulfilled;
     } catch (err) {

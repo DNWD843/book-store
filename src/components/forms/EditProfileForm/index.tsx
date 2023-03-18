@@ -1,5 +1,4 @@
 import uniqueId from 'lodash/uniqueId';
-import { observer } from 'mobx-react-lite';
 import React, { useCallback, useState } from 'react';
 
 import { defaultMessages, POPUP_ID_PREFIX, updateProfileRequestMessages } from '../../../constants';
@@ -109,6 +108,4 @@ const ProfileFormComponent: React.FC<IEditProfileFormComponentProps> = (props) =
 
 ProfileFormComponent.displayName = 'ProfileFormComponent';
 
-const ObservableProfileFormComponent = observer(ProfileFormComponent);
-
-export { ObservableProfileFormComponent as ProfileForm };
+export { ProfileFormComponent as ProfileForm };

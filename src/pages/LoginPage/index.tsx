@@ -1,7 +1,7 @@
 import uniqueId from 'lodash/uniqueId';
 import { flowResult } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ScreenLoader } from '../../components/Loaders';
@@ -17,15 +17,13 @@ import { storage, storageKeys } from '../../utils';
 const LoginPageComponent: React.FC = () => {
   const navigate = useNavigate();
   const { addPopup } = overlaysStore;
+  const { fetchSavings, updateSavingsInDB } = savingsStore;
 
-  const handleSubmit = async ({ email, password }: TAuthFormValues) => {
+  const handleSubmit = useCallback(async ({ email, password }: TAuthFormValues) => {
     try {
       const userData = await flowResult(userStore.login({ email, password }));
-      await savingsStore.fetchSavings(userData.userId);
-
-      if (savingsStore.needsToUpdateDB) {
-        await savingsStore.updateSavingsInDB();
-      }
+      await fetchSavings(userData.userId);
+      await updateSavingsInDB();
 
       addPopup({
         id: uniqueId(POPUP_ID_PREFIX),
@@ -42,7 +40,7 @@ const LoginPageComponent: React.FC = () => {
         type: EPopupTypes.danger,
       });
     }
-  };
+  }, [addPopup, fetchSavings, navigate, updateSavingsInDB]);
 
   const isLoading = userStore.status === EFetchStatuses.pending || savingsStore.status === EFetchStatuses.pending;
 

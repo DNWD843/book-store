@@ -1,4 +1,3 @@
-import { observer } from 'mobx-react-lite';
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,6 +21,4 @@ const CartActionButtonsComponent: React.FC = () => {
 
 CartActionButtonsComponent.displayName = 'CartActionButtons';
 
-const ObservableCartActionButtonsComponent = observer(CartActionButtonsComponent);
-
-export { ObservableCartActionButtonsComponent as CartActionButtons };
+export { CartActionButtonsComponent as CartActionButtons };

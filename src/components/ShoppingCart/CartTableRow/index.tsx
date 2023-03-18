@@ -1,4 +1,3 @@
-import { observer } from 'mobx-react-lite';
 import React, { useCallback, useMemo } from 'react';
 
 import { MINIMAL_BOOKS_QUANTITY } from '../../../constants';
@@ -41,6 +40,4 @@ const CartTableRowComponent: React.FC<{ bookInfo: TBookInfo, index: number }> = 
 
 CartTableRowComponent.displayName = 'RowComponent';
 
-const ObservableCartTableRowComponent = observer(CartTableRowComponent);
-
-export { ObservableCartTableRowComponent as CartTableRow };
+export { CartTableRowComponent as CartTableRow };
