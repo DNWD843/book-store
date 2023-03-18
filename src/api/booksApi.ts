@@ -28,7 +28,6 @@ export const updateBooksCollection = async (): Promise<TUpdateCatalogueRequestRe
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
-
     throw new Error(booksRequestMessages.updateCollectionError);
   }
 };

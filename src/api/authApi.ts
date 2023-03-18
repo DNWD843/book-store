@@ -53,7 +53,6 @@ export const loginUserByEmail = async ({ email, password }: TAuthFormValues): Pr
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
-    // eslint-disable-next-line @typescript-eslint/no-throw-literal
     throw new Error(loginRequestMessages.error);
   }
 };
@@ -64,7 +63,6 @@ export const logout = async () => {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
-    // eslint-disable-next-line @typescript-eslint/no-throw-literal
     throw new Error(defaultMessages.unexpectedError);
   }
 };
@@ -101,8 +99,6 @@ export const updateUserProfile = async ({ displayName, photoURL }: { displayName
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);
-
-    // eslint-disable-next-line @typescript-eslint/no-throw-literal
     throw new Error(updateProfileRequestMessages.error);
   }
 };
@@ -119,8 +115,6 @@ export const updateUserEmail = async ({ email }: { email: TUser['email'] }) => {
   } catch (e) {
     // eslint-disable-next-line no-console
     console.error(e);
-
-    // eslint-disable-next-line @typescript-eslint/no-throw-literal
     throw new Error(updateProfileRequestMessages.updateLoginError);
   }
 };
@@ -135,7 +129,6 @@ export const deleteUserProfile = async () => {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
-    // eslint-disable-next-line @typescript-eslint/no-throw-literal
     throw new Error(defaultMessages.unexpectedError);
   }
 };

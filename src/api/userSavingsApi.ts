@@ -23,7 +23,6 @@ export const updateSavings = async ({ userId, savings }: TUserSavingsToUpdate) =
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
-
     throw new Error(userSavingsRequestMessages.updateSavingsError);
   }
 };
@@ -54,7 +53,6 @@ export const deleteSavings = async () => {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error(err);
-    // eslint-disable-next-line @typescript-eslint/no-throw-literal
     throw new Error(userSavingsRequestMessages.deleteSavingsError);
   }
 };
