@@ -27,8 +27,16 @@ class UserSavingsStore {
     return this._status;
   }
 
+  _setStatus(value: EFetchStatuses) {
+    this._status = value;
+  }
+
   get fetchSavingsStatus() {
     return this._fetchSavingsStatus;
+  }
+
+  _setFetchingStatus(value: EFetchStatuses) {
+    this._fetchSavingsStatus = value;
   }
 
   get favorites() {
@@ -124,20 +132,20 @@ class UserSavingsStore {
   }
 
   *fetchSavings(id: TUser['userId']) {
-    this._fetchSavingsStatus = EFetchStatuses.pending;
+    this._setFetchingStatus(EFetchStatuses.pending);
 
     try {
       const savingsFromDB: TUserSavings = yield this._api.fetchSavings(id);
       this._setSavings(savingsFromDB);
-      this._fetchSavingsStatus = EFetchStatuses.fulfilled;
+      this._setFetchingStatus(EFetchStatuses.fulfilled);
     } catch (err) {
-      this._fetchSavingsStatus = EFetchStatuses.rejected;
+      this._setFetchingStatus(EFetchStatuses.rejected);
       throw err;
     }
   }
 
   *updateSavingsInDB() {
-    this._status = EFetchStatuses.pending;
+    this._setStatus(EFetchStatuses.pending);
     try {
       const savings = {
         [ECollectionPaths.favorites]: this._favorites,
@@ -147,16 +155,16 @@ class UserSavingsStore {
 
       yield this._api.updateSavings(toJS(savings));
 
-      this._status = EFetchStatuses.fulfilled;
+      this._setStatus(EFetchStatuses.fulfilled);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err);
-      this._status = EFetchStatuses.rejected;
+      this._setStatus(EFetchStatuses.rejected);
     }
   }
 
   *deleteSavingsInDB() {
-    this._status = EFetchStatuses.pending;
+    this._setStatus(EFetchStatuses.pending);
 
     try {
       const areSavingsDeleted: boolean = yield this._api.deleteSavings();
@@ -166,9 +174,9 @@ class UserSavingsStore {
       }
 
       this._setInitialValues();
-      this._status = EFetchStatuses.fulfilled;
+      this._setStatus(EFetchStatuses.fulfilled);
     } catch (err) {
-      this._status = EFetchStatuses.rejected;
+      this._setStatus(EFetchStatuses.rejected);
       throw err;
     }
   }

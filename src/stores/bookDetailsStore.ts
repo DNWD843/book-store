@@ -20,6 +20,10 @@ class BookDetailsStore {
     return this._status;
   }
 
+  _setStatus(value: EFetchStatuses) {
+    this._status = value;
+  }
+
   get selectedBook() {
     return this._selectedBook;
   }
@@ -33,16 +37,16 @@ class BookDetailsStore {
   }
 
   *getBookById(id: TBookInfo['id']) {
-    this._status = EFetchStatuses.pending;
+    this._setStatus(EFetchStatuses.pending);
 
     try {
       const book: TBookInfo | null = yield this._api.fetchBookByBookId(id);
       this.setSelected(book);
-      this._status = EFetchStatuses.fulfilled;
+      this._setStatus(EFetchStatuses.fulfilled);
 
       return book;
     } catch (err) {
-      this._status = EFetchStatuses.rejected;
+      this._setStatus(EFetchStatuses.rejected);
       throw err;
     }
   }

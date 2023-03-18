@@ -28,8 +28,16 @@ class BooksStore {
     return this._status;
   }
 
+  _setStatus(value: EFetchStatuses) {
+    this._status = value;
+  }
+
   get fetchBooksStatus() {
     return this._fetchBooksStatus;
+  }
+
+  _setFetchBooksStatus(value: EFetchStatuses) {
+    this._status = value;
   }
 
   clearBooksState = () => {
@@ -78,43 +86,43 @@ class BooksStore {
   };
 
   *getBooks() {
-    this._fetchBooksStatus = EFetchStatuses.pending;
+    this._setFetchBooksStatus(EFetchStatuses.pending);
     try {
       const booksCollection: IBooksCollection = yield this._api.fetchBooks();
       this.setBooksToStore(booksCollection);
-      this._fetchBooksStatus = EFetchStatuses.fulfilled;
+      this._setFetchBooksStatus(EFetchStatuses.fulfilled);
 
       return booksCollection;
     } catch (err) {
-      this._fetchBooksStatus = EFetchStatuses.rejected;
+      this._setFetchBooksStatus(EFetchStatuses.rejected);
       throw err;
     }
   }
 
   *updateBooksInDB() {
-    this._status = EFetchStatuses.pending;
+    this._setStatus(EFetchStatuses.pending);
     try {
       const updatedCollection: IBooksCollection = yield this._api.updateBooksCollection();
       this.setBooksToStore({ books: updatedCollection.books, updatedAt: updatedCollection.updatedAt });
-      this._status = EFetchStatuses.fulfilled;
+      this._setStatus(EFetchStatuses.fulfilled);
 
       return updatedCollection;
     } catch (err) {
-      this._status = EFetchStatuses.rejected;
+      this._setStatus(EFetchStatuses.rejected);
       throw err;
     }
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   *buyBooks(data: any) {
-    this._status = EFetchStatuses.pending;
+    this._setStatus(EFetchStatuses.pending);
     try {
       const res: { message: string } = yield this._api.buyBooks();
-      this._status = EFetchStatuses.fulfilled;
+      this._setStatus(EFetchStatuses.fulfilled);
 
       return res;
     } catch (err) {
-      this._status = EFetchStatuses.rejected;
+      this._setStatus(EFetchStatuses.rejected);
       throw err;
     }
   }

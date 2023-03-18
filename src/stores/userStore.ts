@@ -39,6 +39,10 @@ class UserStore {
     return this._status;
   }
 
+  _setStatus(value: EFetchStatuses) {
+    this._status = value;
+  }
+
   setUserToStore(data: TUserData) {
     this._user = { ...this._user, ...data };
   }
@@ -48,7 +52,7 @@ class UserStore {
   }
 
   *register(credentials: TAuthFormValues) {
-    this._status = EFetchStatuses.pending;
+    this._setStatus(EFetchStatuses.pending);
     try {
       const registeredUser: TUser = yield this._api.createUser(credentials);
       const areSavingsCreated: boolean = yield this._createSavings();
@@ -56,62 +60,61 @@ class UserStore {
       if (!areSavingsCreated) {
         return Promise.reject(new Error(registerRequestMessages.error));
       }
-      this._status = EFetchStatuses.fulfilled;
+      this._setStatus(EFetchStatuses.fulfilled);
 
       return registeredUser;
     } catch (err) {
-      this._status = EFetchStatuses.rejected;
+      this._setStatus(EFetchStatuses.rejected);
       throw err;
     }
   }
 
   *login(credentials: TAuthFormValues) {
-    this._status = EFetchStatuses.pending;
+    this._setStatus(EFetchStatuses.pending);
     try {
       const authorizedUser: TUser = yield this._api.loginUserByEmail(credentials);
       this.setUserToStore(authorizedUser);
-      this._status = EFetchStatuses.fulfilled;
+      this._setStatus(EFetchStatuses.fulfilled);
 
       return authorizedUser;
     } catch (err) {
-      this._status = EFetchStatuses.rejected;
+      this._setStatus(EFetchStatuses.rejected);
       throw err;
     }
   }
 
   *logout() {
-    this._status = EFetchStatuses.pending;
+    this._setStatus(EFetchStatuses.pending);
     try {
       yield this._api.logout();
 
       this.setUserToStore(this._initialData);
-      this._status = EFetchStatuses.fulfilled;
+      this._setStatus(EFetchStatuses.fulfilled);
     } catch (err) {
-      this._status = EFetchStatuses.rejected;
+      this._setStatus(EFetchStatuses.rejected);
       throw err;
     }
   }
 
   *updateProfileInDB(credentials: TCredentialsToUpdate) {
-    this._status = EFetchStatuses.pending;
+    this._setStatus(EFetchStatuses.pending);
     try {
       const isProfileUpdated: boolean = yield this._api.updateUserProfile(credentials);
 
       if (!isProfileUpdated) {
-        // throw new Error(defaultMessages.unexpectedError);
         return Promise.reject(new Error(updateProfileRequestMessages.error));
       }
 
-      this._status = EFetchStatuses.fulfilled;
+      this._setStatus(EFetchStatuses.fulfilled);
       return isProfileUpdated;
     } catch (err) {
-      this._status = EFetchStatuses.rejected;
+      this._setStatus(EFetchStatuses.rejected);
       throw err;
     }
   }
 
   *updateLogin({ email }: { email: TUser['email'] }) {
-    this._status = EFetchStatuses.pending;
+    this._setStatus(EFetchStatuses.pending);
     try {
       const isLoginUpdated: boolean = yield this._api.updateUserEmail({ email });
 
@@ -119,16 +122,16 @@ class UserStore {
         return Promise.reject(new Error(updateProfileRequestMessages.error));
       }
 
-      this._status = EFetchStatuses.fulfilled;
+      this._setStatus(EFetchStatuses.fulfilled);
       return isLoginUpdated;
     } catch (err) {
-      this._status = EFetchStatuses.rejected;
+      this._setStatus(EFetchStatuses.rejected);
       throw err;
     }
   }
 
   *deleteProfile() {
-    this._status = EFetchStatuses.pending;
+    this._setStatus(EFetchStatuses.pending);
 
     try {
       const isProfileDeleted: boolean = yield this._api.deleteUserProfile();
@@ -138,9 +141,9 @@ class UserStore {
       }
 
       this.setUserToStore(this._initialData);
-      this._status = EFetchStatuses.fulfilled;
+      this._setStatus(EFetchStatuses.fulfilled);
     } catch (err) {
-      this._status = EFetchStatuses.rejected;
+      this._setStatus(EFetchStatuses.rejected);
       throw err;
     }
   }
