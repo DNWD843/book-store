@@ -37,7 +37,6 @@ class UserSavingsApi {
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err);
-
       throw new Error(userSavingsRequestMessages.updateSavingsError);
     }
   };
@@ -56,55 +55,9 @@ class UserSavingsApi {
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err);
-      // eslint-disable-next-line @typescript-eslint/no-throw-literal
       throw new Error(userSavingsRequestMessages.deleteSavingsError);
     }
   };
 }
 
 export const savingsApi = new UserSavingsApi();
-
-//
-// export const updateSavings = async ({ userId, savings }: TUserSavingsToUpdate) => {
-//   try {
-//     return await updateDoc(
-//       doc(db, ESlicesNames.userSavings, userId!), { ...savings },
-//     );
-//   } catch (err) {
-//     // eslint-disable-next-line no-console
-//     console.error(err);
-//
-//     throw new Error(userSavingsRequestMessages.updateSavingsError);
-//   }
-// };
-//
-// export const fetchSavings = async (id: TUserSavings['id']): Promise<TUserSavings> => {
-//   try {
-//     const docSnap = await getDoc(doc(db, ESlicesNames.userSavings, id!));
-//
-//     if (docSnap.exists()) {
-//       return docSnap.data() as unknown as TUserSavings;
-//     }
-//
-//     return { [ECollectionPaths.favorites]: [], [ECollectionPaths.cartValue]: [], [ECollectionPaths.purchases]: {} };
-//   } catch (e) {
-//     // eslint-disable-next-line no-console
-//     console.error(e);
-//     throw new Error(userSavingsRequestMessages.fetchSavingsError);
-//   }
-// };
-//
-// export const deleteSavings = async () => {
-//   try {
-//     const auth = getAuth();
-//
-//     if (!auth.currentUser) return;
-//
-//     return await deleteDoc(doc(db, ESlicesNames.userSavings, auth.currentUser.uid));
-//   } catch (err) {
-//     // eslint-disable-next-line no-console
-//     console.error(err);
-//     // eslint-disable-next-line @typescript-eslint/no-throw-literal
-//     throw new Error(userSavingsRequestMessages.deleteSavingsError);
-//   }
-// };

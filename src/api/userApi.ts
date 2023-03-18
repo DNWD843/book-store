@@ -15,8 +15,6 @@ const admins = ['dima@mail.ru'];
 const adminsSet = new Set<string>(admins);
 
 class UserApi {
-  isLoggedIn = () => getAuth().currentUser;
-
   createUser = async ({ email, password }: TAuthFormValues): Promise<TUser> => {
     try {
       const credentials = await createUserWithEmailAndPassword(appAuth, email, password);

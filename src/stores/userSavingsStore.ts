@@ -162,7 +162,7 @@ class UserSavingsStore {
       const areSavingsDeleted: boolean = yield this._api.deleteSavings();
 
       if (!areSavingsDeleted) {
-        throw new Error(defaultMessages.unexpectedError);
+        return Promise.reject(new Error(defaultMessages.unexpectedError));
       }
 
       this._setInitialValues();

@@ -1,7 +1,11 @@
 import { makeAutoObservable } from 'mobx';
 
 import { userApi } from '../api';
-import { defaultMessages, updateProfileRequestMessages } from '../constants';
+import {
+  deleteUserRequestMessages,
+  registerRequestMessages,
+  updateProfileRequestMessages,
+} from '../constants';
 import { EFetchStatuses } from '../enums';
 import { TAuthFormValues, TCredentialsToUpdate, TUser, TUserData } from '../types';
 
@@ -50,7 +54,7 @@ class UserStore {
       const areSavingsCreated: boolean = yield this._createSavings();
 
       if (!areSavingsCreated) {
-        throw new Error(defaultMessages.unexpectedError);
+        return Promise.reject(new Error(registerRequestMessages.error));
       }
       this._status = EFetchStatuses.fulfilled;
 
@@ -130,7 +134,7 @@ class UserStore {
       const isProfileDeleted: boolean = yield this._api.deleteUserProfile();
 
       if (!isProfileDeleted) {
-        throw new Error(defaultMessages.unexpectedError);
+        return Promise.reject(new Error(deleteUserRequestMessages.error));
       }
 
       this.setUserToStore(this._initialData);
