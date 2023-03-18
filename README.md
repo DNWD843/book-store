@@ -1,7 +1,7 @@
 # Book-Store
 
 #### variant 1:  
-state manager: Redux - Toolkit  
+state manager: Redux  
 to see code open the RTK branch
 
 #### variant 2:  
